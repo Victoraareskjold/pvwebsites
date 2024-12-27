@@ -2,20 +2,168 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+html {
+  scroll-behavior: smooth;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+h1 {
+  font-size: 48px;
+}
+
+h2 {
+  font-weight: bold;
+  font-size: 16px;
+}
+
+.dot {
+  background: radial-gradient(#ffad2a 0%, #eda127 50%, #dd9624 100%);
+  border-radius: 100%;
+}
+
+h3 {
+  font-size: 20px;
+}
+
+h4 {
+  font-size: 16px;
+  font-weight: 300;
+}
+
+h5 {
+  font-size: 12px;
+}
+
+p {
+  font-size: 16px;
+}
+
+p .tiny {
+  font-size: 14px;
+}
+
+.black {
+  color: #000;
+}
+
+.white {
+  color: #fff;
+}
+
+.bold {
+  font-weight: bold;
+}
+
+.hero {
+  background-image: url("/heroImage.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.divider {
+  width: 80%;
+  height: 1px;
+  background: black;
+  justify-self: center;
+}
+
+.funkysubtitle {
+  background: linear-gradient(90deg, #ff9500 45%, #221e19 97%);
+  -webkit-background-clip: text; /* Gjør gradienten synlig på tekst */
+  color: transparent; /* Gjør teksten gjennomsiktig for å vise gradienten */
+  font-size: 24px;
+}
+
+.funkysubtitleWhite {
+  background: linear-gradient(90deg, #ff9500 45%, #fff 97%);
+  -webkit-background-clip: text; /* Gjør gradienten synlig på tekst */
+  color: transparent; /* Gjør teksten gjennomsiktig for å vise gradienten */
+  font-size: 24px;
+}
+
+input[type="range"] {
+  -webkit-appearance: none;
+  height: 7px;
+  background: grey;
+  border-radius: 5px;
+  background: rgba(255, 149, 0, 0.27);
+}
+
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  height: 20px;
+  width: 20px;
+  border-radius: 50%;
+  background: #ffad2a;
+  cursor: pointer;
+}
+
+input[type="range"]:disabled {
+  opacity: 0.5;
+  cursor: not-allowed; /* Indikerer at elementet er deaktivert */
+}
+
+/* Skjul mobilmeny på større skjermer */
+@media (min-width: 768px) {
+  .hamburger-menu {
+    display: none !important;
+  }
+  .navbar-links {
+    display: none !important;
+  }
+  .navbar-desktop {
+    display: flex !important;
   }
 }
 
-body {
-  color: var(--foreground);
-  background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
+/* Vis hamburger-meny på mindre skjermer */
+@media (max-width: 767px) {
+  .navbar-desktop {
+    display: none !important;
+  }
+  .hamburger-menu {
+    display: block !important;
+  }
+}
+
+.custom-dot-list-style button {
+  background: rgba(255, 192, 105, 0.5);
+  border: none !important;
+}
+.react-multi-carousel-dot.react-multi-carousel-dot--active button {
+  background: rgba(255, 192, 105) !important;
+  border: none !important;
+}
+
+.blackFade {
+  background: linear-gradient(180deg, #000 0%, rgba(0, 0, 0, 0) 100%);
+  position: absolute;
+  height: 64px;
+  width: 100%;
+  top: 0;
+}
+
+.blackFade2 {
+  background: linear-gradient(0deg, #000 0%, rgba(0, 0, 0, 0) 100%);
+  position: absolute;
+  height: 64px;
+  width: 100%;
+  bottom: 0;
+}
+
+.blackFade3 {
+  background: linear-gradient(90deg, #000 0%, rgba(0, 0, 0, 0) 100%);
+  position: absolute;
+  height: 100%;
+  width: 64px;
+  left: 0;
+  top: 0;
+}
+
+.blackFade4 {
+  background: linear-gradient(-90deg, #000 0%, rgba(0, 0, 0, 0) 100%);
+  position: absolute;
+  height: 100%;
+  width: 64px;
+  right: 0;
+  top: 0;
 }

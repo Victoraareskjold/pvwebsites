@@ -1,0 +1,28 @@
+[
+  {
+    "title": "Landbruk",
+    "image": "/carousel/image1.png",
+    "description": "Solenergiløsninger tilpasset landbrukets drift",
+    "slug": "landbruk",
+    "advantageTitle1": "Fordel1",
+    "advantageDescription1": "kasjhdfkjashkdjf"
+  },
+  {
+    "title": "Bedrift",
+    "image": "/carousel/image2.png",
+    "description": "Effektiv storskala produksjon for ulike takstørrelser",
+    "slug": "bedrift"
+  },
+  {
+    "title": "Enebolig/Hytte",
+    "image": "/carousel/image3.png",
+    "description": "Tilpassede løsninger for hjem og hytter",
+    "slug": "enebolig-hytte"
+  },
+  {
+    "title": "Borettslag",
+    "image": "/carousel/image4.png",
+    "description": "Solenergi for fellesarealer med stor brukergruppe",
+    "slug": "borettslag"
+  }
+]
