@@ -164,7 +164,7 @@ export function Navbar({ logo, title }) {
 
           <li style={{ margin: "0.5rem 0" }}>
             <Link
-              href="/"
+              href="/contact"
               style={{
                 textDecoration: "none",
                 textDecorationLine: "underline",
@@ -270,7 +270,7 @@ export function Navbar({ logo, title }) {
           </li>
           <li>
             <Link
-              href="/"
+              href="/contact"
               style={{
                 textDecoration: "none",
                 textDecorationLine: "underline",

@@ -16,7 +16,7 @@ export function TwoButtonComponent() {
       </Link>
       <Link
         href="/#pvmap"
-        className="bg-white p-2 rounded-md text-black md:w-full md:max-w-xl flex flex-row gap-2 justify-center "
+        className="bg-white p-2 rounded-md text-black md:w-full md:max-w-xl flex flex-row gap-2 justify-center"
       >
         <p className="m-0">Utforsk din egen tomt</p>
         <img src="/search.png" className="w-6 self-center" />

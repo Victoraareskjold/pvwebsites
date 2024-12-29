@@ -1,7 +1,7 @@
+/* eslint-disable @next/next/no-img-element */
 "use client";
-import { useState } from "react";
-import { SolarSolutionCard } from "./SolarSolutionCard";
 import Link from "next/link";
+import { useState } from "react";
 
 export default function InfoCarouselLarge({ slides }) {
   const [currentSlide, setCurrentSlide] = useState(0);
@@ -13,7 +13,7 @@ export default function InfoCarouselLarge({ slides }) {
         <img
           src={slides[currentSlide].image}
           alt={slides[currentSlide].title}
-          className="w-full h-auto object-cover"
+          className="w-4/5 m-auto h-auto object-cover"
         />
       </div>
 
@@ -24,19 +24,23 @@ export default function InfoCarouselLarge({ slides }) {
             key={index}
             onClick={() => setCurrentSlide(index)}
             className={`cursor-pointer p-4 flex-1 border-t-4 ${
-              currentSlide === index ? "border-white" : "border-transparent"
-            } transition-all`}
+              currentSlide === index
+                ? "border-white opacity-100"
+                : "border-transparent opacity-75"
+            } hover:opacity-100 transition-all`}
           >
             <h3
               className={`font-bold ${
-                currentSlide === index ? "text-white" : "text-gray-400"
+                currentSlide === index
+                  ? "text-white opacity-100"
+                  : "text-white opacity-75"
               }`}
             >
               {slide.title}
             </h3>
             <p
               className={`mt-2 mb-4 ${
-                currentSlide === index ? "text-white" : "text-gray-500"
+                currentSlide === index ? "text-white" : "text-white opacity-75"
               }`}
             >
               {slide.description}
@@ -46,7 +50,7 @@ export default function InfoCarouselLarge({ slides }) {
               className={`mt-4 px-4 py-2 border ${
                 currentSlide === index
                   ? "border-white text-white"
-                  : "border-gray-500 text-gray-500"
+                  : "border-white text-white"
               } rounded-md`}
             >
               Se mer

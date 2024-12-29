@@ -1,10 +1,10 @@
 "use client";
+import { useSiteConfig } from "@/contexts/siteConfigContext";
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
-import { useSiteConfig } from "@/contexts/siteConfigContext";
 
-import blogs from "../config/blogs.json";
 import Link from "next/link";
+import blogs from "../config/blogs.json";
 
 export default function BlogCarousel() {
   const config = useSiteConfig();
@@ -55,7 +55,7 @@ export default function BlogCarousel() {
               />
               <div
                 className="p-4 h-48 bg-regularOrange text-black"
-                style={{ background: config.primary || "black" }}
+                style={{ background: config.primary || "white" }}
               >
                 <h3 className="line-clamp-2 mb-2">{blog.title}</h3>
                 <h4 className="opacity-70 line-clamp-4">{blog.description}</h4>

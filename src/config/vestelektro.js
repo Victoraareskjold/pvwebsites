@@ -1,7 +1,7 @@
 // eslint-disable-next-line import/no-anonymous-default-export
 export default {
   title: "Vest Elektro",
-  logo: "/vestelektroLogo.png",
+  logo: "/vestelektro/vestelektroLogo.png",
   primary: "#FFC069",
   secondary: "#D3A45E",
   primaryGradient: {
@@ -11,11 +11,17 @@ export default {
 
   hero: {
     header: "SOLCELLER VESTLANDET",
+    background: "/vestelektro/background.png",
   },
 
   about: {
-    image: "/carImage.png",
+    image: "/vestelektro/carImage.png",
     header: "Om Vest Elektro Sol",
+  },
+
+  advantage: {
+    heroImage: "/vestelektro/carImage.png",
+    image: "/vestelektro/annoyingImage.png",
   },
 
   solar: {

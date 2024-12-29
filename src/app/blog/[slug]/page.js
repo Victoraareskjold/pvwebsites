@@ -19,7 +19,11 @@ export default async function BlogPost({ params }) {
       <div className="max-w-6xl w-full">
         {blog.image ? (
           <div className="relative">
-            <img className="w-full" src={blog.image} alt={blog.title} />
+            <img
+              className="w-full aspect-video"
+              src={blog.image}
+              alt={blog.title}
+            />
             <div className="blackFade2"></div>
             <div className="blackFade3"></div>
             <div className="blackFade4"></div>
@@ -27,8 +31,9 @@ export default async function BlogPost({ params }) {
         ) : (
           <div className="py-8"></div>
         )}
-        <div className="px-12 mt-4">
+        <div className="px-12 mt-12">
           {blog.title ? <h3 className="text-center">{blog.title}</h3> : null}
+
           {blog.description ? <h2>{blog.description}</h2> : null}
 
           {blog.subtitle1 ? <p>{blog.subtitle1}</p> : null}

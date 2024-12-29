@@ -1,12 +1,13 @@
+import { Footer } from "@/components/Footer";
+import { Navbar } from "@/components/Navbar";
 import { SiteConfigProvider } from "@/contexts/siteConfigContext";
 import { headers } from "next/headers";
-import { Navbar } from "@/components/Navbar";
-import { Footer } from "@/components/Footer";
 import "../app/globals.css";
 
 // Dynamisk import av konfigurasjoner
 const configs = {
   vestelektro: () => import("@/config/vestelektro"),
+  alfaelektro: () => import("@/config/alfaelektro"),
 };
 
 export default async function RootLayout({ children }) {
