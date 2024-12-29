@@ -8,6 +8,7 @@ import "../app/globals.css";
 const configs = {
   vestelektro: () => import("@/config/vestelektro"),
   alfaelektro: () => import("@/config/alfaelektro"),
+  soleklart: () => import("@/config/soleklart"),
 };
 
 export default async function RootLayout({ children }) {
