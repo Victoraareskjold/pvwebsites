@@ -5,6 +5,7 @@ export function middleware(request) {
 
   let domain = "";
   if (host.includes("vestelektro")) domain = "vestelektro";
+  if (host.includes("alfaelektro")) domain = "alfaelektro";
 
   const requestHeaders = new Headers(request.headers);
   requestHeaders.set("x-site-config", domain);

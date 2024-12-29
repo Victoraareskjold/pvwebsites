@@ -1,32 +1,42 @@
 "use client";
-import InfoCarousel from "@/components/InfoCarousel";
 import { IncomeCalculator } from "@/components/IncomeCalculator";
 import { InfoCard } from "@/components/InfoCard";
+import InfoCarousel from "@/components/InfoCarousel";
 
-import { useSiteConfig } from "@/contexts/siteConfigContext";
 import BlogCarousel from "@/components/BlogCarousel";
 import { Dropdown } from "@/components/Dropdown";
+import { useSiteConfig } from "@/contexts/siteConfigContext";
 
-import slides from "../config/slides";
 import { EstimateButton } from "@/components/EstimateButton";
 import { ExploreButton } from "@/components/ExploreButton";
-import Link from "next/link";
 import InfoCarouselLarge from "@/components/InfoCarouselLarge";
 import { RoofCapacityButton } from "@/components/RoofCapacityButton";
+import Link from "next/link";
+import slides from "../config/slides";
 
 export default function Page() {
   const config = useSiteConfig();
 
   return (
     <main>
-      <section className="hero pt-32 px-4 md:pt-80" id="main">
+      <section
+        className="hero pt-32 px-4 md:pt-80 relative"
+        id="main"
+        style={{
+          backgroundImage: `url(${
+            config.hero?.background || "/vestelektro/background.png"
+          })`,
+          backgroundRepeat: "no-repeat",
+          backgroundSize: "cover",
+        }}
+      >
         <div className="flex flex-col gap-8 text-white">
           <h2 className="funkysubtitleWhite w-fit text-center self-center">
             {config.hero?.header || "Firmanavn"}
           </h2>
 
-          <h1 className="font-bold text-white text-center relative inline-block">
-            <span className="block md:inline">Din Lokale</span>
+          <h1 className="text-white text-center relative inline-block">
+            <span className="block md:inline">Din Lokale </span>
             <span className="block md:inline">
               Installatør
               <span
@@ -102,7 +112,7 @@ export default function Page() {
         </h3>
         <div className="divider mb-8 mt-2"></div>
         <div className="relative">
-          <img src="carImage.png" className="w-full" />
+          <img src={config.advantage?.heroImage} className="w-full" />
           <div className="blackFade2"></div>
         </div>
 
@@ -112,27 +122,27 @@ export default function Page() {
               number={"1"}
               title={"Hopp over mellomleddet"}
               description={
-                "kom direkte til dsgvv sdfds dfsdf fsfsdffdsf fsdfs  fsdfsdf fsdf dfsdsf  fsdfs ffsddsfsdf"
+                "Som lokal installatør får du direkte kontakt med oss som utfører jobben. Vi er fleksible og kjenner klimaet godt, slik at vi kan skreddersy løsninger optimalt for deg."
               }
             />
             <InfoCard
               number={"2"}
-              title={"Hopp over mellomleddet"}
+              title={"Bedre pris, høyere kvalitet"}
               description={
-                "kom direkte til dsgvv sdfds dfsdf fsfsdffdsf fsdfs  fsdfsdf fsdf dfsdsf  fsdfs ffsddsfsdf"
+                "Vi tilbyr bedre priser på anlegg med minst like god – ofte enda bedre – kvalitet enn store landsdekkende aktører i markedet. Vi bruker kun de mest optimale solcellepanelene og jobber kontinuerlig for å finne den beste løsningen for deg."
               }
             />
             <InfoCard
               number={"3"}
-              title={"Hopp over mellomleddet"}
+              title={"Tett dialog og rask responstid"}
               description={
-                "kom direkte til dsgvv sdfds dfsdf fsfsdffdsf fsdfs  fsdfsdf fsdf dfsdsf  fsdfs ffsddsfsdf"
+                "Med en lokal aktør får du tett dialog og rask responstid. Enten det gjelder garantier, service eller vedlikehold, er hjelpen alltid nær. Skulle noe skje, stiller vi som regel opp samme dag eller dagen etter."
               }
             />
             <img
-              src="annoyingImage.png"
+              src={config.advantage?.image || null}
               alt="image"
-              className="image md:h-80 w-full border-8 border-white rounded-md overflow-hidden resize"
+              className="image md:h-80 w-full border-8 border-white rounded-md overflow-hidden object-cover"
             />
           </div>
 
@@ -149,7 +159,7 @@ export default function Page() {
         <div className="blackFade"></div>
         <iframe
           src="https://pvmap.vercel.app/?site=vestelektro"
-          height="1000px"
+          height="1240px"
           width="100%"
         />
         <div className="blackFade2"></div>
@@ -200,8 +210,42 @@ export default function Page() {
           {config.faq?.header || "Ofte stile spørsmål"}
         </h3>
         <div className="grid md:grid-cols-2 gap-4 md:max-w-7xl md:mx-auto md:gap-8 mt-12">
-          <Dropdown title={"tttel"} description={"dette er en besrivekslse"} />
-          <Dropdown title={"tttel"} description={"dette er en besrivekslse"} />
+          <Dropdown
+            title={"Hva slags solceller bruker dere?"}
+            description={
+              "Solcellemarkedet er i kontinuerlig utvikling – akkurat som med smarttelefoner, kommer det stadig nye og bedre modeller. Derfor jobber vi hele tiden for å finne de mest effektive panelene på markedet, slik at du får den beste løsningen. Kontakt oss gjerne for et uforpliktende tilbud på dagens mest gunstige solcellepaneler. Som med de fleste gode investeringer, er den beste tiden å investere «i går» – men den nest beste tiden er i dag."
+            }
+          />
+          <Dropdown
+            title={"Følger det med noen garanti?"}
+            description={
+              "Vi står ansvarlig for ditt solcelleanlegg og vil være her for deg i lang tid fremover. Selv om solcellemarkedet kan svinge, er vi et elektrofirma med flere ben å stå på. Flere av panelene våre leveres med 30 års produktgaranti og 30 års effektgaranti – alltid inkludert i prisen, uten ekstra kostnad."
+            }
+          />
+          <Dropdown
+            title={"Må solceller vedlikeholdes?"}
+            description={
+              "Moderne solceller har en overflatebehandling som gjør dem hydrofobe (avstøter vann) og mindre mottakelige for smuss. Når det regner, vil vannet perle seg og ta med seg støv og skitt ned fra panelene. Denne effekten regnes ofte som selvrensende, men den er ikke 100 % effektiv – særlig i områder med mye støv, pollen eller fugleskitt. I slike tilfeller kan det være lurt å vurdere en forsiktig rengjøring et par ganger i året, for eksempel med myk kost og vann (uten sterke kjemikalier). For de fleste vil imidlertid normal nedbør og værforhold være tilstrekkelig til å holde solcellene rene."
+            }
+          />
+          <Dropdown
+            title={"Snø på solcellepanelene?"}
+            description={
+              "Vi er lite bekymret for snø på solcellepanelene. Kjølige temperaturer gir gode produksjonsforhold, og i tillegg kan snøen rundt panelene bidra til økt refleksjon av sollyset. Dersom panelene dekkes av snø, vil produksjonen selvsagt kunne reduseres noe, men fordi overflatene er glatte, sklir snøen ofte raskt av. Hvis snøen skulle bli liggende en stund, anbefaler vi likevel å la den ligge. Det kan være farlig å bevege seg på taket uten ri ktig sikring og utstyr!"
+            }
+          />
+          <Dropdown
+            title={"Hvor egner det seg med solceller?"}
+            description={
+              "Sørvendte takflater gir vanligvis den høyeste årlige strømproduksjonen, med toppytelse midt på dagen. Øst- og vestvendte tak gir på sin side mer strømproduksjon om morgenen og ettermiddagen, noe som gir en jevnere fordeling av produksjonen gjennom dagen. Selv om den totale årsproduksjonen kan være noe lavere på disse takflatene, kan det være en fordel dersom du har størst forbruk i de tidlige morgentimene eller på ettermiddag/kveld. Dette prinsippet gjelder uansett taktype – enten du har en bolig, låve eller et industribygg med flatt tak."
+            }
+          />
+          <Dropdown
+            title={"Må det meldes inn til nettselskapet?"}
+            description={
+              "Ja, alle solcelleanlegg må meldes inn til nettselskapet. Du trenger imidlertid ikke bekymre deg for dette – vi håndterer hele prosessen på dine vegne! Alt vi behøver er målernummeret ditt, så ordner vi resten. Dette er en del av vårt løfte om å gjøre overgangen til solenergi både enkel og stressfri for deg."
+            }
+          />
         </div>
       </section>
     </main>

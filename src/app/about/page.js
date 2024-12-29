@@ -9,21 +9,26 @@ export default function About() {
     <main className="min-h-screen bg-black text-white flex justify-center">
       <div className="max-w-6xl w-full">
         <div className="relative">
-          <img src={config.aboutImage1} className="w-full" />
+          <img src={config.about?.image} className="w-full" />
           <div className="blackFade2"></div>
           <div className="blackFade3"></div>
           <div className="blackFade4"></div>
         </div>
 
-        <div className="px-12 mt-4">
-          <h3>{config.aboutHeader1 || "Missing aboutHeader1"}</h3>
-          <h2>{config.aboutHeader2 || "Missing aboutHeader2"}</h2>
-          {config.aboutParagraph1 ? <p>{config.aboutParagraph1}</p> : null}
-          {config.aboutParagraph2 ? <p>{config.aboutParagraph2}</p> : null}
-          {config.aboutParagraph3 ? <p>{config.aboutParagraph3}</p> : null}
-          {config.aboutParagraph4 ? <p>{config.aboutParagraph4}</p> : null}
-          {config.aboutParagraph5 ? <p>{config.aboutParagraph5}</p> : null}
-          {config.aboutImage2 ? <img src={config.abouImage2} /> : null}
+        <div className="px-12 mt-4 flex flex-col gap-4">
+          <h3>{config.about?.header || "Missing aboutHeader1"}</h3>
+          <h2>{config.about?.subHeader || "Missing aboutHeader2"}</h2>
+          {config.about?.p1 ? <p>{config.about?.p1}</p> : null}
+          {config.about?.p2 ? <p>{config.about?.p2}</p> : null}
+          {config.about?.p3 ? <p>{config.about?.p3}</p> : null}
+          {config.about?.p4 ? <p>{config.about?.p4}</p> : null}
+          {config.about?.p5 ? <p>{config.about?.p5}</p> : null}
+          {config.about?.image2 ? (
+            <img
+              src={config.about?.image2}
+              className="rounded-2xl aspect-video object-cover"
+            />
+          ) : null}
           <TwoButtonComponent />
         </div>
       </div>

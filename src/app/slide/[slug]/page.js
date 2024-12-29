@@ -1,6 +1,6 @@
 import { InfoCard } from "@/components/InfoCard";
-import slides from "../../../config/slides.json";
 import { TwoButtonComponent } from "@/components/TwoButtonComponent";
+import slides from "../../../config/slides.json";
 
 // Gjør komponenten asynkron
 export default async function Slide({ params }) {
@@ -29,7 +29,9 @@ export default async function Slide({ params }) {
         )}
         <div className="px-12 mt-4">
           {slide.title ? (
-            <h3 className="mb-2 text-center">{slide.title}</h3>
+            <h3 className="mb-2 text-center">
+              Fremtidens Energi for {slide.title}
+            </h3>
           ) : null}
           {slide.description ? (
             <h2 className="mb-6">{slide.description}</h2>
@@ -38,28 +40,29 @@ export default async function Slide({ params }) {
           {slide.advantageTitle1 && slide.advantageDescription1 ? (
             <h3 className="mb-6 text-regularOrange">FORDELER</h3>
           ) : null}
-
-          {slide.advantageTitle1 && slide.advantageDescription1 ? (
-            <InfoCard
-              number={"1"}
-              title={slide.advantageTitle1}
-              description={slide.advantageDescription1}
-            />
-          ) : null}
-          {slide.advantageTitle2 && slide.advantageDescription2 ? (
-            <InfoCard
-              number={"2"}
-              title={slide.advantageTitle2}
-              description={slide.advantageDescription2}
-            />
-          ) : null}
-          {slide.advantageTitle3 && slide.advantageDescription3 ? (
-            <InfoCard
-              number={"3"}
-              title={slide.advantageTitle3}
-              description={slide.advantageDescription3}
-            />
-          ) : null}
+          <div className="flex flex-col gap-4">
+            {slide.advantageTitle1 && slide.advantageDescription1 ? (
+              <InfoCard
+                number={"1"}
+                title={slide.advantageTitle1}
+                description={slide.advantageDescription1}
+              />
+            ) : null}
+            {slide.advantageTitle2 && slide.advantageDescription2 ? (
+              <InfoCard
+                number={"2"}
+                title={slide.advantageTitle2}
+                description={slide.advantageDescription2}
+              />
+            ) : null}
+            {slide.advantageTitle3 && slide.advantageDescription3 ? (
+              <InfoCard
+                number={"3"}
+                title={slide.advantageTitle3}
+                description={slide.advantageDescription3}
+              />
+            ) : null}
+          </div>
 
           <TwoButtonComponent />
         </div>

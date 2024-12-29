@@ -42,7 +42,7 @@ export function Footer({
             </h2>
             <Link href="/about">Om oss</Link>
             <Link href="/blog">Blogg</Link>
-            <a href="#electrician">Elektriker</a>
+            <a href="/contact">Elektriker</a>
           </div>
         </div>
         <div className="md:flex md:flex-col md:gap-6">
