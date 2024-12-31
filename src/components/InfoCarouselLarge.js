@@ -13,7 +13,7 @@ export default function InfoCarouselLarge({ slides }) {
         <img
           src={slides[currentSlide].image}
           alt={slides[currentSlide].title}
-          className="w-4/5 m-auto h-auto object-cover"
+          className="w-4/5 max-w-screen-2xl m-auto h-auto object-cover"
         />
       </div>
 

@@ -1,7 +1,7 @@
 "use client";
+import { useSiteConfig } from "@/contexts/siteConfigContext";
 import blogs from "../../config/blogs.json";
 import "./blog.css";
-import { useSiteConfig } from "@/contexts/siteConfigContext";
 
 import Link from "next/link";
 
@@ -24,7 +24,7 @@ export default function Blog() {
             <div className="absolute bg-black bg-opacity-50 h-full w-full"></div>
             <img src={blog.image} className="h-full w-full object-cover" />
             <h2 className="absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 text-white font-bold">
-              {blog.title}
+              {blog.nb.title}
             </h2>
           </Link>
         ))}

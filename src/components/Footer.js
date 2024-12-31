@@ -18,7 +18,7 @@ export function Footer({
         color: "#B7B7B7",
         background: "#1E1E1E",
       }}
-      className="p-4"
+      className="p-4 xl:px-48"
     >
       <img src={logo} alt={title || "Logo"} style={{ height: "40px" }} />
       <div className="flex flex-col gap-8 mt-8 md:flex-row md:justify-between md:w-4/5">

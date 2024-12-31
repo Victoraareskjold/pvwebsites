@@ -35,7 +35,7 @@ export default function Page() {
             {config.hero?.header || "Firmanavn"}
           </h2>
 
-          <h1 className="text-white text-center relative inline-block">
+          <h1 className="text-white text-center relative inline-block lg:text-6xl">
             <span className="block md:inline">Din Lokale </span>
             <span className="block md:inline">
               Installatør
@@ -98,20 +98,24 @@ export default function Page() {
         <IncomeCalculator />
       </section>
 
-      <section id="whyInvest" className="mx-4 mb-12 flex flex-col items-center">
-        <h3 className="text-center">
+      <section
+        id="whyInvest"
+        className="mx-4 mb-12 flex flex-col items-center "
+      >
+        <h3 className="text-center md:text-3xl">
           {config.whyInvest?.header || "Hvorfor investere i solcellepanel?"}
         </h3>
         <div className="divider mb-8 mt-2"></div>
-        <img className="ml-2" src="illustration.png" />
+        <img className="ml-2 md:hidden" src="illustration.png" />
+        <img className="ml-2 hidden md:block" src="ilustrationPc.png" />
       </section>
 
       <section id="advantage" className="">
-        <h3 className="text-center">
+        <h3 className="text-center md:text-3xl">
           {config.advantage?.header || "Fordelen med en lokal installatør"}
         </h3>
         <div className="divider mb-8 mt-2"></div>
-        <div className="relative">
+        <div className="relative pb-8">
           <img src={config.advantage?.heroImage} className="w-full" />
           <div className="blackFade2"></div>
         </div>
@@ -150,7 +154,9 @@ export default function Page() {
             href="/about"
             className="border-2 border-white p-2 px-4 rounded-md mb-4 md:my-20 md:w-64 md:self-center text-center"
           >
-            <h2 className="bold">Les mer om oss</h2>
+            <h2 className="bold">
+              {config.avdantage?.readore || "Les mer om oss"}
+            </h2>
           </Link>
         </div>
       </section>
@@ -158,7 +164,7 @@ export default function Page() {
       <section className="relative" id="pvmap">
         <div className="blackFade"></div>
         <iframe
-          src="https://pvmap.vercel.app/?site=vestelektro"
+          src={`https://pvmap.vercel.app/?site=${config.title}`}
           height="1240px"
           width="100%"
         />
@@ -170,7 +176,7 @@ export default function Page() {
           <h2 className="funkysubtitleWhite w-fit md:text-center md:self-center">
             {config.solar?.header || "undefined"}
           </h2>
-          <h3 className="text-white font-medium md:text-center">
+          <h3 className="text-white font-medium md:text-center xl:text-3xl">
             {config.solar?.header2 || "Utforsk våre solcelleløsninger"}
           </h3>
           <h4 className="text-white md:max-w-4xl md:self-center">
@@ -189,7 +195,7 @@ export default function Page() {
       <section className="py-8 relative" id="blog">
         <div className="blackFade"></div>
 
-        <div className="mx-4 my-12">
+        <div className="mx-4 my-12 xl:px-48">
           <h4 className="opacity-50">{config.blog?.header || "Utforks..."}</h4>
           <h3 className="mt-2 mb-2">
             {config.blog?.header2 || "Våre blogg innlegg"}
@@ -206,43 +212,49 @@ export default function Page() {
       </section>
 
       <section className="px-4 py-12" id="faq">
-        <h3 className="md:text-center">
+        <h3 className="md:text-center md:text-3xl">
           {config.faq?.header || "Ofte stile spørsmål"}
         </h3>
         <div className="grid md:grid-cols-2 gap-4 md:max-w-7xl md:mx-auto md:gap-8 mt-12">
           <Dropdown
-            title={"Hva slags solceller bruker dere?"}
+            title={config.faq?.title1 || "Hva slags solceller bruker dere?"}
             description={
+              config.faq?.description1 ||
               "Solcellemarkedet er i kontinuerlig utvikling – akkurat som med smarttelefoner, kommer det stadig nye og bedre modeller. Derfor jobber vi hele tiden for å finne de mest effektive panelene på markedet, slik at du får den beste løsningen. Kontakt oss gjerne for et uforpliktende tilbud på dagens mest gunstige solcellepaneler. Som med de fleste gode investeringer, er den beste tiden å investere «i går» – men den nest beste tiden er i dag."
             }
           />
           <Dropdown
-            title={"Følger det med noen garanti?"}
+            title={config.faq?.title2 || "Følger det med noen garanti?"}
             description={
+              config.faq?.description2 ||
               "Vi står ansvarlig for ditt solcelleanlegg og vil være her for deg i lang tid fremover. Selv om solcellemarkedet kan svinge, er vi et elektrofirma med flere ben å stå på. Flere av panelene våre leveres med 30 års produktgaranti og 30 års effektgaranti – alltid inkludert i prisen, uten ekstra kostnad."
             }
           />
           <Dropdown
-            title={"Må solceller vedlikeholdes?"}
+            title={config.faq?.title3 || "Må solceller vedlikeholdes?"}
             description={
+              config.faq?.description3 ||
               "Moderne solceller har en overflatebehandling som gjør dem hydrofobe (avstøter vann) og mindre mottakelige for smuss. Når det regner, vil vannet perle seg og ta med seg støv og skitt ned fra panelene. Denne effekten regnes ofte som selvrensende, men den er ikke 100 % effektiv – særlig i områder med mye støv, pollen eller fugleskitt. I slike tilfeller kan det være lurt å vurdere en forsiktig rengjøring et par ganger i året, for eksempel med myk kost og vann (uten sterke kjemikalier). For de fleste vil imidlertid normal nedbør og værforhold være tilstrekkelig til å holde solcellene rene."
             }
           />
           <Dropdown
-            title={"Snø på solcellepanelene?"}
+            title={config.faq?.title4 || "Snø på solcellepanelene?"}
             description={
+              config.faq?.description4 ||
               "Vi er lite bekymret for snø på solcellepanelene. Kjølige temperaturer gir gode produksjonsforhold, og i tillegg kan snøen rundt panelene bidra til økt refleksjon av sollyset. Dersom panelene dekkes av snø, vil produksjonen selvsagt kunne reduseres noe, men fordi overflatene er glatte, sklir snøen ofte raskt av. Hvis snøen skulle bli liggende en stund, anbefaler vi likevel å la den ligge. Det kan være farlig å bevege seg på taket uten ri ktig sikring og utstyr!"
             }
           />
           <Dropdown
-            title={"Hvor egner det seg med solceller?"}
+            title={config.faq?.title5 || "Hvor egner det seg med solceller?"}
             description={
+              config.faq?.description5 ||
               "Sørvendte takflater gir vanligvis den høyeste årlige strømproduksjonen, med toppytelse midt på dagen. Øst- og vestvendte tak gir på sin side mer strømproduksjon om morgenen og ettermiddagen, noe som gir en jevnere fordeling av produksjonen gjennom dagen. Selv om den totale årsproduksjonen kan være noe lavere på disse takflatene, kan det være en fordel dersom du har størst forbruk i de tidlige morgentimene eller på ettermiddag/kveld. Dette prinsippet gjelder uansett taktype – enten du har en bolig, låve eller et industribygg med flatt tak."
             }
           />
           <Dropdown
-            title={"Må det meldes inn til nettselskapet?"}
+            title={config.faq?.title6 || "Må det meldes inn til nettselskapet?"}
             description={
+              config.faq?.description6 ||
               "Ja, alle solcelleanlegg må meldes inn til nettselskapet. Du trenger imidlertid ikke bekymre deg for dette – vi håndterer hele prosessen på dine vegne! Alt vi behøver er målernummeret ditt, så ordner vi resten. Dette er en del av vårt løfte om å gjøre overgangen til solenergi både enkel og stressfri for deg."
             }
           />

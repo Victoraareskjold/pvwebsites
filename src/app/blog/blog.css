@@ -4,6 +4,14 @@ h1 {
   margin-bottom: 6px;
 }
 
+.blogContent div {
+  margin-bottom: 20px;
+}
+
 p {
   margin-bottom: 24px;
+}
+
+.blogContent a {
+  color: lightblue;
 }
