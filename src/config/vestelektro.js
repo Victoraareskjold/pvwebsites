@@ -12,7 +12,7 @@ export default {
 
   hero: {
     header: "SOLCELLER VESTLANDET",
-    background: "/vestelektro/background.png",
+    background: "/heroImage.png",
     p: "Kvalitet – solid tryggleik, og solceller til den beste prisen.",
   },
 
@@ -46,7 +46,7 @@ export default {
 
   infoCard: {
     titleOne: "",
-    one: "lorSom lokal installatør får du direkte kontakt med oss som utfører jobben. Vi er fleksible og kjenner klimaet godt, slik at vi kan skreddersy løsninger optimalt for deg.em ",
+    one: "Som lokal installatør får du direkte kontakt med oss som utfører jobben. Vi er fleksible og kjenner klimaet godt, slik at vi kan skreddersy løsninger optimalt for deg.",
     titleTwo: "Betre pris, høgare kvalitet",
     two: "Vi tilbyr bedre priser på anlegg med minst like god – ofte enda bedre – kvalitet enn store landsdekkende aktører i markedet. Vi bruker kun de mest optimale solcellepanelene og jobber kontinuerlig for å finne den beste løsningen for deg.",
     three:

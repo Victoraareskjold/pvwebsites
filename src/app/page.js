@@ -133,7 +133,7 @@ export default function Page() {
           {config.advantage?.header || "Fordelen med en lokal installatør"}
         </h3>
         <div className="divider mb-8 mt-2"></div>
-        <div className="relative pb-8">
+        <div className="relative">
           <img src={config.advantage?.heroImage} className="w-full" />
           <div className="blackFade2"></div>
         </div>

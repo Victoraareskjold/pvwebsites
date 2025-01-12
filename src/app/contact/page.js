@@ -17,14 +17,14 @@ export default function Contact() {
     const name = formData.get("user_name");
     const email = formData.get("user_email");
     const message = formData.get("message");
+    const site = formData.get("site");
 
-    // Validering for å sjekke at ingen felt er tomme
     if (!name || !email || !message) {
       setErrorMessage("Alle felt må fylles ut!");
       return;
     }
 
-    setErrorMessage(""); // Tøm feilmeldingen hvis alt er riktig utfylt
+    setErrorMessage("");
 
     emailjs
       .sendForm(
@@ -39,7 +39,7 @@ export default function Contact() {
         () => {
           console.log("SUCCESS!");
           alert("E-posten ble sendt!");
-          form.current.reset(); // Tøm skjemaet etter vellykket sending
+          form.current.reset();
           router.push("/");
         },
         (error) => {
@@ -50,17 +50,23 @@ export default function Contact() {
   };
 
   return (
-    <div className="py-24 min-h-screen px-12 justify-center flex flex-col bg-black text-white">
+    <div className="py-24 min-h-screen px-12 justify-center flex flex-col bg-regularOrange text-black">
       <form
         ref={form}
         onSubmit={sendEmail}
         className="flex-col flex max-w-96 m-auto w-full"
       >
         <h3 className="mb-4">Kontakt oss</h3>
-        <p>
+        <p className="mb-8">
           Ta kontakt med oss dersom det er noe du lurer på, også kommer vi
           tilbake til deg så fort vi har tid!
         </p>
+        <input
+          value={config.title || "undefined"}
+          name="site"
+          readOnly
+          hidden
+        />
         <label>Name</label>
         <input type="text" name="user_name" className="inputLabel" required />
         <br />
@@ -71,7 +77,11 @@ export default function Contact() {
         <textarea name="message" className="inputLabel" required />
         <br />
         {errorMessage && <p className="text-red-500">{errorMessage}</p>}
-        <button type="submit" value="Send">
+        <button
+          type="submit"
+          value="Send"
+          className="bg-black text-white py-2 rounded-md"
+        >
           Send
         </button>
       </form>

@@ -4,7 +4,7 @@ export default {
   logo: "/lynelektro/lynlogo.png",
   primary: "#FFC069",
   secondary: "#D3A45E",
-  hubspotScript: "//js-eu1.hs-scripts.com/143783063.js",
+  hubspotScript: "//js-eu1.hs-scripts.com/143939232.js",
   primaryGradient: {
     bg: "linear-gradient(90deg, #FF9D00 23%, #FFD05A 92%)",
     textColor: "black",
