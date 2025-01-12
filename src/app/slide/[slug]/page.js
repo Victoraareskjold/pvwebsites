@@ -1,5 +1,6 @@
 import { InfoCard } from "@/components/InfoCard";
 import { TwoButtonComponent } from "@/components/TwoButtonComponent";
+import { headers } from "next/headers";
 import slides from "../../../config/slides.json";
 
 // Gjør komponenten asynkron
@@ -7,11 +8,29 @@ export default async function Slide({ params }) {
   // Vent på params
   const { slug } = await params;
 
+  // Hent headers for å finne site-config
+  const headersList = headers();
+  const siteConfig = headersList.get("x-site-config");
+
+  // Bestem språk basert på domenet
+  const language = siteConfig === "vestelektro" ? "nn" : "nb";
+
   // Finn slidegen basert på slug
   const slide = slides.find((b) => b.slug === slug);
 
   if (!slide) {
     return <div className="py-24 min-h-screen px-4">slide ikke funnet</div>;
+  }
+
+  // Hent innhold for riktig språk
+  const content = slide[language];
+
+  if (!content) {
+    return (
+      <div className="py-24 min-h-screen px-4">
+        Ingen innhold funnet for valgt språk
+      </div>
+    );
   }
 
   return (
@@ -28,38 +47,36 @@ export default async function Slide({ params }) {
           <div className="py-8"></div>
         )}
         <div className="px-12 mt-4">
-          {slide.title ? (
-            <h3 className="mb-2 text-center">
-              Fremtidens Energi for {slide.title}
-            </h3>
+          {content.title ? (
+            <h3 className="mb-2 text-center">{content.title}</h3>
           ) : null}
-          {slide.description ? (
-            <h2 className="mb-6">{slide.description}</h2>
+          {content.description ? (
+            <h2 className="mb-6">{content.description}</h2>
           ) : null}
 
-          {slide.advantageTitle1 && slide.advantageDescription1 ? (
+          {content.advantageTitle1 && content.advantageDescription1 ? (
             <h3 className="mb-6 text-regularOrange">FORDELER</h3>
           ) : null}
           <div className="flex flex-col gap-4">
-            {slide.advantageTitle1 && slide.advantageDescription1 ? (
+            {content.advantageTitle1 && content.advantageDescription1 ? (
               <InfoCard
                 number={"1"}
-                title={slide.advantageTitle1}
-                description={slide.advantageDescription1}
+                title={content.advantageTitle1}
+                description={content.advantageDescription1}
               />
             ) : null}
-            {slide.advantageTitle2 && slide.advantageDescription2 ? (
+            {content.advantageTitle2 && content.advantageDescription2 ? (
               <InfoCard
                 number={"2"}
-                title={slide.advantageTitle2}
-                description={slide.advantageDescription2}
+                title={content.advantageTitle2}
+                description={content.advantageDescription2}
               />
             ) : null}
-            {slide.advantageTitle3 && slide.advantageDescription3 ? (
+            {content.advantageTitle3 && content.advantageDescription3 ? (
               <InfoCard
                 number={"3"}
-                title={slide.advantageTitle3}
-                description={slide.advantageDescription3}
+                title={content.advantageTitle3}
+                description={content.advantageDescription3}
               />
             ) : null}
           </div>

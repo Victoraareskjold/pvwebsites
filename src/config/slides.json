@@ -1,50 +1,98 @@
 [
   {
-    "title": "Landbruk",
     "image": "/carousel/image1.png",
-    "description": "Vi leverer skreddersydde solcelleløsninger som effektiviserer gårdsdriften og styrker et grønnere landbruk.",
     "slug": "landbruk",
-    "advantageTitle1": "Økonomisk gevinst",
-    "advantageDescription1": "Solceller senker strømregningen og gjør deg mindre sårbar for varierende energipriser. I tillegg kan du selge eventuell overskuddsproduksjon tilbake til nettet, noe som gir en ekstra inntekt og ytterligere styrker den økonomiske fordelen.",
-    "advantageTitle2": "Utnytt gårdens fulle potensial",
-    "advantageDescription2": "Store takflater, som for eksempel låvetaket, egner seg perfekt for solceller. Ved å ta i bruk alt tilgjengelig areal på en smart måte, hjelper vi deg med å maksimere gårdens strømproduksjon.",
-    "advantageTitle3": "Økt eiendomsverdi",
-    "advantageDescription3": "Et solcelleanlegg med lang levetid og minimalt vedlikehold er en smart investering som kan heve gårdens markedsverdi."
+    "nb": {
+      "title": "Fremtidens Energi for Landbruk",
+      "description": "Vi leverer skreddersydde solcelleløsninger som effektiviserer gårdsdriften og styrker et grønnere landbruk.",
+      "advantageTitle1": "Økonomisk gevinst",
+      "advantageDescription1": "Solceller senker strømregningen og gjør deg mindre sårbar for varierende energipriser. I tillegg kan du selge eventuell overskuddsproduksjon tilbake til nettet, noe som gir en ekstra inntekt og ytterligere styrker den økonomiske fordelen.",
+      "advantageTitle2": "Utnytt gårdens fulle potensial",
+      "advantageDescription2": "Store takflater, som for eksempel låvetaket, egner seg perfekt for solceller. Ved å ta i bruk alt tilgjengelig areal på en smart måte, hjelper vi deg med å maksimere gårdens strømproduksjon.",
+      "advantageTitle3": "Økt eiendomsverdi",
+      "advantageDescription3": "Et solcelleanlegg med lang levetid og minimalt vedlikehold er en smart investering som kan heve gårdens markedsverdi."
+    },
+    "nn": {
+      "title": "Framtidas energi for landbruk",
+      "description": "Vi leverer skreddarsydde solcelleløysingar som effektiviserer gardsdrifta og styrkjer eit grønnare landbruk.",
+      "advantageTitle1": "Økonomisk gevinst",
+      "advantageDescription1": "Solceller senkjer straumrekninga og gjer deg mindre sårbar for varierande energiprisar. I tillegg kan du selje eventuell overskottsproduksjon tilbake til nettet, noko som gir ekstra inntekt og styrkjer den økonomiske fordelen endå meir.",
+      "advantageTitle2": "Utnytt gardsens fulle potensial",
+      "advantageDescription2": "Store takflater, som til dømes låvetaket, eignar seg perfekt for solceller. Ved å ta i bruk alt tilgjengeleg areal på ein smart måte, hjelper vi deg med å maksimere gardsens straumproduksjon.",
+      "advantageTitle3": "Auka eigedomverdi",
+      "advantageDescription3": "Eit solcelleanlegg med lang levetid og minimalt vedlikehald er ein smart investering som kan heve gardsens marknadsverdi."
+    }
   },
   {
-    "title": "Bedrift",
     "image": "/carousel/image2.png",
-    "description": "Med fallende kostnader og gunstige støtteordninger har det aldri vært mer lønnsomt å satse på solkraft innen næring.",
     "slug": "bedrift",
-    "advantageTitle1": "Enova-støtten gir ekstra lønnsomhet",
-    "advantageTitle2": "Forsterk bedriftens klimaregnskap",
-    "advantageTitle3": "Kort nedbetalingstid",
-    "advantageDescription1": "Enova tilbyr to attraktive støtteordninger for yrkesbygg med potensial for energiforbedring. I tillegg til finansiering av en grundig energikartlegging, dekker de opptil 30 % av kostnaden ved installasjon av solceller.",
-    "advantageDescription2": "Solceller har lang levetid og lavt vedlikehold, med gunstige støtteordninger som gir lønnsomhet både på kort og lang sikt. I tillegg styrker du klimaregnskapet og kan selge eventuelt overskudd av egenprodusert strøm til leietakere.",
-    "advantageDescription3": "Solceller på næringseiendom er mer lønnsomme enn noensinne, og i mange prosjekter kan de nedbetales på bare 4–7 år."
+    "nb": {
+      "title": "Fremtidens Energi for Bedrift",
+      "description": "Med fallende kostnader og gunstige støtteordninger har det aldri vært mer lønnsomt å satse på solkraft innen næring.",
+      "advantageTitle1": "Enova-støtten gir ekstra lønnsomhet",
+      "advantageTitle2": "Forsterk bedriftens klimaregnskap",
+      "advantageTitle3": "Kort nedbetalingstid",
+      "advantageDescription1": "Enova tilbyr to attraktive støtteordninger for yrkesbygg med potensial for energiforbedring. I tillegg til finansiering av en grundig energikartlegging, dekker de opptil 30 % av kostnaden ved installasjon av solceller.",
+      "advantageDescription2": "Solceller har lang levetid og lavt vedlikehold, med gunstige støtteordninger som gir lønnsomhet både på kort og lang sikt. I tillegg styrker du klimaregnskapet og kan selge eventuelt overskudd av egenprodusert strøm til leietakere.",
+      "advantageDescription3": "Solceller på næringseiendom er mer lønnsomme enn noensinne, og i mange prosjekter kan de nedbetales på bare 4–7 år."
+    },
+    "nn": {
+      "title": "Framtidas energi for bedrift",
+      "description": "Med fallande kostnader og gunstige støtteordningar har det aldri vore meir lønnsamt å satse på solkraft innan næring.",
+      "advantageTitle1": "Enova-støtta gir ekstra lønsemd",
+      "advantageDescription1": "Enova tilbyr to attraktive støtteordningar for yrkesbygg med potensial for energiforbetring. I tillegg til finansiering av ei grundig energikartlegging, dekkjer dei opptil 30 % av kostnaden ved installasjon av solceller.",
+      "advantageTitle2": "Forsterk bedriftens klimaregnskap",
+      "advantageDescription2": "Solceller har lang levetid og lågt vedlikehald, med gunstige støtteordningar som gir lønsemd både på kort og lang sikt. I tillegg styrkjer du klimaregnskapet og kan selje eventuelt overskot av eigenprodusert straum til leigetakarar.",
+      "advantageTitle3": "Kort nedbetalingstid",
+      "advantageDescription3": "Solceller på næringseiendom er mer lønnsomme enn noensinne, og i mange prosjekter kan de nedbetales på bare 4–7 år."
+    }
   },
   {
-    "title": "Enebolig/Hytte",
     "image": "/carousel/image3.png",
-    "description": "Kutt strømutgiftene og øk boligens verdi ved å produsere din egen strøm, som du enten kan bruke selv eller selge videre.",
     "slug": "enebolig-hytte",
-    "advantageTitle1": "Kutt strømregningen",
-    "advantageTitle2": "Hent ut offentlige støtteordninger",
-    "advantageTitle3": "Hev boligens markedsverdi",
-    "advantageDescription1": "Få lavere strømutgifter og mer økonomisk handlingsrom, samtidig som du reduserer deler av nettleien.",
-    "advantageDescription2": "Vi veileder deg gjennom de viktigste Enova-tilskuddene slik at du får mest mulig igjen for investeringen din.",
-    "advantageDescription3": "Ved å installere solcellepaneler gjør du boligen din klar for morgendagens energikrav og øker samtidig verdien ved et fremtidig salg."
+    "nb": {
+      "title": "Fremtidens Energi for Enebolig/Hytte",
+      "description": "Kutt strømutgiftene og øk boligens verdi ved å produsere din egen strøm, som du enten kan bruke selv eller selge videre.",
+      "advantageTitle1": "Kutt strømregningen",
+      "advantageTitle2": "Hent ut offentlige støtteordninger",
+      "advantageTitle3": "Hev boligens markedsverdi",
+      "advantageDescription1": "Få lavere strømutgifter og mer økonomisk handlingsrom, samtidig som du reduserer deler av nettleien.",
+      "advantageDescription2": "Vi veileder deg gjennom de viktigste Enova-tilskuddene slik at du får mest mulig igjen for investeringen din.",
+      "advantageDescription3": "Ved å installere solcellepaneler gjør du boligen din klar for morgendagens energikrav og øker samtidig verdien ved et fremtidig salg."
+    },
+    "nn": {
+      "title": "Framtidas energi for einebustad",
+      "description": "Kutt straumutgiftene og auka bustadens verdi ved å produsere din eigen straum, som du anten kan bruke sjølv eller selje vidare.",
+      "advantageTitle1": "Kutt straumrekninga",
+      "advantageDescription1": "Få lågare straumutgifter og meir økonomisk handlingsrom, samstundes som du reduserer delar av nettleiga.",
+      "advantageTitle2": "Hent ut offentlege støtteordningar",
+      "advantageDescription2": "Vi vegleier deg gjennom dei viktigaste Enova-tilskota slik at du får mest mogleg igjen for investeringa di.",
+      "advantageTitle3": "Hev bustadens marknadsverdi",
+      "advantageDescription3": "Ved å installere solcellepanel gjer du bustaden din klar for morgondagens energikrav og aukar samtidig verdien ved eit framtidig sal."
+    }
   },
   {
-    "title": "Borettslag",
     "image": "/carousel/image4.png",
-    "description": "Solceller kutter kostnadene for både beboere og fellesarealer, og gjennom oss blir overgangen både smidig og lønnsom.",
     "slug": "borettslag",
-    "advantageTitle1": "Stabilisering av strømkostnader",
-    "advantageTitle2": "Langsiktige økonomiske fordeler",
-    "advantageTitle3": "Ny Enova-støtteordning",
-    "advantageDescription1": "Ved å generere din egen strøm oppnår du større forutsigbarhet og beskyttelse mot varierende og økende energipriser.",
-    "advantageDescription2": "Investering i solcellepaneler på taket gir betydelige besparelser over tid. Panelene betaler seg selv gjennom lavere strømutgifter og øker samtidig eiendommens verdi, noe som gir deg en solid økonomisk avkastning på lang sikt.",
-    "advantageDescription3": "Enova kan nå dekke opptil 30 % av kostnadene for ditt solcelleanlegg, med en maksimal støtte på 10 millioner kroner."
+    "nb": {
+      "title": "Fremtidens energi for Borettslag",
+      "description": "Solceller kutter kostnadene for både beboere og fellesarealer, og gjennom oss blir overgangen både smidig og lønnsom.",
+      "advantageTitle1": "Stabilisering av strømkostnader",
+      "advantageTitle2": "Langsiktige økonomiske fordeler",
+      "advantageTitle3": "Ny Enova-støtteordning",
+      "advantageDescription1": "Ved å generere din egen strøm oppnår du større forutsigbarhet og beskyttelse mot varierende og økende energipriser.",
+      "advantageDescription2": "Investering i solcellepaneler på taket gir betydelige besparelser over tid. Panelene betaler seg selv gjennom lavere strømutgifter og øker samtidig eiendommens verdi, noe som gir deg en solid økonomisk avkastning på lang sikt.",
+      "advantageDescription3": "Enova kan nå dekke opptil 30 % av kostnadene for ditt solcelleanlegg, med en maksimal støtte på 10 millioner kroner."
+    },
+    "nn": {
+      "title": "Fremtidens Energi for Borettslag",
+      "description": "Solceller kutter kostnadene for både beboere og fellesarealer, og gjennom oss blir overgangen både smidig og lønnsom.",
+      "advantageTitle1": "Stabilisering av strømkostnader",
+      "advantageDescription1": "Ved å generere din egen strøm oppnår du større forutsigbarhet og beskyttelse mot varierende og økende energipriser.",
+      "advantageTitle2": "Langsiktige økonomiske fordeler",
+      "advantageDescription2": "Investering i solcellepaneler på taket gir betydelige besparelser over tid. Panelene betaler seg selv gjennom lavere strømutgifter og øker samtidig eiendommens verdi, noe som gir deg en solid økonomisk avkastning på lang sikt.",
+      "advantageTitle3": "Ny Enova-støtteordning",
+      "advantageDescription3": "Enova kan nå dekke opptil 30 % av kostnadene for ditt solcelleanlegg, med en maksimal støtte på 10 millioner kroner."
+    }
   }
 ]

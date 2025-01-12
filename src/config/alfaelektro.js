@@ -4,6 +4,7 @@ export default {
   logo: "/alfaelektro/alfaelektroLogo.png",
   primary: "#FFC069",
   secondary: "#D3A45E",
+  hubspotScript: "//js-eu1.hs-scripts.com/143783063.js",
   primaryGradient: {
     bg: "linear-gradient(90deg, #FF9D00 23%, #FFD05A 92%)",
     textColor: "black",
@@ -35,9 +36,8 @@ export default {
   },
 
   footer: {
-    mapsAddress: "",
-    email: "",
-    organizationNumber: "",
-    address: "",
+    email: "asbjorn.roed@alfael.no",
+    organizationNumber: "972410438",
+    address: "Vegsundbakken 20, 6020 Ålesund",
   },
 };

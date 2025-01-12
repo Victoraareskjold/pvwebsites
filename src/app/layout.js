@@ -8,7 +8,7 @@ import "../app/globals.css";
 const configs = {
   vestelektro: () => import("@/config/vestelektro"),
   alfaelektro: () => import("@/config/alfaelektro"),
-  soleklart: () => import("@/config/soleklart"),
+  lynelektro: () => import("@/config/lynelektro"),
 };
 
 export default async function RootLayout({ children }) {
@@ -18,11 +18,22 @@ export default async function RootLayout({ children }) {
   const configModule = configName ? await configs[configName]() : {};
   const config = configModule.default || {};
 
+  config.language = configName === "vestelektro" ? "nn" : "nb";
+
   return (
     <html>
       <head>
         <link rel="stylesheet" href="/globals.css" />
         <title>{config.title || "Standard Tittel"}</title>
+        {config.hubspotScript && (
+          <script
+            type="text/javascript"
+            id="hs-script-loader"
+            async
+            defer
+            src={config.hubspotScript}
+          ></script>
+        )}
       </head>
       <body>
         <Navbar logo={config.logo} title={config.title} />
@@ -31,10 +42,9 @@ export default async function RootLayout({ children }) {
 
         <Footer
           logo={config.logo}
-          email={config.email}
-          address={config.address}
-          organizationNumber={config.organizationNumber}
-          mapsAddress={config.mapsAddress}
+          email={config.footer?.email}
+          address={config.footer?.address}
+          organizationNumber={config.footer?.organizationNumber}
           primary={config.primary}
           secondary={config.secondary}
         />

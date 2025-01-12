@@ -11,14 +11,14 @@ export function TwoButtonComponent() {
         className="p-2 rounded-md orangefunkybtn text-black md:w-full md:max-w-xl text-center"
       >
         <h2 style={{ color: config.primaryGradient?.textColor || "white" }}>
-          Jeg ønsker tilbud
+          {config.twoBtn?.text1 || "Jeg ønsker tilbud"}
         </h2>
       </Link>
       <Link
         href="/#pvmap"
         className="bg-white p-2 rounded-md text-black md:w-full md:max-w-xl flex flex-row gap-2 justify-center"
       >
-        <p className="m-0">Utforsk din egen tomt</p>
+        <p className="m-0">{config.twoBtn?.text2 || "Utforsk din egen tomt"}</p>
         <img src="/search.png" className="w-6 self-center" />
       </Link>
     </div>

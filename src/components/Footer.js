@@ -23,8 +23,7 @@ export function Footer({
       <img src={logo} alt={title || "Logo"} style={{ height: "40px" }} />
       <div className="flex flex-col gap-8 mt-8 md:flex-row md:justify-between md:w-4/5">
         <div>
-          <p>Informasjonskapsel</p>
-          <p>Personvernerklæring</p>
+          <Link href="/privacyStatement">Personvernerklæring</Link>
         </div>
         <div className="flex flex-col gap-6">
           <div className="flex flex-col">
@@ -66,9 +65,7 @@ export function Footer({
             <h2 style={{ color: secondary || "white" }} className="font-medium">
               Adresse
             </h2>
-            <a className="underline" target="_blank" href={mapsAddress}>
-              <h4>{address}</h4>
-            </a>
+            <h4>{address}</h4>
           </div>
           <div>
             <h2 style={{ color: secondary || "white" }} className="font-medium">

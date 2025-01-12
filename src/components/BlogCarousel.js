@@ -54,10 +54,12 @@ export default function BlogCarousel() {
                 alt={blog.title}
               />
               <div
-                className="p-4 h-48 bg-regularOrange text-black"
-                style={{ background: config.primary || "white" }}
+                className="p-4 h-48 text-black"
+                style={{
+                  background: config.primary || "white",
+                }}
               >
-                <h3 className="line-clamp-2 mb-2">{blog.title}</h3>
+                <h3 className="line-clamp-2 mb-2">{blog.nb.title}</h3>
                 <h4 className="opacity-70 line-clamp-4">{blog.description}</h4>
               </div>
             </Link>

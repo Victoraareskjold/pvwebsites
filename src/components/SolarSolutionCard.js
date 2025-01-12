@@ -1,6 +1,8 @@
+import { useSiteConfig } from "@/contexts/siteConfigContext";
 import Link from "next/link";
 
 export function SolarSolutionCard({ image, title, description, slug }) {
+  const config = useSiteConfig();
   return (
     <div className="w-full">
       <img src={image} alt={title} className="w-full h-auto" />
@@ -15,7 +17,7 @@ export function SolarSolutionCard({ image, title, description, slug }) {
           className="inline-block mt-8 px-4 py-2 border border-white rounded-md
           text-white"
         >
-          <h2>Les mer</h2>
+          <h2>{config.nynorskSlideBtn || "Les mer"}</h2>
         </Link>
       </div>
     </div>

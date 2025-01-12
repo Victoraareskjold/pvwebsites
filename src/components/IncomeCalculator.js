@@ -1,8 +1,10 @@
 "use client";
+import { useSiteConfig } from "@/contexts/siteConfigContext";
 
 import { useState } from "react";
 
 export function IncomeCalculator() {
+  const config = useSiteConfig();
   const [elPrice, setElPrice] = useState(1.5);
   const [yearlyPrice, setYearlyPrice] = useState(elPrice * 13000);
 
@@ -22,12 +24,14 @@ export function IncomeCalculator() {
         <div className="flex flex-row gap-2 self-center">
           <img src="/wave.png" className="w-6 h-6" />
           <h5 className="text-center text-orange-500 ">
-            Det handle ikke bare om kWh pris - solceller kutter også nettleien.
+            {config.potentialSaving?.header2 ||
+              "Det handler ikke bare om kWh pris - solceller kutter også nettleien."}
           </h5>
         </div>
 
         <h5 className="text-center ">
-          “Dra slideren og estimer gjennomsnittlig (kWh + nettleiepris).”
+          {config.potentialSaving?.p2 ||
+            "“Dra slideren og estimer gjennomsnittlig (kWh + nettleiepris).”"}
         </h5>
         <input
           type="range"
@@ -45,7 +49,8 @@ export function IncomeCalculator() {
           <h5>6 Kr</h5>
         </div>
         <h5 className="italic text-center">
-          Din anslåtte gjennomsnittlige strømpris:{" "}
+          {config.potentialSaving?.p3 ||
+            "Din anslåtte gjennomsnittlige strømpris: "}
           <span className="text-red-500 font-bold">{elPrice}</span> kWh.
         </h5>
         <div className="h-px w-full bg-regularOrange"></div>

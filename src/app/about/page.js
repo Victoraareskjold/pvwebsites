@@ -21,14 +21,14 @@ export default function About() {
           {config.about?.p1 ? <p>{config.about?.p1}</p> : null}
           {config.about?.p2 ? <p>{config.about?.p2}</p> : null}
           {config.about?.p3 ? <p>{config.about?.p3}</p> : null}
-          {config.about?.p4 ? <p>{config.about?.p4}</p> : null}
-          {config.about?.p5 ? <p>{config.about?.p5}</p> : null}
           {config.about?.image2 ? (
             <img
               src={config.about?.image2}
               className="rounded-2xl aspect-video object-cover"
             />
           ) : null}
+          {config.about?.p4 ? <p>{config.about?.p4}</p> : null}
+          {config.about?.p5 ? <p>{config.about?.p5}</p> : null}
           <TwoButtonComponent />
         </div>
       </div>

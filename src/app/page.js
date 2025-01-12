@@ -19,18 +19,35 @@ export default function Page() {
 
   return (
     <main>
-      <section
-        className="hero pt-32 px-4 md:pt-80 relative"
-        id="main"
-        style={{
-          backgroundImage: `url(${
-            config.hero?.background || "/vestelektro/background.png"
-          })`,
-          backgroundRepeat: "no-repeat",
-          backgroundSize: "cover",
-        }}
-      >
-        <div className="flex flex-col gap-8 text-white">
+      <section className="hero pt-32 px-4 md:pt-80 relative" id="main">
+        {/* Bakgrunnsvideo */}
+        {config.hero?.video ? (
+          <video
+            autoPlay
+            muted
+            loop
+            playsInline
+            className="absolute inset-0 w-full h-full object-cover"
+          >
+            <source src={config.hero.video} type="video/mp4" />
+            Din nettleser støtter ikke video.
+          </video>
+        ) : (
+          /* Bakgrunnsbilde */
+          <div
+            className="absolute inset-0 w-full h-full"
+            style={{
+              backgroundImage: `url(${
+                config.hero?.background || "/vestelektro/background.png"
+              })`,
+              backgroundRepeat: "no-repeat",
+              backgroundSize: "cover",
+            }}
+          ></div>
+        )}
+
+        {/* Innhold over bakgrunnen */}
+        <div className="relative z-10 flex flex-col gap-8 text-white">
           <h2 className="funkysubtitleWhite w-fit text-center self-center">
             {config.hero?.header || "Firmanavn"}
           </h2>
@@ -52,11 +69,12 @@ export default function Page() {
             {config.hero?.p ||
               "Kvalitet - solid trygghet, og solceller til den beste prisen."}
           </h3>
-        </div>
 
-        <div className="mt-32 flex flex-col gap-4 pb-8 md:mt-4 md:flex-row md:justify-center md:gap-8 md:pb-12">
-          <EstimateButton />
-          <ExploreButton />
+          {/* Knappene */}
+          <div className="mt-32 flex flex-col gap-4 pb-8 md:mt-4 md:flex-row md:justify-center md:gap-8 md:pb-12">
+            <EstimateButton />
+            <ExploreButton />
+          </div>
         </div>
       </section>
 
@@ -124,22 +142,27 @@ export default function Page() {
           <div className="grid gap-4 md:grid-cols-2 md:gap-8 md:max-w-7xl md:self-center md:pt-12">
             <InfoCard
               number={"1"}
-              title={"Hopp over mellomleddet"}
+              title={config.infoCard?.titleOne || "Hopp over mellomleddet"}
               description={
+                config.infoCard?.one ||
                 "Som lokal installatør får du direkte kontakt med oss som utfører jobben. Vi er fleksible og kjenner klimaet godt, slik at vi kan skreddersy løsninger optimalt for deg."
               }
             />
             <InfoCard
               number={"2"}
-              title={"Bedre pris, høyere kvalitet"}
+              title={config.infoCard?.titleTwo || "Bedre pris, høyere kvalitet"}
               description={
+                config.infoCard?.two ||
                 "Vi tilbyr bedre priser på anlegg med minst like god – ofte enda bedre – kvalitet enn store landsdekkende aktører i markedet. Vi bruker kun de mest optimale solcellepanelene og jobber kontinuerlig for å finne den beste løsningen for deg."
               }
             />
             <InfoCard
               number={"3"}
-              title={"Tett dialog og rask responstid"}
+              title={
+                config.infoCard?.titleThree || "Tett dialog og rask responstid"
+              }
               description={
+                config.infoCard?.three ||
                 "Med en lokal aktør får du tett dialog og rask responstid. Enten det gjelder garantier, service eller vedlikehold, er hjelpen alltid nær. Skulle noe skje, stiller vi som regel opp samme dag eller dagen etter."
               }
             />
@@ -155,18 +178,19 @@ export default function Page() {
             className="border-2 border-white p-2 px-4 rounded-md mb-4 md:my-20 md:w-64 md:self-center text-center"
           >
             <h2 className="bold">
-              {config.avdantage?.readore || "Les mer om oss"}
+              {config.advantage?.readMore || "Les mer om oss"}
             </h2>
           </Link>
         </div>
       </section>
 
-      <section className="relative" id="pvmap">
+      <section className="relative bg-black" id="pvmap">
         <div className="blackFade"></div>
         <iframe
           src={`https://pvmap.vercel.app/?site=${config.title}`}
           height="1240px"
           width="100%"
+          style={{ padding: "10px 0" }}
         />
         <div className="blackFade2"></div>
       </section>
@@ -252,10 +276,10 @@ export default function Page() {
             }
           />
           <Dropdown
-            title={config.faq?.title6 || "Må det meldes inn til nettselskapet?"}
+            title={config.faq?.title6 || "Solceller med batterilagring"}
             description={
               config.faq?.description6 ||
-              "Ja, alle solcelleanlegg må meldes inn til nettselskapet. Du trenger imidlertid ikke bekymre deg for dette – vi håndterer hele prosessen på dine vegne! Alt vi behøver er målernummeret ditt, så ordner vi resten. Dette er en del av vårt løfte om å gjøre overgangen til solenergi både enkel og stressfri for deg."
+              "Ja, solceller kan fint kombineres med et batterilagringssystem. Dette gir deg muligheten til å lagre overskuddsstrøm når solcellene produserer mer energi enn du forbruker der og da. Strømmen kan så brukes på kveldstid, i perioder med lavere solinnstråling, eller når strømprisene er høyere. Et batterilagringssystem bidrar dermed til høyere egenforbruk av solenergi og kan gi deg bedre kontroll over energikostnadene dine. Det finnes ulike batteriteknologier og systemløsninger på markedet, og det kan være lurt å vurdere faktorer som pris, kapasitet, levetid og garantivilkår når du velger løsning."
             }
           />
         </div>

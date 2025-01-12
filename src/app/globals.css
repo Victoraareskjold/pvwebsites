@@ -58,6 +58,16 @@ ol {
   margin-left: 1rem; /* Juster etter behov */
 }
 
+.hero video {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: -1; /* Legger videoen bak innholdet */
+}
+
 .divider {
   width: 80%;
   height: 1px;
