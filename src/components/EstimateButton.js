@@ -12,7 +12,7 @@ export function EstimateButton() {
         style={{ color: config.primaryGradient?.textColor || "white" }}
         className="md:!text-white"
       >
-        {config.estimateBtn?.text || "Jeg ønsker tilud"}
+        {config.estimateBtn?.text || "Jeg ønsker tilbud"}
       </h2>
     </Link>
   );

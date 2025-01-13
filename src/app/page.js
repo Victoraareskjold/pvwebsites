@@ -137,7 +137,7 @@ export default function Page() {
         />
       </section>
 
-      <section id="advantage" className="">
+      <section id="advantage" className="flex flex-col items-center">
         <h3 className="text-center md:text-3xl">
           {config.advantage?.header || "Fordelen med en lokal installatør"}
         </h3>
