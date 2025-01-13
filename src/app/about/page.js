@@ -1,9 +1,12 @@
 "use client";
+import FormModal from "@/components/FormModal";
 import { TwoButtonComponent } from "@/components/TwoButtonComponent";
 import { useSiteConfig } from "@/contexts/siteConfigContext";
+import { useState } from "react";
 
 export default function About() {
   const config = useSiteConfig();
+  const [isModalOpen, setModalOpen] = useState(false);
 
   return (
     <main className="min-h-screen bg-black text-white flex justify-center">
@@ -29,8 +32,14 @@ export default function About() {
           ) : null}
           {config.about?.p4 ? <p>{config.about?.p4}</p> : null}
           {config.about?.p5 ? <p>{config.about?.p5}</p> : null}
-          <TwoButtonComponent />
+          <TwoButtonComponent setModalOpen={setModalOpen} />
         </div>
+
+        <FormModal
+          isOpen={isModalOpen}
+          onClose={() => setModalOpen(false)}
+          config={config}
+        />
       </div>
     </main>
   );

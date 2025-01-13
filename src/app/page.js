@@ -9,13 +9,16 @@ import { useSiteConfig } from "@/contexts/siteConfigContext";
 
 import { EstimateButton } from "@/components/EstimateButton";
 import { ExploreButton } from "@/components/ExploreButton";
+import FormModal from "@/components/FormModal";
 import InfoCarouselLarge from "@/components/InfoCarouselLarge";
 import { RoofCapacityButton } from "@/components/RoofCapacityButton";
 import Link from "next/link";
+import { useState } from "react";
 import slides from "../config/slides";
 
 export default function Page() {
   const config = useSiteConfig();
+  const [isModalOpen, setModalOpen] = useState(false);
 
   return (
     <main>
@@ -72,7 +75,7 @@ export default function Page() {
 
           {/* Knappene */}
           <div className="mt-32 flex flex-col gap-4 pb-8 md:mt-4 md:flex-row md:justify-center md:gap-8 md:pb-12">
-            <EstimateButton />
+            <EstimateButton setModalOpen={setModalOpen} />
             <ExploreButton />
           </div>
         </div>
@@ -297,6 +300,13 @@ export default function Page() {
           />
         </div>
       </section>
+      <div className="min-h-screen bg-gray-100 p-6">
+        <FormModal
+          isOpen={isModalOpen}
+          onClose={() => setModalOpen(false)}
+          config={config}
+        />
+      </div>
     </main>
   );
 }

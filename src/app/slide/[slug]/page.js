@@ -1,5 +1,5 @@
+import FormModalController from "@/components/FormModalController";
 import { InfoCard } from "@/components/InfoCard";
-import { TwoButtonComponent } from "@/components/TwoButtonComponent";
 import { headers } from "next/headers";
 import slides from "../../../config/slides.json";
 
@@ -81,7 +81,7 @@ export default async function Slide({ params }) {
             ) : null}
           </div>
 
-          <TwoButtonComponent />
+          <FormModalController />
         </div>
       </div>
     </div>
