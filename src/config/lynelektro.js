@@ -2,6 +2,7 @@
 export default {
   title: "Lyn Elektro Sol",
   logo: "/lynelektro/lynlogo.png",
+  favicon: "/lynelektro/favicon.ico",
   primary: "#FFC069",
   secondary: "#D3A45E",
   hubspotScript: "//js-eu1.hs-scripts.com/143939232.js",
@@ -16,7 +17,7 @@ export default {
   },
 
   about: {
-    header: "Lym Elektro Sol",
+    header: "LYN Elektro Sol",
     image: "/lynelektro/omOssHero.png",
     subHeader:
       "Gjennom oss som din lokale totalentreprenør for solcellepaneler, får du samme kompetanse som de store aktørene – men til en lavere pris.",

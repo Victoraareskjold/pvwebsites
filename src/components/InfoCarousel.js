@@ -38,7 +38,7 @@ export default function InfoCarousel({ slides }) {
                 <SolarSolutionCard
                   image={slide.image}
                   title={content.title}
-                  description={content.description}
+                  description={content.visibleDescription}
                   slug={slide.slug}
                 />
               </div>

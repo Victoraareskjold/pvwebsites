@@ -65,7 +65,7 @@ export default function Page() {
             </span>
           </h1>
 
-          <h3 className="md:text-center md:mt-96 self-center mx-12">
+          <h3 className="text-center md:mt-96 self-center mx-12">
             {config.hero?.p ||
               "Kvalitet - solid trygghet, og solceller til den beste prisen."}
           </h3>
@@ -76,12 +76,18 @@ export default function Page() {
             <ExploreButton />
           </div>
         </div>
+        <div
+          className="fade1"
+          style={{
+            background: `${config.hero?.gradient || "none"}`,
+          }}
+        ></div>
       </section>
 
       <section
         id="potentialSaving"
         style={{ background: config.primary || "black" }}
-        className="mx-4 my-8 rounded-xl p-2 flex flex-col gap-4 md:hidden"
+        className="mx-4 my-20 rounded-xl p-2 flex flex-col gap-4 md:hidden"
       >
         <h3 className="text-white text-center">
           {config.potentialSaving?.header ||
@@ -99,7 +105,7 @@ export default function Page() {
       <section
         id="potentialSaving"
         style={{ background: config.primary || "black" }}
-        className="mx-4 my-8 rounded-xl md:p-4 gap-4 hidden md:flex flex-row max-w-5xl mx-auto"
+        className="mx-4 my-20 rounded-xl md:p-4 gap-4 hidden md:flex flex-row max-w-5xl mx-auto"
       >
         <div className="w-3/5 flex flex-col gap-2 self-center px-12">
           <h3 className="text-white font-regular ">
@@ -118,14 +124,17 @@ export default function Page() {
 
       <section
         id="whyInvest"
-        className="mx-4 mb-12 flex flex-col items-center "
+        className="mx-4 mb-20 flex flex-col items-center "
       >
         <h3 className="text-center md:text-3xl">
           {config.whyInvest?.header || "Hvorfor investere i solcellepanel?"}
         </h3>
         <div className="divider mb-8 mt-2"></div>
         <img className="ml-2 md:hidden" src="illustration.png" />
-        <img className="ml-2 hidden md:block" src="ilustrationPc.png" />
+        <img
+          className="ml-2 hidden md:block max-w-screen-2xl w-4/5"
+          src="ilustrationPc.png"
+        />
       </section>
 
       <section id="advantage" className="">
@@ -134,7 +143,11 @@ export default function Page() {
         </h3>
         <div className="divider mb-8 mt-2"></div>
         <div className="relative">
-          <img src={config.advantage?.heroImage} className="w-full" />
+          <img
+            src={config.advantage?.heroImage || "heroImage.png"}
+            alt="Hero"
+            className="w-full h-[50vh] md:max-w-screen-2xl md:max-h-[940px] md:h-full object-cover mx-auto"
+          />
           <div className="blackFade2"></div>
         </div>
 
@@ -175,7 +188,7 @@ export default function Page() {
 
           <Link
             href="/about"
-            className="border-2 border-white p-2 px-4 rounded-md mb-4 md:my-20 md:w-64 md:self-center text-center"
+            className="border-2 border-white p-2 px-4 rounded-md mb-4 md:my-20 md:w-64 md:self-center text-center hover:bg-white hover:text-black duration-500"
           >
             <h2 className="bold">
               {config.advantage?.readMore || "Les mer om oss"}
@@ -188,7 +201,7 @@ export default function Page() {
         <div className="blackFade"></div>
         <iframe
           src={`https://pvmap.vercel.app/?site=${config.title}`}
-          height="1240px"
+          className="h-820 md:h-1280"
           width="100%"
           style={{ padding: "10px 0" }}
         />
@@ -196,7 +209,7 @@ export default function Page() {
       </section>
 
       <section className="bg-black py-24">
-        <div className="px-4 mb-12 flex flex-col gap-4">
+        <div className="px-4 mb-24 flex flex-col gap-4">
           <h2 className="funkysubtitleWhite w-fit md:text-center md:self-center">
             {config.solar?.header || "undefined"}
           </h2>
@@ -219,14 +232,14 @@ export default function Page() {
       <section className="py-8 relative" id="blog">
         <div className="blackFade"></div>
 
-        <div className="mx-4 my-12 xl:px-48">
-          <h4 className="opacity-50">{config.blog?.header || "Utforks..."}</h4>
+        <div className="mx-4 my-20 xl:px-48">
+          <h4 className="opacity-50">{config.blog?.header || "Utfork..."}</h4>
           <h3 className="mt-2 mb-2">
             {config.blog?.header2 || "Våre blogg innlegg"}
           </h3>
           <Link
             href="/blog"
-            className="border-black border-2 rounded-md text-black py-2 px-8"
+            className="border-black border-2 rounded-md text-black py-2 px-8 hover:bg-black hover:text-white duration-500"
           >
             {config.blog?.buttonText || "Se alle blogg innlegg"}
           </Link>
@@ -265,7 +278,7 @@ export default function Page() {
             title={config.faq?.title4 || "Snø på solcellepanelene?"}
             description={
               config.faq?.description4 ||
-              "Vi er lite bekymret for snø på solcellepanelene. Kjølige temperaturer gir gode produksjonsforhold, og i tillegg kan snøen rundt panelene bidra til økt refleksjon av sollyset. Dersom panelene dekkes av snø, vil produksjonen selvsagt kunne reduseres noe, men fordi overflatene er glatte, sklir snøen ofte raskt av. Hvis snøen skulle bli liggende en stund, anbefaler vi likevel å la den ligge. Det kan være farlig å bevege seg på taket uten ri ktig sikring og utstyr!"
+              "Vi er lite bekymret for snø på solcellepanelene. Kjølige temperaturer gir gode produksjonsforhold, og i tillegg kan snøen rundt panelene bidra til økt refleksjon av sollyset. Dersom panelene dekkes av snø, vil produksjonen selvsagt kunne reduseres noe, men fordi overflatene er glatte, sklir snøen ofte raskt av. Hvis snøen skulle bli liggende en stund, anbefaler vi likevel å la den ligge. Det kan være farlig å bevege seg på taket uten riktig sikring og utstyr!"
             }
           />
           <Dropdown

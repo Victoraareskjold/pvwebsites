@@ -16,6 +16,10 @@ export default {
         primary: "var(--color-primary)",
         secondary: "var(--color-secondary)",
       },
+      height: {
+        1280: "1280px",
+        820: "820px",
+      },
     },
   },
   plugins: [],

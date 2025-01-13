@@ -8,15 +8,15 @@ export function TwoButtonComponent() {
       <Link
         href="#"
         style={{ background: config.primaryGradient?.bg || "black" }}
-        className="p-2 rounded-md orangefunkybtn text-black md:w-full md:max-w-xl text-center"
+        className="p-2 rounded-md orangefunkybtn text md:w-full md:max-w-xl text-center"
       >
-        <h2 style={{ color: config.primaryGradient?.textColor || "white" }}>
+        <h2 style={{ color: config.primaryGradient?.textColor || "black" }}>
           {config.twoBtn?.text1 || "Jeg ønsker tilbud"}
         </h2>
       </Link>
       <Link
         href="/#pvmap"
-        className="bg-white p-2 rounded-md text-black md:w-full md:max-w-xl flex flex-row gap-2 justify-center"
+        className="bg-white p-2 rounded-md text-black md:w-full md:max-w-xl flex flex-row gap-2 justify-center hover:!bg-black hover:!text-white duration-500"
       >
         <p className="m-0">{config.twoBtn?.text2 || "Utforsk din egen tomt"}</p>
         <img src="/search.png" className="w-6 self-center" />

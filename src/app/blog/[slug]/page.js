@@ -10,7 +10,8 @@ export default async function BlogPost({ params }) {
   const siteConfig = headersList.get("x-site-config");
 
   // Bestem språk basert på domenet
-  const language = siteConfig === "vestelektro" ? "nn" : "nb";
+  //const language = siteConfig === "vestelektro" ? "nn" : "nb";
+  const language = siteConfig === "vestelektro" ? "nb" : "nb";
 
   // Finn riktig blogg basert på slug
   const blog = blogs.find((b) => b.slug === slug);

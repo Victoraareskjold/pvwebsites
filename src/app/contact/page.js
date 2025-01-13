@@ -16,6 +16,7 @@ export default function Contact() {
     const formData = new FormData(form.current);
     const name = formData.get("user_name");
     const email = formData.get("user_email");
+    const phone = formData.get("user_phone");
     const message = formData.get("message");
     const site = formData.get("site");
 
@@ -72,6 +73,9 @@ export default function Contact() {
         <br />
         <label>Email</label>
         <input type="email" name="user_email" className="inputLabel" required />
+        <br />
+        <label>Phone</label>
+        <input type="phone" name="user_phone" className="inputLabel" required />
         <br />
         <label>Message</label>
         <textarea name="message" className="inputLabel" required />

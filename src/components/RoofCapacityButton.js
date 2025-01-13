@@ -1,7 +1,13 @@
+import Link from "next/link";
+
 export function RoofCapacityButton() {
   return (
-    <button className="bg-white rounded-md p-2">
-      <h2 className="">Sjekk din takkapasitet</h2>
-    </button>
+    <Link
+      href="/#pvmap"
+      className="bg-white p-2 rounded-md text-black md:w-full md:max-w-xl flex flex-row gap-2 justify-center hover:bg-black hover:text-white duration-500"
+    >
+      <p className="m-0">Sjekk din takkapasitet</p>
+      <img src="/search.png" className="w-6 self-center" />
+    </Link>
   );
 }

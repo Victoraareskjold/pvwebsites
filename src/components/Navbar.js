@@ -28,7 +28,7 @@ export function Navbar({ logo, title }) {
           width: "100%",
           backgroundColor:
             isMenuOpen || isDropdownOpen ? "#2D2D2D" : "rgba(0, 0, 0, 0.25)",
-          zIndex: 10,
+          zIndex: 100,
           color: "white",
         }}
       >
@@ -85,9 +85,9 @@ export function Navbar({ logo, title }) {
               }}
               className="flex flex-row gap-4"
             >
-              <p>Solceller</p>
+              <p className="mb-0">Solceller</p>
               <img
-                src="/chevron.png"
+                src="/chevronOrange.png"
                 className="h-2 self-center"
                 style={{
                   transform: isDropdownOpen ? "rotate(180deg)" : "",

@@ -50,11 +50,11 @@ export default function InfoCarouselLarge({ slides }) {
                     : "text-white opacity-75"
                 }`}
               >
-                {content.description}
+                {content.visibleDescription}
               </p>
               <Link
                 href={`/slide/${slide.slug}`}
-                className={`mt-4 px-4 py-2 border ${
+                className={`mt-4 px-4 py-2 border hover:bg-white hover:text-black duration-500 ${
                   currentSlide === index
                     ? "border-white text-white"
                     : "border-white text-white"

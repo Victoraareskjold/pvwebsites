@@ -15,7 +15,7 @@ export function SolarSolutionCard({ image, title, description, slug }) {
         <Link
           href={`/slide/${slug}`}
           className="inline-block mt-8 px-4 py-2 border border-white rounded-md
-          text-white"
+          text-white hover:bg-white hover:text-black duration-500"
         >
           <h2>{config.nynorskSlideBtn || "Les mer"}</h2>
         </Link>

@@ -51,16 +51,18 @@ export function IncomeCalculator() {
         <h5 className="italic text-center">
           {config.potentialSaving?.p3 ||
             "Din anslåtte gjennomsnittlige strømpris: "}
-          <span className="text-red-500 font-bold">{elPrice}</span> kWh.
+          <span className="text-red-500 font-bold">{elPrice}</span> kr kWh.
         </h5>
         <div className="h-px w-full bg-regularOrange"></div>
-        <h4 className=" text-center">
-          Inntekt fra solenergi per år: {yearlyPrice.toFixed(0)},-
+        <h4 className=" text-center font-semibold">
+          Inntekt fra solenergi per år:{" "}
+          {Number(yearlyPrice.toFixed(0)).toLocaleString("no-NO")},-
         </h4>
       </div>
       <div>
-        <h4 className=" text-center text-white bg-black w-full p-4 rounded-xl mb-0">
-          Inntekt fra solenergi over 30 år: {(yearlyPrice * 30).toFixed(0)},-
+        <h4 className=" text-center text-white bg-black w-full p-4 rounded-xl mb-0 font-semibold">
+          Inntekt fra solenergi over 30 år:{" "}
+          {Number((yearlyPrice * 30).toFixed(0)).toLocaleString("no-NO")},-
         </h4>
       </div>
     </div>

@@ -8,6 +8,8 @@ import Link from "next/link";
 export default function Blog() {
   const config = useSiteConfig();
 
+  const sortedBlogs = blogs.sort((a, b) => b.id - a.id);
+
   return (
     <section className="py-24 bg-black p-4 min-h-screen">
       <h1 className="text-white mb-8">
@@ -15,7 +17,7 @@ export default function Blog() {
           "Ta en titt på det nyeste vi har skrevet, og bla deg bakover i tid."}
       </h1>
       <ul className="grid gap-4 xl:gap-8 md:grid-cols-2 xl:grid-cols-3 ">
-        {blogs.map((blog) => (
+        {sortedBlogs.map((blog) => (
           <Link
             key={blog.id}
             className="relative w-full h-64 rounded-2xl overflow-hidden"

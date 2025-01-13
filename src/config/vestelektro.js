@@ -2,6 +2,8 @@
 export default {
   title: "Vest Elektro",
   logo: "/vestelektro/vestelektroLogo.png",
+  favicon: "/vestelektro/favicon.ico",
+
   primary: "#FFC069",
   secondary: "#D3A45E",
   hubspotScript: "",
@@ -30,7 +32,7 @@ export default {
     header2:
       "Det handlar ikkje berre om kWh-pris – solceller kuttar òg nettleiga.",
     p2: "“Dra slideren og estimer gjennomsnittleg (kWh + nettleigepris) for 30 år.”",
-    p3: "Din anslåtte gjennomsnittlege straumpris: 1.5 kr kWh.",
+    p3: "Din anslåtte gjennomsnittlege straumpris: ",
   },
 
   whyInvest: {
@@ -93,7 +95,7 @@ export default {
     p1: "Mange store selskap samarbeider med installatørar som oss og tek ofte ei ekstra høg provisjon på toppen av det heile. Ved å kome direkte til kjelda, hoppar du over mellomleddet og sparer pengar. I tillegg er vi berre ein telefon unna: Skulle det oppstå problem, stiller vi raskt opp, i staden for at du må vente på ein fjern kundeservice.",
     p2: "Vi tilbyr betre prisar på solcelleanlegg med minst like god – ofte endå betre – kvalitet enn dei store, landsdekkjande aktørane. Gjennom færre mellomledd og eit lokalt fokus kan vi halde kostnadene nede utan å gå på kompromiss med kvaliteten.",
     p3: "Vi brukar berre solcellepanel som er nøye utvalde for optimal yting og lang levetid, og vi held oss kontinuerleg oppdaterte på ny teknologi. På den måten kan vi skreddarsy eit anlegg spesielt tilpassa behova dine, slik at du får maksimalt utbyte av investeringa di.",
-    image2: "/vestElektro/omOssBildeVest.png",
+    image2: "/vestelektro/omOssBildeVest.png",
     p4: "I tråd med vår visjon om å vere ein leiande aktør innanfor elektriske installasjonar, ønskjer vi no å utvide vårt tenestetilbod til å inkludere levering og installasjon av solceller. Vi ser eit aukande behov for berekraftige energiløysingar både hos private hushaldningar og næringskundar, og vi er klare til å møte denne etterspurnaden med vår ekspertise og engasjement.",
     p5: "Vårt mål er å tilby skreddarsydde solcelleløysingar som ikkje berre reduserer energikostnadene, men også bidreg til ei grønare framtid. Vi vil sikre at våre kundar får den beste rådgjevinga og dei mest effektive løysingane, tilpassa deira spesifikke behov og føresetnader. Med vår erfaring og fokus på kvalitet, er vi godt rusta til å levere solcelleanlegg som gir maksimal yting og lang levetid. Vi ser fram til å hjelpe både private og næringskundar med å ta steget mot ei meir berekraftig energiframtid. Kontakt oss i dag for ein uforpliktande samtale om korleis vi kan hjelpe deg med å integrere solceller i ditt energisystem.",
   },

@@ -25,6 +25,11 @@ export default async function RootLayout({ children }) {
       <head>
         <link rel="stylesheet" href="/globals.css" />
         <title>{config.title || "Standard Tittel"}</title>
+        <link
+          rel="icon"
+          type="image/png"
+          href={config.favicon || "/favicon.ico"}
+        />
         {config.hubspotScript && (
           <script
             type="text/javascript"

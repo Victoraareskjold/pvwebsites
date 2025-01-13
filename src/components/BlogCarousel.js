@@ -11,7 +11,7 @@ export default function BlogCarousel() {
 
   const responsive = {
     desktop: {
-      breakpoint: { max: 3000, min: 1024 },
+      breakpoint: { max: 5000, min: 1024 },
       items: 4,
       slidesToSlide: 1,
     },
@@ -28,7 +28,7 @@ export default function BlogCarousel() {
   };
 
   return (
-    <div className="w-full">
+    <div className="w-full px-48">
       <Carousel
         responsive={responsive}
         autoPlay={true}

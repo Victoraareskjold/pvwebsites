@@ -5,6 +5,7 @@
     "nb": {
       "title": "Fremtidens Energi for Landbruk",
       "description": "Vi leverer skreddersydde solcelleløsninger som effektiviserer gårdsdriften og styrker et grønnere landbruk.",
+      "visibleDescription": "Solenergiløsninger tilpasset landbrukets drift",
       "advantageTitle1": "Økonomisk gevinst",
       "advantageDescription1": "Solceller senker strømregningen og gjør deg mindre sårbar for varierende energipriser. I tillegg kan du selge eventuell overskuddsproduksjon tilbake til nettet, noe som gir en ekstra inntekt og ytterligere styrker den økonomiske fordelen.",
       "advantageTitle2": "Utnytt gårdens fulle potensial",
@@ -15,6 +16,7 @@
     "nn": {
       "title": "Framtidas energi for landbruk",
       "description": "Vi leverer skreddarsydde solcelleløysingar som effektiviserer gardsdrifta og styrkjer eit grønnare landbruk.",
+      "visibleDescription": "Solenergiløysingar tilpassa drifta i landbruket",
       "advantageTitle1": "Økonomisk gevinst",
       "advantageDescription1": "Solceller senkjer straumrekninga og gjer deg mindre sårbar for varierande energiprisar. I tillegg kan du selje eventuell overskottsproduksjon tilbake til nettet, noko som gir ekstra inntekt og styrkjer den økonomiske fordelen endå meir.",
       "advantageTitle2": "Utnytt gardsens fulle potensial",
@@ -29,6 +31,7 @@
     "nb": {
       "title": "Fremtidens Energi for Bedrift",
       "description": "Med fallende kostnader og gunstige støtteordninger har det aldri vært mer lønnsomt å satse på solkraft innen næring.",
+      "visibleDescription": "Effektiv storskala produksjon for ulike takstørrelser",
       "advantageTitle1": "Enova-støtten gir ekstra lønnsomhet",
       "advantageTitle2": "Forsterk bedriftens klimaregnskap",
       "advantageTitle3": "Kort nedbetalingstid",
@@ -39,6 +42,7 @@
     "nn": {
       "title": "Framtidas energi for bedrift",
       "description": "Med fallande kostnader og gunstige støtteordningar har det aldri vore meir lønnsamt å satse på solkraft innan næring.",
+      "visibleDescription": "Effektiv storskala produksjon for ulike takstorleikar",
       "advantageTitle1": "Enova-støtta gir ekstra lønsemd",
       "advantageDescription1": "Enova tilbyr to attraktive støtteordningar for yrkesbygg med potensial for energiforbetring. I tillegg til finansiering av ei grundig energikartlegging, dekkjer dei opptil 30 % av kostnaden ved installasjon av solceller.",
       "advantageTitle2": "Forsterk bedriftens klimaregnskap",
@@ -53,6 +57,7 @@
     "nb": {
       "title": "Fremtidens Energi for Enebolig/Hytte",
       "description": "Kutt strømutgiftene og øk boligens verdi ved å produsere din egen strøm, som du enten kan bruke selv eller selge videre.",
+      "visibleDescription": "Tilpassede løsninger for hjem og hytter",
       "advantageTitle1": "Kutt strømregningen",
       "advantageTitle2": "Hent ut offentlige støtteordninger",
       "advantageTitle3": "Hev boligens markedsverdi",
@@ -63,6 +68,7 @@
     "nn": {
       "title": "Framtidas energi for Einebustad",
       "description": "Kutt straumutgiftene og auka bustadens verdi ved å produsere din eigen straum, som du anten kan bruke sjølv eller selje vidare.",
+      "visibleDescription": "Tilpassa løysingar for heim og hytter",
       "advantageTitle1": "Kutt straumrekninga",
       "advantageDescription1": "Få lågare straumutgifter og meir økonomisk handlingsrom, samstundes som du reduserer delar av nettleiga.",
       "advantageTitle2": "Hent ut offentlege støtteordningar",
@@ -77,6 +83,7 @@
     "nb": {
       "title": "Fremtidens energi for Borettslag",
       "description": "Solceller kutter kostnadene for både beboere og fellesarealer, og gjennom oss blir overgangen både smidig og lønnsom.",
+      "visibleDescription": "Solenergi for fellesarealer med stor brukergruppe",
       "advantageTitle1": "Stabilisering av strømkostnader",
       "advantageTitle2": "Langsiktige økonomiske fordeler",
       "advantageTitle3": "Ny Enova-støtteordning",
@@ -87,6 +94,7 @@
     "nn": {
       "title": "Framtidas Energi for Bustadlag",
       "description": "Solceller kuttar kostnadene for både bebuarar og fellesareal, og gjennom oss blir overgangen både smidig og lønsam.",
+      "visibleDescription": "Solenergi for fellesareal med stor brukargruppe",
       "advantageTitle1": "Stabilisering av strømkostnader",
       "advantageDescription1": "Ved å generere din eigen straum oppnår du større føreseielegheit og vern mot varierande og aukande energiprisar.",
       "advantageTitle2": "Langsiktige økonomiske fordelar",

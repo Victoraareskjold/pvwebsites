@@ -2,6 +2,7 @@
 export default {
   title: "Alfa Elektro",
   logo: "/alfaelektro/alfaelektroLogo.png",
+  favicon: "/alfaelektro/favicon.ico",
   primary: "#FFC069",
   secondary: "#D3A45E",
   hubspotScript: "//js-eu1.hs-scripts.com/143783063.js",
