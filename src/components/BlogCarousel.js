@@ -28,7 +28,7 @@ export default function BlogCarousel() {
   };
 
   return (
-    <div className="w-full px-48">
+    <div className="w-full xl:px-48">
       <Carousel
         responsive={responsive}
         autoPlay={true}
