@@ -49,7 +49,10 @@ export default function FormModal({ isOpen, onClose }) {
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex justify-center items-center text-black">
+    <div
+      className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center text-black overflow-scroll"
+      style={{ zIndex: 1000 }}
+    >
       <div className="bg-white rounded-lg shadow-lg max-w-md w-full p-6 relative">
         <button
           className="absolute top-4 right-4 text-red-500 text-xl"
@@ -61,7 +64,7 @@ export default function FormModal({ isOpen, onClose }) {
           {config?.modalTitle ||
             "Fyll ut dine detaljer for et uforpliktende tilbud på e-post."}
         </h2>
-        <form ref={formRef} onSubmit={sendEmail} className="space-y-6">
+        <form ref={formRef} onSubmit={sendEmail} className="space-y-4">
           <input value={config?.title || ""} name="site" hidden readOnly />
           <div>
             <label className="block text-sm font-medium">Adresse*</label>
