@@ -155,7 +155,7 @@ export default function Page() {
         </div>
 
         <div className="bg-black text-white flex flex-col gap-8 px-4 ">
-          <div className="grid gap-4 md:grid-cols-2 md:gap-8 md:max-w-7xl md:self-center md:pt-12">
+          <div className="grid gap-4 md:grid-cols-2 md:gap-8 md:self-center md:pt-12">
             <InfoCard
               number={"1"}
               title={config.infoCard?.titleOne || "Hopp over mellomleddet"}
@@ -300,13 +300,12 @@ export default function Page() {
           />
         </div>
       </section>
-      <div className="min-h-screen bg-gray-100 p-6">
-        <FormModal
-          isOpen={isModalOpen}
-          onClose={() => setModalOpen(false)}
-          config={config}
-        />
-      </div>
+
+      <FormModal
+        isOpen={isModalOpen}
+        onClose={() => setModalOpen(false)}
+        config={config}
+      />
     </main>
   );
 }
