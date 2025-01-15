@@ -190,7 +190,7 @@ export default function Page() {
           </div>
 
           <Link
-            href="/about"
+            href="/omoss"
             className="border-2 border-white p-2 px-4 rounded-md mb-4 md:my-20 md:w-64 md:self-center text-center hover:bg-white hover:text-black duration-500"
           >
             <h2 className="bold">

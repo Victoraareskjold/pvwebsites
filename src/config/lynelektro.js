@@ -3,6 +3,7 @@ export default {
   title: "Lyn Elektro Sol",
   logo: "/lynelektro/lynlogo.png",
   favicon: "/lynelektro/favicon.ico",
+  metaDesc: "",
   primary: "#FFC069",
   secondary: "#D3A45E",
   hubspotScript: "//js-eu1.hs-scripts.com/143939232.js",

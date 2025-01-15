@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-css-tags */
 import { Footer } from "@/components/Footer";
 import { Navbar } from "@/components/Navbar";
 import { SiteConfigProvider } from "@/contexts/siteConfigContext";
@@ -27,6 +28,9 @@ export default async function RootLayout({ children }) {
       <head>
         <link rel="stylesheet" href="/globals.css" />
         <title>{config.title || "Standard Tittel"}</title>
+
+        <meta name="description" content={config.metaDesc || null} />
+
         <link rel="icon" href={faviconUrl} type="image/x-icon" />
         <link
           rel="apple-touch-icon"
