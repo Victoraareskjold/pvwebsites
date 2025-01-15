@@ -1,0 +1,34 @@
+{
+  "rewrites": [
+    {
+      "source": "/favicon.ico",
+      "destination": "/lynelektro/favicon.ico",
+      "has": [
+        {
+          "type": "host",
+          "value": "www.lynelektrosol.no"
+        }
+      ]
+    },
+    {
+      "source": "/favicon.ico",
+      "destination": "/vestelektro/favicon.ico",
+      "has": [
+        {
+          "type": "host",
+          "value": "www.vestelektrosol.no"
+        }
+      ]
+    },
+    {
+      "source": "/favicon.ico",
+      "destination": "/alfaelektro/favicon.ico",
+      "has": [
+        {
+          "type": "host",
+          "value": "www.alfaelektrosol.no"
+        }
+      ]
+    }
+  ]
+}
