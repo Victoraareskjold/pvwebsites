@@ -111,7 +111,7 @@ export function Navbar({ logo, title }) {
                 <li style={{ margin: "0.5rem 0" }}>
                   <Link
                     className="flex flex-row justify-between"
-                    href="/slide/landbruk"
+                    href="/solceller/landbruk"
                     style={{ textDecoration: "none" }}
                   >
                     <p className="font-medium text-lg">Landbruk</p>
@@ -121,7 +121,7 @@ export function Navbar({ logo, title }) {
                 <li style={{ margin: "0.5rem 0" }}>
                   <Link
                     className="flex flex-row justify-between"
-                    href="/slide/bedrift"
+                    href="/solceller/bedrift"
                     style={{ textDecoration: "none" }}
                   >
                     <p className="font-medium text-lg">Bedrift</p>
@@ -131,7 +131,7 @@ export function Navbar({ logo, title }) {
                 <li style={{ margin: "0.5rem 0" }}>
                   <Link
                     className="flex flex-row justify-between"
-                    href="/slide/enebolig-hytte"
+                    href="/solceller/enebolig-hytte"
                     style={{ textDecoration: "none" }}
                   >
                     <p className="font-medium text-lg">Enebolig/Hytte</p>
@@ -141,7 +141,7 @@ export function Navbar({ logo, title }) {
                 <li style={{ margin: "0.5rem 0" }}>
                   <Link
                     className="flex flex-row justify-between"
-                    href="/slide/borettslag"
+                    href="/solceller/borettslag"
                     style={{ textDecoration: "none" }}
                   >
                     <p className="font-medium text-lg">Borettslag</p>
@@ -152,7 +152,7 @@ export function Navbar({ logo, title }) {
             )}
           </li>
           <li style={{ margin: "0.5rem 0" }}>
-            <Link href="/about" style={{ textDecoration: "none" }}>
+            <Link href="/omoss" style={{ textDecoration: "none" }}>
               Om oss
             </Link>
           </li>
@@ -164,7 +164,7 @@ export function Navbar({ logo, title }) {
 
           <li style={{ margin: "0.5rem 0" }}>
             <Link
-              href="/contact"
+              href="/kontakt"
               style={{
                 textDecoration: "none",
                 textDecorationLine: "underline",
@@ -218,7 +218,7 @@ export function Navbar({ logo, title }) {
                 <li style={{ margin: "0.5rem 0" }}>
                   <Link
                     className="flex flex-row justify-between"
-                    href="/slide/landbruk"
+                    href="/solceller/landbruk"
                     style={{ textDecoration: "none" }}
                   >
                     <p className="font-medium text-lg">Landbruk</p>
@@ -228,7 +228,7 @@ export function Navbar({ logo, title }) {
                 <li style={{ margin: "0.5rem 0" }}>
                   <Link
                     className="flex flex-row justify-between"
-                    href="/slide/bedrift"
+                    href="/solceller/bedrift"
                     style={{ textDecoration: "none" }}
                   >
                     <p className="font-medium text-lg">Bedrift</p>
@@ -238,7 +238,7 @@ export function Navbar({ logo, title }) {
                 <li style={{ margin: "0.5rem 0" }}>
                   <Link
                     className="flex flex-row justify-between"
-                    href="/slide/enebolig-hytte"
+                    href="/solceller/enebolig-hytte"
                     style={{ textDecoration: "none" }}
                   >
                     <p className="font-medium text-lg">Enebolig/Hytte</p>
@@ -248,7 +248,7 @@ export function Navbar({ logo, title }) {
                 <li style={{ margin: "0.5rem 0" }}>
                   <Link
                     className="flex flex-row justify-between"
-                    href="/slide/borettslag"
+                    href="/solceller/borettslag"
                     style={{ textDecoration: "none" }}
                   >
                     <p className="font-medium text-lg">Borettslag</p>
@@ -259,7 +259,7 @@ export function Navbar({ logo, title }) {
             )}
           </li>
           <li>
-            <Link href="/about" style={{ textDecoration: "none" }}>
+            <Link href="/omoss" style={{ textDecoration: "none" }}>
               Om oss
             </Link>
           </li>
@@ -270,7 +270,7 @@ export function Navbar({ logo, title }) {
           </li>
           <li>
             <Link
-              href="/contact"
+              href="/kontakt"
               style={{
                 textDecoration: "none",
                 textDecorationLine: "underline",

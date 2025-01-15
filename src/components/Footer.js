@@ -23,25 +23,25 @@ export function Footer({
       <div className="flex flex-col gap-8 mt-8 md:flex-row md:justify-between md:w-4/5 max-w-screen-2xl justify-self-center">
         <div>
           <img src={logo} alt={title || "Logo"} style={{ height: "40px" }} />
-          <Link href="/privacyStatement">Personvernerklæring</Link>
+          <Link href="/personvern">Personvernerklæring</Link>
         </div>
         <div className="flex flex-col gap-6">
           <div className="flex flex-col">
             <h2 style={{ color: secondary || "white" }} className="font-medium">
               Solcelleløsning
             </h2>
-            <Link href="slide/landbruk">Landbruk</Link>
-            <Link href="slide/bedrift">Bedrift</Link>
-            <Link href="slide/enebolig-hytte">Enebolig/Hytte</Link>
-            <Link href="slide/borettslag">Borettslag</Link>
+            <Link href="/solceller/landbruk">Landbruk</Link>
+            <Link href="/solceller/bedrift">Bedrift</Link>
+            <Link href="/solceller/enebolig-hytte">Enebolig/Hytte</Link>
+            <Link href="/solceller/borettslag">Borettslag</Link>
           </div>
           <div className="flex flex-col">
             <h2 style={{ color: secondary || "white" }} className="font-medium">
               Relevante lenker
             </h2>
-            <Link href="/about">Om oss</Link>
+            <Link href="/omoss">Om oss</Link>
             <Link href="/blog">Blogg</Link>
-            <a href="/contact">Elektriker</a>
+            <a href="/kontakt">Elektriker</a>
           </div>
         </div>
         <div className="md:flex md:flex-col md:gap-6">

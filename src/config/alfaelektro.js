@@ -28,7 +28,7 @@ export default {
   },
 
   advantage: {
-    heroImage: "/alfaelektro/oistein.png",
+    heroImage: "/alfaelektro/heroImage.png",
     image: "/alfaelektro/2roofers.png",
   },
 

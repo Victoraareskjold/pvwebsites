@@ -108,7 +108,7 @@ export default {
   nynorskSlideBtn: "Sjå meir",
 
   footer: {
-    email: "asbjorn@vestelektro.no",
+    email: "asbjorn@vest-elektro.no",
     organizationNumber: "912487733",
     address: "Hatlandsmyro 19, 5412 Stord, Noreg",
   },

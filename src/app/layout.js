@@ -20,16 +20,19 @@ export default async function RootLayout({ children }) {
 
   config.language = configName === "vestelektro" ? "nn" : "nb";
 
+  const faviconUrl = config.favicon || "/favicon.ico";
+
   return (
     <html>
       <head>
         <link rel="stylesheet" href="/globals.css" />
         <title>{config.title || "Standard Tittel"}</title>
+        <link rel="icon" href={faviconUrl} type="image/x-icon" />
         <link
-          rel="icon"
-          type="image/png"
-          href={config.favicon || "/favicon.ico"}
+          rel="apple-touch-icon"
+          href={`${faviconUrl.replace(".ico", ".png")}`}
         />
+
         {config.hubspotScript && (
           <script
             type="text/javascript"

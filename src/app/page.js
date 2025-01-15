@@ -38,7 +38,7 @@ export default function Page() {
         ) : (
           /* Bakgrunnsbilde */
           <div
-            className="absolute inset-0 w-full h-full"
+            className="absolute inset-0 w-full h-full bottom-0"
             style={{
               backgroundImage: `url(${
                 config.hero?.background || "/vestelektro/background.png"
@@ -140,16 +140,16 @@ export default function Page() {
         />
       </section>
 
-      <section id="advantage" className="flex flex-col items-center">
+      <section id="advantage" className="flex flex-col items-center ">
         <h3 className="text-center md:text-3xl">
           {config.advantage?.header || "Fordelen med en lokal installatør"}
         </h3>
         <div className="divider mb-8 mt-2"></div>
-        <div className="relative">
+        <div className="relative bg-black w-full">
           <img
             src={config.advantage?.heroImage || "heroImage.png"}
             alt="Hero"
-            className="w-full h-[50vh] md:max-w-screen-2xl md:max-h-[940px] md:h-full object-cover mx-auto"
+            className="w-full h-[50vh] md:max-w-screen-2xl md:max-h-[940px] md:h-full object-cover mx-auto object-cover"
           />
           <div className="blackFade2"></div>
         </div>
