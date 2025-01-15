@@ -3,6 +3,8 @@ export default {
   title: "Alfa Elektro",
   logo: "/alfaelektro/alfaelektroLogo.png",
   favicon: "/alfaelektro/favicon.ico",
+  metaDesc:
+    "Vi inviterer deg til å ta kontakt med oss for å lære mer om vårt utvidede tilbud innen solpaneler og hvordan du kan dra nytte av solenergi her i Ålesund. Sammen kan vi bidra til en grønnere fremtid og en mer bærekraftig verden.",
   primary: "#FFC069",
   secondary: "#D3A45E",
   hubspotScript: "//js-eu1.hs-scripts.com/143783063.js",
