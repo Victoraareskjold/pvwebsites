@@ -23,6 +23,7 @@ export default function Page() {
   return (
     <main>
       <section className="hero pt-32 px-4 md:pt-80 relative" id="main">
+        <div className="absolute inset-0 bg-black opacity-20 z-10"></div>
         {/* Bakgrunnsvideo */}
         {config.hero?.video ? (
           <video

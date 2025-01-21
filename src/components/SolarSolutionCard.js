@@ -13,7 +13,7 @@ export function SolarSolutionCard({ image, title, description, slug }) {
         <h4 className="mt-2 line-clamp-2 min-h-14">{description}</h4>
 
         <Link
-          href={`/slide/${slug}`}
+          href={`/solceller/${slug}`}
           className="inline-block mt-8 px-4 py-2 border border-white rounded-md
           text-white hover:bg-white hover:text-black duration-500"
         >

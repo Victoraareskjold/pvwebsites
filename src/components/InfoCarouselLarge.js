@@ -53,7 +53,7 @@ export default function InfoCarouselLarge({ slides }) {
                 {content.visibleDescription}
               </p>
               <Link
-                href={`/slide/${slide.slug}`}
+                href={`/solceller/${slide.slug}`}
                 className={`mt-4 px-4 py-2 border hover:bg-white hover:text-black duration-500 ${
                   currentSlide === index
                     ? "border-white text-white"

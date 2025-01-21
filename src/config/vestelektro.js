@@ -3,7 +3,8 @@ export default {
   title: "Vest Elektro",
   logo: "/vestelektro/vestelektroLogo.png",
   favicon: "/vestelektro/favicon.ico",
-
+  metaDesc:
+    "Vi inviterer deg til å ta kontakt med oss for å lære meir om vårt utvida tilbod innan solcellepanel og korleis du kan dra nytte av solenergi. Saman kan vi bidra til ein grønare framtid og ei meir berekraftig verd.",
   primary: "#FFC069",
   secondary: "#D3A45E",
   hubspotScript: "",
