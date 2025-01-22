@@ -17,7 +17,7 @@ export default {
         secondary: "var(--color-secondary)",
       },
       height: {
-        1280: "1280px",
+        1380: "1280px",
         820: "820px",
       },
     },

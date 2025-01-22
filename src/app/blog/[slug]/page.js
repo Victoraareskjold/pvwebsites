@@ -37,7 +37,7 @@ export default async function BlogPost({ params }) {
         {blog.image ? (
           <div className="relative overflow-hidden">
             <img
-              className="w-full aspect-video"
+              className="w-full aspect-video object-cover"
               src={blog.image}
               alt={content.title || "Blogg bilde"}
             />

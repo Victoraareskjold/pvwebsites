@@ -24,6 +24,12 @@ export default function Page() {
     <main>
       <section className="hero pt-32 px-4 md:pt-80 relative" id="main">
         <div className="absolute inset-0 bg-black opacity-20 z-10"></div>
+        <div
+          className="absolute bottom-0 left-0 z-20 w-full h-8"
+          style={{
+            background: "linear-gradient(0deg, #fff 0%, rgba(0, 0, 0, 0) 100%)",
+          }}
+        ></div>
         {/* Bakgrunnsvideo */}
         {config.hero?.video ? (
           <video
@@ -141,18 +147,25 @@ export default function Page() {
         />
       </section>
 
-      <section id="advantage" className="flex flex-col items-center ">
+      <section id="advantage" className="flex flex-col items-center">
         <h3 className="text-center md:text-3xl">
           {config.advantage?.header || "Fordelen med en lokal installatør"}
         </h3>
-        <div className="divider mb-8 mt-2"></div>
-        <div className="relative bg-black w-full">
-          <img
-            src={config.advantage?.heroImage || "heroImage.png"}
-            alt="Hero"
-            className="w-full h-[50vh] md:max-w-screen-2xl md:max-h-[940px] md:h-full object-cover mx-auto object-cover"
-          />
-          <div className="blackFade2"></div>
+        <div className="divider mb-20 mt-2"></div>
+        <div className="bg-black w-full flex justify-center relative">
+          <div className="blackFade5"></div>
+          <div className="relative max-w-screen-2xl">
+            <img
+              src={config.advantage?.heroImage || "heroImage.png"}
+              alt="Hero"
+              style={{ position: "relative" }}
+              className="w-full h-[50vh] md:max-w-screen-2xl md:max-h-[940px] md:h-full object-cover mx-auto object-cover"
+            />
+            <div className="blackFade"></div>
+            <div className="blackFade2"></div>
+            <div className="blackFade3"></div>
+            <div className="blackFade4"></div>
+          </div>
         </div>
 
         <div className="bg-black w-full text-white flex flex-col gap-8 px-4 ">
@@ -205,7 +218,7 @@ export default function Page() {
         <div className="blackFade"></div>
         <iframe
           src={`https://pvmap.vercel.app/?site=${config.title}`}
-          className="h-820 md:h-1280"
+          className="h-820 md:h-1380"
           width="100%"
           style={{ padding: "10px 0" }}
         />

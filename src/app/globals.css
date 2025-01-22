@@ -166,9 +166,10 @@ input[type="range"]:disabled {
 .blackFade {
   background: linear-gradient(180deg, #000 0%, rgba(0, 0, 0, 0) 100%);
   position: absolute;
-  height: 64px;
+  height: 94px;
   width: 100%;
   top: 0;
+  pointer-events: none;
 }
 
 .blackFade2 {
@@ -177,6 +178,7 @@ input[type="range"]:disabled {
   height: 64px;
   width: 100%;
   bottom: 0;
+  pointer-events: none;
 }
 
 .blackFade3 {
@@ -195,4 +197,13 @@ input[type="range"]:disabled {
   width: 64px;
   right: 0;
   top: 0;
+}
+
+.blackFade5 {
+  background: linear-gradient(0deg, #000 0%, rgba(0, 0, 0, 0) 100%);
+  position: absolute;
+  height: 64px;
+  width: 100%;
+  right: 0;
+  top: -64px;
 }
