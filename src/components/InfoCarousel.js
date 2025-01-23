@@ -1,21 +1,42 @@
 "use client";
 import { useSiteConfig } from "@/contexts/siteConfigContext";
 import { useEffect, useState } from "react";
+import { useSwipeable } from "react-swipeable";
 import { SolarSolutionCard } from "./SolarSolutionCard";
 
 export default function InfoCarousel({ slides }) {
   const [currentSlide, setCurrentSlide] = useState(0);
   const { language } = useSiteConfig();
 
+  const goToSlide = (index) => {
+    if (index < 0) {
+      setCurrentSlide(slides.length - 1); // Gå til siste slide
+    } else if (index >= slides.length) {
+      setCurrentSlide(0); // Gå til første slide
+    } else {
+      setCurrentSlide(index);
+    }
+  };
+
+  const swipeHandlers = useSwipeable({
+    onSwipedLeft: () => goToSlide(currentSlide + 1),
+    onSwipedRight: () => goToSlide(currentSlide - 1),
+    preventDefaultTouchmoveEvent: true,
+    trackMouse: true, // For testing på desktop med mus
+  });
+
   useEffect(() => {
     const timer = setInterval(() => {
-      setCurrentSlide((prev) => (prev + 1) % slides.length);
+      goToSlide(currentSlide + 1);
     }, 5000);
     return () => clearInterval(timer);
-  }, [slides.length]);
+  }, [currentSlide, slides.length]);
 
   return (
-    <div className="overflow-hidden w-full bg-black">
+    <div
+      className="overflow-hidden w-full bg-black mt-12"
+      {...swipeHandlers} // Legg til swipe-håndtering
+    >
       {/* Wrapper for å animere alle slides */}
       <div
         className="flex transition-transform duration-1000 ease-in-out"
@@ -37,7 +58,7 @@ export default function InfoCarousel({ slides }) {
               <div className="w-full mr-8">
                 <SolarSolutionCard
                   image={slide.image}
-                  title={content.title}
+                  title={content.displayTitle}
                   description={content.visibleDescription}
                   slug={slide.slug}
                 />

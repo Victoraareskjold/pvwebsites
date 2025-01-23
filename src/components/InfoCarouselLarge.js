@@ -41,7 +41,7 @@ export default function InfoCarouselLarge({ slides }) {
                     : "text-white opacity-75"
                 }`}
               >
-                {content.title}
+                {content.displayTitle}
               </h3>
               <p
                 className={`mt-2 mb-4 ${

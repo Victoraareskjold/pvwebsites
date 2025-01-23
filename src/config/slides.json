@@ -3,6 +3,7 @@
     "image": "/carousel/image1.png",
     "slug": "landbruk",
     "nb": {
+      "displayTitle": "Landbruk",
       "title": "Fremtidens Energi for Landbruk",
       "description": "Vi leverer skreddersydde solcelleløsninger som effektiviserer gårdsdriften og styrker et grønnere landbruk.",
       "visibleDescription": "Solenergiløsninger tilpasset landbrukets drift",
@@ -14,7 +15,8 @@
       "advantageDescription3": "Et solcelleanlegg med lang levetid og minimalt vedlikehold er en smart investering som kan heve gårdens markedsverdi."
     },
     "nn": {
-      "title": "Framtidas energi for landbruk",
+      "displayTitle": "Landbruk",
+      "title": "Framtidas energi for Landbruk",
       "description": "Vi leverer skreddarsydde solcelleløysingar som effektiviserer gardsdrifta og styrkjer eit grønnare landbruk.",
       "visibleDescription": "Solenergiløysingar tilpassa drifta i landbruket",
       "advantageTitle1": "Økonomisk gevinst",
@@ -29,6 +31,7 @@
     "image": "/carousel/image2.png",
     "slug": "bedrift",
     "nb": {
+      "displayTitle": "Bedrift",
       "title": "Fremtidens Energi for Bedrift",
       "description": "Med fallende kostnader og gunstige støtteordninger har det aldri vært mer lønnsomt å satse på solkraft innen næring.",
       "visibleDescription": "Effektiv storskala produksjon for ulike takstørrelser",
@@ -40,7 +43,8 @@
       "advantageDescription3": "Solceller på næringseiendom er mer lønnsomme enn noensinne, og i mange prosjekter kan de nedbetales på bare 4–7 år."
     },
     "nn": {
-      "title": "Framtidas energi for bedrift",
+      "displayTitle": "Bedrift",
+      "title": "Framtidas energi for Bedrift",
       "description": "Med fallande kostnader og gunstige støtteordningar har det aldri vore meir lønnsamt å satse på solkraft innan næring.",
       "visibleDescription": "Effektiv storskala produksjon for ulike takstorleikar",
       "advantageTitle1": "Enova-støtta gir ekstra lønsemd",
@@ -55,6 +59,7 @@
     "image": "/carousel/image3.png",
     "slug": "enebolig-hytte",
     "nb": {
+      "displayTitle": "Enebolig/Hytte",
       "title": "Fremtidens Energi for Enebolig/Hytte",
       "description": "Kutt strømutgiftene og øk boligens verdi ved å produsere din egen strøm, som du enten kan bruke selv eller selge videre.",
       "visibleDescription": "Tilpassede løsninger for hjem og hytter",
@@ -66,6 +71,7 @@
       "advantageDescription3": "Ved å installere solcellepaneler gjør du boligen din klar for morgendagens energikrav og øker samtidig verdien ved et fremtidig salg."
     },
     "nn": {
+      "displayTitle": "Einebustad",
       "title": "Framtidas energi for Einebustad",
       "description": "Kutt straumutgiftene og auka bustadens verdi ved å produsere din eigen straum, som du anten kan bruke sjølv eller selje vidare.",
       "visibleDescription": "Tilpassa løysingar for heim og hytter",
@@ -81,6 +87,7 @@
     "image": "/carousel/image4.png",
     "slug": "borettslag",
     "nb": {
+      "displayTitle": "Borettslag",
       "title": "Fremtidens energi for Borettslag",
       "description": "Solceller kutter kostnadene for både beboere og fellesarealer, og gjennom oss blir overgangen både smidig og lønnsom.",
       "visibleDescription": "Solenergi for fellesarealer med stor brukergruppe",
@@ -92,6 +99,7 @@
       "advantageDescription3": "Enova kan nå dekke opptil 30 % av kostnadene for ditt solcelleanlegg, med en maksimal støtte på 10 millioner kroner."
     },
     "nn": {
+      "displayTitle": "Bustadlag",
       "title": "Framtidas Energi for Bustadlag",
       "description": "Solceller kuttar kostnadene for både bebuarar og fellesareal, og gjennom oss blir overgangen både smidig og lønsam.",
       "visibleDescription": "Solenergi for fellesareal med stor brukargruppe",

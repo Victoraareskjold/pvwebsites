@@ -14,7 +14,7 @@ export default {
   },
 
   hero: {
-    header: "SOLCELLER ØSTLANDET",
+    header: "SOLCELLER ØSTFOLD",
     video: "/lynelektro/lynHeroVideo.mp4",
   },
 
@@ -36,7 +36,7 @@ export default {
   },
 
   solar: {
-    header: "SOLCELLER ØSTLANDET",
+    header: "SOLCELLER ØSTFOLD",
   },
 
   footer: {

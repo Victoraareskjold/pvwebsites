@@ -14,7 +14,8 @@
     "next": "15.1.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
-    "react-multi-carousel": "^2.8.5"
+    "react-multi-carousel": "^2.8.5",
+    "react-swipeable": "^7.0.2"
   },
   "devDependencies": {
     "postcss": "^8",

@@ -62,7 +62,7 @@ export default function Page() {
             {config.hero?.header || "Firmanavn"}
           </h2>
 
-          <h1 className="text-white text-center relative inline-block lg:text-6xl">
+          <h1 className="text-white text-center relative inline-block !text-5xl">
             <span className="block md:inline">Din Lokale </span>
             <span className="block md:inline">
               Installatør
@@ -140,23 +140,26 @@ export default function Page() {
           {config.whyInvest?.header || "Hvorfor investere i solcellepanel?"}
         </h3>
         <div className="divider mb-8 mt-2"></div>
-        <img className="ml-2 md:hidden" src="illustration.png" />
+        <img className="ml-2 md:hidden" src="/illustration.png" />
         <img
           className="ml-2 hidden md:block max-w-screen-2xl w-4/5"
-          src="ilustrationPc.png"
+          src="/ilustrationPc.png"
         />
       </section>
 
-      <section id="advantage" className="flex flex-col items-center">
-        <h3 className="text-center md:text-3xl">
+      <section
+        id="advantage"
+        className="flex flex-col items-center bg-black relative"
+      >
+        <div className="blackFade5"></div>
+        <h3 className="text-center md:text-3xl text-white pt-8">
           {config.advantage?.header || "Fordelen med en lokal installatør"}
         </h3>
-        <div className="divider mb-20 mt-2"></div>
-        <div className="bg-black w-full flex justify-center relative">
-          <div className="blackFade5"></div>
+        <div className="divider mb-20 mt-2 !bg-white"></div>
+        <div className="bg-black w-full flex justify-center">
           <div className="relative max-w-screen-2xl">
             <img
-              src={config.advantage?.heroImage || "heroImage.png"}
+              src={config.advantage?.heroImage || "/heroImage.png"}
               alt="Hero"
               style={{ position: "relative" }}
               className="w-full h-[50vh] md:max-w-screen-2xl md:max-h-[940px] md:h-full object-cover mx-auto object-cover"
@@ -226,14 +229,14 @@ export default function Page() {
       </section>
 
       <section className="bg-black py-24">
-        <div className="px-4 mb-24 flex flex-col gap-4">
+        <div className="px-4 flex flex-col gap-4">
           <h2 className="funkysubtitleWhite w-fit md:text-center md:self-center">
             {config.solar?.header || "undefined"}
           </h2>
           <h3 className="text-white font-medium md:text-center xl:text-3xl">
             {config.solar?.header2 || "Utforsk våre solcelleløsninger"}
           </h3>
-          <h4 className="text-white md:max-w-4xl md:self-center">
+          <h4 className="text-white md:max-w-4xl md:self-center text-center">
             {config.solar?.header3 ||
               "Om du eier en enebolig, driver et bedriftsbygg, er en del av et borettslag eller er involvert i landbruk, tilbyr vi solcelleløsninger som passer dine behov."}
           </h4>
@@ -267,7 +270,7 @@ export default function Page() {
 
       <section className="px-4 py-12" id="faq">
         <h3 className="md:text-center md:text-3xl">
-          {config.faq?.header || "Ofte stile spørsmål"}
+          {config.faq?.header || "Ofte stilte spørsmål"}
         </h3>
         <div className="grid md:grid-cols-2 gap-4 md:max-w-7xl md:mx-auto md:gap-8 mt-12">
           <Dropdown
