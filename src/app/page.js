@@ -99,12 +99,12 @@ export default function Page() {
         style={{ background: config.primary || "black" }}
         className="mx-4 my-20 rounded-xl p-2 flex flex-col gap-4 md:hidden"
       >
-        <h3 className="text-white text-center">
+        <h3 className="text-white text-center text-2xl py-4">
           {config.potentialSaving?.header ||
             "Hvor stor inntekt kan solcellene gi deg?"}
         </h3>
         <IncomeCalculator />
-        <p className="text-white mx-10">
+        <p className="text-white mx-10 py-4">
           {config.potentialSaving?.p ||
             "I regneeksempelet har vi tatt utgangspunkt i en fast pris på anlegget på 160.000,- etter Enova-støtte, med en forventet årlig produksjon på 13.000 kWh."}
         </p>
@@ -117,8 +117,8 @@ export default function Page() {
         style={{ background: config.primary || "black" }}
         className="mx-4 my-20 rounded-xl md:p-4 gap-4 hidden md:flex flex-row max-w-5xl mx-auto"
       >
-        <div className="w-3/5 flex flex-col gap-2 self-center px-12">
-          <h3 className="text-white font-regular ">
+        <div className="w-3/5 flex flex-col gap-6 self-center px-12">
+          <h3 className="text-white font-regular  text-2xl">
             {config.potentialSaving?.header ||
               "Hvor stor inntekt kan solcellene gi deg?"}
           </h3>
@@ -151,7 +151,6 @@ export default function Page() {
         id="advantage"
         className="flex flex-col items-center bg-black relative"
       >
-        <div className="blackFade5"></div>
         <h3 className="text-center md:text-3xl text-white pt-8">
           {config.advantage?.header || "Fordelen med en lokal installatør"}
         </h3>
@@ -217,14 +216,38 @@ export default function Page() {
         </div>
       </section>
 
-      <section className="relative bg-black" id="pvmap">
+      <section
+        className="relative bg-black h-900 md:h-1380 flex justify-center"
+        id="pvmap"
+        style={{
+          backgroundImage: `url("/vestelektro/background.png")`,
+          backgroundSize: "cover",
+        }}
+      >
         <div className="blackFade"></div>
-        <iframe
-          src={`https://pvmap.vercel.app/?site=${config.title}`}
-          className="h-820 md:h-1380"
-          width="100%"
-          style={{ padding: "10px 0" }}
-        />
+
+        <div className="px-4 md:px-12 xl:px-12 w-full self-center flex flex-col gap-8 max-w-7xl">
+          <h1 className="text-white text-4xl lg:text-6xl">
+            Er solceller en god <br /> investering for deg?
+          </h1>
+          <p className="text-white text-xl max-w-2xl">
+            Skriv inn adressen din og se hvilken løsning som passer deg best.
+            Utforsk i ditt eget tempo, og om du lurer på noe, er vi bare en
+            melding unna – helt uforpliktende.
+          </p>
+
+          <Link
+            style={{
+              background: "linear-gradient(90deg, #FF9D00 23%, #FFD05A 92%)",
+            }}
+            className="max-w-sm funky p-2 rounded-md text-black flex flex-row gap-2 justify-center hover:bg-white hover:text-black duration-500"
+            href={"/solkart"}
+          >
+            <h2>Prøv vår solcellekalkulator</h2>
+            <img src="/search.png" className="w-6 self-center" />
+          </Link>
+        </div>
+
         <div className="blackFade2"></div>
       </section>
 
@@ -236,7 +259,7 @@ export default function Page() {
           <h3 className="text-white font-medium md:text-center xl:text-3xl">
             {config.solar?.header2 || "Utforsk våre solcelleløsninger"}
           </h3>
-          <h4 className="text-white md:max-w-4xl md:self-center text-center">
+          <h4 className="text-white md:max-w-4xl md:self-center md:text-center text-xl">
             {config.solar?.header3 ||
               "Om du eier en enebolig, driver et bedriftsbygg, er en del av et borettslag eller er involvert i landbruk, tilbyr vi solcelleløsninger som passer dine behov."}
           </h4>
@@ -253,8 +276,10 @@ export default function Page() {
         <div className="blackFade"></div>
 
         <div className="mx-4 my-20 xl:px-48">
-          <h4 className="opacity-50">{config.blog?.header || "Utfork..."}</h4>
-          <h3 className="mt-2 mb-2">
+          <h4 className="opacity-50 text-xl">
+            {config.blog?.header || "Utforsk..."}
+          </h4>
+          <h3 className="mt-2 mb-2 text-3xl">
             {config.blog?.header2 || "Våre blogg innlegg"}
           </h3>
           <Link

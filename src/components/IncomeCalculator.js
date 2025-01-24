@@ -20,16 +20,16 @@ export function IncomeCalculator() {
       style={{ borderColor: "#FF9D00" }}
     >
       <div className="p-4 gap-6 flex flex-col ">
-        <h4 className="text-center ">Inntekt Kalkulator</h4>
+        <h4 className="text-center text-2xl">Inntekt Kalkulator</h4>
         <div className="flex flex-row gap-2 self-center">
           <img src="/wave.png" className="w-6 h-6" />
-          <h5 className="text-center text-orange-500 ">
+          <h5 className="text-center text-orange-500 text-lg">
             {config.potentialSaving?.header2 ||
               "Det handler ikke bare om kWh pris - solceller kutter også nettleien."}
           </h5>
         </div>
 
-        <h5 className="text-center ">
+        <h5 className="text-center text-lg">
           {config.potentialSaving?.p2 ||
             "“Dra slideren og estimer gjennomsnittlig (kWh + nettleiepris).”"}
         </h5>
@@ -48,19 +48,19 @@ export function IncomeCalculator() {
           <h5>4 Kr</h5>
           <h5>6 Kr</h5>
         </div>
-        <h5 className="italic text-center">
+        <h5 className="italic text-center text-lg">
           {config.potentialSaving?.p3 ||
             "Din anslåtte gjennomsnittlige strømpris: "}
           <span className="text-red-500 font-bold">{elPrice}</span> kr kWh.
         </h5>
         <div className="h-px w-full bg-regularOrange"></div>
-        <h4 className=" text-center font-semibold">
+        <h4 className=" text-center font-semibold text-xl">
           Inntekt fra solenergi per år:{" "}
           {Number(yearlyPrice.toFixed(0)).toLocaleString("no-NO")},-
         </h4>
       </div>
       <div>
-        <h4 className=" text-center text-white bg-black w-full p-4 rounded-xl mb-0 font-semibold">
+        <h4 className=" text-center text-white bg-black w-full p-4 rounded-xl mb-0 font-semibold text-xl">
           Inntekt fra solenergi over 30 år:{" "}
           {Number((yearlyPrice * 30).toFixed(0)).toLocaleString("no-NO")},-
         </h4>
