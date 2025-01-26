@@ -20,6 +20,11 @@ h2 {
   border-radius: 100%;
 }
 
+.solcelleknapp:hover {
+  background-color: "#white";
+  background: none !important;
+}
+
 h3 {
   font-size: 20px;
 }

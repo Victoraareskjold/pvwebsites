@@ -240,7 +240,7 @@ export default function Page() {
             style={{
               background: "linear-gradient(90deg, #FF9D00 23%, #FFD05A 92%)",
             }}
-            className="max-w-sm funky p-2 rounded-md text-black flex flex-row gap-2 justify-center hover:bg-white hover:text-black duration-500"
+            className="solcelleknapp max-w-sm funky p-2 rounded-md text-black flex flex-row gap-2 justify-center hover:!bg-white duration-1000"
             href={"/solkart"}
           >
             <h2>Prøv vår solcellekalkulator</h2>
