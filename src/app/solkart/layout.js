@@ -19,9 +19,9 @@ export default async function SolkartLayout({ children }) {
   config.language = configName === "vestelektro" ? "nn" : "nb";
 
   return (
-    <html>
-      <body>
-        <Navbar logo={config.logo} title={config.title} />
+    <html className="h-full">
+      <body className="h-full">
+        <Navbar logo={config.logo} title={config.title} pos={"absolute"} />
         <SiteConfigProvider config={config}>{children}</SiteConfigProvider>
       </body>
     </html>

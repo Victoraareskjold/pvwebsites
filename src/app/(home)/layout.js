@@ -48,7 +48,7 @@ export default async function RootLayout({ children }) {
         )}
       </head>
       <body>
-        <Navbar logo={config.logo} title={config.title} />
+        <Navbar logo={config.logo} title={config.title} pos={"fixed"} />
 
         <SiteConfigProvider config={config}>{children}</SiteConfigProvider>
 

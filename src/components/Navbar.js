@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { useState } from "react";
 
-export function Navbar({ logo, title }) {
+export function Navbar({ logo, title, pos }) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
@@ -24,7 +24,7 @@ export function Navbar({ logo, title }) {
           justifyContent: "space-between",
           alignItems: "center",
           padding: "1rem",
-          position: "fixed",
+          position: pos,
           width: "100%",
           backgroundColor:
             isMenuOpen || isDropdownOpen ? "#2D2D2D" : "rgba(0, 0, 0, 0.25)",

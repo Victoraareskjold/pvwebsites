@@ -6,7 +6,7 @@ export default function Solkart() {
   const config = useSiteConfig();
 
   return (
-    <div style={{ backgroundColor: "#1E1E1E" }} className="h-screen">
+    <div style={{ backgroundColor: "#1E1E1E" }} className="h-full">
       <iframe
         src={`https://pvmap.vercel.app/?site=${config.title}`}
         className="h-full lg:!pb-0"
