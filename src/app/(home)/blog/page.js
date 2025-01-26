@@ -1,6 +1,6 @@
 "use client";
 import { useSiteConfig } from "@/contexts/siteConfigContext";
-import blogs from "../../config/blogs.json";
+import blogs from "../../../config/blogs.json";
 import "./blog.css";
 
 import Link from "next/link";

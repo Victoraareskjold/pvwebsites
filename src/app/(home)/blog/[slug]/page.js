@@ -1,5 +1,5 @@
 import { headers } from "next/headers";
-import blogs from "../../../config/blogs.json";
+import blogs from "../../../../config/blogs.json";
 import "../blog.css";
 
 export default async function BlogPost({ params }) {
