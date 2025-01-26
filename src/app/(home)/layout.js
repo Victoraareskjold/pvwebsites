@@ -3,7 +3,7 @@ import { Footer } from "@/components/Footer";
 import { Navbar } from "@/components/Navbar";
 import { SiteConfigProvider } from "@/contexts/siteConfigContext";
 import { headers } from "next/headers";
-import "../app/globals.css";
+import "../globals.css";
 
 // Dynamisk import av konfigurasjoner
 const configs = {

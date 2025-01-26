@@ -1,14 +1,12 @@
 import { Navbar } from "@/components/Navbar";
+import "../globals.css";
 
 export default function SolkartLayout({ children }) {
   return (
-    <html lang="en">
-      <head>
-        <title>Spesialside</title>
-      </head>
+    <html>
       <body>
         <Navbar />
-        <main>{children}</main>
+        {children}
       </body>
     </html>
   );

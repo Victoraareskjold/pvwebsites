@@ -14,7 +14,7 @@ import InfoCarouselLarge from "@/components/InfoCarouselLarge";
 import { RoofCapacityButton } from "@/components/RoofCapacityButton";
 import Link from "next/link";
 import { useState } from "react";
-import slides from "../config/slides";
+import slides from "../../config/slides";
 
 export default function Page() {
   const config = useSiteConfig();
@@ -279,7 +279,7 @@ export default function Page() {
           <h4 className="opacity-50 text-xl">
             {config.blog?.header || "Utforsk..."}
           </h4>
-          <h3 className="mt-2 mb-2 text-3xl">
+          <h3 className="mt-2 mb-8 text-3xl">
             {config.blog?.header2 || "Våre blogg innlegg"}
           </h3>
           <Link
