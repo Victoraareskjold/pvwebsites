@@ -1,6 +1,7 @@
 // eslint-disable-next-line import/no-anonymous-default-export
 export default {
   title: "Lyn Elektro Sol",
+  site: "lynelektro",
   logo: "/lynelektro/lynlogo.png",
   favicon: "/lynelektro/favicon.ico",
   metaDesc:
