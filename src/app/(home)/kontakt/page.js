@@ -1,6 +1,7 @@
 "use client";
 import { useSiteConfig } from "@/contexts/siteConfigContext";
 import emailjs from "@emailjs/browser";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useRef, useState } from "react";
 
@@ -9,6 +10,9 @@ export default function Contact() {
   const form = useRef();
   const [errorMessage, setErrorMessage] = useState("");
   const router = useRouter();
+
+  const [sent, setSent] = useState(false);
+  const [username, setUsername] = useState("");
 
   const sendEmail = (e) => {
     e.preventDefault();
@@ -20,7 +24,7 @@ export default function Contact() {
     const message = formData.get("message");
     const site = formData.get("site");
 
-    if (!name || !email || !message) {
+    if (!name || !email || !phone || !message) {
       setErrorMessage("Alle felt må fylles ut!");
       return;
     }
@@ -39,9 +43,9 @@ export default function Contact() {
       .then(
         () => {
           console.log("SUCCESS!");
-          alert("E-posten ble sendt!");
+          setUsername(name);
           form.current.reset();
-          router.push("/");
+          setSent(true);
         },
         (error) => {
           console.error("FAILED...", error.text);
@@ -49,6 +53,26 @@ export default function Contact() {
         }
       );
   };
+
+  if (sent) {
+    return (
+      <div className="py-24 min-h-screen px-12 justify-center flex flex-col bg-regularOrange text-black text-center">
+        <p className="text-center mb-12">
+          Hei {username}!
+          <br />
+          <br />
+          {config.contact?.thankyou ||
+            "Vi har mottatt beskjeden din og vil ta kontakt med deg så snart som mulig 😊"}
+        </p>
+        <Link
+          href="/"
+          className="bg-white p-2 rounded-md text-black w-full max-w-64 flex flex-row gap-2 justify-center hover:!bg-black hover:!text-white duration-500 self-center"
+        >
+          Hjem
+        </Link>
+      </div>
+    );
+  }
 
   return (
     <div className="py-24 min-h-screen px-12 justify-center flex flex-col bg-regularOrange text-black">
@@ -84,7 +108,7 @@ export default function Contact() {
         <button
           type="submit"
           value="Send"
-          className="bg-black text-white py-2 rounded-md"
+          className="bg-white p-2 rounded-md text-black w-full flex flex-row gap-2 justify-center hover:!bg-black hover:!text-white duration-500 self-center"
         >
           Send
         </button>

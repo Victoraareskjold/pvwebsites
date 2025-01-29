@@ -1,6 +1,6 @@
 // eslint-disable-next-line import/no-anonymous-default-export
 export default {
-  title: "Vest Elektro",
+  title: "Vest Elektro Sol",
   site: "vestelektro",
   logo: "/vestelektro/vestelektroLogo.png",
   favicon: "/vestelektro/favicon.ico",
@@ -30,7 +30,7 @@ export default {
 
   potentialSaving: {
     header: "Kor stor inntekt kan solcellene gje deg?",
-    p: "I rekneeksempelet har vi teke utgangspunkt i ein fast pris på anlegget på 160 000,- etter Enova-støtte, med ei forventa årleg produksjon på 13 000 kWh.",
+    p: "I rekneeksempelet har vi teke utgangspunkt i ein fast pris på anlegget på 160 000,- etter Enova-støtte, med ei forventa årleg produksjon på 17.000 kWh.",
     header2:
       "Det handlar ikkje berre om kWh-pris – solceller kuttar òg nettleiga.",
     p2: "“Dra slideren og estimer gjennomsnittleg (kWh + nettleigepris) for 30 år.”",
@@ -100,6 +100,11 @@ export default {
     image2: "/vestelektro/omOssBildeVest.png",
     p4: "I tråd med vår visjon om å vere ein leiande aktør innanfor elektriske installasjonar, ønskjer vi no å utvide vårt tenestetilbod til å inkludere levering og installasjon av solceller. Vi ser eit aukande behov for berekraftige energiløysingar både hos private hushaldningar og næringskundar, og vi er klare til å møte denne etterspurnaden med vår ekspertise og engasjement.",
     p5: "Vårt mål er å tilby skreddarsydde solcelleløysingar som ikkje berre reduserer energikostnadene, men også bidreg til ei grønare framtid. Vi vil sikre at våre kundar får den beste rådgjevinga og dei mest effektive løysingane, tilpassa deira spesifikke behov og føresetnader. Med vår erfaring og fokus på kvalitet, er vi godt rusta til å levere solcelleanlegg som gir maksimal yting og lang levetid. Vi ser fram til å hjelpe både private og næringskundar med å ta steget mot ei meir berekraftig energiframtid. Kontakt oss i dag for ein uforpliktande samtale om korleis vi kan hjelpe deg med å integrere solceller i ditt energisystem.",
+  },
+
+  contact: {
+    thankyou:
+      "Vi har motteke meldinga di og vil ta kontakt med deg så snart som mogleg 😊",
   },
 
   twoBtn: {

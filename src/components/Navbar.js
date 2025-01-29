@@ -1,7 +1,8 @@
 "use client";
 
 import Link from "next/link";
-import { useState } from "react";
+import { usePathname } from "next/navigation";
+import { useEffect, useState } from "react";
 
 export function Navbar({ logo, title, pos }) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -14,6 +15,13 @@ export function Navbar({ logo, title, pos }) {
   const toggleDropdown = () => {
     setIsDropdownOpen((prev) => !prev);
   };
+
+  const pathname = usePathname();
+
+  useEffect(() => {
+    setIsMenuOpen(false);
+    setIsDropdownOpen(false);
+  }, [pathname]);
 
   return (
     <>

@@ -6,12 +6,12 @@ import { useState } from "react";
 export function IncomeCalculator() {
   const config = useSiteConfig();
   const [elPrice, setElPrice] = useState(1.5);
-  const [yearlyPrice, setYearlyPrice] = useState(elPrice * 13000);
+  const [yearlyPrice, setYearlyPrice] = useState(elPrice * 17000);
 
   const handleChange = (event) => {
     const value = event.target.value;
     setElPrice(value);
-    setYearlyPrice(elPrice * 13000);
+    setYearlyPrice(elPrice * 17000);
   };
 
   return (

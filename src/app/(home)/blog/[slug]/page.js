@@ -6,7 +6,7 @@ export default async function BlogPost({ params }) {
   const { slug } = params;
 
   // Hent headers for å finne site-config
-  const headersList = headers();
+  const headersList = await headers();
   const siteConfig = headersList.get("x-site-config");
 
   // Bestem språk basert på domenet
@@ -54,7 +54,7 @@ export default async function BlogPost({ params }) {
           </h1>
           {/* Sett inn HTML-innhold dynamisk */}
           <div
-            className="blogContent"
+            className="blogContent text-lg flex flex-col gap-4"
             dangerouslySetInnerHTML={{ __html: content.html }}
           ></div>
         </div>

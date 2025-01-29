@@ -9,7 +9,7 @@ export default async function Slide({ params }) {
   const { slug } = await params;
 
   // Hent headers for å finne site-config
-  const headersList = headers();
+  const headersList = await headers();
   const siteConfig = headersList.get("x-site-config");
 
   // Bestem språk basert på domenet
@@ -48,10 +48,10 @@ export default async function Slide({ params }) {
         )}
         <div className="px-12 mt-4">
           {content.title ? (
-            <h3 className="mb-2 text-center">{content.title}</h3>
+            <h3 className="mb-2 text-3xl mb-4 text-center">{content.title}</h3>
           ) : null}
           {content.description ? (
-            <h2 className="mb-6">{content.description}</h2>
+            <h2 className="mb-6 text-lg">{content.description}</h2>
           ) : null}
 
           {content.advantageTitle1 && content.advantageDescription1 ? (

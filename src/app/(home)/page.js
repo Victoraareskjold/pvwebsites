@@ -115,7 +115,7 @@ export default function Page() {
       <section
         id="potentialSaving"
         style={{ background: config.primary || "black" }}
-        className="mx-4 my-20 rounded-xl md:p-4 gap-4 hidden md:flex flex-row max-w-5xl mx-auto"
+        className="mx-4 my-28 mb-36 rounded-xl md:p-4 gap-4 hidden md:flex flex-row max-w-5xl mx-auto"
       >
         <div className="w-3/5 flex flex-col gap-6 self-center px-12">
           <h3 className="text-white font-regular  text-2xl">
@@ -125,7 +125,7 @@ export default function Page() {
 
           <p className="text-white">
             {config.potentialSaving?.p ||
-              "I regneeksempelet har vi tatt utgangspunkt i en fast pris på anlegget på 160.000,- etter Enova-støtte, med en forventet årlig produksjon på 13.000 kWh."}
+              "I regneeksempelet har vi tatt utgangspunkt i en fast pris på anlegget på 160.000,- etter Enova-støtte, med en forventet årlig produksjon på 17.000 kWh."}
           </p>
           <RoofCapacityButton />
         </div>
@@ -136,7 +136,7 @@ export default function Page() {
         id="whyInvest"
         className="mx-4 mb-20 flex flex-col items-center "
       >
-        <h3 className="text-center md:text-3xl">
+        <h3 className="text-center text-2xl md:text-4xl">
           {config.whyInvest?.header || "Hvorfor investere i solcellepanel?"}
         </h3>
         <div className="divider mb-8 mt-2"></div>
@@ -151,7 +151,7 @@ export default function Page() {
         id="advantage"
         className="flex flex-col items-center bg-black relative"
       >
-        <h3 className="text-center md:text-3xl text-white pt-8">
+        <h3 className="text-center text-2xl md:text-4xl text-white pt-8">
           {config.advantage?.header || "Fordelen med en lokal installatør"}
         </h3>
         <div className="divider mb-20 mt-2 !bg-white"></div>
