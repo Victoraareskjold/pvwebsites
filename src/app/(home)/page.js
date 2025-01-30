@@ -106,7 +106,7 @@ export default function Page() {
         <IncomeCalculator />
         <p className="text-white mx-10 py-4">
           {config.potentialSaving?.p ||
-            "I regneeksempelet har vi tatt utgangspunkt i en fast pris på anlegget på 160.000,- etter Enova-støtte, med en forventet årlig produksjon på 13.000 kWh."}
+            "I regneeksempelet har vi tatt utgangspunkt i en fast pris på anlegget på 160.000,- etter Enova-støtte, med en forventet årlig produksjon på 17.000 kWh."}
         </p>
 
         <RoofCapacityButton />

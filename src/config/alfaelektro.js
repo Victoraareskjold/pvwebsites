@@ -9,6 +9,8 @@ export default {
   primary: "#FFC069",
   secondary: "#D3A45E",
   hubspotScript: "//js-eu1.hs-scripts.com/143783063.js",
+  googleTagManager: "GTM-TFKXLB4D",
+  metaPixel: "1779198416253499",
   primaryGradient: {
     bg: "linear-gradient(90deg, #FF9D00 23%, #FFD05A 92%)",
     textColor: "black",
