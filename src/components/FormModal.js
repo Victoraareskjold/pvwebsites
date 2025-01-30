@@ -2,12 +2,14 @@
 
 import { useSiteConfig } from "@/contexts/siteConfigContext";
 import emailjs from "@emailjs/browser";
+import { useRouter } from "next/navigation";
 import { useRef, useState } from "react";
 
 export default function FormModal({ isOpen, onClose }) {
   const config = useSiteConfig();
   const formRef = useRef();
   const [errorMessage, setErrorMessage] = useState("");
+  const router = useRouter();
 
   const sendEmail = (e) => {
     e.preventDefault();
@@ -35,9 +37,9 @@ export default function FormModal({ isOpen, onClose }) {
       )
       .then(
         () => {
-          alert("E-posten ble sendt!");
           formRef.current.reset();
           onClose();
+          router.push("/takk");
         },
         (error) => {
           console.error("Noe gikk galt: ", error.text);
