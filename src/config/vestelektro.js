@@ -9,6 +9,9 @@ export default {
   primary: "#FFC069",
   secondary: "#D3A45E",
   hubspotScript: "",
+  metaPikselId: "958890402485317",
+  metaPikselUrl:
+    "https://www.facebook.com/tr?id=958890402485317&ev=PageView&noscript=1",
   primaryGradient: {
     bg: "linear-gradient(90deg, #FF9D00 23%, #FFD05A 92%)",
     textColor: "black",
