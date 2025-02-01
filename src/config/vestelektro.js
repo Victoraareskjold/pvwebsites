@@ -1,7 +1,7 @@
 // eslint-disable-next-line import/no-anonymous-default-export
 export default {
   title: "Vest Elektro Sol",
-  site: "vestelektro",
+  site: "vestelektrosol",
   logo: "/vestelektro/vestelektroLogo.png",
   favicon: "/vestelektro/favicon.ico",
   metaDesc:
