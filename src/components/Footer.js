@@ -88,7 +88,7 @@ export function Footer({
                 style={{ color: secondary || "white" }}
                 className="font-medium"
               >
-                Organsiasjonsnummer:
+                Organisasjonsnummer:
               </h2>
               <h4>{organizationNumber}</h4>
             </div>
