@@ -2,7 +2,7 @@
 import { Footer } from "@/components/Footer";
 import { Navbar } from "@/components/Navbar";
 import { SiteConfigProvider } from "@/contexts/siteConfigContext";
-import { GoogleTagManager } from "@next/third-parties/google";
+import { GoogleAnalytics, GoogleTagManager } from "@next/third-parties/google";
 import { headers } from "next/headers";
 
 import "../globals.css";
@@ -41,6 +41,10 @@ export default async function RootLayout({ children }) {
 
         {config.googleTagManager && (
           <GoogleTagManager gtmId={config.googleTagManager} />
+        )}
+
+        {config.googleAnalytics && (
+          <GoogleAnalytics gaId={config.googleAnalytics} />
         )}
 
         {config.hubspotScript && (

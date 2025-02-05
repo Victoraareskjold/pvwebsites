@@ -10,6 +10,7 @@ export default {
   secondary: "#D3A45E",
   hubspotScript: "",
   googleTagManager: "GTM-KDFBGLFL",
+  googleAnalytics: "AW-16843714183",
   metaPixel: "958890402485317",
   primaryGradient: {
     bg: "linear-gradient(90deg, #FF9D00 23%, #FFD05A 92%)",
