@@ -212,3 +212,33 @@ input[type="range"]:disabled {
   right: 0;
   top: -64px;
 }
+
+.estimateStylingSheet h1 {
+  font-size: 24px;
+  font-weight: 300;
+}
+
+.estimateStylingSheet h2 {
+  font-size: 21px;
+  font-weight: bold;
+  letter-spacing: 0.75px;
+}
+
+.estimateStylingSheet h3 {
+  font-size: 14px;
+  font-weight: 800;
+  letter-spacing: 0.25px;
+}
+
+.estimateStylingSheet p {
+  font-weight: 300;
+  font-size: 16px;
+}
+
+.estimateStylingSheet .smallP {
+  font-size: 14px;
+}
+
+.estimateStylingSheet .fatP {
+  font-weight: 500;
+}
