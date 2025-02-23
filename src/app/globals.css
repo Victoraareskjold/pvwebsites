@@ -243,13 +243,20 @@ input[type="range"]:disabled {
   font-weight: 500;
 }
 
-.estimateStylingSheet section {
+.estimateStylingSheet section,
+.estimateStylingSheet .sectionContainer {
   padding: 20px;
+  max-width: 1200px;
+  width: 100%;
+}
+
+.estimateStylingSheet .maxSection {
+  max-width: none !important;
 }
 
 .rounded-checkbox {
   width: 24px;
-  height: 24px;
+  aspect-ratio: 1;
   border-radius: 50%;
   vertical-align: middle;
   background-color: white;
@@ -260,6 +267,6 @@ input[type="range"]:disabled {
 }
 .rounded-checkbox:checked {
   appearance: auto;
-  clip-path: circle(50% at 50% 50%);
+  clip-path: circle(50% at 50%);
   background-color: #86efac;
 }
