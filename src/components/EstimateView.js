@@ -58,8 +58,8 @@ export default function EstimateView({ estimateId }) {
   return (
     <main className="min-h-screen estimateStylingSheet">
       {estimateData ? (
-        <section className="p-4 flex flex-col gap-12">
-          <div>
+        <main className="flex flex-col gap-12">
+          <section>
             <p className="font-light">
               Beregningen er utført for en <strong>privatperson</strong> på
               følgende Adresse:{" "}
@@ -67,9 +67,9 @@ export default function EstimateView({ estimateId }) {
                 {estimateData?.address || "Missing address"}
               </strong>
             </p>
-          </div>
+          </section>
 
-          <div>
+          <section>
             <h1 className="mb-4">Hei {estimateData?.name}</h1>
             <div>
               <p className="font-light text-lg text-gray-900">
@@ -79,7 +79,7 @@ export default function EstimateView({ estimateId }) {
                 </span>
               </p>
             </div>
-          </div>
+          </section>
 
           <section>
             <h2 className="mb-4">Hvordan funker dette?</h2>
@@ -151,7 +151,7 @@ export default function EstimateView({ estimateId }) {
                 />
                 <div className="w-full h-2 bg-green-300 rounded-full my-6" />
                 <EstimateInfoComponent
-                  text={"- null takfeste"}
+                  text={"- null feste"}
                   number={`${estimateData?.totalPanels} stk`}
                   image={"/estimate/info4.png"}
                 />
@@ -304,22 +304,22 @@ export default function EstimateView({ estimateId }) {
             <h2>Hvor mye kan jeg spare?</h2>
             <div className="grid grid-cols-2 justify-between gap-4 mt-12">
               <EstimatePricingInfo
-                image={""}
+                image={"/estimate/icon1.png"}
                 number={`${formatValue(0)} kr`}
                 text={"Total besparing for ditt anlegg over 30 år."}
               />
               <EstimatePricingInfo
-                image={""}
+                image={"/estimate/icon2.png"}
                 number={`${formatValue(0)} kr`}
                 text={"Årlig besparing per år for ditt anlegg."}
               />
               <EstimatePricingInfo
-                image={""}
+                image={"/estimate/icon3.png"}
                 number={`${10}-${20}%`}
                 text={"Økning i boligverdien, basert på investeringskostnaden."}
               />
               <EstimatePricingInfo
-                image={""}
+                image={"/estimate/icon4.png"}
                 number={`${10}-${20}%`}
                 text={
                   "Andel eget forbruk indikerer hvor mye selvprodusert energi du bruker."
@@ -396,7 +396,96 @@ export default function EstimateView({ estimateId }) {
               </div>
             </div>
           </section>
-        </section>
+
+          <section className="bg-slate-600 w-full flex flex-col gap-8">
+            <h2 className="text-white">Bestill anlegg</h2>
+            <div>
+              <div className="flex flex-row justify-between">
+                <p className="fatP text-white">
+                  Komplett ferdig installert anlegg
+                </p>
+                <p className="fatP text-white">220 000 kr</p>
+              </div>
+              <div className="flex flex-row justify-between">
+                <p className="fatP text-white">Enova støtte</p>
+                <p className="fatP text-white">-29 000 kr</p>
+              </div>
+              <div className="flex flex-row justify-between">
+                <p className="fatP text-white">
+                  Pris etter fratrukket Enova støtte
+                </p>
+                <p className="fatP text-white">191 000 kr</p>
+              </div>
+            </div>
+            <div>
+              <div className="bg-green-300 w-full p-4 rounded-2xl">
+                <h3 className="">Finansiering med Grønt boliglån</h3>
+                <p className="italic smallP">
+                  Enova Støtte:{" "}
+                  <span className="text-lg font-regular">
+                    -{formatValue(1234567890)} kr
+                  </span>
+                </p>
+                <div className="p-3">
+                  <p className="smallP italic mb-1">Nominell rente: 5,39%</p>
+                  <p className="smallP italic">Nedbetalingstid: 30 år</p>
+                </div>
+                <p>
+                  Pris per måned:{" "}
+                  <span className="font-bold text-2xl">
+                    {formatValue(420)}kr
+                  </span>
+                </p>
+              </div>
+            </div>
+            <div className="flex flex-row items-center gap-4">
+              <input type="checkbox" className="rounded-checkbox"></input>
+              <p className="text-white">
+                <strong>Jeg godtar</strong> vilkår og betingelser for kjøp av
+                solcelleanlegg
+              </p>
+            </div>
+            <button className="bg-orange-300 text-white fatP rounded-full w-fit px-5 py-1">
+              Bestill anlegg
+            </button>
+            <h2 className="text-white">Inkludert i prisen</h2>
+            <div className="flex flex-col gap-3">
+              <div className="flex flex-row gap-4 items-center">
+                <img src="/estimate/greenCheck.png" />
+                <p className="fatP text-white">
+                  Montering av komplett solcelleanlegg.
+                </p>
+              </div>
+              <div className="flex flex-row gap-4 items-center">
+                <img src="/estimate/greenCheck.png" />
+                <p className="fatP text-white">
+                  Veiledning til å søke om Enova-støtte.
+                </p>
+              </div>
+              <div className="flex flex-row gap-4 items-center">
+                <img src="/estimate/greenCheck.png" />
+                <p className="fatP text-white">
+                  App til å følge produksjonen din.
+                </p>
+              </div>
+              <div className="flex flex-row gap-4 items-center">
+                <img src="/estimate/greenCheck.png" />
+                <p className="fatP text-white">
+                  Kundestøtte og service etter installasjon.
+                </p>
+              </div>
+            </div>
+            <p className="text-white fatP text-center mt-32">
+              Ved å velge solenergi, velger du en fremtid hvor naturen og
+              fremgang går hånd i hånd.
+            </p>
+            <img
+              src="/estimate/globe.png"
+              className="w-4/5 self-center py-12"
+            />
+            <img src={config.logo} className="w-96" />
+          </section>
+        </main>
       ) : (
         <p>No estimate found.</p>
       )}
