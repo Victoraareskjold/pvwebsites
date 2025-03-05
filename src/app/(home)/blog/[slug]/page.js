@@ -1,6 +1,7 @@
 import { headers } from "next/headers";
 import blogs from "../../../../config/blogs.json";
 import "../blog.css";
+import Image from "next/image";
 
 export default async function BlogPost({ params }) {
   const { slug } = params;
@@ -36,11 +37,14 @@ export default async function BlogPost({ params }) {
       <div className="max-w-6xl w-full">
         {blog.image ? (
           <div className="relative overflow-hidden">
-            <img
-              className="w-full aspect-video object-cover"
-              src={blog.image}
-              alt={content.title || "Blogg bilde"}
-            />
+            <div className="w-full aspect-video">
+              <Image
+                fill
+                className=" object-cover"
+                src={blog.image}
+                alt={content.title || "Blogg bilde"}
+              />
+            </div>
             <div className="blackFade2"></div>
             <div className="blackFade3"></div>
             <div className="blackFade4"></div>

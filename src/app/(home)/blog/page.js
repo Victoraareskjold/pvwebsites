@@ -4,6 +4,7 @@ import blogs from "../../../config/blogs.json";
 import "./blog.css";
 
 import Link from "next/link";
+import Image from "next/image";
 
 export default function Blog() {
   const config = useSiteConfig();
@@ -24,7 +25,12 @@ export default function Blog() {
             href={`/blog/${blog.slug}`}
           >
             <div className="absolute bg-black bg-opacity-50 h-full w-full"></div>
-            <img src={blog.image} className="h-full w-full object-cover" />
+            <Image
+              fill
+              src={blog.image}
+              alt={blog.title || "Blogg bilde"}
+              className="object-cover"
+            />
             <h2 className="absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 text-white font-bold">
               {blog.nb.title}
             </h2>
