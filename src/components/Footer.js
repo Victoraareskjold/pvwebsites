@@ -15,6 +15,7 @@ export function Footer({
   return (
     <>
       <footer
+        id="footer"
         style={{
           color: "#B7B7B7",
           background: "#1E1E1E",
