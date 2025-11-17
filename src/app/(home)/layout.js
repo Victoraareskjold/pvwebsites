@@ -100,6 +100,9 @@ export default async function RootLayout({ children }) {
           primary={config.primary}
           secondary={config.secondary}
         />
+        <script
+          src={`https://www.consentify.app/api/consent?token=${config.consentifyPublicToken}`}
+        ></script>
       </body>
     </html>
   );

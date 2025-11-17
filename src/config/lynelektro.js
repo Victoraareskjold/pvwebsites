@@ -47,4 +47,6 @@ export default {
     organizationNumber: "992824115",
     address: "Bjørnstadmyra 7, 1712 Grålum",
   },
+
+  consentifyPublicToken: "333424e9-6ef6-4ca4-b00c-80961c555d3e",
 };
