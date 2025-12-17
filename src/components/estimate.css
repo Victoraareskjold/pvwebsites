@@ -25,18 +25,18 @@
 }
 @media (min-width: 1024px) {
   .estimateStylingSheet h1 {
-    font-size: 24px !important;
+    font-size: 20px !important;
   }
   .estimateStylingSheet h2 {
-    font-size: 28px !important;
+    font-size: 22px !important;
   }
   .estimateStylingSheet h3 {
-    font-size: 32px !important;
+    font-size: 24px !important;
   }
   .estimateStylingSheet h4 {
-    font-size: 40px !important;
+    font-size: 26px !important;
   }
   .estimateStylingSheet h5 {
-    font-size: 48px !important;
+    font-size: 30px !important;
   }
 }

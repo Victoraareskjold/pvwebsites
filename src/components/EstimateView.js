@@ -6,6 +6,10 @@ import EstimatePricingInfo from "./EstimatePricingInfo";
 import { useState, useEffect } from "react";
 
 import "./estimate.css";
+import HowWillItLook from "./estimate/HowWillItLook";
+import HowDoesItWork from "./estimate/HowDoesItWork";
+import YourSolarFacility from "./estimate/YourSolarFacility";
+import SolarEconomicCalculation from "./estimate/SolarEconomicCalculation";
 
 export default function EstimateView({ estimateId }) {
   const config = useSiteConfig();
@@ -24,11 +28,13 @@ export default function EstimateView({ estimateId }) {
   }, [estimateId]);
 
   const [elPrice, setElPrice] = useState(
-    estimateData?.selected_el_price || 0.7
+    estimateData?.selected_el_price || 0.5
   );
   const [elNetPrice, setElNetPrice] = useState(
-    estimateData?.selected_el_price + 0.5 || 0.75
+    estimateData?.selected_el_price + 0.5 || 0,
+    62
   );
+  const [expectedElPriceIncrease, setExpectedElPriceIncrease] = useState(2, 5);
   const [paymentTime, setPaymentTime] = useState(10);
   const [widthPercentage, setWidthPercantage] = useState(
     (paymentTime / 30) * 100
@@ -59,9 +65,7 @@ export default function EstimateView({ estimateId }) {
     (item) => item.category === "inverter"
   );
 
-  if (loading) return <p>Loading..</p>;
-
-  //            <div className="hidden lg:block w-full h-1 bg-slate-300 rounded-full mt-12" />
+  if (loading || !estimateData) return <p>Loading..</p>;
 
   return (
     <main className="min-h-screen estimateStylingSheet ">
@@ -81,99 +85,34 @@ export default function EstimateView({ estimateId }) {
           </section>
 
           <section>
-            <h1 className="mb-4">Hei {estimateData?.leads?.person_info}</h1>
+            <h5 className="mb-4">
+              Hei <strong>{estimateData?.leads?.person_info}</strong>
+            </h5>
             <div>
               <p className="font-light text-lg text-gray-900">
                 Her er ditt tilbud på et komplett solcelleanlegg fra{" "}
                 <span className="font-medium">
-                  {config.title || "mangler firma"}
+                  {config.title || "mangler firma"}.
                 </span>
               </p>
             </div>
           </section>
 
           <section>
-            <h2 className="mb-4">Hvordan funker dette?</h2>
-            <div className="flex flex-col gap-2">
-              <div className="flex flex-row gap-4">
-                <img src="/estimate/checked.png" className="h-6 w-6" />
-                <p className="font-light">Du har mottat ditt tilbud.</p>
-              </div>
-              <div className="flex flex-row gap-4">
-                <img src="/estimate/unchecked.png" className="h-6 w-6" />
-                <p className="font-light">Befaring gjennomføres ved behov.</p>
-              </div>
-              <div className="flex flex-row gap-4">
-                <img src="/estimate/unchecked.png" className="h-6 w-6" />
-                <p className="font-light">
-                  Montering til et tidspunkt som passer deg.
-                </p>
-              </div>
-            </div>
-            {/* <div className="hidden lg:block w-full h-1 bg-slate-300 rounded-full mt-6" /> */}
+            <h5 className="mb-4">
+              <strong>Hvordan funker dette?</strong>
+            </h5>
+            <HowDoesItWork />
           </section>
 
-          <div className="flex flex-col lg:flex-row sectionContainer !p-0 gap-4">
-            <section className="w-full">
-              <h2 className="">Hvordan vil dette se ut?</h2>
-              <p>
-                Basert på vår evaluering har vi plassert{" "}
-                <strong>{estimateData?.total_panels}</strong> solcellepaneler
-                hos dere som vil produsere rundt{" "}
-                {formatValue(Number(estimateData?.yearly_prod.toFixed(0)))} kWh
-                per år.
-              </p>
-              {estimateData.image_url ? (
-                <div className="h-full">
-                  <img
-                    src={estimateData?.image_url}
-                    alt="Bilde"
-                    className="object-cover w-full h-full lg:max-h-96 rounded-2xl overflow-hidden mt-4"
-                  />
-
-                  <p className="italic">
-                    Dette oppsettet er fleksibelt - vi tilpasser det etter dine
-                    ønsker.
-                  </p>
-                </div>
-              ) : null}
-            </section>
-
-            {/* {
-              <div className="hidden lg:flex h-auto w-2 bg-slate-300 rounded-full" />
-            } */}
+          <div className="flex flex-col lg:flex-row sectionContainer bg-[#FFF0CD] rounded-md !p-0 gap-4">
+            <HowWillItLook estimateData={estimateData} />
 
             <section className="w-full">
-              <h2 className="mb-8">Ditt solcelleanlegg består av</h2>
-              <div className="flex flex-row gap-4">
-                <div className="w-full mt-2">
-                  <EstimateInfoComponent
-                    text={"Installert effekt."}
-                    number={`${(estimateData?.total_panels * watt) / 1000} kWp`}
-                    image={"/estimate/info1.png"}
-                  />
-                  <div className="w-full h-2 bg-green-300 rounded-full my-6" />
-                  <EstimateInfoComponent
-                    text={`${estimateData?.selected_panel_type} panel.`}
-                    number={`${estimateData?.total_panels} stk -`}
-                    image={"/estimate/info2.png"}
-                  />
-                  <div className="w-full h-2 bg-green-300 rounded-full my-6" />
-                  <EstimateInfoComponent
-                    text={`- ${inverter?.product + " inverter" || "Inverter"} `}
-                    number={`${inverter?.quantity || 0} stk`}
-                    image={"/estimate/info3.png"}
-                  />
-
-                  <div className="w-full h-2 bg-green-300 rounded-full my-6" />
-                  <EstimateInfoComponent
-                    text={`- ${estimateData?.price_data?.mounting[0].product} feste`}
-                    number={`${estimateData?.price_data?.mounting[0].quantity} stk`}
-                    image={"/estimate/info4.png"}
-                  />
-                </div>
-                <img src="/estimate/bigIllustration.png" />
-              </div>
+              <h5 className="mb-8">
+                <strong>Ditt solcelleanlegg består av</strong>
+              </h5>
+              <YourSolarFacility estimateData={estimateData} />
             </section>
           </div>
 
@@ -181,172 +120,153 @@ export default function EstimateView({ estimateId }) {
             <div className="w-full h-1 bg-slate-300 rounded-full mt-12" />
           </section> */}
 
-          <div className="flex flex-col sectionContainer gap-4">
-            <h5 className="!font-bold">Produksjon og besparelse</h5>
-            <h2>
-              Det er umulig å beregne helt nøyaktig hvor mye man vil spare med
-              solceller siden strømprisene svinger, men trenden viser at de
-              sannsynligvis vil stige over tid. Med en effektgaranti på 30 år
-              har vi laget et regnestykke som inkluderer strømpris, nettleie,
-              forventet prisvekst, vedlikeholds- og erstatningskostnader, samt
-              naturlig degradering og årlig produksjon. Dette gir et realistisk
-              bilde av hva du kan tjene eller spare over anleggets levetid.
-              Nedenfor finner du slidere med våre anbefalte verdier, men du kan
-              enkelt justere tallene etter egne forutsetninger og se hvordan
-              regnestykket endrer seg.
-            </h2>
-          </div>
+          <div className="grid grid-cols-1 lg:grid-cols-2 sectionContainer bg-[#FFF0CD] rounded-md gap-12">
+            {/* Strømpris og besparelse */}
+            <div className="w-full">
+              <div className="flex flex-col gap-4">
+                <h5 className="!font-bold">
+                  <strong>Produksjon og besparelse</strong>
+                </h5>
+                <h2>
+                  Det er umulig å beregne helt nøyaktig hvor mye man vil spare
+                  med solceller siden strømprisene svinger, men trenden viser at
+                  de sannsynligvis vil stige over tid. Med en effektgaranti på
+                  30 år har vi laget et regnestykke som inkluderer strømpris,
+                  nettleie, forventet prisvekst, vedlikeholds- og
+                  erstatningskostnader, samt naturlig degradering og årlig
+                  produksjon. Dette gir et realistisk bilde av hva du kan tjene
+                  eller spare over anleggets levetid. Nedenfor finner du slidere
+                  med våre anbefalte verdier, men du kan enkelt justere tallene
+                  etter egne forutsetninger og se hvordan regnestykket endrer
+                  seg.
+                </h2>
+              </div>
 
-          <div className="flex flex-col lg:flex-row sectionContainer gap-4">
-            <div className="flex flex-col w-full gap-8">
-              <section className="flex flex-col gap-4 !p-0 w-full">
-                <h2 className="">Investering og nedbetalingstid</h2>
-
-                <div className="bg-white rounded-2xl w-full p-4">
-                  <h3>Totalpris inkl. mva og Enova-tilskudd</h3>
-                  <p className="italic smallP">
-                    Enova Støtte:{" "}
-                    <span className="text-lg font-regular">
-                      -{formatValue(1234567890)} kr
-                    </span>
-                  </p>
-                  <p className="mt-4">
-                    Pris:{" "}
-                    <span className="font-bold text-2xl">
-                      {formatValue(12345678990)} Kr
-                    </span>
-                  </p>
-                </div>
-
-                <div className="bg-green-300 w-full p-4 rounded-2xl">
-                  <h3 className="">Finansiering med Grønt boliglån</h3>
-                  <p className="italic smallP">
-                    Enova Støtte:{" "}
-                    <span className="text-lg font-regular">
-                      -{formatValue(1234567890)} kr
-                    </span>
-                  </p>
-                  <div className="p-3">
-                    <p className="smallP italic mb-1">Nominell rente: 5,39%</p>
-                    <p className="smallP italic">Nedbetalingstid: 30 år</p>
-                  </div>
-                  <p>
-                    Pris per måned:{" "}
-                    <span className="font-bold text-2xl">
-                      {formatValue(420)}kr
-                    </span>
-                  </p>
-                </div>
-
-                <p className="">
-                  Vi estimerer ca.{" "}
-                  <span className="font-medium">0,70 kr/kWh</span> for strøm og{" "}
-                  <span className="font-medium">kr/kWh</span> for nettleie de
-                  neste <span className="font-medium">30 årene</span>.
-                </p>
-              </section>
-
-              <section className="!p-0 mt-4">
-                <div className="bg-white rounded-xl px-3 py-5 w-full flex flex-col gap-4">
-                  <p className="italic text-gray-900">
-                    Estimer strøm- og nettleieprisen selv, og beregn
-                    nedbetalingstiden for et direktekjøp ved å bruke sliderne
-                    under.
-                  </p>
-
-                  <div>
-                    <p className="fatP">
-                      Gjennomsnittlig strømpris de neste 30 årene:{" "}
+              <div className="gap-8 mt-12 flex flex-col">
+                <div>
+                  <p className="fatP">
+                    Strømpris per kWh:{" "}
+                    <strong>
                       {elPrice || estimateData?.selected_el_price} kr/kWh
-                    </p>
-                    <input
-                      className="w-full"
-                      type="range"
-                      value={elPrice}
-                      min={0.1}
-                      max={2}
-                      step={0.05}
-                      onChange={(e) => setElPrice(Number(e.target.value))}
-                    />
-                  </div>
-
-                  <div>
-                    <p className="fatP">
-                      Gjennomsnittlig strømpris de neste 30 årene:{" "}
-                      {elNetPrice || estimateData?.selected_el_price} kr/kWh
-                    </p>
-                    <input
-                      className="w-full"
-                      type="range"
-                      value={elNetPrice}
-                      min={0.1}
-                      max={2}
-                      step={0.05}
-                      onChange={(e) => setElNetPrice(Number(e.target.value))}
-                    />
-                  </div>
-
-                  <div className="flex flex-col gap-4 mt-6">
-                    <div>
-                      <p className="fatP">
-                        Nedbetalingstid:{" "}
-                        <span className="font-extrabold text-lg">
-                          {paymentTime} år
-                        </span>
-                      </p>
-                      <div
-                        style={{
-                          width: `${widthPercentage}%`,
-                        }}
-                        className="bg-green-300 border border-green-800 rounded-xl h-10"
-                      ></div>
-                    </div>
-
-                    <div>
-                      <p className="">
-                        Produktgaranti solcellepaneler:{" "}
-                        <span className="font-medium text-md">25 år</span>
-                      </p>
-                      <div className="bg-orange-200 border border-orange-300 rounded-xl h-10 w-3/5"></div>
-                    </div>
-
-                    <div>
-                      <p className="">
-                        Effektgaranti solcellepaneler:{" "}
-                        <span className="font-medium text-md">30 år</span>
-                      </p>
-                      <div className="bg-orange-300 border border-orange-400 rounded-xl h-10 w-4/5"></div>
-                    </div>
-
-                    <div>
-                      <p className="">
-                        Forventet levetid:{" "}
-                        <span className="font-medium text-md">40-50+ år</span>
-                      </p>
-                      <div
-                        className="border rounded-xl h-10 relative"
-                        style={{
-                          width: "calc(100% - 24px)",
-                          backgroundColor: "#FF9C06",
-                        }}
-                      >
-                        <img
-                          src="/estimate/sun.png"
-                          className="absolute right-[-40px] top-[12px] -translate-y-1/2 w-20"
-                          alt="Sol"
-                        />
-                      </div>
-                    </div>
-                  </div>
+                    </strong>
+                  </p>
+                  <input
+                    className="w-full"
+                    type="range"
+                    value={elPrice}
+                    min={0.1}
+                    max={2}
+                    step={0.05}
+                    onChange={(e) => setElPrice(Number(e.target.value))}
+                  />
                 </div>
-              </section>
-            </div>
 
-            {/* <div className="hidden lg:flex h-auto w-2 bg-slate-300 rounded-full" /> */}
+                <div>
+                  <p className="fatP">
+                    Nettleie per kWh:{" "}
+                    <strong>
+                      {elNetPrice || estimateData?.selected_el_price} kr/kWh
+                    </strong>
+                  </p>
+                  <input
+                    className="w-full"
+                    type="range"
+                    value={elNetPrice}
+                    min={0.1}
+                    max={2}
+                    step={0.05}
+                    onChange={(e) => setElNetPrice(Number(e.target.value))}
+                  />
+                </div>
+
+                <div>
+                  <p className="fatP">
+                    Forventet årlig prisvekt på strøm:{" "}
+                    <strong>
+                      {expectedElPriceIncrease ||
+                        estimateData?.selected_el_price}{" "}
+                      %
+                    </strong>
+                  </p>
+                  <input
+                    className="w-full"
+                    type="range"
+                    value={expectedElPriceIncrease}
+                    min={0.1}
+                    max={10}
+                    step={0.05}
+                    onChange={(e) =>
+                      setExpectedElPriceIncrease(Number(e.target.value))
+                    }
+                  />
+                </div>
+              </div>
+
+              <div className="bg-green-200 p-2 mt-8">
+                <h1>
+                  Forventet årlig produksjon fra anlegget:{" "}
+                  <strong>
+                    {formatValue(Number(estimateData?.yearly_prod?.toFixed(0)))}{" "}
+                    kWh per år.
+                  </strong>
+                </h1>
+              </div>
+            </div>
 
             <div className="flex flex-col w-full gap-8">
               <section className="w-full !p-0">
-                <h2>Hvor mye kan jeg spare?</h2>
+                <div className="flex flex-col gap-4 mt-6 p-4 rounded-lg shadow-lg bg-white pb-8">
+                  <div>
+                    <p className="fatP">
+                      Nedbetalingstid (estimert):{" "}
+                      <span className="font-extrabold text-lg">
+                        {paymentTime} år
+                      </span>
+                    </p>
+                    <div
+                      style={{
+                        width: `${widthPercentage}%`,
+                      }}
+                      className="bg-green-300 border border-green-800 rounded-xl h-10"
+                    ></div>
+                  </div>
+
+                  <div>
+                    <p className="">
+                      Produktgaranti solcellepaneler:{" "}
+                      <span className="font-medium text-md">25 år</span>
+                    </p>
+                    <div className="bg-orange-200 border border-orange-300 rounded-xl h-10 w-3/5"></div>
+                  </div>
+
+                  <div>
+                    <p className="">
+                      Effektgaranti solcellepaneler:{" "}
+                      <span className="font-medium text-md">30 år</span>
+                    </p>
+                    <div className="bg-orange-300 border border-orange-400 rounded-xl h-10 w-4/5"></div>
+                  </div>
+
+                  <div>
+                    <p className="">
+                      Forventet levetid:{" "}
+                      <span className="font-medium text-md">40+ år</span>
+                    </p>
+                    <div
+                      className="border rounded-xl h-10 relative"
+                      style={{
+                        width: "calc(100% - 24px)",
+                        backgroundColor: "#FF9C06",
+                      }}
+                    >
+                      <img
+                        src="/estimate/sun.png"
+                        className="absolute right-[-40px] top-[12px] -translate-y-1/2 w-20"
+                        alt="Sol"
+                      />
+                    </div>
+                  </div>
+                </div>
                 <div className="grid grid-cols-2 justify-between gap-4 mt-12">
                   <EstimatePricingInfo
                     image={"/estimate/icon1.png"}
@@ -453,6 +373,14 @@ export default function EstimateView({ estimateId }) {
                 </div>
               </section>
             </div>
+            <SolarEconomicCalculation
+              yearlyProduction={estimateData?.yearly_prod || 315100}
+              elPrice={elPrice}
+              elNetPrice={elNetPrice}
+              expectedElPriceIncrease={expectedElPriceIncrease}
+              investmentCost={3276688} // Your total cost
+              inverterCost={inverter?.price || 200000}
+            />
           </div>
 
           <section className="bg-slate-600 maxSection items-center w-full flex justify-center">
