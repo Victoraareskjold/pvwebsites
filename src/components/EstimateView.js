@@ -181,7 +181,7 @@ export default function EstimateView({ estimateId }) {
             <div className="w-full h-1 bg-slate-300 rounded-full mt-12" />
           </section> */}
 
-          <div className="flex flex-col lg:flex-row sectionContainer gap-4">
+          <div className="flex flex-col sectionContainer gap-4">
             <h5 className="!font-bold">Produksjon og besparelse</h5>
             <h2>
               Det er umulig å beregne helt nøyaktig hvor mye man vil spare med
