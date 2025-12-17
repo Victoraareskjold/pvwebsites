@@ -5,7 +5,7 @@ import { EstimateInfoComponent } from "./EstimateInfoComponent";
 import EstimatePricingInfo from "./EstimatePricingInfo";
 import { useState, useEffect } from "react";
 
-import "../app/estimate.css";
+import "./estimate.css";
 
 export default function EstimateView({ estimateId }) {
   const config = useSiteConfig();
