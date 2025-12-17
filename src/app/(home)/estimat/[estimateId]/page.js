@@ -1,4 +1,4 @@
-import EstimateView from "@/components/EstimateView";
+import EstimateView from "../../../../components/EstimateView";
 
 export default async function Page({ params }) {
   const { estimateId } = await params;

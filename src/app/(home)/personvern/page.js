@@ -1,5 +1,5 @@
 "use client";
-import { useSiteConfig } from "@/contexts/siteConfigContext";
+import { useSiteConfig } from "../../../contexts/siteConfigContext";
 export default function PrivacyStatement() {
   const config = useSiteConfig();
   return (

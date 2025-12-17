@@ -1,5 +1,5 @@
 "use client";
-import { useSiteConfig } from "@/contexts/siteConfigContext";
+import { useSiteConfig } from "../contexts/siteConfigContext";
 import Link from "next/link";
 export function TwoButtonComponent({ setModalOpen }) {
   const config = useSiteConfig();

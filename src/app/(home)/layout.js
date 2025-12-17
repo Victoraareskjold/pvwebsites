@@ -1,7 +1,7 @@
 /* eslint-disable @next/next/no-css-tags */
-import { Footer } from "@/components/Footer";
-import { Navbar } from "@/components/Navbar";
-import { SiteConfigProvider } from "@/contexts/siteConfigContext";
+import { Footer } from "../../components/Footer";
+import { Navbar } from "../../components/Navbar";
+import { SiteConfigProvider } from "../../contexts/siteConfigContext";
 import { GoogleAnalytics, GoogleTagManager } from "@next/third-parties/google";
 import { headers } from "next/headers";
 
@@ -9,9 +9,9 @@ import "../globals.css";
 
 // Dynamisk import av konfigurasjoner
 const configs = {
-  vestelektro: () => import("@/config/vestelektro"),
-  alfaelektro: () => import("@/config/alfaelektro"),
-  lynelektro: () => import("@/config/lynelektro"),
+  vestelektro: () => import("../../config/vestelektro"),
+  alfaelektro: () => import("../../config/alfaelektro"),
+  lynelektro: () => import("../../config/lynelektro"),
 };
 
 export default async function RootLayout({ children }) {

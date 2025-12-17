@@ -1,5 +1,5 @@
 "use client";
-import { useSiteConfig } from "@/contexts/siteConfigContext";
+import { useSiteConfig } from "../contexts/siteConfigContext";
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 

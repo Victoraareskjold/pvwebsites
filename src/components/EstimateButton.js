@@ -1,4 +1,4 @@
-import { useSiteConfig } from "@/contexts/siteConfigContext";
+import { useSiteConfig } from "../contexts/siteConfigContext";
 export function EstimateButton({ setModalOpen }) {
   const config = useSiteConfig();
   return (

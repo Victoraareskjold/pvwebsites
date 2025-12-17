@@ -1,7 +1,7 @@
 "use client";
-import FormModal from "@/components/FormModal";
-import { TwoButtonComponent } from "@/components/TwoButtonComponent";
-import { useSiteConfig } from "@/contexts/siteConfigContext";
+import FormModal from "../../../components/FormModal";
+import { TwoButtonComponent } from "../../../components/TwoButtonComponent";
+import { useSiteConfig } from "../../../contexts/siteConfigContext";
 import { useState } from "react";
 
 export default function About() {

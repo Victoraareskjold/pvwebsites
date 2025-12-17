@@ -1,5 +1,5 @@
-import FormModalController from "@/components/FormModalController";
-import { InfoCard } from "@/components/InfoCard";
+import FormModalController from "../../../../components/FormModalController";
+import { InfoCard } from "../../../../components/InfoCard";
 import { headers } from "next/headers";
 import slides from "../../../../config/slides.json";
 

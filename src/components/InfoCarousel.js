@@ -1,5 +1,5 @@
 "use client";
-import { useSiteConfig } from "@/contexts/siteConfigContext";
+import { useSiteConfig } from "../contexts/siteConfigContext";
 import { useEffect, useState } from "react";
 import { useSwipeable } from "react-swipeable";
 import { SolarSolutionCard } from "./SolarSolutionCard";

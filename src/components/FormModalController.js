@@ -1,6 +1,6 @@
 "use client";
 
-import FormModal from "@/components/FormModal";
+import FormModal from "../components/FormModal";
 import { useState } from "react";
 import { TwoButtonComponent } from "./TwoButtonComponent";
 

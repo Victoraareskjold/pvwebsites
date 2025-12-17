@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { useSiteConfig } from "@/contexts/siteConfigContext";
+import { useSiteConfig } from "../contexts/siteConfigContext";
 
 export function Dropdown({ title, description }) {
   const config = useSiteConfig();

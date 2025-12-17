@@ -1,4 +1,4 @@
-import { useSiteConfig } from "@/contexts/siteConfigContext";
+import { useSiteConfig } from "../contexts/siteConfigContext";
 import Link from "next/link";
 
 export function SolarSolutionCard({ image, title, description, slug }) {

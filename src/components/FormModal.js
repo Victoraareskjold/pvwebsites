@@ -1,6 +1,6 @@
 "use client";
 
-import { useSiteConfig } from "@/contexts/siteConfigContext";
+import { useSiteConfig } from "../contexts/siteConfigContext";
 import emailjs from "@emailjs/browser";
 import { useRouter } from "next/navigation";
 import { useRef, useState } from "react";

@@ -1,13 +1,13 @@
-import { Navbar } from "@/components/Navbar";
-import { SiteConfigProvider } from "@/contexts/siteConfigContext";
+import { Navbar } from "../../components/Navbar";
 import { headers } from "next/headers";
 import { GoogleTagManager } from "@next/third-parties/google";
 import "../globals.css";
+import { SiteConfigProvider } from "../../contexts/siteConfigContext";
 
 const configs = {
-  vestelektro: () => import("@/config/vestelektro"),
-  alfaelektro: () => import("@/config/alfaelektro"),
-  lynelektro: () => import("@/config/lynelektro"),
+  vestelektro: () => import("../../config/vestelektro"),
+  alfaelektro: () => import("../../config/alfaelektro"),
+  lynelektro: () => import("../../config/lynelektro"),
 };
 
 export default async function SolkartLayout({ children }) {

@@ -1,5 +1,5 @@
 "use client";
-import { useSiteConfig } from "@/contexts/siteConfigContext";
+import { useSiteConfig } from "../../../contexts/siteConfigContext";
 import blogs from "../../../config/blogs.json";
 import "./blog.css";
 

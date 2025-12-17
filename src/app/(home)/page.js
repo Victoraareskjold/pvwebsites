@@ -1,17 +1,17 @@
 "use client";
-import { IncomeCalculator } from "@/components/IncomeCalculator";
-import { InfoCard } from "@/components/InfoCard";
-import InfoCarousel from "@/components/InfoCarousel";
+import { IncomeCalculator } from "../../components/IncomeCalculator";
+import { InfoCard } from "../../components/InfoCard";
+import InfoCarousel from "../../components/InfoCarousel";
 
-import BlogCarousel from "@/components/BlogCarousel";
-import { Dropdown } from "@/components/Dropdown";
-import { useSiteConfig } from "@/contexts/siteConfigContext";
+import BlogCarousel from "../../components/BlogCarousel";
+import { Dropdown } from "../../components/Dropdown";
+import { useSiteConfig } from "../../contexts/siteConfigContext";
 
-import { EstimateButton } from "@/components/EstimateButton";
-import { ExploreButton } from "@/components/ExploreButton";
-import FormModal from "@/components/FormModal";
-import InfoCarouselLarge from "@/components/InfoCarouselLarge";
-import { RoofCapacityButton } from "@/components/RoofCapacityButton";
+import { EstimateButton } from "../../components/EstimateButton";
+import { ExploreButton } from "../../components/ExploreButton";
+import FormModal from "../../components/FormModal";
+import InfoCarouselLarge from "../../components/InfoCarouselLarge";
+import { RoofCapacityButton } from "../../components/RoofCapacityButton";
 import Link from "next/link";
 import { useState } from "react";
 import slides from "../../config/slides";
