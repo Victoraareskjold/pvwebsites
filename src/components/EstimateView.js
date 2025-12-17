@@ -1,25 +1,33 @@
 "use client";
 
 import { useSiteConfig } from "@/contexts/siteConfigContext";
-import { useFirestoreDoc } from "@/hooks/useFirestoreDoc";
-import { db } from "@/lib/firebase";
-import Image from "next/image";
 import { EstimateInfoComponent } from "./EstimateInfoComponent";
 import EstimatePricingInfo from "./EstimatePricingInfo";
 import { useState, useEffect } from "react";
 
+import "../app/estimate.css";
+
 export default function EstimateView({ estimateId }) {
   const config = useSiteConfig();
+  const [estimateData, setEstimateData] = useState(null);
+  const [loading, setLoading] = useState(false);
 
-  const {
-    data: estimateData,
-    error,
-    loading,
-  } = useFirestoreDoc(db, "clients", estimateId);
+  useEffect(() => {
+    const fetchData = async () => {
+      setLoading(true);
+      const res = await fetch(`/api/estimate/${estimateId}`);
+      const data = await res.json();
+      setEstimateData(data);
+      setLoading(false);
+    };
+    fetchData();
+  }, [estimateId]);
 
-  const [elPrice, setElPrice] = useState(estimateData?.selectedElPrice || 0.7);
+  const [elPrice, setElPrice] = useState(
+    estimateData?.selected_el_price || 0.7
+  );
   const [elNetPrice, setElNetPrice] = useState(
-    estimateData?.selectedElPrice + 0.5 || 0.75
+    estimateData?.selected_el_price + 0.5 || 0.75
   );
   const [paymentTime, setPaymentTime] = useState(10);
   const [widthPercentage, setWidthPercantage] = useState(
@@ -27,9 +35,9 @@ export default function EstimateView({ estimateId }) {
   );
 
   useEffect(() => {
-    if (estimateData?.selectedElPrice !== undefined) {
-      setElPrice(estimateData.selectedElPrice);
-      setElNetPrice(estimateData.selectedElPrice) + 0.5;
+    if (estimateData?.selected_el_price !== undefined) {
+      setElPrice(estimateData.selected_el_price);
+      setElNetPrice(estimateData.selected_el_price) + 0.5;
     }
   }, [estimateData]);
 
@@ -41,19 +49,17 @@ export default function EstimateView({ estimateId }) {
     );
   }
 
-  if (error) {
-    return (
-      <div className="min-h-screen text-center flex justify-center items-center">
-        <p>Feil: {error?.message}</p>
-      </div>
-    );
-  }
-
-  const panelType = estimateData?.selectedPanelType;
+  const panelType = estimateData?.selected_panel_type;
   const match = panelType?.match(/\d+/);
   const watt = match ? Number(match[0]) : 0;
 
   const formatValue = (number) => number.toLocaleString().split(",").join(" ");
+
+  const inverter = estimateData?.price_data?.suppliers?.find(
+    (item) => item.category === "inverter"
+  );
+
+  if (loading) return <p>Loading..</p>;
 
   //            <div className="hidden lg:block w-full h-1 bg-slate-300 rounded-full mt-12" />
 
@@ -62,22 +68,25 @@ export default function EstimateView({ estimateId }) {
       {estimateData ? (
         <main className="flex flex-col gap-12 lg:gap-4 items-center">
           <section>
-            <p className="font-light">
-              Beregningen er utført for en <strong>privatperson</strong> på
-              følgende Adresse:{" "}
+            <h2>
+              Beregningen er utført for en{" "}
+              <strong>
+                {estimateData?.leads?.company ? "næringskunde" : "privatperson"}
+              </strong>{" "}
+              på følgende Adresse:{" "}
               <strong className="font-medium">
-                {estimateData?.address || "Missing address"}
+                {estimateData?.leads?.address || "Missing address"}
               </strong>
-            </p>
+            </h2>
           </section>
 
           <section>
-            <h1 className="mb-4">Hei {estimateData?.name}</h1>
+            <h1 className="mb-4">Hei {estimateData?.leads?.person_info}</h1>
             <div>
               <p className="font-light text-lg text-gray-900">
                 Her er ditt tilbud på et komplett solcelleanlegg fra{" "}
                 <span className="font-medium">
-                  {config.title || "Missing title"}
+                  {config.title || "mangler firma"}
                 </span>
               </p>
             </div>
@@ -101,7 +110,7 @@ export default function EstimateView({ estimateId }) {
                 </p>
               </div>
             </div>
-            <div className="hidden lg:block w-full h-1 bg-slate-300 rounded-full mt-6" />
+            {/* <div className="hidden lg:block w-full h-1 bg-slate-300 rounded-full mt-6" /> */}
           </section>
 
           <div className="flex flex-col lg:flex-row sectionContainer !p-0 gap-4">
@@ -109,15 +118,15 @@ export default function EstimateView({ estimateId }) {
               <h2 className="">Hvordan vil dette se ut?</h2>
               <p>
                 Basert på vår evaluering har vi plassert{" "}
-                <strong>{estimateData?.totalPanels}</strong> solcellepaneler hos
-                dere som vil produsere rundt{" "}
-                {formatValue(Number(estimateData?.yearlyProd.toFixed(0)))} kWh
+                <strong>{estimateData?.total_panels}</strong> solcellepaneler
+                hos dere som vil produsere rundt{" "}
+                {formatValue(Number(estimateData?.yearly_prod.toFixed(0)))} kWh
                 per år.
               </p>
-              {estimateData.imageUrl ? (
+              {estimateData.image_url ? (
                 <div className="h-full">
                   <img
-                    src={estimateData?.imageUrl}
+                    src={estimateData?.image_url}
                     alt="Bilde"
                     className="object-cover w-full h-full lg:max-h-96 rounded-2xl overflow-hidden mt-4"
                   />
@@ -130,7 +139,9 @@ export default function EstimateView({ estimateId }) {
               ) : null}
             </section>
 
-            <div className="hidden lg:flex h-auto w-2 bg-slate-300 rounded-full" />
+            {/* {
+              <div className="hidden lg:flex h-auto w-2 bg-slate-300 rounded-full" />
+            } */}
 
             <section className="w-full">
               <h2 className="mb-8">Ditt solcelleanlegg består av</h2>
@@ -138,25 +149,26 @@ export default function EstimateView({ estimateId }) {
                 <div className="w-full mt-2">
                   <EstimateInfoComponent
                     text={"Installert effekt."}
-                    number={`${(estimateData?.totalPanels * watt) / 1000} kWp`}
+                    number={`${(estimateData?.total_panels * watt) / 1000} kWp`}
                     image={"/estimate/info1.png"}
                   />
                   <div className="w-full h-2 bg-green-300 rounded-full my-6" />
                   <EstimateInfoComponent
-                    text={`${estimateData?.selectedPanelType} panel.`}
-                    number={`${estimateData?.totalPanels} stk -`}
+                    text={`${estimateData?.selected_panel_type} panel.`}
+                    number={`${estimateData?.total_panels} stk -`}
                     image={"/estimate/info2.png"}
                   />
                   <div className="w-full h-2 bg-green-300 rounded-full my-6" />
                   <EstimateInfoComponent
-                    text={"- inverter."}
-                    number={`IT 3 fas`}
+                    text={`- ${inverter?.product + " inverter" || "Inverter"} `}
+                    number={`${inverter?.quantity || 0} stk`}
                     image={"/estimate/info3.png"}
                   />
+
                   <div className="w-full h-2 bg-green-300 rounded-full my-6" />
                   <EstimateInfoComponent
-                    text={"- null feste"}
-                    number={`${estimateData?.totalPanels} stk`}
+                    text={`- ${estimateData?.price_data?.mounting[0].product} feste`}
+                    number={`${estimateData?.price_data?.mounting[0].quantity} stk`}
                     image={"/estimate/info4.png"}
                   />
                 </div>
@@ -165,9 +177,25 @@ export default function EstimateView({ estimateId }) {
             </section>
           </div>
 
-          <section className="hidden lg:block ">
+          {/* <section className="hidden lg:block ">
             <div className="w-full h-1 bg-slate-300 rounded-full mt-12" />
-          </section>
+          </section> */}
+
+          <div className="flex flex-col lg:flex-row sectionContainer gap-4">
+            <h5 className="!font-bold">Produksjon og besparelse</h5>
+            <h2>
+              Det er umulig å beregne helt nøyaktig hvor mye man vil spare med
+              solceller siden strømprisene svinger, men trenden viser at de
+              sannsynligvis vil stige over tid. Med en effektgaranti på 30 år
+              har vi laget et regnestykke som inkluderer strømpris, nettleie,
+              forventet prisvekst, vedlikeholds- og erstatningskostnader, samt
+              naturlig degradering og årlig produksjon. Dette gir et realistisk
+              bilde av hva du kan tjene eller spare over anleggets levetid.
+              Nedenfor finner du slidere med våre anbefalte verdier, men du kan
+              enkelt justere tallene etter egne forutsetninger og se hvordan
+              regnestykket endrer seg.
+            </h2>
+          </div>
 
           <div className="flex flex-col lg:flex-row sectionContainer gap-4">
             <div className="flex flex-col w-full gap-8">
@@ -229,7 +257,7 @@ export default function EstimateView({ estimateId }) {
                   <div>
                     <p className="fatP">
                       Gjennomsnittlig strømpris de neste 30 årene:{" "}
-                      {elPrice || estimateData?.selectedElPrice} kr/kWh
+                      {elPrice || estimateData?.selected_el_price} kr/kWh
                     </p>
                     <input
                       className="w-full"
@@ -245,7 +273,7 @@ export default function EstimateView({ estimateId }) {
                   <div>
                     <p className="fatP">
                       Gjennomsnittlig strømpris de neste 30 årene:{" "}
-                      {elNetPrice || estimateData?.selectedElPrice} kr/kWh
+                      {elNetPrice || estimateData?.selected_el_price} kr/kWh
                     </p>
                     <input
                       className="w-full"
@@ -314,7 +342,7 @@ export default function EstimateView({ estimateId }) {
               </section>
             </div>
 
-            <div className="hidden lg:flex h-auto w-2 bg-slate-300 rounded-full" />
+            {/* <div className="hidden lg:flex h-auto w-2 bg-slate-300 rounded-full" /> */}
 
             <div className="flex flex-col w-full gap-8">
               <section className="w-full !p-0">
@@ -350,14 +378,18 @@ export default function EstimateView({ estimateId }) {
                   <li>
                     Årlig forbruk:{" "}
                     <strong>
-                      {formatValue(Number(estimateData?.yearlyProd).toFixed(0))}{" "}
+                      {formatValue(
+                        Number(estimateData?.yearly_prod).toFixed(0)
+                      )}{" "}
                       kWh
                     </strong>
                   </li>
                   <li>
                     Årlig produksjon:{" "}
                     <strong>
-                      {formatValue(Number(estimateData?.yearlyProd).toFixed(0))}{" "}
+                      {formatValue(
+                        Number(estimateData?.yearly_prod).toFixed(0)
+                      )}{" "}
                       kWh
                     </strong>
                   </li>
@@ -384,7 +416,9 @@ export default function EstimateView({ estimateId }) {
                     Strømmen som solcellene produserer kan drive alt som går på
                     strøm i huset ditt. Her er noen eksempler på hva de{" "}
                     <strong className="font-semibold">
-                      {formatValue(Number(estimateData?.yearlyProd).toFixed(0))}{" "}
+                      {formatValue(
+                        Number(estimateData?.yearly_prod).toFixed(0)
+                      )}{" "}
                       kWh
                     </strong>{" "}
                     du produserer årlig kan drifte:
