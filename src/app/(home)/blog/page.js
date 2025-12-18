@@ -9,6 +9,8 @@ import Image from "next/image";
 export default function Blog() {
   const config = useSiteConfig();
 
+  console.log(config.name);
+
   const filteredBlogs = blogs.filter((blog) => {
     if (config.name !== "alfaelektro" && blog.id === 12) {
       return false;
