@@ -343,63 +343,60 @@ export default function EstimateView({ estimateId }) {
                 );
               }}
             />
+          </div>
+          <section className="flex flex-col gap-6 !p- sectionContainer0">
+            <h4>
+              <strong>Miljø</strong>
+            </h4>
 
-            <section className="flex flex-col gap-6 !p-0">
-              <h4>
-                <strong>Miljø</strong>
-              </h4>
+            <div>
+              <p>
+                Ved å satse på solenergi investerer du i mer enn bare strøm – du
+                tar et viktig steg mot en{" "}
+                <strong className="font-semibold">bærekraftig fremtid.</strong>
+              </p>
+              <br />
+              <p>
+                Strømmen som solcellene produserer kan drive alt som går på
+                strøm i bygget ditt. Her er noen eksempler på hva de{" "}
+                <strong className="font-semibold">
+                  {formatValue(Number(estimateData?.yearly_prod).toFixed(0))}{" "}
+                  kWh
+                </strong>{" "}
+                du produserer årlig kan drifte:
+              </p>
+            </div>
 
+            <div className="flex flex-row gap-10 !p-4">
+              <div>
+                <li>Elbil-ladninger:</li>
+                <li>Kjøleskap:</li>
+                <li>Kaffekopper:</li>
+              </div>
               <div>
                 <p>
-                  Ved å satse på solenergi investerer du i mer enn bare strøm –
-                  du tar et viktig steg mot en{" "}
                   <strong className="font-semibold">
-                    bærekraftig fremtid.
-                  </strong>
-                </p>
-                <br />
-                <p>
-                  Strømmen som solcellene produserer kan drive alt som går på
-                  strøm i bygget ditt. Her er noen eksempler på hva de{" "}
-                  <strong className="font-semibold">
-                    {formatValue(Number(estimateData?.yearly_prod).toFixed(0))}{" "}
-                    kWh
+                    {Number(estimateData?.yearly_prod / 60).toFixed(0)}
                   </strong>{" "}
-                  du produserer årlig kan drifte:
+                  full ladninger til elbilen din.
+                </p>
+                <p>
+                  drive{" "}
+                  <strong className="font-semibold">
+                    {Number(estimateData?.yearly_prod / 300).toFixed(0)}
+                  </strong>{" "}
+                  kjøleskap på et år.
+                </p>
+                <p>
+                  brygge{" "}
+                  <strong className="font-semibold">
+                    {Number(estimateData?.yearly_prod / 0.03).toFixed(0)}
+                  </strong>{" "}
+                  kopper kaffe.
                 </p>
               </div>
-
-              <div className="flex flex-row gap-10 !p-4">
-                <div>
-                  <li>Elbil-ladninger:</li>
-                  <li>Kjøleskap:</li>
-                  <li>Kaffekopper:</li>
-                </div>
-                <div>
-                  <p>
-                    <strong className="font-semibold">
-                      {Number(estimateData?.yearly_prod / 60).toFixed(0)}
-                    </strong>{" "}
-                    full ladninger til elbilen din.
-                  </p>
-                  <p>
-                    drive{" "}
-                    <strong className="font-semibold">
-                      {Number(estimateData?.yearly_prod / 300).toFixed(0)}
-                    </strong>{" "}
-                    kjøleskap på et år.
-                  </p>
-                  <p>
-                    brygge{" "}
-                    <strong className="font-semibold">
-                      {Number(estimateData?.yearly_prod / 0.03).toFixed(0)}
-                    </strong>{" "}
-                    kopper kaffe.
-                  </p>
-                </div>
-              </div>
-            </section>
-          </div>
+            </div>
+          </section>
 
           <section className="bg-[#4D4D4D] maxSection items-center w-full flex justify-center">
             <section className="w-full flex flex-col gap-8 self-center">
