@@ -10,7 +10,7 @@ export default function Blog() {
   const config = useSiteConfig();
 
   const filteredBlogs = blogs.filter((blog) => {
-    if (config.name !== "alfaelektrosol" && blog.id === 12) {
+    if (config.name !== "alfaelektro" && blog.id === 12) {
       return false;
     }
     return true;
@@ -31,16 +31,13 @@ export default function Blog() {
             className="relative w-full h-64 rounded-2xl overflow-hidden"
             href={`/blog/${blog.slug}`}
           >
-            <div className="absolute bg-black bg-opacity-50 h-full w-full"></div>
             <Image
               fill
               src={blog.image}
               alt={blog.title || "Blogg bilde"}
-              className="object-cover"
+              className="object-cover text-white"
             />
-            <h2 className="absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 text-white font-bold">
-              {blog.nb.title}
-            </h2>
+            <h2 className="mt-2 text-white font-bold">{blog.nb.title}</h2>
           </Link>
         ))}
       </ul>
