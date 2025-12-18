@@ -1,4 +1,4 @@
-import { useState, useEffect, useMemo } from "react";
+import { useEffect, useMemo } from "react";
 
 export default function SolarEconomicCalculation({
   yearlyProduction,
@@ -7,6 +7,7 @@ export default function SolarEconomicCalculation({
   expectedElPriceIncrease,
   investmentCost,
   inverterCost,
+  onPaybackCalculated,
 }) {
   const DEGRADATION_RATE = 0.004;
   const YEARS = 30;
@@ -57,8 +58,22 @@ export default function SolarEconomicCalculation({
     inverterCost,
   ]);
 
+  const paybackYear = useMemo(() => {
+    const found = yearlyData.find((row) => row.cumulative >= 0);
+    return found ? found.year : null;
+  }, [yearlyData]);
+
   const formatValue = (number) =>
-    number.toLocaleString("nb-NO").replace(/,/g, " ");
+    number.toLocaleString("nb-NO", {
+      minimumFractionDigits: 0,
+      maximumFractionDigits: 0,
+    });
+
+  useEffect(() => {
+    if (paybackYear && onPaybackCalculated) {
+      onPaybackCalculated(paybackYear);
+    }
+  }, [paybackYear, onPaybackCalculated]);
 
   return (
     <div className="flex flex-col gap-6 !w-full col-span-2">

@@ -35,7 +35,7 @@ export default function EstimateView({ estimateId }) {
     62
   );
   const [expectedElPriceIncrease, setExpectedElPriceIncrease] = useState(2, 5);
-  const [paymentTime, setPaymentTime] = useState(10);
+  const [paymentTime, setPaymentTime] = useState(null);
   const [widthPercentage, setWidthPercantage] = useState(
     (paymentTime / 30) * 100
   );
@@ -47,7 +47,13 @@ export default function EstimateView({ estimateId }) {
     }
   }, [estimateData]);
 
-  if (loading) {
+  useEffect(() => {
+    if (paymentTime) {
+      setWidthPercantage((paymentTime / 30) * 100);
+    }
+  }, [paymentTime]);
+
+  if (loading || !estimateData) {
     return (
       <div className="min-h-screen text-center flex justify-center items-center">
         Laster inn estimat..
@@ -64,8 +70,6 @@ export default function EstimateView({ estimateId }) {
   const inverter = estimateData?.price_data?.suppliers?.find(
     (item) => item.category === "inverter"
   );
-
-  if (loading || !estimateData) return <p>Loading..</p>;
 
   return (
     <main className="min-h-screen estimateStylingSheet ">
@@ -278,20 +282,6 @@ export default function EstimateView({ estimateId }) {
                     number={`${formatValue(0)} kr`}
                     text={"Årlig besparing per år for ditt anlegg."}
                   />
-                  <EstimatePricingInfo
-                    image={"/estimate/icon3.png"}
-                    number={`${10}-${20}%`}
-                    text={
-                      "Økning i boligverdien, basert på investeringskostnaden."
-                    }
-                  />
-                  <EstimatePricingInfo
-                    image={"/estimate/icon4.png"}
-                    number={`${10}-${20}%`}
-                    text={
-                      "Andel eget forbruk indikerer hvor mye selvprodusert energi du bruker."
-                    }
-                  />
                 </div>
                 <div className="italic mt-4 flex flex-col gap-1">
                   <p className="mb-1">Tallene ovenefor er basert på:</p>
@@ -374,12 +364,17 @@ export default function EstimateView({ estimateId }) {
               </section>
             </div>
             <SolarEconomicCalculation
-              yearlyProduction={estimateData?.yearly_prod || 315100}
+              yearlyProduction={estimateData?.yearly_prod || 0}
               elPrice={elPrice}
               elNetPrice={elNetPrice}
               expectedElPriceIncrease={expectedElPriceIncrease}
-              investmentCost={3276688} // Your total cost
-              inverterCost={inverter?.price || 200000}
+              investmentCost={
+                estimateData?.price_data?.["total inkl. alt"] || 0
+              }
+              inverterCost={inverter?.priceWithMarkup || 0}
+              onPaybackCalculated={(year) => {
+                setPaymentTime(year);
+              }}
             />
           </div>
 
