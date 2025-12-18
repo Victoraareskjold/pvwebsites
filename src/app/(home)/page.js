@@ -95,56 +95,71 @@ export default function Page() {
       </section>
 
       <section
-        id="potentialSaving"
-        style={{ background: config.primary || "black" }}
-        className="mx-4 my-20 rounded-xl p-2 flex flex-col gap-4 md:hidden"
-      >
-        <h3 className="text-white text-center text-2xl py-4">
-          {config.potentialSaving?.header ||
-            "Hvor stor inntekt kan solcellene gi deg?"}
-        </h3>
-        <IncomeCalculator />
-        <p className="text-white mx-10 py-4">
-          {config.potentialSaving?.p ||
-            "I regneeksempelet har vi tatt utgangspunkt i en fast pris på anlegget på 160.000,- etter Enova-støtte, med en forventet årlig produksjon på 17.000 kWh."}
-        </p>
-
-        <RoofCapacityButton />
-      </section>
-
-      <section
-        id="potentialSaving"
-        style={{ background: config.primary || "black" }}
-        className="mx-4 my-28 mb-36 rounded-xl md:p-4 gap-4 hidden md:flex flex-row max-w-5xl mx-auto"
-      >
-        <div className="w-3/5 flex flex-col gap-6 self-center px-12">
-          <h3 className="text-white font-regular  text-2xl">
-            {config.potentialSaving?.header ||
-              "Hvor stor inntekt kan solcellene gi deg?"}
-          </h3>
-
-          <p className="text-white">
-            {config.potentialSaving?.p ||
-              "I regneeksempelet har vi tatt utgangspunkt i en fast pris på anlegget på 160.000,- etter Enova-støtte, med en forventet årlig produksjon på 17.000 kWh."}
-          </p>
-          <RoofCapacityButton />
-        </div>
-        <IncomeCalculator />
-      </section>
-
-      <section
         id="whyInvest"
-        className="mx-4 mb-20 flex flex-col items-center "
+        className="mx-4 mb-20 flex flex-col items-center gap-20 py-20"
       >
-        <h3 className="text-center text-2xl md:text-4xl">
-          {config.whyInvest?.header || "Hvorfor investere i solcellepanel?"}
-        </h3>
-        <div className="divider mb-8 mt-2"></div>
-        <img className="ml-2 md:hidden" src="/illustration.png" />
-        <img
-          className="ml-2 hidden md:block max-w-screen-2xl w-4/5"
-          src="/ilustrationPc.png"
-        />
+        {/* First block - same order on mobile and desktop */}
+        <div className="flex flex-col md:flex-row max-w-screen-xl gap-20 items-center">
+          <div className="w-full">
+            <h2 className="text-2xl mb-4">
+              Solceller – nå mer lønnsomt enn noensinne
+            </h2>
+            <img src="bilde1.png" alt="Solceller" className="w-full" />
+          </div>
+          <p className="w-full">
+            Vi leverer komplette solcelleanlegg til både private og bedrifter –
+            på boliger, hytter, næringsbygg og andre egnede flater. Når anlegget
+            er koblet til inverteren begynner du umiddelbart å spare strøm, og
+            overskuddet kan selges tilbake til nettet. Vi håndterer hele
+            prosessen fra start til slutt. Ta gjerne kontakt, så ser vi om
+            solceller er lønnsomt for akkurat deg. Det er ikke riktig løsning
+            for alle, og vi er ærlige på hva som lønner seg i din situasjon. Som
+            lokal installatør kjenner vi området godt, og vi er her for å
+            hjelpe.
+          </p>
+        </div>
+
+        {/* Second block - reordered on mobile */}
+        <div className="flex flex-col md:flex-row max-w-screen-xl gap-20 items-center">
+          {/* Mobile order: heading, image, text+button */}
+          <div className="w-full flex flex-col md:order-none">
+            <h2 className="text-2xl mb-4">
+              Solceller + batteri – Strømmen du faktisk får brukt
+            </h2>
+
+            {/* Image shown on mobile, hidden on desktop */}
+            <img
+              src="bilde2.png"
+              alt="Batteri"
+              className="w-full mb-4 md:hidden"
+            />
+
+            <p className="w-full mb-4">
+              Egenproduksjon gir frihet. Batterilagring forsterker den og gir
+              trygghet. Bruk solstrømmen når den har størst verdi – og hold
+              huset i gang selv ved strømbrudd. Vil du vite hva som passer best
+              i din situasjon? Ta kontakt, så gir vi en anbefaling tilpasset
+              dine behov.
+            </p>
+
+            <Link
+              href="/solkart"
+              style={{
+                background: "linear-gradient(90deg, #FF9D00 23%, #FFD05A 92%)",
+              }}
+              className="px-12 py-2 text-white rounded-md border-2 border-black inline-block text-center"
+            >
+              Få tilbud
+            </Link>
+          </div>
+
+          {/* Image shown on desktop, hidden on mobile */}
+          <img
+            src="bilde2.png"
+            alt="Batteri"
+            className="w-full hidden md:block"
+          />
+        </div>
       </section>
 
       <section
