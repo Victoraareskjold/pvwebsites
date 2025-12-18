@@ -67,11 +67,40 @@ export default function EstimateView({ estimateId }) {
   const match = panelType?.match(/\d+/);
   const watt = match ? Number(match[0]) : 0;
 
-  const formatValue = (number) => number.toLocaleString().split(",").join(" ");
+  const formatValue = (number) =>
+    number.toLocaleString("nb-NO", {
+      minimumFractionDigits: 0,
+      maximumFractionDigits: 0,
+    });
 
   const inverter = estimateData?.price_data?.suppliers?.find(
     (item) => item.category === "inverter"
   );
+
+  const getPanelWp = (panelName) => {
+    // Regex for å finne tall etter W eller w (f.eks. "Premium 415 W" → 415)
+    const match = panelName.match(/(\d+)\s*[Ww]/);
+    if (match) {
+      return parseInt(match[1], 10);
+    }
+    // Fallback om regex ikke matcher
+    console.warn(`Kunne ikke finne watt for panel: ${panelName}`);
+    return 0;
+  };
+
+  const getkWp = (selectedPanelType, totalPanels) => {
+    const panelWp = getPanelWp(selectedPanelType);
+    return (totalPanels * panelWp) / 1000;
+  };
+
+  const enovaSupport = () => {
+    const eligibleKwp = Math.min(
+      getkWp(estimateData?.selected_panel_type, estimateData?.total_panels) ??
+        0,
+      15
+    );
+    return (eligibleKwp * 2500).toFixed(2);
+  };
 
   return (
     <main className="min-h-screen estimateStylingSheet ">
@@ -126,7 +155,7 @@ export default function EstimateView({ estimateId }) {
             <div className="w-full h-1 bg-slate-300 rounded-full mt-12" />
           </section> */}
 
-          <div className="grid grid-cols-1 lg:grid-cols-2 sectionContainer bg-[#FFF0CD] rounded-md gap-12">
+          <div className="flex flex-col lg:grid lg:grid-cols-2 sectionContainer bg-[#FFF0CD] rounded-md gap-12">
             {/* Strømpris og besparelse */}
             <div className="w-full">
               <div className="flex flex-col gap-4">
@@ -207,20 +236,21 @@ export default function EstimateView({ estimateId }) {
                   />
                 </div>
               </div>
-
-              <div className="bg-green-200 p-2 mt-8">
-                <h1>
-                  Forventet årlig produksjon fra anlegget:{" "}
-                  <strong>
-                    {formatValue(Number(estimateData?.yearly_prod?.toFixed(0)))}{" "}
-                    kWh per år.
-                  </strong>
-                </h1>
-              </div>
             </div>
 
             <div className="flex flex-col w-full gap-8">
               <section className="w-full !p-0">
+                <div className="bg-green-200 p-2 mt-8">
+                  <h1>
+                    Forventet årlig produksjon fra anlegget:{" "}
+                    <strong>
+                      {formatValue(
+                        Number(estimateData?.yearly_prod?.toFixed(0))
+                      )}{" "}
+                      kWh per år.
+                    </strong>
+                  </h1>
+                </div>
                 <div className="flex flex-col gap-4 mt-6 p-4 rounded-lg shadow-lg bg-white pb-8">
                   <div>
                     <p className="fatP">
@@ -290,86 +320,9 @@ export default function EstimateView({ estimateId }) {
                     text={"Årlig besparing per år for ditt anlegg."}
                   />
                 </div>
-                <div className="italic mt-4 flex flex-col gap-1">
-                  <p className="mb-1">Tallene ovenefor er basert på:</p>
-                  <li>
-                    Årlig forbruk:{" "}
-                    <strong>
-                      {formatValue(
-                        Number(estimateData?.yearly_prod).toFixed(0)
-                      )}{" "}
-                      kWh
-                    </strong>
-                  </li>
-                  <li>
-                    Årlig produksjon:{" "}
-                    <strong>
-                      {formatValue(
-                        Number(estimateData?.yearly_prod).toFixed(0)
-                      )}{" "}
-                      kWh
-                    </strong>
-                  </li>
-                  <li>
-                    Snittpris (strømpris + nettleie) neste 30 år:{" "}
-                    <strong>{(elPrice + elNetPrice).toFixed(2)} kr</strong>
-                  </li>
-                </div>
-              </section>
-
-              <section className="flex flex-col gap-6 !p-0">
-                <h2>Miljø</h2>
-
-                <div>
-                  <p>
-                    Ved å satse på solenergi investerer du i mer enn bare strøm
-                    – du tar et viktig steg mot en{" "}
-                    <strong className="font-semibold">
-                      bærekraftig fremtid for ditt nærmiljø.
-                    </strong>
-                  </p>
-                  <br />
-                  <p>
-                    Strømmen som solcellene produserer kan drive alt som går på
-                    strøm i huset ditt. Her er noen eksempler på hva de{" "}
-                    <strong className="font-semibold">
-                      {formatValue(
-                        Number(estimateData?.yearly_prod).toFixed(0)
-                      )}{" "}
-                      kWh
-                    </strong>{" "}
-                    du produserer årlig kan drifte:
-                  </p>
-                </div>
-
-                <div className="flex flex-row gap-10">
-                  <div>
-                    <li>Elbil-ladninger</li>
-                    <li>Telefon-ladninger</li>
-                    <li>Kjøleskap</li>
-                    <li>Kaffekopper</li>
-                  </div>
-                  <div>
-                    <p>
-                      <strong className="font-semibold">310</strong> full
-                      ladninger til elbilen din.
-                    </p>
-                    <p>
-                      lade <strong className="font-semibold">310</strong>{" "}
-                      mobiltelefoner.
-                    </p>
-                    <p>
-                      drive <strong className="font-semibold">310</strong>{" "}
-                      kjøleskap på et år
-                    </p>
-                    <p>
-                      brygge <strong className="font-semibold">310</strong>{" "}
-                      kopper kaffe.
-                    </p>
-                  </div>
-                </div>
               </section>
             </div>
+
             <SolarEconomicCalculation
               yearlyProduction={estimateData?.yearly_prod || 0}
               elPrice={elPrice}
@@ -380,7 +333,6 @@ export default function EstimateView({ estimateId }) {
               }
               inverterCost={inverter?.priceWithMarkup || 0}
               onPaybackCalculated={(data) => {
-                // Bare oppdater state hvis verdien faktisk har endret seg
                 setPaymentTime((prev) =>
                   prev !== data.paybackYear ? data.paybackYear : prev
                 );
@@ -391,53 +343,120 @@ export default function EstimateView({ estimateId }) {
                 );
               }}
             />
+
+            <section className="flex flex-col gap-6 !p-0">
+              <h2>Miljø</h2>
+
+              <div>
+                <p>
+                  Ved å satse på solenergi investerer du i mer enn bare strøm –
+                  du tar et viktig steg mot en{" "}
+                  <strong className="font-semibold">
+                    bærekraftig fremtid.
+                  </strong>
+                </p>
+                <br />
+                <p>
+                  Strømmen som solcellene produserer kan drive alt som går på
+                  strøm i bygget ditt. Her er noen eksempler på hva de{" "}
+                  <strong className="font-semibold">
+                    {formatValue(Number(estimateData?.yearly_prod).toFixed(0))}{" "}
+                    kWh
+                  </strong>{" "}
+                  du produserer årlig kan drifte:
+                </p>
+              </div>
+
+              <div className="flex flex-row gap-10 !p-4">
+                <div>
+                  <li>Elbil-ladninger:</li>
+                  <li>Kjøleskap:</li>
+                  <li>Kaffekopper:</li>
+                </div>
+                <div>
+                  <p>
+                    <strong className="font-semibold">
+                      {Number(estimateData?.yearly_prod / 60).toFixed(0)}
+                    </strong>{" "}
+                    full ladninger til elbilen din.
+                  </p>
+                  <p>
+                    drive{" "}
+                    <strong className="font-semibold">
+                      {Number(estimateData?.yearly_prod / 300).toFixed(0)}
+                    </strong>{" "}
+                    kjøleskap på et år.
+                  </p>
+                  <p>
+                    brygge{" "}
+                    <strong className="font-semibold">
+                      {Number(estimateData?.yearly_prod / 0.03).toFixed(0)}
+                    </strong>{" "}
+                    kopper kaffe.
+                  </p>
+                </div>
+              </div>
+            </section>
           </div>
 
-          <section className="bg-slate-600 maxSection items-center w-full flex justify-center">
+          <section className="bg-[#4D4D4D] maxSection items-center w-full flex justify-center">
             <section className="w-full flex flex-col gap-8 self-center">
               <h2 className="text-white">Bestill anlegg</h2>
-              <div>
-                <div className="flex flex-row justify-between">
-                  <p className="fatP text-white">
-                    Komplett ferdig installert anlegg
-                  </p>
-                  <p className="fatP text-white">220 000 kr</p>
-                </div>
-                <div className="w-full h-2 bg-green-300 rounded-full my-6" />
-                <div className="flex flex-row justify-between">
-                  <p className="fatP text-white">Enova støtte</p>
-                  <p className="fatP text-white">-29 000 kr</p>
-                </div>
-                <div className="w-full h-2 bg-green-300 rounded-full my-6" />
 
-                <div className="flex flex-row justify-between mb-8">
-                  <p className="fatP text-white">
-                    Pris etter fratrukket Enova støtte
-                  </p>
-                  <p className="fatP text-white">191 000 kr</p>
-                </div>
-              </div>
               <div>
-                <div className="bg-green-300 w-full p-4 rounded-2xl">
-                  <h3 className="">Finansiering med Grønt boliglån</h3>
-                  <p className="italic smallP">
-                    Enova Støtte:{" "}
-                    <span className="text-lg font-regular">
-                      -{formatValue(1234567890)} kr
-                    </span>
-                  </p>
-                  <div className="p-3">
-                    <p className="smallP italic mb-1">Nominell rente: 5,39%</p>
-                    <p className="smallP italic">Nedbetalingstid: 30 år</p>
+                {estimateData?.leads?.company ? (
+                  // Næringskunde: Kun total eks. mva
+                  <div className="flex flex-row justify-between">
+                    <p className="fatP text-white">
+                      Komplett ferdig installert anlegg eks. mva
+                    </p>
+                    <p className="fatP text-white">
+                      {formatValue(
+                        Number(
+                          estimateData?.price_data?.["total eks mva"] ||
+                            estimateData?.price_data?.["total inkl. alt"]
+                        )
+                      )}{" "}
+                      kr
+                    </p>
                   </div>
-                  <p>
-                    Pris per måned:{" "}
-                    <span className="font-bold text-2xl">
-                      {formatValue(420)}kr
-                    </span>
-                  </p>
-                </div>
+                ) : (
+                  // Privatperson: Total inkl. mva og Enova-støtte
+                  <>
+                    <div className="flex flex-row justify-between">
+                      <p className="fatP text-white">
+                        Komplett ferdig installert anlegg
+                      </p>
+                      <p className="fatP text-white">
+                        {formatValue(
+                          Number(estimateData?.price_data?.["total inkl. alt"])
+                        )}{" "}
+                        kr
+                      </p>
+                    </div>
+                    <div className="w-full h-2 bg-green-300 rounded-full my-6" />
+                    <div className="flex flex-row justify-between">
+                      <p className="fatP text-white">Enova støtte</p>
+                      <p className="fatP text-white">
+                        - {formatValue(Number(enovaSupport()))} kr
+                      </p>
+                    </div>
+                    <div className="w-full h-2 bg-green-300 rounded-full my-6" />
+                    <div className="flex flex-row justify-between mb-8">
+                      <p className="fatP text-white">Totalkostnad inkl. mva</p>
+                      <p className="fatP text-white">
+                        {formatValue(
+                          Number(
+                            estimateData?.price_data?.["total inkl. alt"]
+                          ) - Number(enovaSupport())
+                        )}{" "}
+                        kr
+                      </p>
+                    </div>
+                  </>
+                )}
               </div>
+
               <div className="flex flex-row items-center gap-4">
                 <input type="checkbox" className="rounded-checkbox"></input>
                 <p className="text-white">
@@ -448,6 +467,7 @@ export default function EstimateView({ estimateId }) {
               <button className="bg-orange-300 text-white fatP rounded-full w-fit px-5 py-1">
                 Bestill anlegg
               </button>
+
               <h2 className="text-white">Inkludert i prisen</h2>
               <div className="flex flex-col gap-3">
                 <div className="flex flex-row gap-4 items-center">
@@ -475,15 +495,47 @@ export default function EstimateView({ estimateId }) {
                   </p>
                 </div>
               </div>
-              <p className="text-white fatP text-center mt-32">
-                Ved å velge solenergi, velger du en fremtid hvor naturen og
-                fremgang går hånd i hånd.
-              </p>
-              <img
-                src="/estimate/globe.png"
-                className="w-4/5 self-center py-12"
-              />
-              <img src={config.logo} className="w-96" />
+
+              <h2 className="text-white">
+                Hvorfor velge oss som er lokal installatør?
+              </h2>
+              <div className="flex flex-col gap-3">
+                <div className="flex flex-row gap-4 items-center">
+                  <img src="/estimate/greenCircle.png" />
+                  <p className="text-white">
+                    <strong>Personlig oppfølging</strong> – hos oss har du én
+                    fast kontaktperson, ikke et kundesenter.
+                  </p>
+                </div>
+                <div className="flex flex-row gap-4 items-center">
+                  <img src="/estimate/greenCircle.png" />
+                  <p className="text-white">
+                    <strong>Rask service</strong> – vi er i nærheten, så du får
+                    rask hjelp både før og etter installasjon.
+                  </p>
+                </div>
+                <div className="flex flex-row gap-4 items-center">
+                  <img src="/estimate/greenCircle.png" />
+                  <p className="text-white">
+                    <strong>Kvalitet og trygghet</strong> – lokale fagfolk med
+                    kunnskap om området og strømnettet.
+                  </p>
+                </div>
+                <div className="flex flex-row gap-4 items-center">
+                  <img src="/estimate/greenCircle.png" />
+                  <p className="text-white">
+                    <strong>Langsiktig samarbeid</strong> – vi blir ikke borte
+                    etter installasjon.
+                  </p>
+                </div>
+                <div className="flex flex-row gap-4 items-center">
+                  <img src="/estimate/greenCircle.png" />
+                  <p className="text-white">
+                    <strong>Konkurransedyktig pris </strong> – vi har ingen dyre
+                    mellomledd.
+                  </p>
+                </div>
+              </div>
             </section>
           </section>
         </main>
