@@ -74,7 +74,7 @@ export default {
   faq: {
     title1: "Kva slags solceller brukar de?",
     description1:
-      "Solcellemarknaden er i kontinuerleg utvikling – akkurat som med smarttelefonar, kjem det stadig nye og betre modellar. Difor jobbar vi heile tida for å finne dei mest effektive panela på marknaden, slik at du får den beste løysinga.   Kontakt oss gjerne for eit uforpliktande tilbod på dei mest gunstige solcellepanela som finst i dag. Som med dei fleste gode investeringar, var den beste tida å investere «i går» – men den nest beste tida er i dag.",
+      "Solcellemarknaden er i kontinuerleg utvikling – akkurat som med smarttelefonar, kjem det stadig nye og betre modellar. Difor jobbar vi heile tida for å finne dei mest effektive panela på marknaden, slik at du får den beste løysinga.  Kontakt oss gjerne for eit uforpliktande tilbod på dei mest gunstige solcellepanela som finst i dag. Som med dei fleste gode investeringar, var den beste tida å investere «i går» – men den nest beste tida er i dag.",
     title2: "Følgjer det med nokon garanti?",
     description2:
       "Vi står ansvarlege for solcelleanlegget ditt og vil vere her for deg i lang tid framover. Sjølv om solcellemarknaden kan svinge, er vi eit elektrofirma med fleire bein å stå på. Fleire av panela våre blir levert med 30 års produktgaranti og 30 års effektgaranti – alltid inkludert i prisen, utan ekstra kostnad.",

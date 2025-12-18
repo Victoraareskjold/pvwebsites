@@ -6,13 +6,7 @@ import { GoogleAnalytics, GoogleTagManager } from "@next/third-parties/google";
 import { headers } from "next/headers";
 
 import "../globals.css";
-
-// Dynamisk import av konfigurasjoner
-const configs = {
-  vestelektro: () => import("../../config/vestelektro"),
-  alfaelektro: () => import("../../config/alfaelektro"),
-  lynelektro: () => import("../../config/lynelektro"),
-};
+import { configs } from "../solkart/layout";
 
 export default async function RootLayout({ children }) {
   const headersList = await headers();

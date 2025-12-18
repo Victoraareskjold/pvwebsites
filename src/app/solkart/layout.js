@@ -4,10 +4,14 @@ import { GoogleTagManager } from "@next/third-parties/google";
 import "../globals.css";
 import { SiteConfigProvider } from "../../contexts/siteConfigContext";
 
-const configs = {
+export const configs = {
   vestelektro: () => import("../../config/vestelektro"),
   alfaelektro: () => import("../../config/alfaelektro"),
   lynelektro: () => import("../../config/lynelektro"),
+  gardermoenelektro: () => import("../../config/gardermoenelektro"),
+  minelsol: () => import("../../config/minelsol"),
+  teleror: () => import("../../config/teleror"),
+  smartelektro: () => import("../../config/smartelektro"),
 };
 
 export default async function SolkartLayout({ children }) {
