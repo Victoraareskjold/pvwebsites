@@ -4,7 +4,7 @@ import "../blog.css";
 import Image from "next/image";
 
 export default async function BlogPost({ params }) {
-  const { slug } = params;
+  const { slug } = await params;
 
   // Hent headers for å finne site-config
   const headersList = await headers();

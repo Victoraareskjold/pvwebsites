@@ -9,7 +9,14 @@ import Image from "next/image";
 export default function Blog() {
   const config = useSiteConfig();
 
-  const sortedBlogs = blogs.sort((a, b) => b.id - a.id);
+  const filteredBlogs = blogs.filter((blog) => {
+    if (config.name !== "alfaelektrosol" && blog.id === 12) {
+      return false;
+    }
+    return true;
+  });
+
+  const sortedBlogs = filteredBlogs.sort((a, b) => b.id - a.id);
 
   return (
     <section className="py-24 bg-black p-4 min-h-screen">

@@ -7,6 +7,10 @@ export function proxy(request) {
   if (host.includes("vestelektro")) domain = "vestelektro";
   if (host.includes("alfaelektro")) domain = "alfaelektro";
   if (host.includes("lynelektro")) domain = "lynelektro";
+  if (host.includes("gardermoenelektro")) domain = "gardermoenelektro";
+  if (host.includes("minelsol")) domain = "minelsol";
+  if (host.includes("smartelektro")) domain = "smartelektro";
+  if (host.includes("teleror")) domain = "teleror";
 
   const requestHeaders = new Headers(request.headers);
   requestHeaders.set("x-site-config", domain);
