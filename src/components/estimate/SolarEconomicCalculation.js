@@ -58,22 +58,41 @@ export default function SolarEconomicCalculation({
     inverterCost,
   ]);
 
+  const summary = useMemo(() => {
+    if (yearlyData.length === 0) return null;
+
+    const totalSavings30Years = yearlyData.reduce(
+      (acc, year) => acc + year.yearlySavings - year.replacementCost,
+      -investmentCost
+    );
+
+    const averageYearlySavings = totalSavings30Years / YEARS;
+
+    return {
+      totalSavings30Years: Math.round(totalSavings30Years),
+      averageYearlySavings: Math.round(averageYearlySavings),
+    };
+  }, [yearlyData, investmentCost]);
+
   const paybackYear = useMemo(() => {
     const found = yearlyData.find((row) => row.cumulative >= 0);
     return found ? found.year : null;
   }, [yearlyData]);
+
+  useEffect(() => {
+    if (onPaybackCalculated && paybackYear != null && summary) {
+      onPaybackCalculated({
+        paybackYear,
+        ...summary,
+      });
+    }
+  }, [paybackYear, summary, onPaybackCalculated]);
 
   const formatValue = (number) =>
     number.toLocaleString("nb-NO", {
       minimumFractionDigits: 0,
       maximumFractionDigits: 0,
     });
-
-  useEffect(() => {
-    if (paybackYear && onPaybackCalculated) {
-      onPaybackCalculated(paybackYear);
-    }
-  }, [paybackYear, onPaybackCalculated]);
 
   return (
     <div className="flex flex-col gap-6 !w-full col-span-2">

@@ -40,6 +40,8 @@ export default function EstimateView({ estimateId }) {
     (paymentTime / 30) * 100
   );
 
+  const [economySummary, setEconomySummary] = useState(null);
+
   useEffect(() => {
     if (estimateData?.selected_el_price !== undefined) {
       setElPrice(estimateData.selected_el_price);
@@ -274,12 +276,17 @@ export default function EstimateView({ estimateId }) {
                 <div className="grid grid-cols-2 justify-between gap-4 mt-12">
                   <EstimatePricingInfo
                     image={"/estimate/icon1.png"}
-                    number={`${formatValue(0)} kr`}
+                    number={`${formatValue(
+                      economySummary?.totalSavings30Years || 0
+                    )} kr`}
                     text={"Total besparing for ditt anlegg over 30 år."}
                   />
+
                   <EstimatePricingInfo
                     image={"/estimate/icon2.png"}
-                    number={`${formatValue(0)} kr`}
+                    number={`${formatValue(
+                      economySummary?.averageYearlySavings || 0
+                    )} kr`}
                     text={"Årlig besparing per år for ditt anlegg."}
                   />
                 </div>
@@ -372,8 +379,16 @@ export default function EstimateView({ estimateId }) {
                 estimateData?.price_data?.["total inkl. alt"] || 0
               }
               inverterCost={inverter?.priceWithMarkup || 0}
-              onPaybackCalculated={(year) => {
-                setPaymentTime(year);
+              onPaybackCalculated={(data) => {
+                // Bare oppdater state hvis verdien faktisk har endret seg
+                setPaymentTime((prev) =>
+                  prev !== data.paybackYear ? data.paybackYear : prev
+                );
+                setEconomySummary((prev) =>
+                  prev?.totalSavings30Years !== data.totalSavings30Years
+                    ? data
+                    : prev
+                );
               }}
             />
           </div>
