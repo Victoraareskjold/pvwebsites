@@ -13,8 +13,8 @@ export default function Blog() {
   if (!config) return <p>Laster...</p>;
 
   const filteredBlogs = blogs.filter((blog) => {
-    if (config.name !== "alfaelektro" && blog.id === 12) {
-      return false;
+    if (blog.id === 12) {
+      return config.site === "alfaelektrosol";
     }
     return true;
   });
@@ -30,19 +30,19 @@ export default function Blog() {
 
       <ul className="grid gap-4 xl:gap-8 md:grid-cols-2 xl:grid-cols-3">
         {sortedBlogs.map((blog) => (
-          <Link
-            key={blog.id}
-            href={`/blog/${blog.slug}`}
-            className="relative w-full h-64 rounded-2xl overflow-hidden"
-          >
-            <Image
-              fill
-              src={blog.image}
-              alt={blog.nb.title}
-              className="object-cover"
-            />
-            <h2 className="mt-4 text-white font-bold">{blog.nb.title}</h2>
-          </Link>
+          <li key={blog.id}>
+            <Link href={`/blog/${blog.slug}`}>
+              <div className="relative w-full h-64 rounded-2xl overflow-hidden">
+                <Image
+                  fill
+                  src={blog.image}
+                  alt={blog.nb.title}
+                  className="object-cover"
+                />
+              </div>
+              <h2 className="mt-4 text-white font-bold">{blog.nb.title}</h2>
+            </Link>
+          </li>
         ))}
       </ul>
     </section>
