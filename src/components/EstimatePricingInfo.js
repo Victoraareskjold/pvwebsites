@@ -5,7 +5,9 @@ export default function EstimatePricingInfo({ image, number, text }) {
         src={image || "/search.png"}
         className="h-16 w-16 self-center object-contain"
       />
-      <h2 className="text-center my-2">{number}</h2>
+      <h2 className="text-center my-2">
+        <strong className="font-semibold">{number}</strong>
+      </h2>
       <p className="text-center">{text}</p>
     </div>
   );

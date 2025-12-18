@@ -126,7 +126,7 @@ export default function EstimateView({ estimateId }) {
             <div>
               <p className="font-light text-lg text-gray-900">
                 Her er ditt tilbud på et komplett solcelleanlegg fra{" "}
-                <span className="font-medium">
+                <span className="font-semibold">
                   {config.title || "mangler firma"}.
                 </span>
               </p>
@@ -345,7 +345,9 @@ export default function EstimateView({ estimateId }) {
             />
 
             <section className="flex flex-col gap-6 !p-0">
-              <h2>Miljø</h2>
+              <h4>
+                <strong>Miljø</strong>
+              </h4>
 
               <div>
                 <p>
@@ -401,7 +403,9 @@ export default function EstimateView({ estimateId }) {
 
           <section className="bg-[#4D4D4D] maxSection items-center w-full flex justify-center">
             <section className="w-full flex flex-col gap-8 self-center">
-              <h2 className="text-white">Bestill anlegg</h2>
+              <h5 className="text-white">
+                <strong>Bestill anlegg</strong>
+              </h5>
 
               <div>
                 {estimateData?.leads?.company ? (
@@ -468,7 +472,9 @@ export default function EstimateView({ estimateId }) {
                 Bestill anlegg
               </button>
 
-              <h2 className="text-white">Inkludert i prisen</h2>
+              <h5 className="text-white">
+                <strong>Inkludert i prisen</strong>
+              </h5>
               <div className="flex flex-col gap-3">
                 <div className="flex flex-row gap-4 items-center">
                   <img src="/estimate/greenCheck.png" />
@@ -496,44 +502,69 @@ export default function EstimateView({ estimateId }) {
                 </div>
               </div>
 
-              <h2 className="text-white">
-                Hvorfor velge oss som er lokal installatør?
-              </h2>
+              <h5 className="text-white">
+                <strong>Hvorfor velge oss som er lokal installatør?</strong>
+              </h5>
               <div className="flex flex-col gap-3">
                 <div className="flex flex-row gap-4 items-center">
                   <img src="/estimate/greenCircle.png" />
                   <p className="text-white">
-                    <strong>Personlig oppfølging</strong> – hos oss har du én
-                    fast kontaktperson, ikke et kundesenter.
+                    <strong className="font-semibold">
+                      Personlig oppfølging
+                    </strong>{" "}
+                    – hos oss har du én fast kontaktperson, ikke et kundesenter.
                   </p>
                 </div>
                 <div className="flex flex-row gap-4 items-center">
                   <img src="/estimate/greenCircle.png" />
                   <p className="text-white">
-                    <strong>Rask service</strong> – vi er i nærheten, så du får
-                    rask hjelp både før og etter installasjon.
+                    <strong className="font-semibold">Rask service</strong> – vi
+                    er i nærheten, så du får rask hjelp både før og etter
+                    installasjon.
                   </p>
                 </div>
                 <div className="flex flex-row gap-4 items-center">
                   <img src="/estimate/greenCircle.png" />
                   <p className="text-white">
-                    <strong>Kvalitet og trygghet</strong> – lokale fagfolk med
-                    kunnskap om området og strømnettet.
+                    <strong className="font-semibold">
+                      Kvalitet og trygghet
+                    </strong>{" "}
+                    – lokale fagfolk med kunnskap om området og strømnettet.
                   </p>
                 </div>
                 <div className="flex flex-row gap-4 items-center">
                   <img src="/estimate/greenCircle.png" />
                   <p className="text-white">
-                    <strong>Langsiktig samarbeid</strong> – vi blir ikke borte
-                    etter installasjon.
+                    <strong className="font-semibold">
+                      Langsiktig samarbeid
+                    </strong>{" "}
+                    – vi blir ikke borte etter installasjon.
                   </p>
                 </div>
                 <div className="flex flex-row gap-4 items-center">
                   <img src="/estimate/greenCircle.png" />
                   <p className="text-white">
-                    <strong>Konkurransedyktig pris </strong> – vi har ingen dyre
-                    mellomledd.
+                    <strong className="font-semibold">
+                      Konkurransedyktig pris{" "}
+                    </strong>{" "}
+                    – vi har ingen dyre mellomledd.
                   </p>
+                </div>
+              </div>
+              <div className="mx-auto flex flex-row gap-4 items-center my-4">
+                <img src="/estimate/techIcon.png" className="h-20" />
+                <div>
+                  <p className="font-light text-white mb-2">
+                    TEKNISK KONSULENT
+                  </p>
+                  <h2 className="text-white ">
+                    <strong className="font-semibold">
+                      {estimateData?.leads?.created_by?.name}
+                    </strong>
+                  </h2>
+                  <h2 className="text-white ">
+                    {estimateData?.leads?.created_by?.email}
+                  </h2>
                 </div>
               </div>
             </section>

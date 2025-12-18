@@ -19,7 +19,20 @@ export async function GET(
 
     const { data, error } = await client
       .from("estimates")
-      .select("*, leads(person_info, address, company)")
+      .select(
+        `
+        *,
+        leads (
+          person_info,
+          address,
+          company,
+          created_by (
+            name,
+            email
+          )
+        )
+      `
+      )
       .eq("id", estimateId)
       .maybeSingle();
 

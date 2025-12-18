@@ -8,9 +8,12 @@ export default function HowWillItLook({ estimateData }) {
       </h5>
       <h2>
         Basert på vår evaluering har vi plassert{" "}
-        <strong>{estimateData?.total_panels}</strong> solcellepaneler hos dere
-        som vil produsere rundt{" "}
-        {formatValue(Number(estimateData?.yearly_prod?.toFixed(0)))} kWh per år.
+        <strong className="font-semibold">{estimateData?.total_panels}</strong>{" "}
+        solcellepaneler hos dere som vil produsere rundt{" "}
+        <strong className="font-semibold">
+          {formatValue(Number(estimateData?.yearly_prod?.toFixed(0)))}
+        </strong>{" "}
+        kWh per år.
       </h2>
       {estimateData.image_url ? (
         <div className="h-full">
