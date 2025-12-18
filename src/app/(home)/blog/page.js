@@ -41,9 +41,7 @@ export default function Blog() {
               alt={blog.nb.title}
               className="object-cover"
             />
-            <h2 className="absolute bottom-4 left-4 right-4 text-white font-bold">
-              {blog.nb.title}
-            </h2>
+            <h2 className="mt-4 text-white font-bold">{blog.nb.title}</h2>
           </Link>
         ))}
       </ul>
