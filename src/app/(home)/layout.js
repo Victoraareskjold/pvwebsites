@@ -41,16 +41,6 @@ export default async function RootLayout({ children }) {
           <GoogleAnalytics gaId={config.googleAnalytics} />
         )}
 
-        {config.hubspotScript && (
-          <script
-            type="text/javascript"
-            id="hs-script-loader"
-            async
-            defer
-            src={config.hubspotScript}
-          ></script>
-        )}
-
         {config.metaPixel && (
           <>
             <script

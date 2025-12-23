@@ -2,7 +2,7 @@
 export default {
   title: "Telerør Elektro Sol",
 
-  site: "Telerørelektrosol",
+  site: "Telerorelektrosol",
 
   logo: "/teleror/logo.png",
 
