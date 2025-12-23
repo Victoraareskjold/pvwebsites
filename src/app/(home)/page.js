@@ -99,10 +99,11 @@ export default function Page() {
         className="mx-4 mb-20 flex flex-col items-center gap-20 py-20"
       >
         {/* First block - same order on mobile and desktop */}
-        <div className="flex flex-col md:flex-row max-w-screen-xl gap-20 items-center">
+        <div className="flex flex-col md:flex-row max-w-screen-xl gap-12 items-center">
           <div className="w-full">
             <h2 className="text-2xl mb-4">
-              Solceller – nå mer lønnsomt enn noensinne
+              Solceller – <br />
+              nå mer lønnsomt enn noensinne
             </h2>
             <img src="bilde1.png" alt="Solceller" className="w-full" />
           </div>
@@ -124,7 +125,8 @@ export default function Page() {
           {/* Mobile order: heading, image, text+button */}
           <div className="w-full flex flex-col md:order-none">
             <h2 className="text-2xl mb-4">
-              Solceller + batteri – Strømmen du faktisk får brukt
+              Solceller + batteri – <br />
+              strømmen du faktisk får brukt
             </h2>
 
             {/* Image shown on mobile, hidden on desktop */}
@@ -142,15 +144,18 @@ export default function Page() {
               dine behov.
             </p>
 
-            <Link
-              href="/solkart"
-              style={{
-                background: "linear-gradient(90deg, #FF9D00 23%, #FFD05A 92%)",
-              }}
-              className="px-12 py-2 text-white rounded-md border-2 border-black inline-block text-center"
-            >
-              Få tilbud
-            </Link>
+            <div>
+              <Link
+                href="/solkart"
+                style={{
+                  background:
+                    "linear-gradient(90deg, #FF9D00 23%, #FFD05A 92%)",
+                }}
+                className="px-14 py-2 text-white rounded-md border-2 border-black inline-block text-center"
+              >
+                <strong>Få tilbud</strong>
+              </Link>
+            </div>
           </div>
 
           {/* Image shown on desktop, hidden on mobile */}
