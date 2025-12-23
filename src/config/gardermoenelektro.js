@@ -2,7 +2,7 @@
 export default {
   title: "Gardermoen Elektro Sol",
 
-  site: "Gardermoenelektrosol",
+  site: "gelektrosol",
 
   logo: "/gardermoenelektro/logo.png",
 
