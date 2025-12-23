@@ -43,9 +43,9 @@ export function Navbar({ logo, title, pos }) {
         {/* Logo */}
         <Link href="/" style={{ display: "flex", alignItems: "center" }}>
           <img
-            src={logo || "/images/default-logo.png"}
+            src={logo || "/teleror/logo.png"}
             alt={title || "Logo"}
-            style={{ height: "40px" }}
+            style={{ height: "54px" }}
           />
         </Link>
 
