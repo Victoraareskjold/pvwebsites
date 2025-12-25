@@ -21,7 +21,7 @@ export default {
 
   hero: {
     header: "SOLCELLER ROMERIKE",
-    image: "/gardermoenelektro/heroImage.png",
+    background: "/gardermoenelektro/heroImage.png",
   },
 
   about: {

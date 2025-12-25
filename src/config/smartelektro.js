@@ -21,7 +21,7 @@ export default {
 
   hero: {
     header: "SOLCELLER LILLESTRØM OG STOR-OSLO",
-    image: "/smartelektro/heroImage.png",
+    background: "/smartelektro/heroImage.png",
   },
 
   about: {

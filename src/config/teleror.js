@@ -27,7 +27,7 @@ export default {
 
   hero: {
     header: "SOLCELLER VESTFOLD OG TELEMARK",
-    image: "/teleror/heroImage.png",
+    background: "/teleror/heroImage.png",
   },
 
   about: {

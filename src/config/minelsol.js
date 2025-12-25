@@ -19,7 +19,7 @@ export default {
     textColor: "black",
   },
 
-  hero: { header: "SOLCELLER ELVERUM", image: "/minelsol/heroImage.png" },
+  hero: { header: "SOLCELLER ELVERUM", background: "/minelsol/heroImage.png" },
 
   about: {
     header: "Minel Sol",
