@@ -28,13 +28,12 @@ export default function EstimateView({ estimateId }) {
   }, [estimateId]);
 
   const [elPrice, setElPrice] = useState(
-    estimateData?.selected_el_price || 0.5
+    /* estimateData?.selected_el_price ||  */ 0.5
   );
   const [elNetPrice, setElNetPrice] = useState(
-    estimateData?.selected_el_price + 0.5 || 0,
-    62
+    /* estimateData?.selected_el_price + 0.5 ||  */ 0.62
   );
-  const [expectedElPriceIncrease, setExpectedElPriceIncrease] = useState(2, 5);
+  const [expectedElPriceIncrease, setExpectedElPriceIncrease] = useState(2.5);
   const [paymentTime, setPaymentTime] = useState(null);
   const [widthPercentage, setWidthPercantage] = useState(
     (paymentTime / 30) * 100
@@ -42,12 +41,12 @@ export default function EstimateView({ estimateId }) {
 
   const [economySummary, setEconomySummary] = useState(null);
 
-  useEffect(() => {
+  /* useEffect(() => {
     if (estimateData?.selected_el_price !== undefined) {
       setElPrice(estimateData.selected_el_price);
       setElNetPrice(estimateData.selected_el_price) + 0.5;
     }
-  }, [estimateData]);
+  }, [estimateData]); */
 
   useEffect(() => {
     if (paymentTime) {
@@ -180,10 +179,7 @@ export default function EstimateView({ estimateId }) {
               <div className="gap-8 mt-12 flex flex-col">
                 <div>
                   <p className="fatP">
-                    Strømpris per kWh:{" "}
-                    <strong>
-                      {elPrice || estimateData?.selected_el_price} kr/kWh
-                    </strong>
+                    Strømpris per kWh: <strong>{elPrice} kr/kWh</strong>
                   </p>
                   <input
                     className="w-full"
@@ -198,10 +194,7 @@ export default function EstimateView({ estimateId }) {
 
                 <div>
                   <p className="fatP">
-                    Nettleie per kWh:{" "}
-                    <strong>
-                      {elNetPrice || estimateData?.selected_el_price} kr/kWh
-                    </strong>
+                    Nettleie per kWh: <strong>{elNetPrice} kr/kWh</strong>
                   </p>
                   <input
                     className="w-full"
@@ -217,11 +210,7 @@ export default function EstimateView({ estimateId }) {
                 <div>
                   <p className="fatP">
                     Forventet årlig prisvekt på strøm:{" "}
-                    <strong>
-                      {expectedElPriceIncrease ||
-                        estimateData?.selected_el_price}{" "}
-                      %
-                    </strong>
+                    <strong>{expectedElPriceIncrease} %</strong>
                   </p>
                   <input
                     className="w-full"
@@ -240,7 +229,7 @@ export default function EstimateView({ estimateId }) {
 
             <div className="flex flex-col w-full gap-8">
               <section className="w-full !p-0">
-                <div className="bg-green-200 p-2 mt-8">
+                <div className="bg-green-200 p-2 mt-8 rounded-lg">
                   <h1>
                     Forventet årlig produksjon fra anlegget:{" "}
                     <strong>
