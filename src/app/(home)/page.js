@@ -181,7 +181,7 @@ export default function Page() {
               src={config.advantage?.heroImage || "/heroImage.png"}
               alt="Hero"
               style={{ position: "relative" }}
-              className="w-full h-[50vh] md:max-w-screen-2xl md:max-h-[940px] md:h-full object-cover mx-auto object-cover"
+              className="w-full h-[50vh] md:max-w-screen-xl md:max-h-[940px] md:h-full object-cover mx-auto object-cover"
             />
             <div className="blackFade"></div>
             <div className="blackFade2"></div>
