@@ -8,7 +8,10 @@ import { useRef, useState } from "react";
 export default function FormModal({ isOpen, onClose }) {
   const config = useSiteConfig();
   const formRef = useRef();
+
+  const [selectedEquipment, setSelectedEquipment] = useState("Solcelleanlegg");
   const [errorMessage, setErrorMessage] = useState("");
+
   const router = useRouter();
 
   const sendEmail = (e) => {
@@ -20,8 +23,10 @@ export default function FormModal({ isOpen, onClose }) {
     const name = formData.get("user_name");
     const phone = formData.get("user_phone");
     const email = formData.get("user_email");
+    const equipment = formData.get("user_equipment");
+    const comment = formData.get("user_comment");
 
-    if (!address || !name || !email || !phone) {
+    if (!address || !name || !email || !phone || !equipment) {
       setErrorMessage("Alle felt må fylles ut!");
       return;
     }
@@ -51,15 +56,15 @@ export default function FormModal({ isOpen, onClose }) {
   const equipmentChoice = [
     {
       label: "Solcelleanlegg",
-      imageUrl: "/logo.png",
+      imageUrl: "/icon1.png",
     },
     {
       label: "Batteri",
-      imageUrl: "/logo.png",
+      imageUrl: "/icon2.png",
     },
     {
       label: "Solcelleanlegg + Batteri",
-      imageUrl: "/logo.png",
+      imageUrl: "/icon3.png",
     },
   ];
 
@@ -83,14 +88,38 @@ export default function FormModal({ isOpen, onClose }) {
         </h2>
         <form ref={formRef} onSubmit={sendEmail} className="space-y-4">
           <input value={config?.title || ""} name="site" hidden readOnly />
-          <div className="flex flex-row justify-between w-full">
-            {equipmentChoice.map((choice, i) => (
-              <div key={choice.label} className="p-2 rounded-lg shadow-xl">
-                <p>{choice.label}</p>
-                <img src={choice.imageUrl} className="mx-auto py-2" />
-              </div>
-            ))}
+          <div className="flex flex-row justify-between w-full gap-2">
+            {equipmentChoice.map((choice) => {
+              const isSelected = selectedEquipment === choice.label;
+
+              return (
+                <button
+                  type="button"
+                  key={choice.label}
+                  onClick={() => setSelectedEquipment(choice.label)}
+                  className={`p-2 rounded-lg shadow-xl w-full transition border-2
+          ${
+            isSelected
+              ? "border-[#FFC25F] ring-2 ring-[#FFC25F]"
+              : "border-transparent hover:border-gray-300"
+          }`}
+                >
+                  <p className="font-medium">{choice.label}</p>
+                  <img
+                    src={choice.imageUrl}
+                    className="mx-auto object-contain py-2"
+                  />
+                </button>
+              );
+            })}
           </div>
+
+          <input
+            type="hidden"
+            name="user_equipment"
+            value={selectedEquipment}
+          />
+
           <div>
             <label className="block text-sm font-medium">Adresse*</label>
             <input
@@ -129,6 +158,15 @@ export default function FormModal({ isOpen, onClose }) {
               placeholder="E-post adresse"
               className="w-full border rounded-md px-3 py-2 bg-zinc-200"
               required
+            />
+          </div>
+          <div>
+            <label className="block text-sm font-medium">Kommentar</label>
+            <textarea
+              type="text"
+              name="user_comment"
+              placeholder="Kommentar"
+              className="w-full border rounded-md px-3 py-2 bg-zinc-200"
             />
           </div>
           <div className="flex items-center space-x-2">
