@@ -35,8 +35,9 @@ export default function EstimateView({ estimateId }) {
   );
   const [expectedElPriceIncrease, setExpectedElPriceIncrease] = useState(2.5);
   const [paymentTime, setPaymentTime] = useState(null);
+  const maxPaymentTime = 40;
   const [widthPercentage, setWidthPercantage] = useState(
-    (paymentTime / 30) * 100
+    (paymentTime / maxPaymentTime) * 100
   );
 
   const [economySummary, setEconomySummary] = useState(null);
@@ -50,7 +51,7 @@ export default function EstimateView({ estimateId }) {
 
   useEffect(() => {
     if (paymentTime) {
-      setWidthPercantage((paymentTime / 30) * 100);
+      setWidthPercantage((paymentTime / maxPaymentTime) * 100);
     }
   }, [paymentTime]);
 
@@ -100,6 +101,8 @@ export default function EstimateView({ estimateId }) {
     );
     return (eligibleKwp * 2500).toFixed(2);
   };
+
+  const percentOf40 = (years) => (years / maxPaymentTime) * 100;
 
   return (
     <main className="min-h-screen estimateStylingSheet ">
@@ -249,9 +252,7 @@ export default function EstimateView({ estimateId }) {
                       </span>
                     </p>
                     <div
-                      style={{
-                        width: `${widthPercentage}%`,
-                      }}
+                      style={{ width: `${percentOf40(paymentTime)}%` }}
                       className="bg-green-300 border border-green-800 rounded-xl h-10"
                     ></div>
                   </div>
@@ -261,7 +262,10 @@ export default function EstimateView({ estimateId }) {
                       Produktgaranti solcellepaneler:{" "}
                       <span className="font-medium text-md">25 år</span>
                     </p>
-                    <div className="bg-orange-200 border border-orange-300 rounded-xl h-10 w-3/5"></div>
+                    <div
+                      className="bg-orange-200 border border-orange-300 rounded-xl h-10"
+                      style={{ width: `${percentOf40(25)}%` }}
+                    ></div>
                   </div>
 
                   <div>
@@ -269,7 +273,10 @@ export default function EstimateView({ estimateId }) {
                       Effektgaranti solcellepaneler:{" "}
                       <span className="font-medium text-md">30 år</span>
                     </p>
-                    <div className="bg-orange-300 border border-orange-400 rounded-xl h-10 w-4/5"></div>
+                    <div
+                      className="bg-orange-300 border border-orange-400 rounded-xl h-10"
+                      style={{ width: `${percentOf40(30)}%` }}
+                    ></div>
                   </div>
 
                   <div>
