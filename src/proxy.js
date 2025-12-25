@@ -7,7 +7,7 @@ export function proxy(request) {
   if (host.includes("vestelektro")) domain = "vestelektro";
   if (host.includes("alfaelektro")) domain = "alfaelektro";
   if (host.includes("lynelektro")) domain = "lynelektro";
-  if (host.includes("gardermoenelektro")) domain = "gardermoenelektro";
+  if (host.includes("gelektrosol")) domain = "gelektrosol";
   if (host.includes("minelsol")) domain = "minelsol";
   if (host.includes("smartelektro")) domain = "smartelektro";
   if (host.includes("teleror")) domain = "teleror";

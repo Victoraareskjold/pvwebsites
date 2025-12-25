@@ -48,6 +48,21 @@ export default function FormModal({ isOpen, onClose }) {
       );
   };
 
+  const equipmentChoice = [
+    {
+      label: "Solcelleanlegg",
+      imageUrl: "/logo.png",
+    },
+    {
+      label: "Batteri",
+      imageUrl: "/logo.png",
+    },
+    {
+      label: "Solcelleanlegg + Batteri",
+      imageUrl: "/logo.png",
+    },
+  ];
+
   if (!isOpen) return null;
 
   return (
@@ -68,6 +83,14 @@ export default function FormModal({ isOpen, onClose }) {
         </h2>
         <form ref={formRef} onSubmit={sendEmail} className="space-y-4">
           <input value={config?.title || ""} name="site" hidden readOnly />
+          <div className="flex flex-row justify-between w-full">
+            {equipmentChoice.map((choice, i) => (
+              <div key={choice.label} className="p-2 rounded-lg shadow-xl">
+                <p>{choice.label}</p>
+                <img src={choice.imageUrl} className="mx-auto py-2" />
+              </div>
+            ))}
+          </div>
           <div>
             <label className="block text-sm font-medium">Adresse*</label>
             <input
