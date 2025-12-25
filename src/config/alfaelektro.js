@@ -46,4 +46,6 @@ export default {
     organizationNumber: "992824115",
     address: "Tverrvegen 38c, 6020 Ålesund",
   },
+
+  consentifyPublicToken: "fd34c149-a111-4fce-b407-f92221fd16bb",
 };
