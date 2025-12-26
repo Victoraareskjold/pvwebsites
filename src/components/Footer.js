@@ -50,6 +50,9 @@ export function Footer({
               <Link href="/omoss">Om oss</Link>
               <Link href="/blog">Blogg</Link>
               <a href="/kontakt">Elektriker</a>
+              <button className="w-fit" id="revoke-consent-btn">
+                Cookie Innstillinger
+              </button>
             </div>
           </div>
           <div className="md:flex md:flex-col md:gap-6">
