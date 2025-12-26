@@ -408,13 +408,7 @@ export default function EstimateView({ estimateId }) {
                       Komplett ferdig installert anlegg eks. mva
                     </p>
                     <p className="fatP text-white">
-                      {formatValue(
-                        Number(
-                          estimateData?.price_data?.["total eks mva"] ||
-                            estimateData?.price_data?.["total inkl. alt"]
-                        )
-                      )}{" "}
-                      kr
+                      {formatValue(Number(estimateData?.price_data?.total))} kr
                     </p>
                   </div>
                 ) : (
