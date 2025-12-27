@@ -2,8 +2,8 @@ import { EstimateInfoComponent } from "../EstimateInfoComponent";
 
 export default function YourSolarFacility({ estimateData }) {
   const panelType = estimateData?.selected_panel_type;
-  const match = panelType?.match(/\d+/);
-  const watt = match ? Number(match[0]) : 0;
+  const match = panelType?.match(/(\d+)\s*W/i);
+  const watt = match ? Number(match[1]) : 0;
 
   const formatValue = (number) => number.toLocaleString().split(",").join(" ");
 

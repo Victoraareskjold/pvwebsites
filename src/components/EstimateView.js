@@ -325,7 +325,9 @@ export default function EstimateView({ estimateId }) {
               elNetPrice={elNetPrice}
               expectedElPriceIncrease={expectedElPriceIncrease}
               investmentCost={
-                estimateData?.price_data?.["total inkl. alt"] || 0
+                estimateData.leads.company
+                  ? estimateData?.price_data?.total || 0
+                  : estimateData?.price_data?.["total inkl. alt"] || 0
               }
               inverterCost={inverter?.priceWithMarkup || 0}
               onPaybackCalculated={(data) => {
