@@ -16,16 +16,12 @@ export default function HowWillItLook({ estimateData }) {
         kWh per år.
       </h2>
       {estimateData.image_url ? (
-        <div className="w-full">
+        <div className="w-full my-2">
           <img
             src={estimateData?.image_url}
             alt="Bilde"
             className="object-contain w-full h-auto rounded-xl overflow-hidden mt-4"
           />
-
-          <p className="italic">
-            Dette oppsettet er fleksibelt - vi tilpasser det etter dine ønsker.
-          </p>
         </div>
       ) : null}
       <h2 className="italic">

@@ -342,7 +342,8 @@ export default function EstimateView({ estimateId }) {
               }}
             />
           </div>
-          <section className="flex flex-col gap-6 !p- sectionContainer0">
+
+          <section className="flex lg:hidden flex-col gap-6 !p- sectionContainer0">
             <h4>
               <strong>Miljø</strong>
             </h4>
@@ -398,149 +399,222 @@ export default function EstimateView({ estimateId }) {
 
           <section className="bg-[#4D4D4D] maxSection items-center w-full flex justify-center">
             <section className="w-full flex flex-col gap-8 self-center">
-              <h5 className="text-white">
-                <strong>Bestill anlegg</strong>
-              </h5>
+              <div className="flex flex-col lg:grid lg:grid-cols-2 lg:gap-x-24 lg:gap-y-24 gap-16">
+                {/* Bestill anlegg */}
+                <div className="order-2 lg:order-2 flex flex-col gap-16">
+                  <h5 className="text-white">
+                    <strong>Bestill anlegg</strong>
+                  </h5>
 
-              <div>
-                {estimateData?.leads?.company ? (
-                  // Næringskunde: Kun total eks. mva
-                  <div className="flex flex-row justify-between">
-                    <p className="fatP text-white">
-                      Komplett ferdig installert anlegg eks. mva
-                    </p>
-                    <p className="fatP text-white">
-                      {formatValue(Number(estimateData?.price_data?.total))} kr
+                  <div>
+                    {estimateData?.leads?.company ? (
+                      // Næringskunde: Kun total eks. mva
+                      <div className="flex flex-row justify-between">
+                        <p className="fatP text-white">
+                          Komplett ferdig installert anlegg eks. mva
+                        </p>
+                        <p className="fatP text-white">
+                          {formatValue(Number(estimateData?.price_data?.total))}{" "}
+                          kr
+                        </p>
+                      </div>
+                    ) : (
+                      // Privatperson: Total inkl. mva og Enova-støtte
+                      <>
+                        <div className="flex flex-row justify-between">
+                          <p className="fatP text-white">
+                            Komplett ferdig installert anlegg
+                          </p>
+                          <p className="fatP text-white">
+                            {formatValue(
+                              Number(
+                                estimateData?.price_data?.["total inkl. alt"]
+                              )
+                            )}{" "}
+                            kr
+                          </p>
+                        </div>
+                        <div className="w-full h-2 bg-green-300 rounded-full my-6" />
+                        <div className="flex flex-row justify-between">
+                          <p className="fatP text-white">Enova støtte</p>
+                          <p className="fatP text-white">
+                            - {formatValue(Number(enovaSupport()))} kr
+                          </p>
+                        </div>
+                        <div className="w-full h-2 bg-green-300 rounded-full my-6" />
+                        <div className="flex flex-row justify-between mb-8">
+                          <p className="fatP text-white">
+                            Totalkostnad inkl. mva
+                          </p>
+                          <p className="fatP text-white">
+                            {formatValue(
+                              Number(
+                                estimateData?.price_data?.["total inkl. alt"]
+                              ) - Number(enovaSupport())
+                            )}{" "}
+                            kr
+                          </p>
+                        </div>
+                      </>
+                    )}
+                  </div>
+
+                  <div className="flex flex-row items-center gap-4">
+                    <input type="checkbox" className="rounded-checkbox"></input>
+                    <p className="text-white">
+                      <strong>Jeg godtar</strong> vilkår og betingelser for kjøp
+                      av solcelleanlegg
                     </p>
                   </div>
-                ) : (
-                  // Privatperson: Total inkl. mva og Enova-støtte
-                  <>
-                    <div className="flex flex-row justify-between">
-                      <p className="fatP text-white">
-                        Komplett ferdig installert anlegg
-                      </p>
-                      <p className="fatP text-white">
+                  <button className="bg-orange-300 text-white fatP rounded-full w-fit px-5 py-1">
+                    Bestill anlegg
+                  </button>
+                </div>
+
+                {/* Inkludert i prisen */}
+                <div className="order-3 lg:order-1 flex flex-col gap-3">
+                  <h5 className="text-white">
+                    <strong>Inkludert i prisen</strong>
+                  </h5>
+                  <div className="flex flex-row gap-4 items-center">
+                    <img src="/estimate/greenCheck.png" />
+                    <p className="fatP text-white">
+                      Montering av komplett solcelleanlegg.
+                    </p>
+                  </div>
+                  <div className="flex flex-row gap-4 items-center">
+                    <img src="/estimate/greenCheck.png" />
+                    <p className="fatP text-white">
+                      Veiledning til å søke om Enova-støtte.
+                    </p>
+                  </div>
+                  <div className="flex flex-row gap-4 items-center">
+                    <img src="/estimate/greenCheck.png" />
+                    <p className="fatP text-white">
+                      App til å følge produksjonen din.
+                    </p>
+                  </div>
+                  <div className="flex flex-row gap-4 items-center">
+                    <img src="/estimate/greenCheck.png" />
+                    <p className="fatP text-white">
+                      Kundestøtte og service etter installasjon.
+                    </p>
+                  </div>
+                </div>
+
+                {/* Hvorfor velge oss */}
+                <div className="order-4 lg:order-3 flex flex-col gap-3">
+                  <h5 className="text-white">
+                    <strong>Hvorfor velge oss som er lokal installatør?</strong>
+                  </h5>
+                  <div className="flex flex-row gap-4 items-center">
+                    <img src="/estimate/greenCircle.png" />
+                    <p className="text-white">
+                      <strong className="font-semibold">
+                        Personlig oppfølging
+                      </strong>{" "}
+                      – hos oss har du én fast kontaktperson, ikke et
+                      kundesenter.
+                    </p>
+                  </div>
+                  <div className="flex flex-row gap-4 items-center">
+                    <img src="/estimate/greenCircle.png" />
+                    <p className="text-white">
+                      <strong className="font-semibold">Rask service</strong> –
+                      vi er i nærheten, så du får rask hjelp både før og etter
+                      installasjon.
+                    </p>
+                  </div>
+                  <div className="flex flex-row gap-4 items-center">
+                    <img src="/estimate/greenCircle.png" />
+                    <p className="text-white">
+                      <strong className="font-semibold">
+                        Kvalitet og trygghet
+                      </strong>{" "}
+                      – lokale fagfolk med kunnskap om området og strømnettet.
+                    </p>
+                  </div>
+                  <div className="flex flex-row gap-4 items-center">
+                    <img src="/estimate/greenCircle.png" />
+                    <p className="text-white">
+                      <strong className="font-semibold">
+                        Langsiktig samarbeid
+                      </strong>{" "}
+                      – vi blir ikke borte etter installasjon.
+                    </p>
+                  </div>
+                  <div className="flex flex-row gap-4 items-center">
+                    <img src="/estimate/greenCircle.png" />
+                    <p className="text-white">
+                      <strong className="font-semibold">
+                        Konkurransedyktig pris{" "}
+                      </strong>
+                      – vi har ingen dyre mellomledd.
+                    </p>
+                  </div>
+                </div>
+
+                {/* Miljø */}
+                <div className="order-1 lg:order-4 hidden lg:flex flex-col gap-6 text-white">
+                  <h4>
+                    <strong>Miljø</strong>
+                  </h4>
+
+                  <div>
+                    <p>
+                      Ved å satse på solenergi investerer du i mer enn bare
+                      strøm – du tar et viktig steg mot en{" "}
+                      <strong className="font-semibold">
+                        bærekraftig fremtid.
+                      </strong>
+                    </p>
+                    <br />
+                    <p>
+                      Strømmen som solcellene produserer kan drive alt som går
+                      på strøm i bygget ditt. Her er noen eksempler på hva de{" "}
+                      <strong className="font-semibold">
                         {formatValue(
-                          Number(estimateData?.price_data?.["total inkl. alt"])
+                          Number(estimateData?.yearly_prod).toFixed(0)
                         )}{" "}
-                        kr
-                      </p>
-                    </div>
-                    <div className="w-full h-2 bg-green-300 rounded-full my-6" />
-                    <div className="flex flex-row justify-between">
-                      <p className="fatP text-white">Enova støtte</p>
-                      <p className="fatP text-white">
-                        - {formatValue(Number(enovaSupport()))} kr
-                      </p>
-                    </div>
-                    <div className="w-full h-2 bg-green-300 rounded-full my-6" />
-                    <div className="flex flex-row justify-between mb-8">
-                      <p className="fatP text-white">Totalkostnad inkl. mva</p>
-                      <p className="fatP text-white">
-                        {formatValue(
-                          Number(
-                            estimateData?.price_data?.["total inkl. alt"]
-                          ) - Number(enovaSupport())
-                        )}{" "}
-                        kr
-                      </p>
-                    </div>
-                  </>
-                )}
-              </div>
+                        kWh
+                      </strong>{" "}
+                      du produserer årlig kan drifte:
+                    </p>
+                  </div>
 
-              <div className="flex flex-row items-center gap-4">
-                <input type="checkbox" className="rounded-checkbox"></input>
-                <p className="text-white">
-                  <strong>Jeg godtar</strong> vilkår og betingelser for kjøp av
-                  solcelleanlegg
-                </p>
-              </div>
-              <button className="bg-orange-300 text-white fatP rounded-full w-fit px-5 py-1">
-                Bestill anlegg
-              </button>
-
-              <h5 className="text-white">
-                <strong>Inkludert i prisen</strong>
-              </h5>
-              <div className="flex flex-col gap-3">
-                <div className="flex flex-row gap-4 items-center">
-                  <img src="/estimate/greenCheck.png" />
-                  <p className="fatP text-white">
-                    Montering av komplett solcelleanlegg.
-                  </p>
-                </div>
-                <div className="flex flex-row gap-4 items-center">
-                  <img src="/estimate/greenCheck.png" />
-                  <p className="fatP text-white">
-                    Veiledning til å søke om Enova-støtte.
-                  </p>
-                </div>
-                <div className="flex flex-row gap-4 items-center">
-                  <img src="/estimate/greenCheck.png" />
-                  <p className="fatP text-white">
-                    App til å følge produksjonen din.
-                  </p>
-                </div>
-                <div className="flex flex-row gap-4 items-center">
-                  <img src="/estimate/greenCheck.png" />
-                  <p className="fatP text-white">
-                    Kundestøtte og service etter installasjon.
-                  </p>
+                  <div className="flex flex-row gap-10 !p-4">
+                    <div>
+                      <li>Elbil-ladninger:</li>
+                      <li>Kjøleskap:</li>
+                      <li>Kaffekopper:</li>
+                    </div>
+                    <div>
+                      <p>
+                        <strong className="font-semibold">
+                          {Number(estimateData?.yearly_prod / 60).toFixed(0)}
+                        </strong>{" "}
+                        full ladninger til elbilen din.
+                      </p>
+                      <p>
+                        drive{" "}
+                        <strong className="font-semibold">
+                          {Number(estimateData?.yearly_prod / 300).toFixed(0)}
+                        </strong>{" "}
+                        kjøleskap på et år.
+                      </p>
+                      <p>
+                        brygge{" "}
+                        <strong className="font-semibold">
+                          {Number(estimateData?.yearly_prod / 0.03).toFixed(0)}
+                        </strong>{" "}
+                        kopper kaffe.
+                      </p>
+                    </div>
+                  </div>
                 </div>
               </div>
 
-              <h5 className="text-white">
-                <strong>Hvorfor velge oss som er lokal installatør?</strong>
-              </h5>
-              <div className="flex flex-col gap-3">
-                <div className="flex flex-row gap-4 items-center">
-                  <img src="/estimate/greenCircle.png" />
-                  <p className="text-white">
-                    <strong className="font-semibold">
-                      Personlig oppfølging
-                    </strong>{" "}
-                    – hos oss har du én fast kontaktperson, ikke et kundesenter.
-                  </p>
-                </div>
-                <div className="flex flex-row gap-4 items-center">
-                  <img src="/estimate/greenCircle.png" />
-                  <p className="text-white">
-                    <strong className="font-semibold">Rask service</strong> – vi
-                    er i nærheten, så du får rask hjelp både før og etter
-                    installasjon.
-                  </p>
-                </div>
-                <div className="flex flex-row gap-4 items-center">
-                  <img src="/estimate/greenCircle.png" />
-                  <p className="text-white">
-                    <strong className="font-semibold">
-                      Kvalitet og trygghet
-                    </strong>{" "}
-                    – lokale fagfolk med kunnskap om området og strømnettet.
-                  </p>
-                </div>
-                <div className="flex flex-row gap-4 items-center">
-                  <img src="/estimate/greenCircle.png" />
-                  <p className="text-white">
-                    <strong className="font-semibold">
-                      Langsiktig samarbeid
-                    </strong>{" "}
-                    – vi blir ikke borte etter installasjon.
-                  </p>
-                </div>
-                <div className="flex flex-row gap-4 items-center">
-                  <img src="/estimate/greenCircle.png" />
-                  <p className="text-white">
-                    <strong className="font-semibold">
-                      Konkurransedyktig pris{" "}
-                    </strong>{" "}
-                    – vi har ingen dyre mellomledd.
-                  </p>
-                </div>
-              </div>
-              <div className="mx-auto flex flex-row gap-4 items-center my-4">
+              <div className="mx-auto lg:mr-0 flex flex-row gap-4 items-center my-4">
                 <img src="/estimate/techIcon.png" className="h-20" />
                 <div>
                   <p className="font-light text-white mb-2">

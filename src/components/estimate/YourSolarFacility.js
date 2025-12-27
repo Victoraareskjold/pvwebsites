@@ -12,7 +12,7 @@ export default function YourSolarFacility({ estimateData }) {
   );
 
   return (
-    <div className="flex flex-row gap-4">
+    <div className="flex flex-row gap-4 px-4">
       <div className="w-full mt-2">
         <EstimateInfoComponent
           text={"Installert effekt."}
