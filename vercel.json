@@ -29,6 +29,46 @@
           "value": "www.alfaelektrosol.no"
         }
       ]
+    },
+    {
+      "source": "/favicon.ico",
+      "destination": "/gardermoenelektro/favicon.ico",
+      "has": [
+        {
+          "type": "host",
+          "value": "www.gelektrosol.no"
+        }
+      ]
+    },
+    {
+      "source": "/favicon.ico",
+      "destination": "/minelsol/favicon.ico",
+      "has": [
+        {
+          "type": "host",
+          "value": "www.minelsol.no"
+        }
+      ]
+    },
+    {
+      "source": "/favicon.ico",
+      "destination": "/smartelektro/favicon.ico",
+      "has": [
+        {
+          "type": "host",
+          "value": "www.smartelektrosol.no"
+        }
+      ]
+    },
+    {
+      "source": "/favicon.ico",
+      "destination": "/teleror/favicon.ico",
+      "has": [
+        {
+          "type": "host",
+          "value": "www.telerorelektrosol.no"
+        }
+      ]
     }
   ]
 }
