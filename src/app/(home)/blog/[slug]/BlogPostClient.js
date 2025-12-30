@@ -6,7 +6,8 @@ import Image from "next/image";
 import "../blog.css";
 
 import FormModal from "../../../../components/FormModal";
-import { EstimateButton } from "../../../../components/EstimateButton";
+
+import { EstimateButton2 } from "../../../../components/EstimateButton2";
 
 export default function BlogPostClient({ blog, content }) {
   const [isModalOpen, setModalOpen] = useState(false);
@@ -42,7 +43,7 @@ export default function BlogPostClient({ blog, content }) {
             dangerouslySetInnerHTML={{ __html: content.html }}
           />
 
-          <EstimateButton setModalOpen={setModalOpen} />
+          <EstimateButton2 setModalOpen={setModalOpen} />
         </div>
       </div>
 

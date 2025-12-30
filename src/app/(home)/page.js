@@ -146,7 +146,7 @@ export default function Page() {
             </p>
 
             <div>
-              <EstimateButton2 />
+              <EstimateButton2 setModalOpen={setModalOpen} />
             </div>
           </div>
 

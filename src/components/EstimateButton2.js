@@ -4,8 +4,10 @@ export function EstimateButton2({ setModalOpen }) {
   return (
     <button
       onClick={setModalOpen}
-      style={{ background: config.primaryGradient?.bg || "black" }}
-      className="p-2 rounded-md text-black md:border-2 md:border-white md:!bg-none md:max-w-96 md:w-full text-center md:hover:!bg-black md:hover:!text-white duration-500"
+      style={{
+        background: "linear-gradient(90deg, #FF9D00 23%, #FFD05A 92%)",
+      }}
+      className="solcelleknapp max-w-sm funky p-2 rounded-md text-black flex flex-row gap-2 md:max-w-96 md:w-full justify-center hover:!bg-black hover:!border-white hover:!border-2 "
     >
       <h2
         style={{ color: config.primaryGradient?.textColor || "white" }}
