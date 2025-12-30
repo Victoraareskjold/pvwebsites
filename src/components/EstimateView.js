@@ -402,9 +402,9 @@ export default function EstimateView({ estimateId }) {
               <div className="flex flex-col lg:grid lg:grid-cols-2 lg:gap-x-24 lg:gap-y-24 gap-16">
                 {/* Bestill anlegg */}
                 <div className="order-2 lg:order-2 flex flex-col gap-16">
-                  <h5 className="text-white">
+                  {/* <h5 className="text-white">
                     <strong>Bestill anlegg</strong>
-                  </h5>
+                  </h5> */}
 
                   <div>
                     {estimateData?.leads?.company ? (
@@ -460,15 +460,19 @@ export default function EstimateView({ estimateId }) {
                   </div>
 
                   <div className="flex flex-row items-center gap-4">
-                    <input type="checkbox" className="rounded-checkbox"></input>
-                    <p className="text-white">
-                      <strong>Jeg godtar</strong> vilkår og betingelser for kjøp
-                      av solcelleanlegg
-                    </p>
+                    {/* <input type="checkbox" className="rounded-checkbox"></input> */}
+                    <a
+                      className="text-white"
+                      href="/personvern"
+                      target="_blank"
+                    >
+                      {/* <strong>Jeg godtar</strong>  */}Vilkår og betingelser
+                      for kjøp av solcelleanlegg
+                    </a>
                   </div>
-                  <button className="bg-orange-300 text-white fatP rounded-full w-fit px-5 py-1">
+                  {/* <button className="bg-orange-300 text-white fatP rounded-full w-fit px-5 py-1">
                     Bestill anlegg
-                  </button>
+                  </button> */}
                 </div>
 
                 {/* Inkludert i prisen */}
