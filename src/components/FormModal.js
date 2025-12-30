@@ -72,10 +72,13 @@ export default function FormModal({ isOpen, onClose }) {
 
   return (
     <div
-      className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center text-black overflow-scroll"
+      className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center text-black"
       style={{ zIndex: 1000 }}
     >
-      <div className="bg-white rounded-lg shadow-lg max-w-md w-full p-6 relative">
+      <div
+        className="bg-white rounded-lg shadow-lg max-w-md w-full p-6 relative
+                max-h-[90vh] overflow-y-auto"
+      >
         <button
           className="absolute top-4 right-4 text-red-500 text-xl"
           onClick={onClose}
