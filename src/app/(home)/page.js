@@ -15,6 +15,7 @@ import { RoofCapacityButton } from "../../components/RoofCapacityButton";
 import Link from "next/link";
 import { useState } from "react";
 import slides from "../../config/slides";
+import { EstimateButton2 } from "../../components/EstimateButton2";
 
 export default function Page() {
   const config = useSiteConfig();
@@ -145,16 +146,7 @@ export default function Page() {
             </p>
 
             <div>
-              <Link
-                href="/solkart"
-                style={{
-                  background:
-                    "linear-gradient(90deg, #FF9D00 23%, #FFD05A 92%)",
-                }}
-                className="px-14 py-2 text-white rounded-md border-2 border-black inline-block text-center"
-              >
-                <strong>Få tilbud</strong>
-              </Link>
+              <EstimateButton2 />
             </div>
           </div>
 

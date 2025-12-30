@@ -53,5 +53,5 @@ export default {
     address: "Kirkevegen 74, 2413 Elverum",
   },
 
-  consentifyPublicToken: "333424e9-6ef6-4ca4-b00c-80961c555d3e",
+  consentifyPublicToken: "07d21dd0-7c47-4dc9-9c7b-5f0818a790fd",
 };

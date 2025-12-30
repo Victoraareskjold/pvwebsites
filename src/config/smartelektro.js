@@ -56,5 +56,5 @@ export default {
     address: "Karihaugveien 89, 1086 Oslo",
   },
 
-  consentifyPublicToken: "333424e9-6ef6-4ca4-b00c-80961c555d3e",
+  consentifyPublicToken: "1b58bef7-6616-4f61-8b44-57ab7e35516c",
 };

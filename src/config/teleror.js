@@ -62,5 +62,5 @@ export default {
     address: "Versvikvegen 11, 3937 Porsgrunn",
   },
 
-  consentifyPublicToken: "333424e9-6ef6-4ca4-b00c-80961c555d3e",
+  consentifyPublicToken: "e8c5503a-ebed-43ff-a810-ea6794a03e3f",
 };

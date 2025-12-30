@@ -1,12 +1,12 @@
 // eslint-disable-next-line import/no-anonymous-default-export
 export default {
-  title: "Gardermoen Elektro Sol",
+  title: "Minel Sol",
 
-  site: "gelektrosol",
+  site: "MinelSol",
 
-  logo: "/gardermoenelektro/logo.png",
+  logo: "/minelsol/minellogo.png",
 
-  favicon: "/gardermoenelektro/favicon.ico",
+  favicon: "/minelsol/favicon.ico",
 
   metaDesc:
     "Ta kontakt med oss for å høre hvordan våre solcelleløsninger kan hjelpe deg å redusere kostnader og få mest mulig ut av solenergi. Vi gir deg ærlige råd, skreddersydde løsninger og følger deg hele veien mot en mer bærekraftig energihverdag",
@@ -19,15 +19,12 @@ export default {
     textColor: "black",
   },
 
-  hero: {
-    header: "SOLCELLER ROMERIKE",
-    background: "/gardermoenelektro/heroImage.png",
-  },
+  hero: { header: "SOLCELLER ELVERUM", background: "/minelsol/heroImage.png" },
 
   about: {
-    header: "Gardermoen Elektro Sol",
+    header: "Minel Sol",
 
-    image: "/gardermoenelektro/omOssHero.png",
+    image: "/minelsol/omOssHero.png",
 
     subHeader:
       "Gjennom oss som din lokale totalentreprenør for solcellepaneler, får du samme kompetanse som de store aktørene – men til en lavere pris.",
@@ -38,23 +35,23 @@ export default {
 
     p3: "Kort sagt: Vi finner det som faktisk passer deg. Ikke det som er dyrt, ikke det som er standard – men det som gir deg mest igjen for pengene. Du får et anlegg som er tilpasset boligen din, bygget på kvalitet og valgt med hensikt, slik at investeringen din blir så lønnsom og problemfri som mulig.",
 
-    image2: "/gardermoenelektro/omOssBilde.png",
+    image2: "/minelsol/omOssBilde.png",
 
     p4: "Vi er stolte av grundig håndverk og kjenner lokale forhold, klima og forskrifter ut og inn. Dermed monterer vi solpaneler med høy presisjon og kvalitet, slik at anlegget ditt kan stå i flere tiår. Med oss på laget får du dessuten personlig oppfølging – år etter år. Solmarkedet kan svinge, og bedrifter som kun driver med solceller risikerer å gå konkurs over tid. Vi, derimot, er et solid elektro-firma med flere bein å stå på. Det betyr at du kan stole på at vi fortsatt er her, dersom noe skulle skje med anlegget ditt.",
   },
 
   advantage: {
-    heroImage: "/gardermoenelektro/fordelBilde.png",
-    image: "/gardermoenelektro/bilBilde.png",
+    heroImage: "/minelsol/fordelBilde.png",
+    image: "/minelsol/bilBilde.png",
   },
 
-  solar: { header: "SOLCELLER ROMERIKE" },
+  solar: { header: "SOLCELLER ELVERUM" },
 
   footer: {
-    email: "asbjorn.roed@gelektro.no",
-    organizationNumber: "991277943",
-    address: "Elektrovegen 2, 2069 Jessheim",
+    email: "asbjorn.roed@minel.no",
+    organizationNumber: "980349683",
+    address: "Kirkevegen 74, 2413 Elverum",
   },
 
-  consentifyPublicToken: "fdfc37f3-69c9-4f12-9f12-5369ec358cf9",
+  consentifyPublicToken: "43de11b1-86c5-4947-a939-c433529c57aa",
 };
