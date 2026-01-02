@@ -42,7 +42,7 @@ export default {
   },
 
   footer: {
-    email: "asbjorn@lynelektro.no",
+    email: "asbjorn.roed@alfael.no",
     organizationNumber: "992824115",
     address: "Tverrvegen 38c, 6020 Ålesund",
   },
