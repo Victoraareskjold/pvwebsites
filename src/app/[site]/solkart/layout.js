@@ -1,24 +1,23 @@
-import { Navbar } from "../../components/Navbar";
-import { headers } from "next/headers";
 import { GoogleTagManager } from "@next/third-parties/google";
-import "../globals.css";
-import { SiteConfigProvider } from "../../contexts/siteConfigContext";
+import "../../globals.css";
+import { SiteConfigProvider } from "../../../contexts/siteConfigContext";
+import { Navbar } from "../../../components/Navbar";
 
 export const configs = {
-  vestelektro: () => import("../../config/vestelektro"),
-  alfaelektro: () => import("../../config/alfaelektro"),
-  lynelektro: () => import("../../config/lynelektro"),
-  gelektrosol: () => import("../../config/gelektrosol"),
-  minelsol: () => import("../../config/minelsol"),
-  teleror: () => import("../../config/teleror"),
-  smartelektro: () => import("../../config/smartelektro"),
+  vestelektro: () => import("../../../config/vestelektro"),
+  alfaelektro: () => import("../../../config/alfaelektro"),
+  lynelektro: () => import("../../../config/lynelektro"),
+  gelektrosol: () => import("../../../config/gelektrosol"),
+  minelsol: () => import("../../../config/minelsol"),
+  teleror: () => import("../../../config/teleror"),
+  smartelektro: () => import("../../../config/smartelektro"),
 };
 
-export default async function SolkartLayout({ children }) {
-  const headersList = await headers();
-  const configName = headersList.get("x-site-config");
+export default async function SolkartLayout({ children, params }) {
+  const configName = params.site;
 
-  const configModule = configName ? await configs[configName]() : {};
+  const configModule =
+    configName && configs[configName] ? await configs[configName]() : {};
   const config = configModule.default || {};
 
   config.language = configName === "vestelektro" ? "nn" : "nb";

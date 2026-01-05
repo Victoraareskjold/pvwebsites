@@ -3,16 +3,22 @@ import { Footer } from "../../components/Footer";
 import { Navbar } from "../../components/Navbar";
 import { SiteConfigProvider } from "../../contexts/siteConfigContext";
 import { GoogleAnalytics, GoogleTagManager } from "@next/third-parties/google";
-import { headers } from "next/headers";
 
 import "../globals.css";
-import { configs } from "../solkart/layout";
+import { configs } from "./solkart/layout";
 
-export default async function RootLayout({ children }) {
-  const headersList = await headers();
-  const configName = headersList.get("x-site-config");
+export async function generateStaticParams() {
+  const configKeys = Object.keys(configs);
+  return configKeys.map((key) => ({
+    site: key,
+  }));
+}
 
-  const configModule = configName ? await configs[configName]() : {};
+export default async function RootLayout({ children, params }) {
+  const configName = (await params).site;
+
+  const configModule =
+    configName && configs[configName] ? await configs[configName]() : {};
   const config = configModule.default || {};
 
   config.language = configName === "vestelektro" ? "nn" : "nb";

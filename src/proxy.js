@@ -1,25 +1,46 @@
 import { NextResponse } from "next/server";
 
+const HOST_TO_SITE_MAP = {
+  "www.lynelektrosol.no": "lynelektro",
+  "lynelektrosol.no": "lynelektro",
+  "www.vestelektrosol.no": "vestelektro",
+  "vestelektrosol.no": "vestelektro",
+  "www.alfaelektrosol.no": "alfaelektro",
+  "alfaelektrosol.no": "alfaelektro",
+  "www.gelektrosol.no": "gelektrosol",
+  "gelektrosol.no": "gelektrosol",
+  "www.minelsol.no": "minelsol",
+  "minelsol.no": "minelsol",
+  "www.smartelektrosol.no": "smartelektro",
+  "smartelektrosol.no": "smartelektro",
+  "www.telerorelektrosol.no": "teleror",
+  "telerorelektrosol.no": "teleror",
+  // Add localhost for local development, pointing to a default site
+  "localhost:3000": "lynelektro",
+};
+
 export function proxy(request) {
-  const host = request.headers.get("host") || request.headers.get(":authority");
+  const host = request.headers.get("host");
+  const site = HOST_TO_SITE_MAP[host];
 
-  let domain = "";
-  if (host.includes("vestelektro")) domain = "vestelektro";
-  if (host.includes("alfaelektro")) domain = "alfaelektro";
-  if (host.includes("lynelektro")) domain = "lynelektro";
-  if (host.includes("gelektrosol")) domain = "gelektrosol";
-  if (host.includes("minelsol")) domain = "minelsol";
-  if (host.includes("smartelektro")) domain = "smartelektro";
-  if (host.includes("teleror")) domain = "teleror";
+  if (!site) {
+    // If the host is not in our map, we do nothing.
+    // This could be a Vercel preview URL, for example.
+    return NextResponse.next();
+  }
 
-  const requestHeaders = new Headers(request.headers);
-  requestHeaders.set("x-site-config", domain);
+  const { pathname } = request.nextUrl;
+  const newPath = `/${site}${pathname}`;
 
-  return NextResponse.next({
-    request: { headers: requestHeaders },
-  });
+  // Clone the URL and update the pathname
+  const url = request.nextUrl.clone();
+  url.pathname = newPath;
+
+  // Rewrite to the new path
+  return NextResponse.rewrite(url);
 }
 
 export const config = {
-  matcher: "/:path*",
+  // Matcher to run the proxy on all paths except for static assets.
+  matcher: ["/((?!api|_next/static|_next/image|favicon.ico|.*\\..*).*)"],
 };
