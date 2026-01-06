@@ -71,7 +71,6 @@ export default async function SolkartLayout({ children, params }) {
         )}
       </head>
       <body className="h-full">
-        <Navbar logo={config.logo} title={config.title} pos={"absolute"} />
         <SiteConfigProvider config={config}>{children}</SiteConfigProvider>
       </body>
     </html>

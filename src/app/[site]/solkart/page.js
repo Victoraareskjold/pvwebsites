@@ -11,7 +11,7 @@ export default function Solkart() {
         src={`https://pvmap.vercel.app/?site=${config.site}`}
         className="h-full lg:!pb-0"
         width="100%"
-        style={{ paddingTop: "72px" }}
+        style={{ paddingTop: "86px" }}
       />
     </div>
   );
