@@ -27,11 +27,11 @@ export default {
 
   hero: {
     header: "SOLCELLER KRISTIANSAND",
-    image: "/mydlands/heroImage.png",
+    background: "/mydlands/heroImage.png",
   },
 
   about: {
-    header: "Mydlandss Elektriske Sol",
+    header: "Mydlands Elektriske Sol",
 
     image: "/mydlands/omOssHero.png",
 
