@@ -11,6 +11,7 @@ export const configs = {
   minelsol: () => import("../../../config/minelsol"),
   teleror: () => import("../../../config/teleror"),
   smartelektro: () => import("../../../config/smartelektro"),
+  mydlands: () => import("../../../config/mydlands"),
 };
 
 export default async function SolkartLayout({ children, params }) {

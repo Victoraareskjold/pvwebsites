@@ -15,8 +15,10 @@ const HOST_TO_SITE_MAP = {
   "smartelektrosol.no": "smartelektro",
   "www.telerorelektrosol.no": "teleror",
   "telerorelektrosol.no": "teleror",
+  "www.mydlandselektriskesol.no": "mydlands",
+  "mydlandselektriskesol.no": "mydlands",
   // Add localhost for local development, pointing to a default site
-  "localhost:3000": "lynelektro",
+  "localhost:3000": "mydlands",
 };
 
 export function proxy(request) {

@@ -1,12 +1,12 @@
 // eslint-disable-next-line import/no-anonymous-default-export
 export default {
-  title: "Minel Sol",
+  title: "Mydlandss Elektriske Sol",
 
-  site: "MinelSol",
+  site: "Mydlandsselektriskesol",
 
-  logo: "/minelsol/minellogo.png",
+  logo: "/mydlands/logo.png",
 
-  favicon: "/minelsol/favicon.ico",
+  favicon: "/mydlands/favicon.ico",
 
   metaDesc:
     "Ta kontakt med oss for å høre hvordan våre solcelleløsninger kan hjelpe deg å redusere kostnader og få mest mulig ut av solenergi. Vi gir deg ærlige råd, skreddersydde løsninger og følger deg hele veien mot en mer bærekraftig energihverdag",
@@ -14,17 +14,26 @@ export default {
   primary: "#FFC069",
   secondary: "#D3A45E",
 
+  hubspotScript: "Ingenting skal være her, skal ikke bruke hubspot",
+
+  googleTagManager: "Kommer snart",
+
+  metaPixel: "Kommer snart",
+
   primaryGradient: {
     bg: "linear-gradient(90deg, #FF9D00 23%, #FFD05A 92%)",
     textColor: "black",
   },
 
-  hero: { header: "SOLCELLER ELVERUM", background: "/minelsol/heroImage.png" },
+  hero: {
+    header: "SOLCELLER KRISTIANSAND",
+    image: "/mydlands/heroImage.png",
+  },
 
   about: {
-    header: "Minel Sol",
+    header: "Mydlandss Elektriske Sol",
 
-    image: "/minelsol/omOssHero.png",
+    image: "/mydlands/omOssHero.png",
 
     subHeader:
       "Gjennom oss som din lokale totalentreprenør for solcellepaneler, får du samme kompetanse som de store aktørene – men til en lavere pris.",
@@ -35,23 +44,23 @@ export default {
 
     p3: "Kort sagt: Vi finner det som faktisk passer deg. Ikke det som er dyrt, ikke det som er standard – men det som gir deg mest igjen for pengene. Du får et anlegg som er tilpasset boligen din, bygget på kvalitet og valgt med hensikt, slik at investeringen din blir så lønnsom og problemfri som mulig.",
 
-    image2: "/minelsol/omOssBilde.png",
+    image2: "/mydlands/omOssBilde.png",
 
     p4: "Vi er stolte av grundig håndverk og kjenner lokale forhold, klima og forskrifter ut og inn. Dermed monterer vi solpaneler med høy presisjon og kvalitet, slik at anlegget ditt kan stå i flere tiår. Med oss på laget får du dessuten personlig oppfølging – år etter år. Solmarkedet kan svinge, og bedrifter som kun driver med solceller risikerer å gå konkurs over tid. Vi, derimot, er et solid elektro-firma med flere bein å stå på. Det betyr at du kan stole på at vi fortsatt er her, dersom noe skulle skje med anlegget ditt.",
   },
 
   advantage: {
-    heroImage: "/minelsol/fordelBilde.png",
-    image: "/minelsol/bilBilde.png",
+    heroImage: "/mydlands/fordelBilde.png",
+    image: "/mydlands/bilBilde.png",
   },
 
-  solar: { header: "SOLCELLER ELVERUM" },
+  solar: { header: "SOLCELLER KRISTIANSAND" },
 
   footer: {
-    email: "asbjorn.roed@minel.no",
-    organizationNumber: "980349683",
-    address: "Kirkevegen 74, 2413 Elverum",
+    email: "asbjorn.roed@m-el.no",
+    organizationNumber: "980386562",
+    address: "Rosselandsvegen 6, 4647 Brennåsen",
   },
 
-  consentifyPublicToken: "43de11b1-86c5-4947-a939-c433529c57aa",
+  consentifyPublicToken: "333424e9-6ef6-4ca4-b00c-80961c555d3e",
 };
