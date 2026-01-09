@@ -403,7 +403,7 @@ export default function EstimateView({ estimateId }) {
             <section className="w-full flex flex-col gap-8 self-center">
               <div className="flex flex-col lg:grid lg:grid-cols-2 lg:gap-x-24 lg:gap-y-24 gap-16">
                 {/* Bestill anlegg */}
-                <div className="order-2 lg:order-2 flex flex-col gap-16">
+                <div className="order-2 lg:order-2 flex flex-col gap-6">
                   {/* <h5 className="text-white">
                     <strong>Bestill anlegg</strong>
                   </h5> */}
@@ -475,7 +475,7 @@ export default function EstimateView({ estimateId }) {
                           </p>
                         </div>
                         <div className="w-full h-2 bg-green-300 rounded-full mb-2 mt-2" />
-                        <div className="w-24 h-2 bg-green-300 self-end rounded-full mb-6" />
+                        <div className="w-24 h-2 bg-green-300 self-end rounded-full" />
                       </div>
                     )}
                   </div>
