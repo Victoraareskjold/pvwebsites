@@ -64,8 +64,8 @@ export default function SolarEconomicCalculation({
     const lastYear = yearlyData[yearlyData.length - 1];
 
     return {
-      totalSavings30Years: lastYear.cumulative,
-      averageYearlySavings: Math.round(lastYear.cumulative / YEARS),
+      totalSavings30Years: lastYear.totalSaved,
+      averageYearlySavings: Math.round(lastYear.totalSaved / YEARS),
     };
   }, [yearlyData]);
 
