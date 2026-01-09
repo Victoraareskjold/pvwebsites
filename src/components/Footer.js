@@ -11,6 +11,7 @@ export function Footer({
   organizationNumber,
   primary,
   secondary,
+  site,
 }) {
   return (
     <>
@@ -25,7 +26,18 @@ export function Footer({
         <div className="flex w-full flex-col gap-8 mt-8 md:flex-row md:justify-between md:w-4/5 max-w-screen-2xl justify-self-center">
           <div>
             <img src={logo} alt={title || "Logo"} style={{ height: "40px" }} />
-            <Link href="/personvern">Personvernerklæring</Link>
+            <div className="flex flex-col">
+              <Link href="/personvern">Personvernerklæring</Link>
+              <Link
+                href={
+                  site === "MinelSol"
+                    ? "https://minel.no/personvernerklaering"
+                    : "/kjopsbetingelser"
+                }
+              >
+                kjøpsbetingelser
+              </Link>
+            </div>
           </div>
           <div className="flex flex-col gap-6">
             <div className="flex flex-col">

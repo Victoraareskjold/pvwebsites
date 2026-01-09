@@ -126,12 +126,12 @@ export default function EstimateView({ estimateId }) {
               Hei <strong>{estimateData?.leads?.person_info}</strong>
             </h5>
             <div>
-              <p className="font-light text-lg text-gray-900">
+              <h2 className="font-light text-lg text-gray-900">
                 Her er ditt tilbud på et komplett solcelleanlegg fra{" "}
                 <span className="font-semibold">
                   {config.title || "mangler firma"}.
                 </span>
-              </p>
+              </h2>
             </div>
           </section>
 
@@ -234,12 +234,14 @@ export default function EstimateView({ estimateId }) {
               <section className="w-full !p-0">
                 <div className="bg-green-200 p-2 mt-8 rounded-lg">
                   <h1>
-                    Forventet årlig produksjon fra anlegget:{" "}
                     <strong>
-                      {formatValue(
-                        Number(estimateData?.yearly_prod?.toFixed(0))
-                      )}{" "}
-                      kWh per år.
+                      Forventet årlig produksjon fra anlegget:{" "}
+                      <strong>
+                        {formatValue(
+                          Number(estimateData?.yearly_prod?.toFixed(0))
+                        )}{" "}
+                        kWh per år.
+                      </strong>
                     </strong>
                   </h1>
                 </div>
@@ -313,7 +315,7 @@ export default function EstimateView({ estimateId }) {
                     number={`${formatValue(
                       economySummary?.averageYearlySavings || 0
                     )} kr`}
-                    text={"Årlig besparing per år for ditt anlegg."}
+                    text={"Gjennomsnittlig årlig besparelse"}
                   />
                 </div>
               </section>

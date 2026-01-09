@@ -39,7 +39,7 @@ export default function YourSolarFacility({ estimateData }) {
           image={"/estimate/info4.png"}
         />
       </div>
-      <img src="/estimate/bigIllustration.png" />
+      <img src="/estimate/bigIllustration.png" className="h-80" />
     </div>
   );
 }
