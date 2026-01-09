@@ -12,7 +12,7 @@ export default function YourSolarFacility({ estimateData }) {
   );
 
   return (
-    <div className="flex flex-row h-fit gap-4 px-4">
+    <div className="flex flex-row h-fit gap- px-4 items-center">
       <div className="w-full mt-2">
         <EstimateInfoComponent
           text={"Installert effekt."}
@@ -39,11 +39,10 @@ export default function YourSolarFacility({ estimateData }) {
           image={"/estimate/info4.png"}
         />
       </div>
-      <div className="flex-shrink-0">
+      <div className="md:block">
         <img
           src="/estimate/bigIllustration.png"
-          className="max-h-[375px] object-contain"
-          style={{ width: "auto" }}
+          className="h-full max-h-[450px] object-contain"
         />
       </div>{" "}
     </div>
