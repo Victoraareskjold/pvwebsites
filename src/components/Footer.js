@@ -36,7 +36,7 @@ export function Footer({
                 Personvernerklæring
               </Link>
               <Link href="/kjopsbetingelser" target="_blank">
-                kjøpsbetingelser
+                Kjøpsbetingelser
               </Link>
             </div>
           </div>
