@@ -53,6 +53,7 @@ export default function Page() {
               })`,
               backgroundRepeat: "no-repeat",
               backgroundSize: "cover",
+              backgroundPosition: "center",
             }}
           ></div>
         )}
