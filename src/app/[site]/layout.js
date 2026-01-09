@@ -2,6 +2,7 @@
 import { Footer } from "../../components/Footer";
 import { Navbar } from "../../components/Navbar";
 import { SiteConfigProvider } from "../../contexts/siteConfigContext";
+
 import { GoogleAnalytics, GoogleTagManager } from "@next/third-parties/google";
 
 import "../globals.css";
