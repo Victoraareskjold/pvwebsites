@@ -416,9 +416,9 @@ export default function EstimateView({ estimateId }) {
                           <strong>Samlet total kostnad</strong>
                         </h5>
                         <div className="flex flex-row justify-between">
-                          <p className="fatP text-white">
+                          <h1 className="fatP text-white">
                             Komplett ferdig installert anlegg eks. mva
-                          </p>
+                          </h1>
                           <h1 className="fatP text-white">
                             <strong>
                               {formatValue(
@@ -438,9 +438,9 @@ export default function EstimateView({ estimateId }) {
                           <strong>Samlet total kostnad</strong>
                         </h5>
                         <div className="flex flex-row justify-between">
-                          <p className="fatP text-white">
+                          <h1 className="fatP text-white">
                             Komplett ferdig installert anlegg
-                          </p>
+                          </h1>
                           <h1 className="fatP text-white">
                             <strong>
                               {formatValue(
@@ -454,7 +454,7 @@ export default function EstimateView({ estimateId }) {
                         </div>
                         <div className="w-full h-2 bg-green-300 rounded-full mb-6 mt-2" />
                         <div className="flex flex-row justify-between">
-                          <p className="fatP text-white">Enova støtte</p>
+                          <h1 className="fatP text-white">Enova støtte</h1>
                           <h1 className="fatP text-white">
                             -{" "}
                             <strong>
@@ -464,9 +464,9 @@ export default function EstimateView({ estimateId }) {
                         </div>
                         <div className="w-full h-2 bg-green-300 rounded-full mb-6 mt-2" />
                         <div className="flex flex-row justify-between">
-                          <p className="fatP text-white">
+                          <h1 className="fatP text-white">
                             Totalkostnad inkl. mva
-                          </p>
+                          </h1>
                           <h1 className="fatP text-white">
                             <strong>
                               {formatValue(

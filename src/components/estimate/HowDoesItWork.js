@@ -3,23 +3,25 @@ export default function HowDoesItWork() {
     <div className="flex flex-col gap-2">
       <div className="flex flex-row gap-4">
         <img src="/estimate/checked.png" className="h-8 w-8" />
-        <p className="font-light !text-md">Du har nå mottat ditt estimat.</p>
+        <h1 className="font-light !text-md">Du har nå mottat ditt estimat.</h1>
       </div>
       <div className="flex flex-row gap-4">
         <img src="/estimate/unchecked.png" className="h-8 w-8" />
-        <p className="font-light !text-md">Befaring gjennomføres ved behov.</p>
+        <h1 className="font-light !text-md">
+          Befaring gjennomføres ved behov.
+        </h1>
       </div>
       <div className="flex flex-row gap-4">
         <img src="/estimate/unchecked.png" className="h-8 w-8" />
-        <p className="font-light !text-md">
+        <h1 className="font-light !text-md">
           Vi sender ferdigstilt tilbud til vurdering.
-        </p>
+        </h1>
       </div>
       <div className="flex flex-row gap-4">
         <img src="/estimate/unchecked.png" className="h-8 w-8" />
-        <p className="font-light !text-md">
+        <h1 className="font-light !text-md">
           Montering til et tidspunkt som passer deg.
-        </p>
+        </h1>
       </div>
     </div>
   );
