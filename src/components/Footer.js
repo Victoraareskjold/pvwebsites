@@ -25,17 +25,17 @@ export function Footer({
           <div>
             <img src={logo} alt={title || "Logo"} style={{ height: "40px" }} />
             <div className="flex flex-col">
-              <Link href="/personvern" target="_blank">
-                Personvernerklæring
-              </Link>
               <Link
                 href={
                   site === "MinelSol"
-                    ? "https://minel.no/personvernerklaering"
-                    : "/kjopsbetingelser"
+                    ? "https://minel.no/personvern"
+                    : "/personvern"
                 }
                 target="_blank"
               >
+                Personvernerklæring
+              </Link>
+              <Link href="/kjopsbetingelser" target="_blank">
                 kjøpsbetingelser
               </Link>
             </div>

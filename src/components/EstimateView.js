@@ -411,7 +411,7 @@ export default function EstimateView({ estimateId }) {
                   <div>
                     {estimateData?.leads?.company ? (
                       // Næringskunde: Kun total eks. mva
-                      <>
+                      <div className="flex flex-col">
                         <h5 className="text-white mb-2">
                           <strong>Samlet total kostnad</strong>
                         </h5>
@@ -419,14 +419,18 @@ export default function EstimateView({ estimateId }) {
                           <p className="fatP text-white">
                             Komplett ferdig installert anlegg eks. mva
                           </p>
-                          <p className="fatP text-white">
-                            {formatValue(
-                              Number(estimateData?.price_data?.total)
-                            )}{" "}
-                            kr
-                          </p>
+                          <h1 className="fatP text-white">
+                            <strong>
+                              {formatValue(
+                                Number(estimateData?.price_data?.total)
+                              )}{" "}
+                              kr
+                            </strong>
+                          </h1>
                         </div>
-                      </>
+                        <div className="w-full h-2 bg-green-300 rounded-full mb-2 mt-2" />
+                        <div className="w-24 h-2 bg-green-300 self-end rounded-full" />
+                      </div>
                     ) : (
                       // Privatperson: Total inkl. mva og Enova-støtte
                       <div className="flex flex-col">
@@ -437,7 +441,7 @@ export default function EstimateView({ estimateId }) {
                           <p className="fatP text-white">
                             Komplett ferdig installert anlegg
                           </p>
-                          <p className="fatP text-white">
+                          <h1 className="fatP text-white">
                             <strong>
                               {formatValue(
                                 Number(
@@ -446,24 +450,24 @@ export default function EstimateView({ estimateId }) {
                               )}{" "}
                               kr
                             </strong>
-                          </p>
+                          </h1>
                         </div>
                         <div className="w-full h-2 bg-green-300 rounded-full mb-6 mt-2" />
                         <div className="flex flex-row justify-between">
                           <p className="fatP text-white">Enova støtte</p>
-                          <p className="fatP text-white">
+                          <h1 className="fatP text-white">
                             -{" "}
                             <strong>
                               {formatValue(Number(enovaSupport()))} kr
                             </strong>
-                          </p>
+                          </h1>
                         </div>
                         <div className="w-full h-2 bg-green-300 rounded-full mb-6 mt-2" />
                         <div className="flex flex-row justify-between">
                           <p className="fatP text-white">
                             Totalkostnad inkl. mva
                           </p>
-                          <p className="fatP text-white">
+                          <h1 className="fatP text-white">
                             <strong>
                               {formatValue(
                                 Number(
@@ -472,7 +476,7 @@ export default function EstimateView({ estimateId }) {
                               )}{" "}
                               kr
                             </strong>
-                          </p>
+                          </h1>
                         </div>
                         <div className="w-full h-2 bg-green-300 rounded-full mb-2 mt-2" />
                         <div className="w-24 h-2 bg-green-300 self-end rounded-full" />
@@ -484,11 +488,7 @@ export default function EstimateView({ estimateId }) {
                     {/* <input type="checkbox" className="rounded-checkbox"></input> */}
                     <a
                       className="text-white"
-                      href={
-                        config.site === "MinelSol"
-                          ? "https://minel.no/personvernerklaering"
-                          : "/kjopsbetingelser"
-                      }
+                      href={"/kjopsbetingelser"}
                       target="_blank"
                     >
                       <span className="underline font-semibold">
