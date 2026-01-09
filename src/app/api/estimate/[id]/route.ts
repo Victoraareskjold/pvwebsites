@@ -28,7 +28,8 @@ export async function GET(
           company,
           created_by (
             name,
-            email
+            email,
+            phone
           )
         )
       `

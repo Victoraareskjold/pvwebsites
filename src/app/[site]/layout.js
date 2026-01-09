@@ -90,7 +90,7 @@ export default async function RootLayout({ children, params }) {
           organizationNumber={config.footer?.organizationNumber}
           primary={config.primary}
           secondary={config.secondary}
-          config={config.site}
+          site={config.site}
         />
         {config.consentifyPublicToken && (
           <script
