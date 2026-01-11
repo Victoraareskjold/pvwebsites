@@ -8,6 +8,8 @@ export default {
 
   favicon: "/minelsol/favicon.ico",
 
+  googleTagManager: "GTM-KM25JNPP",
+
   metaDesc:
     "Ta kontakt med oss for å høre hvordan våre solcelleløsninger kan hjelpe deg å redusere kostnader og få mest mulig ut av solenergi. Vi gir deg ærlige råd, skreddersydde løsninger og følger deg hele veien mot en mer bærekraftig energihverdag",
 
