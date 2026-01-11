@@ -18,7 +18,7 @@ const HOST_TO_SITE_MAP = {
   "www.mydlandselektriskesol.no": "mydlands",
   "mydlandselektriskesol.no": "mydlands",
   // Add localhost for local development, pointing to a default site
-  "localhost:3000": "minelsol",
+  "localhost:3001": "mydlands",
 };
 
 export function proxy(request) {
