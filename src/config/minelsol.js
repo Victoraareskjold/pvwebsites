@@ -11,15 +11,32 @@ export default {
   metaDesc:
     "Ta kontakt med oss for å høre hvordan våre solcelleløsninger kan hjelpe deg å redusere kostnader og få mest mulig ut av solenergi. Vi gir deg ærlige råd, skreddersydde løsninger og følger deg hele veien mot en mer bærekraftig energihverdag",
 
-  primary: "#FFC069",
-  secondary: "#D3A45E",
+  primary: "#1C0E52",
+  secondary: "#E00034",
 
   primaryGradient: {
-    bg: "linear-gradient(90deg, #FF9D00 23%, #FFD05A 92%)",
+    bg: "linear-gradient(90deg, #1C0E52 100%, #1C0E52 100%)",
     textColor: "black",
   },
 
-  hero: { header: "SOLCELLER ELVERUM", background: "/minelsol/heroImage.png" },
+  hero: {
+    header: "SOLCELLER ELVERUM",
+    background: "/minelsol/heroImage.png",
+    p: "Kvalitet og trygghet – solceller til konkurransedyktig pris",
+  },
+
+  exploreBtn: {
+    text: "Prøv vår solcellekalkulator",
+  },
+
+  infoCard: {
+    one: "Når du velger oss som lokal installatør, får du direkte kontakt med fagfolkene som faktisk utfører arbeidet. Det gir kortere beslutningsveier, større fleksibilitet og løsninger tilpasset både bygget og lokale forhold Vi kjenner klimaet og forholdene i området godt, og bruker denne kunnskapen til å skreddersy løsninger som fungerer optimalt – både nå og over tid.",
+    titleTwo: "Høy kvalitet - til en bedre pris",
+    two: "Vi gir deg konkurransedyktige priser uten å at det går utover kvaliteten. Våre solcelleanlegg holder høy standard, med nøye utvalgte solcellepaneler. Vi jobber kontinuerlig for å finne den løsningen som passer best for deg og ditt behov.",
+    titleThree: "Tett oppfølging - rask hjelp når du trenger det",
+    three:
+      "Som lokal aktør er vi alltid lett tilgjengelige. Enten det gjelder garantier, service eller vedlikehold, får du rask respons og tett dialog.",
+  },
 
   about: {
     header: "Minel Sol",
@@ -45,7 +62,12 @@ export default {
     image: "/minelsol/bilBilde.png",
   },
 
-  solar: { header: "SOLCELLER ELVERUM" },
+  solar: {
+    header: "SOLCELLER ELVERUM",
+    header2: "Solcelleløsninger for alle typer bygg",
+    header3:
+      "Fra eneboliger og borettslag til næringsbygg og landbruk – vi skreddersyr solcelleanlegg som passer din eiendom og ditt energibehov.",
+  },
 
   footer: {
     email: "asbjorn.roed@minel.no",

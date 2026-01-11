@@ -50,11 +50,17 @@ export default function Contact() {
   };
 
   return (
-    <div className="py-24 min-h-screen px-12 justify-center flex flex-col bg-regularOrange text-black">
+    <div
+      className={`py-24 min-h-screen px-12 justify-center flex flex-col ${
+        config.site === "MinelSol" ? "bg-[#1C0E52]" : "bg-regularOrange"
+      } text-black`}
+    >
       <form
         ref={form}
         onSubmit={sendEmail}
-        className="flex-col flex max-w-96 m-auto w-full"
+        className={`flex-col flex max-w-96 m-auto w-full ${
+          config.site === "MinelSol" ? "text-white" : ""
+        }`}
       >
         <h3 className="mb-4">Kontakt oss</h3>
         <p className="mb-8">
@@ -83,7 +89,7 @@ export default function Contact() {
         <button
           type="submit"
           value="Send"
-          className="bg-white p-2 rounded-md text-black w-full flex flex-row gap-2 justify-center hover:!bg-black hover:!text-white duration-500 self-center"
+          className="bg-white p-2 mt-8 rounded-md text-black w-full flex flex-row gap-2 justify-center hover:!bg-black hover:!text-white duration-500 self-center"
         >
           Send
         </button>

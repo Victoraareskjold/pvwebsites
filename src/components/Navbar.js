@@ -4,7 +4,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 
-export function Navbar({ logo, title, pos }) {
+export function Navbar({ logo, title, pos, site }) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
@@ -36,8 +36,9 @@ export function Navbar({ logo, title, pos }) {
           width: "100%",
           backgroundColor:
             isMenuOpen || isDropdownOpen ? "#2D2D2D" : "rgba(0, 0, 0, 0.25)",
+          backgroundColor: site === "MinelSol" ? "white" : "",
           zIndex: 100,
-          color: "white",
+          color: site === "MinelSol" ? "  #1C0E52" : "white",
         }}
       >
         {/* Logo */}
@@ -73,7 +74,7 @@ export function Navbar({ logo, title, pos }) {
             position: "absolute",
             top: "100%",
             left: 0,
-            backgroundColor: "#2D2D2D",
+            backgroundColor: site === "MinelSol" ? "white" : "#2D2D2D",
             width: "100%",
             padding: "1rem",
             gap: 12,
@@ -89,7 +90,7 @@ export function Navbar({ logo, title, pos }) {
                 textAlign: "left",
                 cursor: "pointer",
                 fontSize: "1rem",
-                color: "#fff",
+                color: site === "MinelSol" ? "#2d2d2d" : "#fff",
               }}
               className="flex flex-row gap-4"
             >
@@ -110,7 +111,7 @@ export function Navbar({ logo, title, pos }) {
                   listStyle: "none",
                   padding: "0.5rem",
                   zIndex: 10,
-                  color: "#fff",
+                  color: site === "MinelSol" ? "#2d2d2d" : "#fff",
                   display: "flex",
                   flexDirection: "column",
                   gap: "12px",
@@ -159,11 +160,14 @@ export function Navbar({ logo, title, pos }) {
               </ul>
             )}
           </li>
-          <li style={{ margin: "0.5rem 0" }}>
-            <Link href="/omoss" style={{ textDecoration: "none" }}>
-              Om oss
-            </Link>
-          </li>
+          {site !== "MinelSol" && (
+            <li style={{ margin: "0.5rem 0" }}>
+              <Link href="/omoss" style={{ textDecoration: "none" }}>
+                Om oss
+              </Link>
+            </li>
+          )}
+
           <li style={{ margin: "0.5rem 0" }}>
             <Link href="/blog" style={{ textDecoration: "none" }}>
               Blogg
@@ -266,11 +270,13 @@ export function Navbar({ logo, title, pos }) {
               </ul>
             )}
           </li>
-          <li>
-            <Link href="/omoss" style={{ textDecoration: "none" }}>
-              Om oss
-            </Link>
-          </li>
+          {site !== "MinelSol" && (
+            <li>
+              <Link href="/omoss" style={{ textDecoration: "none" }}>
+                Om oss
+              </Link>
+            </li>
+          )}
           <li>
             <Link href="/blog" style={{ textDecoration: "none" }}>
               Blogg

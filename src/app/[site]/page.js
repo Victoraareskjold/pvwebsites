@@ -21,6 +21,8 @@ export default function Page() {
   const config = useSiteConfig();
   const [isModalOpen, setModalOpen] = useState(false);
 
+  const isMinel = config.site === "MinelSol";
+
   return (
     <main>
       <section className="hero pt-32 px-4 md:pt-80 relative" id="main">
@@ -68,12 +70,14 @@ export default function Page() {
             <span className="block md:inline">Din Lokale </span>
             <span className="block md:inline">
               Installatør
-              <span
-                className="dot inline-block h-4 w-4 bg-white rounded-full ml-2"
-                style={{
-                  transform: "translateY(2px)",
-                }}
-              ></span>
+              {!isMinel && (
+                <span
+                  className="dot inline-block h-4 w-4 bg-white rounded-full ml-2"
+                  style={{
+                    transform: "translateY(2px)",
+                  }}
+                ></span>
+              )}
             </span>
           </h1>
 
@@ -110,15 +114,15 @@ export default function Page() {
             <img src="bilde1.png" alt="Solceller" className="w-full" />
           </div>
           <p className="w-full">
-            Vi leverer komplette solcelleanlegg til både private og bedrifter –
-            på boliger, hytter, næringsbygg og andre egnede flater. Når anlegget
-            er koblet til inverteren begynner du umiddelbart å spare strøm, og
-            overskuddet kan selges tilbake til nettet. Vi håndterer hele
-            prosessen fra start til slutt. Ta gjerne kontakt, så ser vi om
-            solceller er lønnsomt for akkurat deg. Det er ikke riktig løsning
-            for alle, og vi er ærlige på hva som lønner seg i din situasjon. Som
-            lokal installatør kjenner vi området godt, og vi er her for å
-            hjelpe.
+            Vi leverer komplette solcelleanlegg til både private og bedrifter -
+            for boliger, hytter, næringsbygg og andre egnede flater. <br />
+            <br />
+            Vi tar ansvar for hele prosessen, fra rådgivning og prosjektering
+            til installasjon og ferdig anlegg. Ta gjerne kontakt med oss for en
+            uforpliktende vurdering av om solceller er lønnsomt for deg. <br />
+            <br /> Som lokal installatør kjenner vi både forholdene og markedet
+            i området, og vi er her for å følge deg opp - også etter at anlegget
+            er på plass.
           </p>
         </div>
 
@@ -127,8 +131,7 @@ export default function Page() {
           {/* Mobile order: heading, image, text+button */}
           <div className="w-full flex flex-col md:order-none">
             <h2 className="text-2xl mb-4">
-              Solceller + batteri – <br />
-              strømmen du faktisk får brukt
+              Solceller med batteri - strømmen du faktisk får brukt
             </h2>
 
             {/* Image shown on mobile, hidden on desktop */}
@@ -139,11 +142,19 @@ export default function Page() {
             />
 
             <p className="w-full mb-4">
-              Egenproduksjon gir frihet. Batterilagring forsterker den og gir
-              trygghet. Bruk solstrømmen når den har størst verdi – og hold
-              huset i gang selv ved strømbrudd. Vil du vite hva som passer best
-              i din situasjon? Ta kontakt, så gir vi en anbefaling tilpasset
-              dine behov.
+              Egenprodusert strøm gir økt frihet i hverdagen. Med batterilagring
+              tar du det et steg videre og får bedre utnyttelse av solenergien -
+              samtidig som du øker tryggheten i boligen. Du kan lagre
+              overskuddsstrøm og bruke den når behovet er størst, for eksempel
+              på kveldstid eller ved høye strømpriser. <br />
+              <br />
+              Et solcelleanlegg med batteri kan også bidra til at viktige
+              funksjoner i huset holdes i gang ved strømbrudd. Vi hjelper deg å
+              vurdere om batteri er riktig for deg, og finner en løsning som er
+              tilpasset ditt forbruk, din bolig og dine behov.
+              <br />
+              <br /> Ta kontakt for en uforpliktende prat - så gir vi en
+              anbefaling basert på hva som faktisk lønner seg i din situasjon.
             </p>
 
             <div>
@@ -176,10 +187,14 @@ export default function Page() {
               style={{ position: "relative" }}
               className="w-full h-[50vh] md:max-w-screen-xl md:max-h-[940px] md:h-full object-cover mx-auto object-cover"
             />
-            <div className="blackFade"></div>
-            <div className="blackFade2"></div>
-            <div className="blackFade3"></div>
-            <div className="blackFade4"></div>
+            {!isMinel && (
+              <>
+                <div className="blackFade"></div>
+                <div className="blackFade2"></div>
+                <div className="blackFade3"></div>
+                <div className="blackFade4"></div>
+              </>
+            )}
           </div>
         </div>
 
@@ -218,14 +233,16 @@ export default function Page() {
             />
           </div>
 
-          <Link
-            href="/omoss"
-            className="border-2 border-white p-2 px-4 rounded-md mb-4 md:my-20 md:w-64 md:self-center text-center hover:bg-white hover:text-black duration-500"
-          >
-            <h2 className="bold">
-              {config.advantage?.readMore || "Les mer om oss"}
-            </h2>
-          </Link>
+          {!isMinel && (
+            <Link
+              href="/omoss"
+              className="border-2 border-white p-2 px-4 rounded-md mb-4 md:my-20 md:w-64 md:self-center text-center hover:bg-white hover:text-black duration-500"
+            >
+              <h2 className="bold">
+                {config.advantage?.readMore || "Les mer om oss"}
+              </h2>
+            </Link>
+          )}
         </div>
       </section>
 
@@ -244,20 +261,24 @@ export default function Page() {
             Er solceller en god <br /> investering for deg?
           </h1>
           <p className="text-white text-xl max-w-2xl">
-            Skriv inn adressen din og se hvilken løsning som passer deg best.
-            Utforsk i ditt eget tempo, og om du lurer på noe, er vi bare en
-            melding unna – helt uforpliktende.
+            {isMinel
+              ? "Skriv inn adressen din og oppdag solcelleløsningen som passer perfekt for deg. Utforsk i ditt eget tempo, og ta kontakt hvis du vil ha råd eller veiledning – helt uforpliktende."
+              : "Skriv inn adressen din og se hvilken løsning som passer deg best. Utforsk i ditt eget tempo, og om du lurer på noe, er vi bare en melding unna – helt uforpliktende."}
           </p>
 
           <Link
             style={{
-              background: "linear-gradient(90deg, #FF9D00 23%, #FFD05A 92%)",
+              background:
+                config.site === "MinelSol"
+                  ? "red"
+                  : "linear-gradient(90deg, #FF9D00 23%, #FFD05A 92%)",
+              color: config.site === "MinelSol" ? "white" : "black",
             }}
-            className="solcelleknapp max-w-sm funky p-2 rounded-md text-black flex flex-row gap-2 justify-center hover:!bg-white duration-1000"
+            className="solcelleknapp max-w-sm funky p-2 rounded-md flex flex-row gap-2 justify-center hover:!bg-white hover:!text-black duration-1000"
             href={"/solkart"}
           >
             <h2>Prøv vår solcellekalkulator</h2>
-            <img src="/search.png" className="w-6 self-center" />
+            {!isMinel && <img src="/search.png" className="w-6 self-center" />}
           </Link>
         </div>
 

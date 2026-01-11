@@ -59,8 +59,18 @@ export default function BlogCarousel() {
                   background: config.primary || "white",
                 }}
               >
-                <h3 className="line-clamp-2 mb-2">{blog.nb.title}</h3>
-                <h4 className="opacity-70 line-clamp-4">{blog.description}</h4>
+                <h3
+                  className="line-clamp-2 mb-2"
+                  style={{ color: config.site === "MinelSol" ? "white" : "" }}
+                >
+                  {blog.nb.title}
+                </h3>
+                <h4
+                  className="opacity-70 line-clamp-4"
+                  style={{ color: config.site === "MinelSol" ? "white" : "" }}
+                >
+                  {blog.description}
+                </h4>
               </div>
             </Link>
           </div>
