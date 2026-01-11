@@ -22,7 +22,7 @@ export default async function RootLayout({ children, params }) {
     configName && configs[configName] ? await configs[configName]() : {};
   const config = configModule.default || {};
 
-  config.language = configName === "vestelektro" ? "nn" : "nb";
+  config.language = configName === "vestelektrosol" ? "nn" : "nb";
 
   const faviconUrl = config.favicon || "/favicon.ico";
 

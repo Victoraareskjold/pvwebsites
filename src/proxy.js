@@ -1,24 +1,24 @@
 import { NextResponse } from "next/server";
 
 const HOST_TO_SITE_MAP = {
-  "www.lynelektrosol.no": "lynelektro",
-  "lynelektrosol.no": "lynelektro",
-  "www.vestelektrosol.no": "vestelektro",
-  "vestelektrosol.no": "vestelektro",
-  "www.alfaelektrosol.no": "alfaelektro",
-  "alfaelektrosol.no": "alfaelektro",
+  "www.lynelektrosol.no": "lynelektrosol",
+  "lynelektrosol.no": "lynelektrosol",
+  "www.vestelektrosol.no": "vestelektrosol",
+  "vestelektrosol.no": "vestelektrosol",
+  "www.alfaelektrosol.no": "alfaelektrosol",
+  "alfaelektrosol.no": "alfaelektrosol",
   "www.gelektrosol.no": "gelektrosol",
   "gelektrosol.no": "gelektrosol",
   "www.minelsol.no": "minelsol",
   "minelsol.no": "minelsol",
-  "www.smartelektrosol.no": "smartelektro",
-  "smartelektrosol.no": "smartelektro",
-  "www.telerorelektrosol.no": "teleror",
-  "telerorelektrosol.no": "teleror",
-  "www.mydlandselektriskesol.no": "mydlands",
-  "mydlandselektriskesol.no": "mydlands",
+  "www.smartelektrosol.no": "smartelektrosol",
+  "smartelektrosol.no": "smartelektrosol",
+  "www.telerorelektrosol.no": "telerorelektrosol",
+  "telerorelektrosol.no": "telerorelektrosol",
+  "www.mydlandselektriskesol.no": "mydlandselektriskesol",
+  "mydlandselektriskesol.no": "mydlandselektriskesol",
   // Add localhost for local development, pointing to a default site
-  "localhost:3001": "mydlands",
+  "localhost:3001": "mydlandselektriskesol",
 };
 
 export function proxy(request) {

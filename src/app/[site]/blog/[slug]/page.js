@@ -9,7 +9,7 @@ export default async function BlogPost({ params }) {
   const headersList = await headers();
   const siteConfig = headersList.get("x-site-config");
 
-  const language = siteConfig === "vestelektro" ? "nb" : "nb";
+  const language = siteConfig === "vestelektrosol" ? "nb" : "nb";
 
   const blog = blogs.find((b) => b.slug === slug);
 

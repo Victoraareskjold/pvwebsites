@@ -13,7 +13,7 @@ export default async function Slide({ params }) {
   const siteConfig = headersList.get("x-site-config");
 
   // Bestem språk basert på domenet
-  const language = siteConfig === "vestelektro" ? "nn" : "nb";
+  const language = siteConfig === "vestelektrosol" ? "nn" : "nb";
 
   // Finn slidegen basert på slug
   const slide = slides.find((b) => b.slug === slug);
