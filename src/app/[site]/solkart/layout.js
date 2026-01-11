@@ -4,14 +4,14 @@ import { SiteConfigProvider } from "../../../contexts/siteConfigContext";
 import { Navbar } from "../../../components/Navbar";
 
 export const configs = {
-  vestelektro: () => import("../../../config/vestelektro"),
-  alfaelektro: () => import("../../../config/alfaelektro"),
-  lynelektro: () => import("../../../config/lynelektro"),
+  vestelektrosol: () => import("../../../config/vestelektro"),
+  alfaelektrosol: () => import("../../../config/alfaelektro"),
+  lynelektrosol: () => import("../../../config/lynelektro"),
   gelektrosol: () => import("../../../config/gelektrosol"),
   minelsol: () => import("../../../config/minelsol"),
-  teleror: () => import("../../../config/teleror"),
-  smartelektro: () => import("../../../config/smartelektro"),
-  mydlands: () => import("../../../config/mydlands"),
+  telerorsol: () => import("../../../config/teleror"),
+  smartelektrosol: () => import("../../../config/smartelektro"),
+  mydlandssol: () => import("../../../config/mydlands"),
 };
 
 export default async function SolkartLayout({ children, params }) {
