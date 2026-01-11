@@ -22,9 +22,7 @@ export default async function SolkartLayout({ children, params }) {
 
   config.language = site === "vestelektro" ? "nn" : "nb";
 
-  return (
-    <div className="h-[100vh]">
-      <SiteConfigProvider config={config}>{children}</SiteConfigProvider>
-    </div>
-  );
+  console.log(site);
+
+  return <div className="h-[100vh]">{children}</div>;
 }

@@ -1,11 +1,11 @@
 export default async function Solkart({ params }) {
-  const res = await params;
-  console.log(res);
+  const { site } = await params;
+  console.log(site);
 
   return (
     <div style={{ backgroundColor: "#1E1E1E" }} className="h-full">
       <iframe
-        src={`https://pvmap.vercel.app/?site=${res.site}`}
+        src={`https://pvmap.vercel.app/?site=${site}`}
         className="h-full lg:!pb-0"
         width="100%"
         style={{ paddingTop: "86px" }}
