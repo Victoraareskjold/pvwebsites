@@ -40,15 +40,15 @@ export default async function RootLayout({ children, params }) {
           href={`${faviconUrl.replace(".ico", ".png")}`}
         />
 
-        {config.googleTagManager && (
+        {/*  {config.googleTagManager && (
           <GoogleTagManager gtmId={config.googleTagManager} />
-        )}
+        )} */}
 
-        {config.googleAnalytics && (
+        {/*  {config.googleAnalytics && (
           <GoogleAnalytics gaId={config.googleAnalytics} />
-        )}
+        )} */}
 
-        {config.metaPixel && (
+        {/* {config.metaPixel && (
           <>
             <script
               id="meta-pixel"
@@ -76,7 +76,7 @@ export default async function RootLayout({ children, params }) {
               />
             </noscript>
           </>
-        )}
+        )} */}
       </head>
       <body>
         <Navbar
