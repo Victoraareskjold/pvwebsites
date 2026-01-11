@@ -34,9 +34,9 @@ export function Navbar({ logo, title, pos, site }) {
           padding: "1rem",
           position: pos,
           width: "100%",
+          backgroundColor: isMenuOpen || isDropdownOpen ? "#2D2D2D" : "",
           backgroundColor:
-            isMenuOpen || isDropdownOpen ? "#2D2D2D" : "rgba(0, 0, 0, 0.25)",
-          backgroundColor: site === "MinelSol" ? "white" : "#2D2D2D",
+            site === "MinelSol" ? "white" : "rgba(0, 0, 0, 0.85)",
           zIndex: 100,
           color: site === "MinelSol" ? "  #1C0E52" : "white",
         }}
