@@ -9,9 +9,9 @@ export const configs = {
   lynelektrosol: () => import("../../../config/lynelektro"),
   gelektrosol: () => import("../../../config/gelektrosol"),
   minelsol: () => import("../../../config/minelsol"),
-  telerorsol: () => import("../../../config/teleror"),
+  telerorelektrosol: () => import("../../../config/teleror"),
   smartelektrosol: () => import("../../../config/smartelektro"),
-  mydlandssol: () => import("../../../config/mydlands"),
+  mydlandselektriskesol: () => import("../../../config/mydlands"),
 };
 
 export default async function SolkartLayout({ children, params }) {
