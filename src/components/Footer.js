@@ -28,7 +28,7 @@ export function Footer({
               <Link
                 href={
                   site === "MinelSol"
-                    ? "https://minel.no/personvern"
+                    ? "https://minel.no/personvernerklaering"
                     : "/personvern"
                 }
                 target="_blank"
