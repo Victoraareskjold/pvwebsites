@@ -198,7 +198,7 @@ export default function Page() {
           </div>
         </div>
 
-        <div className="bg-black w-full text-white flex flex-col gap-8 px-4 ">
+        <div className="bg-black w-full text-white flex flex-col gap-8 px-4 pb-4">
           <div className="grid gap-4 md:grid-cols-2 md:gap-8 max-w-screen-2xl md:self-center md:pt-12">
             <InfoCard
               number={"1"}
@@ -254,7 +254,7 @@ export default function Page() {
           backgroundSize: "cover",
         }}
       >
-        <div className="blackFade"></div>
+        {!isMinel && <div className="blackFade"></div>}
 
         <div className="px-4 md:px-12 xl:px-12 w-full self-center flex flex-col gap-8 max-w-7xl">
           <h1 className="text-white text-4xl lg:text-6xl">
@@ -282,7 +282,7 @@ export default function Page() {
           </Link>
         </div>
 
-        <div className="blackFade2"></div>
+        {!isMinel && <div className="blackFade2"></div>}
       </section>
 
       <section className="bg-black py-24">
@@ -307,7 +307,7 @@ export default function Page() {
       </section>
 
       <section className="py-8 relative" id="blog">
-        <div className="blackFade"></div>
+        {!isMinel && <div className="blackFade"></div>}
 
         <div className="mx-4 my-20 xl:px-48">
           <h4 className="opacity-50 text-xl">

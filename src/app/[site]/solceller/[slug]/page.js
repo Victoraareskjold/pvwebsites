@@ -22,6 +22,12 @@ export default async function Slide({ params }) {
     return <div className="py-24 min-h-screen px-4">slide ikke funnet</div>;
   }
 
+  // Overstyr bilde for MinelSol + enebolig-hytte
+  const imageSrc =
+    siteConfig === "minelsol" && slide.image === "/carousel/image3.png"
+      ? "/carousel/minelBilde.png"
+      : slide.image;
+
   // Hent innhold for riktig språk
   const content = slide[language];
 
@@ -33,12 +39,14 @@ export default async function Slide({ params }) {
     );
   }
 
+  console.log(siteConfig);
+
   return (
     <div className="min-h-screen bg-black text-white justify-center flex">
       <div className="max-w-6xl w-full">
-        {slide.image ? (
+        {imageSrc ? (
           <div className="relative">
-            <img className="w-full" src={slide.image} />
+            <img className="w-full" src={imageSrc} />
             <div className="blackFade2"></div>
             <div className="blackFade3"></div>
             <div className="blackFade4"></div>

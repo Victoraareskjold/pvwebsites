@@ -25,9 +25,11 @@ export default function BlogPostClient({ blog, content }) {
                 alt={content.title || "Blogg bilde"}
               />
             </div>
-            <div className="blackFade2"></div>
-            <div className="blackFade3"></div>
-            <div className="blackFade4"></div>
+            <>
+              <div className="blackFade2"></div>
+              <div className="blackFade3"></div>
+              <div className="blackFade4"></div>
+            </>
           </div>
         ) : (
           <div className="py-8"></div>
