@@ -62,5 +62,5 @@ export default {
     address: "Rosselandsvegen 6, 4647 Brennåsen",
   },
 
-  consentifyPublicToken: "333424e9-6ef6-4ca4-b00c-80961c555d3e",
+  consentifyPublicToken: "43de11b1-86c5-4947-a939-c433529c57aa",
 };
