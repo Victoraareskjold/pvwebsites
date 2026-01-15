@@ -1,17 +1,14 @@
 "use client";
-import { IncomeCalculator } from "../../components/IncomeCalculator";
+
 import { InfoCard } from "../../components/InfoCard";
 import InfoCarousel from "../../components/InfoCarousel";
-
 import BlogCarousel from "../../components/BlogCarousel";
 import { Dropdown } from "../../components/Dropdown";
 import { useSiteConfig } from "../../contexts/siteConfigContext";
-
 import { EstimateButton } from "../../components/EstimateButton";
 import { ExploreButton } from "../../components/ExploreButton";
 import FormModal from "../../components/FormModal";
 import InfoCarouselLarge from "../../components/InfoCarouselLarge";
-import { RoofCapacityButton } from "../../components/RoofCapacityButton";
 import Link from "next/link";
 import { useState } from "react";
 import slides from "../../config/slides";
@@ -27,12 +24,16 @@ export default function Page() {
     <main>
       <section className="hero pt-32 px-4 md:pt-80 relative" id="main">
         <div className="absolute inset-0 bg-black opacity-20 z-10"></div>
-        <div
-          className="absolute bottom-0 left-0 z-20 w-full h-8"
-          style={{
-            background: "linear-gradient(0deg, #fff 0%, rgba(0, 0, 0, 0) 100%)",
-          }}
-        ></div>
+        {!isMinel && (
+          <div
+            className="absolute bottom-0 left-0 z-20 w-full h-8"
+            style={{
+              background:
+                "linear-gradient(0deg, #fff 0%, rgba(0, 0, 0, 0) 100%)",
+            }}
+          ></div>
+        )}
+
         {/* Bakgrunnsvideo */}
         {config.hero?.video ? (
           <video
@@ -62,7 +63,13 @@ export default function Page() {
 
         {/* Innhold over bakgrunnen */}
         <div className="relative z-10 flex flex-col gap-8 text-white">
-          <h2 className="funkysubtitleWhite w-fit text-center self-center">
+          <h2
+            className={`${
+              isMinel
+                ? "funkysubtitleWhite !text-[#CA012E]"
+                : "funkysubtitleWhite"
+            } w-fit text-center self-center`}
+          >
             {config.hero?.header || "Firmanavn"}
           </h2>
 
@@ -298,24 +305,34 @@ export default function Page() {
         {!isMinel && <div className="blackFade2"></div>}
       </section>
 
-      <section className="bg-black py-24">
+      <section
+        className={`${
+          isMinel ? "bg-white text-[#1C0E52]" : "bg-black text-white"
+        } py-24`}
+      >
         <div className="px-4 flex flex-col gap-4">
-          <h2 className="funkysubtitleWhite w-fit md:text-center md:self-center">
+          <h2
+            className={`${
+              isMinel
+                ? "funkysubtitleWhite !text-[#CA012E]"
+                : "funkysubtitleWhite"
+            } w-fit md:text-center md:self-center`}
+          >
             {config.solar?.header || "undefined"}
           </h2>
-          <h3 className="text-white font-medium md:text-center xl:text-3xl">
+          <h3 className="font-medium md:text-center xl:text-3xl">
             {config.solar?.header2 || "Utforsk våre solcelleløsninger"}
           </h3>
-          <h4 className="text-white md:max-w-4xl md:self-center md:text-center text-xl">
+          <h4 className=" md:max-w-4xl md:self-center md:text-center text-xl">
             {config.solar?.header3 ||
               "Om du eier en enebolig, driver et bedriftsbygg, er en del av et borettslag eller er involvert i landbruk, tilbyr vi solcelleløsninger som passer dine behov."}
           </h4>
         </div>
         <div className="xl:hidden">
-          <InfoCarousel slides={slides} />
+          <InfoCarousel slides={slides} isMinel={isMinel} />
         </div>
         <div className="hidden xl:block">
-          <InfoCarouselLarge slides={slides} />
+          <InfoCarouselLarge slides={slides} isMinel={isMinel} />
         </div>
       </section>
 

@@ -9,11 +9,15 @@ import FormModal from "../../../../components/FormModal";
 
 import { EstimateButton2 } from "../../../../components/EstimateButton2";
 
-export default function BlogPostClient({ blog, content }) {
+export default function BlogPostClient({ blog, content, site }) {
   const [isModalOpen, setModalOpen] = useState(false);
 
   return (
-    <div className="min-h-screen bg-black text-white justify-center flex pb-12">
+    <div
+      className={`min-h-screen ${
+        site === "minelsol" ? "bg-white text-[#1C0E52]" : "bg-black text-white"
+      } text-white justify-center flex pb-12`}
+    >
       <div className="max-w-6xl w-full">
         {blog.image ? (
           <div className="relative overflow-hidden">
@@ -25,11 +29,13 @@ export default function BlogPostClient({ blog, content }) {
                 alt={content.title || "Blogg bilde"}
               />
             </div>
-            <>
-              <div className="blackFade2"></div>
-              <div className="blackFade3"></div>
-              <div className="blackFade4"></div>
-            </>
+            {!site === "minelsol" && (
+              <>
+                <div className="blackFade2"></div>
+                <div className="blackFade3"></div>
+                <div className="blackFade4"></div>
+              </>
+            )}
           </div>
         ) : (
           <div className="py-8"></div>

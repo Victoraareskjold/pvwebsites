@@ -4,7 +4,7 @@ import blogs from "../../../../config/blogs.json";
 import BlogPostClient from "./BlogPostClient";
 
 export default async function BlogPost({ params }) {
-  const { slug } = await params;
+  const { slug, site } = await params;
 
   const headersList = await headers();
   const siteConfig = headersList.get("x-site-config");
@@ -27,5 +27,5 @@ export default async function BlogPost({ params }) {
     );
   }
 
-  return <BlogPostClient blog={blog} content={content} />;
+  return <BlogPostClient blog={blog} content={content} site={site} />;
 }

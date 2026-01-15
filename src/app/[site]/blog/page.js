@@ -21,9 +21,15 @@ export default function Blog() {
 
   const sortedBlogs = [...filteredBlogs].sort((a, b) => b.id - a.id);
 
+  const isMinel = config.site === "MinelSol";
+
   return (
-    <section className="py-24 bg-black p-4 min-h-screen">
-      <h1 className="text-white mb-8">
+    <section
+      className={`py-24 ${
+        isMinel ? "bg-white text-[#1C0E52]" : "bg-black text-white"
+      }p-4 min-h-screen`}
+    >
+      <h1 className=" mb-8">
         {config.blogPage?.header ||
           "Ta en titt på det nyeste vi har skrevet, og bla deg bakover i tid."}
       </h1>
@@ -40,7 +46,7 @@ export default function Blog() {
                   className="object-cover"
                 />
               </div>
-              <h2 className="mt-4 text-white font-bold">{blog.nb.title}</h2>
+              <h2 className="mt-4 font-bold">{blog.nb.title}</h2>
             </Link>
           </li>
         ))}

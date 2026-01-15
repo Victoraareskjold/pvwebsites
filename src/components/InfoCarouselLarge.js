@@ -4,13 +4,21 @@ import { useSiteConfig } from "../contexts/siteConfigContext";
 import Link from "next/link";
 import { useState } from "react";
 
-export default function InfoCarouselLarge({ slides }) {
+export default function InfoCarouselLarge({ slides, isMinel }) {
   const config = useSiteConfig();
   const { language } = useSiteConfig();
   const [currentSlide, setCurrentSlide] = useState(0);
 
+  const isLight = isMinel; // Minel = lys bakgrunn
+  const textColor = isLight ? "text-[#1C0E52]" : "text-white";
+  const textMuted = isLight ? "text-[#1C0E52]/70" : "text-white/70";
+  const borderColor = isLight ? "border-[#1C0E52]" : "border-white";
+  const hoverBg = isLight
+    ? "hover:bg-black hover:text-white"
+    : "hover:bg-white hover:text-[#1C0E52]";
+
   return (
-    <div className="w-full bg-black p-48">
+    <div className={`w-full ${isMinel ? "bg-white" : "bg-black"} p-48`}>
       {/* Hovedbilde som endres */}
       <div className="relative w-full mb-6">
         <img
@@ -24,41 +32,27 @@ export default function InfoCarouselLarge({ slides }) {
       <div className="flex justify-between items-start px-4 space-x-4">
         {slides.map((slide, index) => {
           const content = slide[language] || slide["nb"];
+          const isActive = currentSlide === index;
+
           return (
             <div
               key={index}
               onClick={() => setCurrentSlide(index)}
               className={`cursor-pointer p-4 flex-1 border-t-4 ${
-                currentSlide === index
-                  ? "border-white opacity-100"
-                  : "border-transparent opacity-75"
-              } hover:opacity-100 transition-all`}
+                isActive ? borderColor : "border-transparent"
+              } transition-all`}
             >
-              <h3
-                className={`font-bold ${
-                  currentSlide === index
-                    ? "text-white opacity-100"
-                    : "text-white opacity-75"
-                }`}
-              >
+              <h3 className={`font-bold ${isActive ? textColor : textMuted}`}>
                 {content.displayTitle}
               </h3>
-              <p
-                className={`mt-2 mb-4 ${
-                  currentSlide === index
-                    ? "text-white"
-                    : "text-white opacity-75"
-                }`}
-              >
+
+              <p className={`mt-2 mb-4 ${isActive ? textColor : textMuted}`}>
                 {content.visibleDescription}
               </p>
+
               <Link
                 href={`/solceller/${slide.slug}`}
-                className={`mt-4 px-4 py-2 border hover:bg-white hover:text-black duration-500 ${
-                  currentSlide === index
-                    ? "border-white text-white"
-                    : "border-white text-white"
-                } rounded-md`}
+                className={`mt-4 px-4 py-2 border ${borderColor} ${textColor} ${hoverBg} duration-500 rounded-md`}
               >
                 {config.nynorskSlideBtn || "Les mer"}
               </Link>

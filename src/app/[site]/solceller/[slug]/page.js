@@ -6,14 +6,14 @@ import slides from "../../../../config/slides.json";
 // Gjør komponenten asynkron
 export default async function Slide({ params }) {
   // Vent på params
-  const { slug } = await params;
+  const { slug, site } = await params;
 
   // Hent headers for å finne site-config
   const headersList = await headers();
   const siteConfig = headersList.get("x-site-config");
 
   // Bestem språk basert på domenet
-  const language = siteConfig === "vestelektrosol" ? "nn" : "nb";
+  const language = site === "vestelektrosol" ? "nn" : "nb";
 
   // Finn slidegen basert på slug
   const slide = slides.find((b) => b.slug === slug);
@@ -24,7 +24,7 @@ export default async function Slide({ params }) {
 
   // Overstyr bilde for MinelSol + enebolig-hytte
   const imageSrc =
-    siteConfig === "minelsol" && slide.image === "/carousel/image3.png"
+    site === "minelsol" && slide.image === "/carousel/image3.png"
       ? "/carousel/minelBilde.png"
       : slide.image;
 
@@ -39,17 +39,23 @@ export default async function Slide({ params }) {
     );
   }
 
-  console.log(siteConfig);
-
   return (
-    <div className="min-h-screen bg-black text-white justify-center flex">
+    <div
+      className={`min-h-screen ${
+        site === "minelsol" ? "bg-white text-[#1C0E52]" : "bg-black text-white"
+      } justify-center flex`}
+    >
       <div className="max-w-6xl w-full">
         {imageSrc ? (
           <div className="relative">
             <img className="w-full" src={imageSrc} />
-            <div className="blackFade2"></div>
-            <div className="blackFade3"></div>
-            <div className="blackFade4"></div>
+            {site !== "minelsol" && (
+              <>
+                <div className="blackFade2"></div>
+                <div className="blackFade3"></div>
+                <div className="blackFade4"></div>
+              </>
+            )}
           </div>
         ) : (
           <div className="py-8"></div>
@@ -71,6 +77,7 @@ export default async function Slide({ params }) {
                 number={"1"}
                 title={content.advantageTitle1}
                 description={content.advantageDescription1}
+                isMinel={site === "minelsol"}
               />
             ) : null}
             {content.advantageTitle2 && content.advantageDescription2 ? (
@@ -78,6 +85,7 @@ export default async function Slide({ params }) {
                 number={"2"}
                 title={content.advantageTitle2}
                 description={content.advantageDescription2}
+                isMinel={site === "minelsol"}
               />
             ) : null}
             {content.advantageTitle3 && content.advantageDescription3 ? (
@@ -85,6 +93,7 @@ export default async function Slide({ params }) {
                 number={"3"}
                 title={content.advantageTitle3}
                 description={content.advantageDescription3}
+                isMinel={site === "minelsol"}
               />
             ) : null}
           </div>

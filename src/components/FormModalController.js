@@ -3,7 +3,7 @@
 import FormModal from "../components/FormModal";
 import { useState } from "react";
 import { TwoButtonComponent } from "./TwoButtonComponent";
-import { useSiteConfig } from "@/contexts/siteConfigContext";
+import { useSiteConfig } from "../contexts/siteConfigContext";
 
 export default function FormModalController() {
   const [isModalOpen, setModalOpen] = useState(false);

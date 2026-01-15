@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { useSwipeable } from "react-swipeable";
 import { SolarSolutionCard } from "./SolarSolutionCard";
 
-export default function InfoCarousel({ slides }) {
+export default function InfoCarousel({ slides, isMinel }) {
   const [currentSlide, setCurrentSlide] = useState(0);
   const { language } = useSiteConfig();
 
@@ -34,7 +34,9 @@ export default function InfoCarousel({ slides }) {
 
   return (
     <div
-      className="overflow-hidden w-full bg-black mt-12"
+      className={`overflow-hidden w-full ${
+        isMinel ? "bg-white" : "bg-black"
+      } mt-12`}
       {...swipeHandlers} // Legg til swipe-håndtering
     >
       {/* Wrapper for å animere alle slides */}
@@ -61,6 +63,7 @@ export default function InfoCarousel({ slides }) {
                   title={content.displayTitle}
                   description={content.visibleDescription}
                   slug={slide.slug}
+                  isMinel={isMinel}
                 />
               </div>
             </div>
