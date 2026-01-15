@@ -6,14 +6,14 @@ import { useRef, useState } from "react";
 
 export default function Contact() {
   const config = useSiteConfig();
-  const form = useRef();
+  const formRef = useRef();
   const [errorMessage, setErrorMessage] = useState("");
   const router = useRouter();
 
   const sendEmail = (e) => {
     e.preventDefault();
 
-    const formData = new FormData(form.current);
+    const formData = new FormData(formRef.current);
     const name = formData.get("user_name");
     const email = formData.get("user_email");
     const phone = formData.get("user_phone");
@@ -31,19 +31,17 @@ export default function Contact() {
       .sendForm(
         process.env.NEXT_PUBLIC_SERVICE_ID,
         process.env.NEXT_PUBLIC_TEMPLATE_ID,
-        form.current,
-        {
-          publicKey: process.env.NEXT_PUBLIC_PUBLIC_KEY,
-        }
+        formRef.current,
+        process.env.NEXT_PUBLIC_PUBLIC_KEY
       )
       .then(
         () => {
           console.log("SUCCESS!");
-          form.current.reset();
+          formRef.current.reset();
           router.push("/takk");
         },
         (error) => {
-          console.error("FAILED...", error.text);
+          console.error("FAILED...", error);
           setErrorMessage("Noe gikk galt. Prøv igjen.");
         }
       );
@@ -56,7 +54,7 @@ export default function Contact() {
       } text-black`}
     >
       <form
-        ref={form}
+        ref={formRef}
         onSubmit={sendEmail}
         className={`flex-col flex max-w-96 m-auto w-full ${
           config.site === "MinelSol" ? "text-white" : ""
@@ -80,7 +78,7 @@ export default function Contact() {
         <input type="email" name="user_email" className="inputLabel" required />
         <br />
         <label>Telefon</label>
-        <input type="phone" name="user_phone" className="inputLabel" required />
+        <input type="tel" name="user_phone" className="inputLabel" required />
         <br />
         <label>Beskjed</label>
         <textarea name="user_comment" className="inputLabel" required />
