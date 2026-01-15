@@ -8,6 +8,8 @@ export default function About() {
   const config = useSiteConfig();
   const [isModalOpen, setModalOpen] = useState(false);
 
+  const isMinel = config.site === "MinelSol";
+
   return (
     <main className="min-h-screen bg-black text-white flex justify-center">
       <div className="max-w-6xl w-full">
@@ -46,7 +48,7 @@ export default function About() {
           {config.about?.p5 ? (
             <p className="text-lg">{config.about?.p5}</p>
           ) : null}
-          <TwoButtonComponent setModalOpen={setModalOpen} />
+          <TwoButtonComponent setModalOpen={setModalOpen} isMinel={isMinel} />
         </div>
 
         <FormModal

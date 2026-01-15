@@ -89,7 +89,7 @@ export default function Page() {
           {/* Knappene */}
           <div className="mt-32 flex flex-col gap-4 pb-8 md:mt-4 md:flex-row md:justify-center md:gap-8 md:pb-12">
             <EstimateButton setModalOpen={setModalOpen} />
-            <ExploreButton />
+            <ExploreButton isMinel={isMinel} />
           </div>
         </div>
         <div
@@ -173,13 +173,19 @@ export default function Page() {
 
       <section
         id="advantage"
-        className="flex flex-col items-center bg-black relative"
+        className={`flex flex-col items-center ${
+          isMinel ? "bg-white text-[#1C0E52]" : "bg-black text-white"
+        } relative`}
       >
-        <h3 className="text-center text-2xl md:text-4xl text-white pt-8">
+        <h3 className="text-center text-2xl md:text-4xl pt-8">
           {config.advantage?.header || "Fordelen med en lokal installatør"}
         </h3>
         <div className="divider mb-20 mt-2 !bg-white"></div>
-        <div className="bg-black w-full flex justify-center">
+        <div
+          className={`${
+            isMinel ? "bg-white" : "bg-black"
+          } w-full flex justify-center`}
+        >
           <div className="relative max-w-screen-2xl">
             <img
               src={config.advantage?.heroImage || "/heroImage.png"}
@@ -198,9 +204,14 @@ export default function Page() {
           </div>
         </div>
 
-        <div className="bg-black w-full text-white flex flex-col gap-8 px-4 pb-4">
+        <div
+          className={`${
+            isMinel ? "bg-white text-[#1C0E52]" : "bg-black text-white"
+          } w-full  flex flex-col gap-8 px-4 pb-4`}
+        >
           <div className="grid gap-4 md:grid-cols-2 md:gap-8 max-w-screen-2xl md:self-center md:pt-12">
             <InfoCard
+              isMinel={isMinel}
               number={"1"}
               title={config.infoCard?.titleOne || "Hopp over mellomleddet"}
               description={
@@ -209,6 +220,7 @@ export default function Page() {
               }
             />
             <InfoCard
+              isMinel={isMinel}
               number={"2"}
               title={config.infoCard?.titleTwo || "Bedre pris, høyere kvalitet"}
               description={
@@ -217,6 +229,7 @@ export default function Page() {
               }
             />
             <InfoCard
+              isMinel={isMinel}
               number={"3"}
               title={
                 config.infoCard?.titleThree || "Tett dialog og rask responstid"

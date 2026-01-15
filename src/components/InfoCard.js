@@ -1,6 +1,10 @@
-export function InfoCard({ number, title, description }) {
+export function InfoCard({ number, title, description, isMinel }) {
   return (
-    <div className="border-2 border-white p-8 xl:p-10 relative rounded-md md:h-80">
+    <div
+      className={`border-2 ${
+        isMinel ? "border-[#1C0E52]" : "border-white"
+      } p-8 xl:p-10 relative rounded-md md:h-80`}
+    >
       <h2 className="absolute top-2 left-3 text-orange-300 xl:text-2xl">
         {number || null}.
       </h2>

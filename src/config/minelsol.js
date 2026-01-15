@@ -22,13 +22,13 @@ export default {
   },
 
   hero: {
-    header: "SOLCELLER ELVERUM",
+    header: "SOLCELLER INNLANDET",
     background: "/minelsol/heroImage.png",
     p: "Kvalitet og trygghet – solceller til konkurransedyktig pris",
   },
 
   exploreBtn: {
-    text: "Prøv vår solcellekalkulator",
+    text: "Utforsk din egen tomt",
   },
 
   infoCard: {
