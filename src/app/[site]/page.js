@@ -200,7 +200,9 @@ export default function Page() {
               src={config.advantage?.heroImage || "/heroImage.png"}
               alt="Hero"
               style={{ position: "relative" }}
-              className="w-full h-[50vh] md:max-w-screen-xl md:max-h-[940px] md:h-full object-cover mx-auto object-cover"
+              className={`w-full h-[50vh] md:max-w-screen-xl md:max-h-[940px] md:h-full object-cover mx-auto object-cover ${
+                isMinel ? "rounded-lg" : ""
+              }`}
             />
             {!isMinel && (
               <>
@@ -251,7 +253,7 @@ export default function Page() {
             <img
               src={config.advantage?.image || null}
               alt="image"
-              className="image md:h-80 w-full border-8 border-white rounded-md overflow-hidden object-cover"
+              className="image md:h-80 w-full border-8 border-white rounded-xl overflow-hidden object-cover"
             />
           </div>
 

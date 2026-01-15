@@ -16,7 +16,7 @@ export default function BlogPostClient({ blog, content, site }) {
     <div
       className={`min-h-screen ${
         site === "minelsol" ? "bg-white text-[#1C0E52]" : "bg-black text-white"
-      } text-white justify-center flex pb-12`}
+      } justify-center flex pb-12`}
     >
       <div className="max-w-6xl w-full">
         {blog.image ? (
