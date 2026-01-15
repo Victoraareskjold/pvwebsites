@@ -83,7 +83,7 @@ export default function Contact() {
         <input type="phone" name="user_phone" className="inputLabel" required />
         <br />
         <label>Beskjed</label>
-        <textarea name="message" className="inputLabel" required />
+        <textarea name="user_comment" className="inputLabel" required />
         <br />
         {errorMessage && <p className="text-red-500">{errorMessage}</p>}
         <button
