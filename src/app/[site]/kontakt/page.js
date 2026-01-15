@@ -17,7 +17,7 @@ export default function Contact() {
     const name = formData.get("user_name");
     const email = formData.get("user_email");
     const phone = formData.get("user_phone");
-    const message = formData.get("message");
+    const message = formData.get("user_comment");
     const site = formData.get("site");
 
     if (!name || !email || !phone || !message) {
