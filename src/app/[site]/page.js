@@ -109,7 +109,9 @@ export default function Page() {
 
       <section
         id="whyInvest"
-        className="mx-4 mb-20 flex flex-col items-center gap-20 py-20"
+        className={`mx-4 mb-20 flex flex-col items-center gap-20 py-20 ${
+          isMinel ? "text-[#1C0E52]" : "text-black"
+        }`}
       >
         {/* First block - same order on mobile and desktop */}
         <div className="flex flex-col md:flex-row max-w-screen-xl gap-12 items-center">
