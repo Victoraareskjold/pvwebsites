@@ -34,12 +34,12 @@ export default function Blog() {
           "Ta en titt på det nyeste vi har skrevet, og bla deg bakover i tid."}
       </h1>
 
-      <ul className="grid gap-4 xl:gap-8 md:grid-cols-2 xl:grid-cols-3">
+      <ul className="grid gap-8 xl:gap-8 md:grid-cols-2 xl:grid-cols-3">
         {sortedBlogs.map((blog) => (
           <li key={blog.id}>
             <Link href={`/blog/${blog.slug}`}>
               <h2
-                className={`mt-4 font-bold text-lg ${
+                className={`mt-4 h-14 font-bold text-lg ${
                   isMinel ? "text-[#1C0E52]" : "text-white"
                 }`}
               >
