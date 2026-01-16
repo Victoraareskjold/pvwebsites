@@ -25,7 +25,7 @@ export default function Blog() {
 
   return (
     <section
-      className={`py-24 ${
+      className={`py-24 px-4 ${
         isMinel ? "bg-white text-[#1C0E52]" : "bg-black text-white"
       }p-4 min-h-screen`}
     >
@@ -38,6 +38,13 @@ export default function Blog() {
         {sortedBlogs.map((blog) => (
           <li key={blog.id}>
             <Link href={`/blog/${blog.slug}`}>
+              <h2
+                className={`mt-4 font-bold text-lg ${
+                  isMinel ? "text-[#1C0E52]" : "text-white"
+                }`}
+              >
+                {blog.nb.title}
+              </h2>
               <div className="relative w-full h-64 rounded-2xl overflow-hidden">
                 <Image
                   fill
@@ -46,7 +53,6 @@ export default function Blog() {
                   className="object-cover"
                 />
               </div>
-              <h2 className="mt-4 font-bold">{blog.nb.title}</h2>
             </Link>
           </li>
         ))}

@@ -65,7 +65,7 @@ export default {
   },
 
   solar: {
-    header: "SOLCELLER ELVERUM",
+    header: "SOLCELLER INNLANDET",
     header2: "Solcelleløsninger for alle typer bygg",
     header3:
       "Fra eneboliger og borettslag til næringsbygg og landbruk – vi skreddersyr solcelleanlegg som passer din eiendom og ditt energibehov.",
