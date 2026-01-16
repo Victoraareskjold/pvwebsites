@@ -34,8 +34,10 @@ export default function YourSolarFacility({ estimateData }) {
 
         <div className="w-full h-2 bg-green-300 rounded-full my-6" />
         <EstimateInfoComponent
-          text={`- ${estimateData?.price_data?.mounting[0].product} feste`}
-          number={`${estimateData?.price_data?.mounting[0].quantity} stk`}
+          text={`- ${
+            estimateData?.price_data?.mounting[0]?.product ?? "Ingen valgt"
+          } feste`}
+          number={`${estimateData?.price_data?.mounting[0]?.quantity ?? 0} stk`}
           image={"/estimate/info4.png"}
         />
       </div>
