@@ -8,7 +8,7 @@ export default function YourSolarFacility({ estimateData }) {
   const formatValue = (number) => number.toLocaleString().split(",").join(" ");
 
   const inverter = estimateData?.price_data?.suppliers?.find(
-    (item) => item.category === "inverter"
+    (item) => item.category === "inverter",
   );
 
   return (
