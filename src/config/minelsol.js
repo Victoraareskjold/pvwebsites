@@ -28,7 +28,7 @@ export default {
   },
 
   exploreBtn: {
-    text: "Utforsk din egen tomt",
+    text: "Prøv vår solcellekalkulator",
   },
 
   infoCard: {
