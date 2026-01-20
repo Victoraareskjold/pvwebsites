@@ -28,16 +28,16 @@ export default function EstimateView({ estimateId }) {
   }, [estimateId]);
 
   const [elPrice, setElPrice] = useState(
-    /* estimateData?.selected_el_price ||  */ 0.5
+    /* estimateData?.selected_el_price ||  */ 0.5,
   );
   const [elNetPrice, setElNetPrice] = useState(
-    /* estimateData?.selected_el_price + 0.5 ||  */ 0.62
+    /* estimateData?.selected_el_price + 0.5 ||  */ 0.62,
   );
   const [expectedElPriceIncrease, setExpectedElPriceIncrease] = useState(2.5);
   const [paymentTime, setPaymentTime] = useState(null);
   const maxPaymentTime = 40;
   const [widthPercentage, setWidthPercantage] = useState(
-    (paymentTime / maxPaymentTime) * 100
+    (paymentTime / maxPaymentTime) * 100,
   );
 
   const [economySummary, setEconomySummary] = useState(null);
@@ -74,7 +74,7 @@ export default function EstimateView({ estimateId }) {
     });
 
   const inverter = estimateData?.price_data?.suppliers?.find(
-    (item) => item.category === "inverter"
+    (item) => item.category === "inverter",
   );
 
   const getPanelWp = (panelName) => {
@@ -97,7 +97,7 @@ export default function EstimateView({ estimateId }) {
     const eligibleKwp = Math.min(
       getkWp(estimateData?.selected_panel_type, estimateData?.total_panels) ??
         0,
-      15
+      15,
     );
     return (eligibleKwp * 2500).toFixed(2);
   };
@@ -238,7 +238,7 @@ export default function EstimateView({ estimateId }) {
                       Forventet årlig produksjon fra anlegget:{" "}
                       <strong>
                         {formatValue(
-                          Number(estimateData?.yearly_prod?.toFixed(0))
+                          Number(estimateData?.yearly_prod?.toFixed(0)),
                         )}{" "}
                         kWh per år.
                       </strong>
@@ -305,7 +305,7 @@ export default function EstimateView({ estimateId }) {
                   <EstimatePricingInfo
                     image={"/estimate/icon1.png"}
                     number={`${formatValue(
-                      economySummary?.totalSavings30Years || 0
+                      economySummary?.totalSavings30Years || 0,
                     )} kr`}
                     text={"Total besparing for ditt anlegg over 30 år."}
                   />
@@ -313,7 +313,7 @@ export default function EstimateView({ estimateId }) {
                   <EstimatePricingInfo
                     image={"/estimate/icon2.png"}
                     number={`${formatValue(
-                      economySummary?.averageYearlySavings || 0
+                      economySummary?.averageYearlySavings || 0,
                     )} kr`}
                     text={"Gjennomsnittlig årlig besparelse"}
                   />
@@ -329,17 +329,18 @@ export default function EstimateView({ estimateId }) {
               investmentCost={
                 estimateData.leads.company
                   ? estimateData?.price_data?.total || 0
-                  : estimateData?.price_data?.["total inkl. alt"] || 0
+                  : Number(estimateData?.price_data?.["total inkl. alt"]) -
+                      Number(enovaSupport()) || 0
               }
               inverterCost={inverter?.priceWithMarkup || 0}
               onPaybackCalculated={(data) => {
                 setPaymentTime((prev) =>
-                  prev !== data.paybackYear ? data.paybackYear : prev
+                  prev !== data.paybackYear ? data.paybackYear : prev,
                 );
                 setEconomySummary((prev) =>
                   prev?.totalSavings30Years !== data.totalSavings30Years
                     ? data
-                    : prev
+                    : prev,
                 );
               }}
             />
@@ -422,7 +423,7 @@ export default function EstimateView({ estimateId }) {
                           <h1 className="fatP text-white">
                             <strong>
                               {formatValue(
-                                Number(estimateData?.price_data?.total)
+                                Number(estimateData?.price_data?.total),
                               )}{" "}
                               kr
                             </strong>
@@ -445,8 +446,8 @@ export default function EstimateView({ estimateId }) {
                             <strong>
                               {formatValue(
                                 Number(
-                                  estimateData?.price_data?.["total inkl. alt"]
-                                )
+                                  estimateData?.price_data?.["total inkl. alt"],
+                                ),
                               )}{" "}
                               kr
                             </strong>
@@ -471,8 +472,8 @@ export default function EstimateView({ estimateId }) {
                             <strong>
                               {formatValue(
                                 Number(
-                                  estimateData?.price_data?.["total inkl. alt"]
-                                ) - Number(enovaSupport())
+                                  estimateData?.price_data?.["total inkl. alt"],
+                                ) - Number(enovaSupport()),
                               )}{" "}
                               kr
                             </strong>
@@ -607,7 +608,7 @@ export default function EstimateView({ estimateId }) {
                       på strøm i bygget ditt. Her er noen eksempler på hva de{" "}
                       <strong className="font-semibold">
                         {formatValue(
-                          Number(estimateData?.yearly_prod).toFixed(0)
+                          Number(estimateData?.yearly_prod).toFixed(0),
                         )}{" "}
                         kWh
                       </strong>{" "}
