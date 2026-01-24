@@ -10,11 +10,10 @@ import { ExploreButton } from "../../components/ExploreButton";
 import FormModal from "../../components/FormModal";
 import InfoCarouselLarge from "../../components/InfoCarouselLarge";
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { Suspense, useState } from "react";
 import slides from "../../config/slides";
 import { EstimateButton2 } from "../../components/EstimateButton2";
-import { useSearchParams } from "next/navigation";
-import { setLocalStorage } from "../../../utils/localstorage";
+import HandleQueryParams from "../../components/HandleQueryParams";
 
 export default function Page() {
   const config = useSiteConfig();
@@ -22,23 +21,11 @@ export default function Page() {
 
   const isMinel = config.site === "MinelSol";
 
-  const searchParams = useSearchParams();
-
-  useEffect(() => {
-    const gclid = searchParams.get("gclid");
-    const fbclid = searchParams.get("fbclid");
-
-    if (gclid) {
-      setLocalStorage("gclid", gclid);
-    }
-
-    if (fbclid) {
-      setLocalStorage("fbclid", fbclid);
-    }
-  }, [searchParams]);
-
   return (
     <main>
+      <Suspense fallback={<div>Loading...</div>}>
+        <HandleQueryParams />
+      </Suspense>
       <section className="hero pt-32 px-4 md:pt-80 relative" id="main">
         <div className="absolute inset-0 bg-black opacity-20 z-10"></div>
         {!isMinel && (
