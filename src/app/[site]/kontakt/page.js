@@ -3,6 +3,7 @@ import { useSiteConfig } from "../../../contexts/siteConfigContext";
 import emailjs from "@emailjs/browser";
 import { useRouter } from "next/navigation";
 import { useRef, useState } from "react";
+import { getLocalStorage } from "../../../../utils/localstorage";
 
 export default function Contact() {
   const config = useSiteConfig();
@@ -32,7 +33,7 @@ export default function Contact() {
         process.env.NEXT_PUBLIC_SERVICE_ID,
         process.env.NEXT_PUBLIC_TEMPLATE_ID,
         formRef.current,
-        process.env.NEXT_PUBLIC_PUBLIC_KEY
+        process.env.NEXT_PUBLIC_PUBLIC_KEY,
       )
       .then(
         () => {
@@ -43,7 +44,7 @@ export default function Contact() {
         (error) => {
           console.error("FAILED...", error);
           setErrorMessage("Noe gikk galt. Prøv igjen.");
-        }
+        },
       );
   };
 
@@ -83,6 +84,7 @@ export default function Contact() {
         <label>Beskjed</label>
         <textarea name="user_comment" className="inputLabel" required />
         <br />
+
         {errorMessage && <p className="text-red-500">{errorMessage}</p>}
         <button
           type="submit"
@@ -91,6 +93,16 @@ export default function Contact() {
         >
           Send
         </button>
+        <input
+          type="hidden"
+          name="gclid"
+          value={getLocalStorage("gclid") ?? ""}
+        />
+        <input
+          type="hidden"
+          name="fbclid"
+          value={getLocalStorage("fbclid") ?? ""}
+        />
       </form>
     </div>
   );

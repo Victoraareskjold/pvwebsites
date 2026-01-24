@@ -4,6 +4,7 @@ import { useSiteConfig } from "../contexts/siteConfigContext";
 import emailjs from "@emailjs/browser";
 import { useRouter } from "next/navigation";
 import { useRef, useState } from "react";
+import { getLocalStorage } from "../../utils/localstorage";
 
 export default function FormModal({ isOpen, onClose }) {
   const config = useSiteConfig();
@@ -38,7 +39,7 @@ export default function FormModal({ isOpen, onClose }) {
         process.env.NEXT_PUBLIC_SERVICE_ID,
         process.env.NEXT_PUBLIC_TEMPLATE_ID,
         formRef.current,
-        process.env.NEXT_PUBLIC_PUBLIC_KEY
+        process.env.NEXT_PUBLIC_PUBLIC_KEY,
       )
       .then(
         () => {
@@ -49,7 +50,7 @@ export default function FormModal({ isOpen, onClose }) {
         (error) => {
           console.error("Noe gikk galt: ", error.text);
           setErrorMessage("Noe gikk galt. Prøv igjen.");
-        }
+        },
       );
   };
 
@@ -194,6 +195,16 @@ export default function FormModal({ isOpen, onClose }) {
             tilgjengelig offentlig støtte. Investering i solcellepaneler har
             nylig blitt mye mer lønnsomt, noe som kan overraske deg positivt.
           </p>
+          <input
+            type="hidden"
+            name="gclid"
+            value={getLocalStorage("gclid") ?? ""}
+          />
+          <input
+            type="hidden"
+            name="fbclid"
+            value={getLocalStorage("fbclid") ?? ""}
+          />
         </form>
       </div>
     </div>

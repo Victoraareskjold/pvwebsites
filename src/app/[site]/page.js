@@ -10,15 +10,32 @@ import { ExploreButton } from "../../components/ExploreButton";
 import FormModal from "../../components/FormModal";
 import InfoCarouselLarge from "../../components/InfoCarouselLarge";
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import slides from "../../config/slides";
 import { EstimateButton2 } from "../../components/EstimateButton2";
+import { useSearchParams } from "next/navigation";
+import { setLocalStorage } from "../../../utils/localstorage";
 
 export default function Page() {
   const config = useSiteConfig();
   const [isModalOpen, setModalOpen] = useState(false);
 
   const isMinel = config.site === "MinelSol";
+
+  const searchParams = useSearchParams();
+
+  useEffect(() => {
+    const gclid = searchParams.get("gclid");
+    const fbclid = searchParams.get("fbclid");
+
+    if (gclid) {
+      setLocalStorage("gclid", gclid);
+    }
+
+    if (fbclid) {
+      setLocalStorage("fbclid", fbclid);
+    }
+  }, [searchParams]);
 
   return (
     <main>

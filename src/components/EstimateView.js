@@ -1,7 +1,6 @@
 "use client";
 
 import { useSiteConfig } from "../contexts/siteConfigContext";
-import { EstimateInfoComponent } from "./EstimateInfoComponent";
 import EstimatePricingInfo from "./EstimatePricingInfo";
 import { useState, useEffect } from "react";
 
