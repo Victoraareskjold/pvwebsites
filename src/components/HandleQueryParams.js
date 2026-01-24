@@ -10,6 +10,7 @@ export default function HandleQueryParams() {
   useEffect(() => {
     const gclid = searchParams.get("gclid");
     const fbclid = searchParams.get("fbclid");
+    const utmCampaign = searchParams.get("utmCampaign");
 
     if (gclid) {
       setLocalStorage("gclid", gclid);
@@ -17,6 +18,10 @@ export default function HandleQueryParams() {
 
     if (fbclid) {
       setLocalStorage("fbclid", fbclid);
+    }
+
+    if (utmCampaign) {
+      setLocalStorage("utmCampaign", fbclid);
     }
   }, [searchParams]);
 

@@ -205,6 +205,11 @@ export default function FormModal({ isOpen, onClose }) {
             name="fbclid"
             value={getLocalStorage("fbclid") ?? ""}
           />
+          <input
+            type="hidden"
+            name="utmCampaign"
+            value={getLocalStorage("utmCampaign") ?? ""}
+          />
         </form>
       </div>
     </div>
