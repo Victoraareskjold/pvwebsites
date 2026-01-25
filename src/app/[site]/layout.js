@@ -1,5 +1,5 @@
 /* eslint-disable @next/next/no-css-tags */
-import { HandleQueryParams } from "../../components/HandleQueryParams";
+import HandleQueryParams from "../../components/HandleQueryParams";
 import { Footer } from "../../components/Footer";
 import { Navbar } from "../../components/Navbar";
 import { SiteConfigProvider } from "../../contexts/siteConfigContext";
