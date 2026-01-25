@@ -3,9 +3,10 @@ import HandleQueryParams from "../../components/HandleQueryParams";
 import { Footer } from "../../components/Footer";
 import { Navbar } from "../../components/Navbar";
 import { SiteConfigProvider } from "../../contexts/siteConfigContext";
-
 import "../globals.css";
 import { configs } from "./solkart/layout";
+
+import { Suspense } from "react";
 
 export async function generateStaticParams() {
   const configKeys = Object.keys(configs);
@@ -70,7 +71,6 @@ export default async function RootLayout({ children, params }) {
         )} */}
       </head>
       <body>
-        <HandleQueryParams />
         <Navbar
           logo={config.logo}
           title={config.title}
@@ -79,6 +79,9 @@ export default async function RootLayout({ children, params }) {
         />
 
         <SiteConfigProvider config={config}>{children}</SiteConfigProvider>
+        <Suspense fallback={<div>Loading...</div>}>
+          <HandleQueryParams />
+        </Suspense>
 
         <Footer
           logo={config.logo}

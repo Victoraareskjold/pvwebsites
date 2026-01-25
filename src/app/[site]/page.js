@@ -13,7 +13,6 @@ import Link from "next/link";
 import { Suspense, useState } from "react";
 import slides from "../../config/slides";
 import { EstimateButton2 } from "../../components/EstimateButton2";
-import HandleQueryParams from "../../components/HandleQueryParams";
 
 export default function Page() {
   const config = useSiteConfig();
@@ -23,9 +22,6 @@ export default function Page() {
 
   return (
     <main>
-      <Suspense fallback={<div>Loading...</div>}>
-        <HandleQueryParams />
-      </Suspense>
       <section className="hero pt-32 px-4 md:pt-80 relative" id="main">
         <div className="absolute inset-0 bg-black opacity-20 z-10"></div>
         {!isMinel && (
