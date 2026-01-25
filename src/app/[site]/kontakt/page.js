@@ -105,8 +105,8 @@ export default function Contact() {
         />
         <input
           type="hidden"
-          name="utmCampaign"
-          value={getLocalStorage("utmCampaign") ?? ""}
+          name="utm_campaign"
+          value={getLocalStorage("utm_campaign") ?? ""}
         />
       </form>
     </div>
