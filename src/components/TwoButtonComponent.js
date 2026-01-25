@@ -7,7 +7,7 @@ export function TwoButtonComponent({ setModalOpen, isMinel }) {
   const config = useSiteConfig();
   return (
     <div className="mt-24 flex flex-col gap-4 pb-8 md:mt-4 md:flex-row md:justify-center md:gap-8">
-      <EstimateButton2 />
+      <EstimateButton2 setModalOpen={setModalOpen} />
       <Link
         href="/solkart"
         className={`${
