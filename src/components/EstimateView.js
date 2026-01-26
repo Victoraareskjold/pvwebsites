@@ -80,7 +80,17 @@ export default function EstimateView({ estimateId }) {
 
   const getPanelWp = (panelName) => {
     // Regex for å finne tall etter W eller w (f.eks. "Premium 415 W" → 415)
-    const match = panelName.match(/(\d+)\s*[Ww]/);
+
+    const panelItem = estimateData?.price_data?.suppliers?.find(
+      (item) => item.category === "solcellepanel",
+    );
+
+    // 2. Hent ut produktnavnet (f.eks. "Trina Vertex TSM- 445W")
+    const panelProduct = panelItem?.product || "";
+
+    // 3. Regex for å finne Watt (leter etter tallet før 'W')
+    const match = panelProduct.match(/(\d+)\s*W/i);
+
     if (match) {
       return parseInt(match[1], 10);
     }
