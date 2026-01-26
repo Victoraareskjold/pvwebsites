@@ -12,8 +12,6 @@ export default function YourSolarFacility({ estimateData }) {
   const match = panelProduct.match(/(\d+)\s*W/i);
   const watt = match ? Number(match[1]) : 0;
 
-  console.log(panelProduct);
-
   const formatValue = (number) => number.toLocaleString().split(",").join(" ");
 
   const inverter = estimateData?.price_data?.suppliers?.find(
@@ -25,12 +23,12 @@ export default function YourSolarFacility({ estimateData }) {
       <div className="w-full mt-2">
         <EstimateInfoComponent
           text={"Installert effekt."}
-          number={`${(estimateData?.total_panels * watt) / 1000} kWp`}
+          number={`${((estimateData?.total_panels * watt) / 1000).toFixed(2)} kWp`}
           image={"/estimate/info1.png"}
         />
         <div className="w-full h-2 bg-green-300 rounded-full my-6" />
         <EstimateInfoComponent
-          text={`${estimateData?.selected_panel_type} panel.`}
+          text={`${panelProduct} panel.`}
           number={`${estimateData?.total_panels} stk -`}
           image={"/estimate/info2.png"}
         />
