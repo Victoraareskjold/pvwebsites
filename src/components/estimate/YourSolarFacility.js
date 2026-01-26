@@ -1,9 +1,18 @@
 import { EstimateInfoComponent } from "../EstimateInfoComponent";
 
 export default function YourSolarFacility({ estimateData }) {
-  const panelType = estimateData?.selected_panel_type;
-  const match = panelType?.match(/(\d+)\s*W/i);
+  const panelItem = estimateData?.price_data?.suppliers?.find(
+    (item) => item.category === "solcellepanel",
+  );
+
+  // 2. Hent ut produktnavnet (f.eks. "Trina Vertex TSM- 445W")
+  const panelProduct = panelItem?.product || "";
+
+  // 3. Regex for å finne Watt (leter etter tallet før 'W')
+  const match = panelProduct.match(/(\d+)\s*W/i);
   const watt = match ? Number(match[1]) : 0;
+
+  console.log(panelProduct);
 
   const formatValue = (number) => number.toLocaleString().split(",").join(" ");
 

@@ -26,6 +26,8 @@ export default function EstimateView({ estimateId }) {
     fetchData();
   }, [estimateId]);
 
+  console.log(estimateData);
+
   const [elPrice, setElPrice] = useState(
     /* estimateData?.selected_el_price ||  */ 0.5,
   );
