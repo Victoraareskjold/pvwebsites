@@ -4,6 +4,8 @@ export default {
 
   site: "MinelSol",
 
+  legal: "Minel Elmontasje Elverum",
+
   logo: "/minelsol/minellogo.png",
 
   favicon: "/minelsol/favicon.ico",

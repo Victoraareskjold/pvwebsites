@@ -4,6 +4,8 @@ export default {
 
   site: "Smartelektrosol",
 
+  legal: "Smart Elektro AS",
+
   logo: "/smartelektro/logo.png",
 
   favicon: "/smartelektro/favicon.ico",

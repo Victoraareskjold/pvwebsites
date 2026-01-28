@@ -24,15 +24,15 @@ export default function EstimateView({ estimateId }) {
   useEffect(() => {
     const fetchData = async () => {
       setLoading(true);
+
       const res = await fetch(`/api/estimate/${estimateId}`);
       const data = await res.json();
+
       setEstimateData(data);
       setLoading(false);
     };
     fetchData();
   }, [estimateId]);
-
-  console.log(estimateData);
 
   const [elPrice, setElPrice] = useState(
     /* estimateData?.selected_el_price ||  */ 0.5,
@@ -121,7 +121,7 @@ export default function EstimateView({ estimateId }) {
   const percentOf40 = (years) => (years / maxPaymentTime) * 100;
 
   return (
-    <main className="min-h-screen estimateStylingSheet ">
+    <main className="min-h-screen estimateStylingSheet">
       {estimateData ? (
         <main className="flex flex-col gap-12 lg:gap-4 items-center">
           <section>
@@ -509,24 +509,13 @@ export default function EstimateView({ estimateId }) {
                     )}
                   </div>
 
-                  <div className="flex flex-row items-center gap-4">
-                    {/* <input type="checkbox" className="rounded-checkbox"></input> */}
-                    <a
-                      className="text-white"
-                      href={"/kjopsbetingelser"}
-                      target="_blank"
-                    >
-                      <span className="underline font-semibold">
-                        Les vilkår og betingelser
-                      </span>{" "}
-                      for
-                      <br />
-                      kjøp av solcelleanlegg
-                    </a>
-                  </div>
-                  {/* <button className="bg-orange-300 text-white fatP rounded-full w-fit px-5 py-1">
-                    Bestill anlegg
-                  </button> */}
+                  <a
+                    href={`${estimateId}/kjoepsavtale`}
+                    target="_blank"
+                    className="bg-[#FFB356] text-white fatP self-end rounded-full w-fit px-5 py-1"
+                  >
+                    Signer dokument
+                  </a>
                 </div>
 
                 {/* Inkludert i prisen */}

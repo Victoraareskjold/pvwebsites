@@ -4,6 +4,8 @@ export default {
 
   site: "Mydlandsselektriskesol",
 
+  legal: "Mydlands Elektriske AS",
+
   logo: "/mydlands/logo.png",
 
   favicon: "/mydlands/favicon.ico",

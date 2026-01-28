@@ -2,6 +2,7 @@
 export default {
   title: "LYN Elektro Sol",
   site: "lynelektrosol",
+  legal: "LYN Elektro AS",
   logo: "/lynelektro/lynlogo.png",
   favicon: "/lynelektro/favicon.ico",
   metaDesc:

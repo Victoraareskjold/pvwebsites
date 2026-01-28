@@ -25,7 +25,9 @@
     "**/*.ts",
     "**/*.tsx",
     ".next/dev/types/**/*.ts",
-    "utils/localstorage.js"
+    "utils/localstorage.js",
+    "src/app/api/estimate/[id]/route.js",
+    "src/app/api/estimate/[id]/sign/route.js"
   ],
   "exclude": ["node_modules"]
 }

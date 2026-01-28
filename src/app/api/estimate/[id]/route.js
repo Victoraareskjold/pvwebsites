@@ -1,16 +1,13 @@
 import { NextResponse } from "next/server";
 import { createSupabaseAdminClient } from "../../../../../utils/supabase/client";
 
-export async function GET(
-  _req: Request,
-  { params }: { params: Promise<{ id: string }> }
-) {
+export async function GET(_req, { params }) {
   try {
     const resolvedParams = await params;
     if (!resolvedParams?.id) {
       return NextResponse.json(
         { error: "Missing estimate id" },
-        { status: 400 }
+        { status: 400 },
       );
     }
 
@@ -26,13 +23,14 @@ export async function GET(
           person_info,
           address,
           company,
+          email,
           created_by (
             name,
             email,
             phone
           )
         )
-      `
+      `,
       )
       .eq("id", estimateId)
       .maybeSingle();
@@ -43,7 +41,7 @@ export async function GET(
     console.error("GET /api/estimates/[id] error:", err);
     return NextResponse.json(
       { error: "Internal Server Error" },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }

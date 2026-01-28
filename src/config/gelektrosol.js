@@ -4,6 +4,8 @@ export default {
 
   site: "gelektrosol",
 
+  legal: "Gardermoen Elektro AS",
+
   logo: "/gardermoenelektro/logo.png",
 
   favicon: "/gardermoenelektro/favicon.ico",

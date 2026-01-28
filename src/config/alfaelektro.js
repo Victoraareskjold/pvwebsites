@@ -1,6 +1,7 @@
 // eslint-disable-next-line import/no-anonymous-default-export
 export default {
   title: "Alfa Elektro Sol",
+  legal: "Alfa Elektro AS",
   site: "alfaelektrosol",
   logo: "/alfaelektro/alfaelektroLogo.png",
   favicon: "/alfaelektro/favicon.ico",

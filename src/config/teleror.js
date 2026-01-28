@@ -4,6 +4,8 @@ export default {
 
   site: "Telerorelektrosol",
 
+  legal: "Telerør Elektro AS",
+
   logo: "/teleror/logo.png",
 
   favicon: "/teleror/favicon.ico",
