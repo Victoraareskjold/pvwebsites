@@ -23,7 +23,7 @@ export default function YourSolarFacility({ estimateData }) {
       <div className="w-full mt-2">
         <EstimateInfoComponent
           text={"Installert effekt."}
-          number={`${((estimateData?.total_panels * watt) / 1000).toFixed(1)} kWp`}
+          number={`${(estimateData?.kwp || (estimateData?.total_panels * watt) / 1000).toFixed(1)} kWp`}
           image={"/estimate/info1.png"}
         />
         <div className="w-full h-2 bg-green-300 rounded-full my-6" />

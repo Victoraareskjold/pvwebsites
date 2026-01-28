@@ -105,11 +105,10 @@ export default function EstimateView({ estimateId }) {
   };
 
   const enovaSupport = () => {
-    const eligibleKwp = Math.min(
-      getkWp(estimateData?.selected_panel_type, estimateData?.total_panels) ??
-        0,
-      15,
-    );
+    const kwp =
+      estimateData?.kwp ??
+      getkWp(estimateData?.selected_panel_type, estimateData?.total_panels);
+    const eligibleKwp = Math.min(kwp ?? 0, 15);
     return (eligibleKwp * 2500).toFixed(2);
   };
 

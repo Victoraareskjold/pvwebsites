@@ -89,6 +89,10 @@ export default function SolarEconomicCalculation({
       maximumFractionDigits: 0,
     });
 
+  const getCurrentYear = () => {
+    return new Date().getFullYear();
+  };
+
   return (
     <div className="flex flex-col gap-6 !w-full col-span-2">
       {/* Data Table */}
@@ -119,7 +123,7 @@ export default function SolarEconomicCalculation({
           </thead>
           <tbody>
             <tr>
-              <td className="px-4 py-8 text-left">2025</td>
+              <td className="px-4 py-8 text-left">{getCurrentYear()}</td>
               <td></td>
               <td></td>
               <td></td>
