@@ -8,12 +8,18 @@ import "./estimate.css";
 import HowWillItLook from "./estimate/HowWillItLook";
 import HowDoesItWork from "./estimate/HowDoesItWork";
 import YourSolarFacility from "./estimate/YourSolarFacility";
+import YourSolarFacility2 from "./estimate/YourSolarFacility2";
 import SolarEconomicCalculation from "./estimate/SolarEconomicCalculation";
+import { useSearchParams } from "next/navigation";
 
 export default function EstimateView({ estimateId }) {
   const config = useSiteConfig();
   const [estimateData, setEstimateData] = useState(null);
   const [loading, setLoading] = useState(false);
+
+  const searchParams = useSearchParams();
+
+  const finished = searchParams.get("f");
 
   useEffect(() => {
     const fetchData = async () => {
@@ -137,7 +143,8 @@ export default function EstimateView({ estimateId }) {
             </h5>
             <div>
               <h2 className="font-light text-lg text-gray-900">
-                Her er ditt tilbud på et komplett solcelleanlegg fra{" "}
+                Her er ditt {finished ? "tilbud" : "estimat"} på et komplett
+                solcelleanlegg fra{" "}
                 <span className="font-semibold">
                   {config.title || "mangler firma"}.
                 </span>
@@ -149,7 +156,7 @@ export default function EstimateView({ estimateId }) {
             <h5 className="mb-4">
               <strong>Hvordan funker dette?</strong>
             </h5>
-            <HowDoesItWork />
+            <HowDoesItWork finished={finished} />
           </section>
 
           <div className="flex flex-col lg:flex-row sectionContainer bg-[#FFF0CD] rounded-md !p-0 gap-4">
@@ -157,9 +164,16 @@ export default function EstimateView({ estimateId }) {
 
             <section className="w-full">
               <h5 className="mb-8">
-                <strong>Ditt solcelleanlegg består av</strong>
+                <strong>Ditt anlegg består av</strong>
               </h5>
-              <YourSolarFacility estimateData={estimateData} />
+              {finished ? (
+                <YourSolarFacility2
+                  estimateData={estimateData}
+                  finished={finished}
+                />
+              ) : (
+                <YourSolarFacility estimateData={estimateData} />
+              )}
             </section>
           </div>
 
