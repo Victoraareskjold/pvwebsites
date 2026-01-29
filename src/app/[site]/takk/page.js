@@ -5,6 +5,7 @@ import Link from "next/link";
 
 export default function Takk() {
   const config = useSiteConfig();
+
   return (
     <div className="py-24 min-h-screen px-12 justify-center flex flex-col bg-regularOrange text-black text-center">
       <p className="text-center mb-12 text-2xl">

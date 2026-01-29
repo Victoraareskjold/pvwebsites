@@ -3,9 +3,11 @@
 import { useEffect, useState } from "react";
 import { useSiteConfig } from "../../../../../contexts/siteConfigContext";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 export default function KjoepsavtaleView({ estimateId }) {
   const config = useSiteConfig();
+  const router = useRouter();
 
   const [estimateData, setEstimateData] = useState(null);
   const [loading, setLoading] = useState(false);
@@ -82,14 +84,16 @@ export default function KjoepsavtaleView({ estimateId }) {
       console.error(err);
     } finally {
       console.log("ferdy");
+      router.push(`/estimat/${estimateId}/kjoepsavtale/takk`);
     }
   };
 
-  console.log(estimateData);
-
   return (
     <main className="min-h-screen estimateStylingSheet">
-      <form className="pt-24 p-4 max-w-3xl mx-auto">
+      <form
+        className="pt-24 p-4 max-w-3xl mx-auto"
+        onSubmit={handleSignEstimate}
+      >
         <div>
           <h1 className="!text-4xl !font-medium">Kjøpsavtale</h1>
           <p className="!text-lg mt-2">
@@ -339,7 +343,7 @@ export default function KjoepsavtaleView({ estimateId }) {
 
         <div className="justify-end flex mb-8 mt-12">
           <button
-            onClick={handleSignEstimate}
+            type="submit"
             className="border-2 border-[#FFA600] bg-[#FFC64B] px-8 py-2 rounded-full text-white"
           >
             Signer

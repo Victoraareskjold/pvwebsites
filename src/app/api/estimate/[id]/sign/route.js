@@ -46,9 +46,7 @@ export async function POST(req, { params }) {
 
     await transporter.sendMail({
       from: `"Soleklart Dashboard" <${SMTP_USER}>`,
-      to: [/* leadEmail, createdByEmail */ "victor.aareskjold@icloud.com"]
-        .filter(Boolean)
-        .join(", "),
+      to: [leadEmail, createdByEmail].filter(Boolean).join(", "),
       subject: `Signert Kjøpsavtale!`,
       html: `
         <div style="font-family: sans-serif; max-width: 600px;">
