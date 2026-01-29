@@ -24,6 +24,7 @@ export async function GET(_req, { params }) {
           address,
           company,
           email,
+          org_nr,
           created_by (
             name,
             email,

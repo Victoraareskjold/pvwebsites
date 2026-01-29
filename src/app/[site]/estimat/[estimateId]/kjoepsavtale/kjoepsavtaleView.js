@@ -323,15 +323,6 @@ export default function KjoepsavtaleView({ estimateId }) {
               <p className="!text-lg mt-2">
                 Org.nr: {config.footer.organizationNumber}
               </p>
-
-              {estimateData?.leads.org_nr && (
-                <div className="mt-5">
-                  <label className="text-sm text-gray-700">Org.nr</label>
-                  <p className="mt-1 border-b border-black !text-lg !font-medium">
-                    {estimateData.leads.org_nr}
-                  </p>
-                </div>
-              )}
             </div>
             <div>
               <div className="flex flex-row items-center gap-2">
