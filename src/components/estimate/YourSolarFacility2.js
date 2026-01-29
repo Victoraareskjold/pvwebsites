@@ -8,6 +8,12 @@ export default function YourSolarFacility2({ estimateData, finished }) {
   // 2. Hent ut produktnavnet (f.eks. "Trina Vertex TSM- 445W")
   const panelProduct = panelItem?.product || "";
 
+  const batteryItem = estimateData?.price_data?.suppliers?.find(
+    (item) => item.category === "batteri",
+  );
+
+  const batteryProduct = batteryItem?.product || "";
+
   // 3. Regex for å finne Watt (leter etter tallet før 'W')
   const match = panelProduct.match(/(\d+)\s*W/i);
   const watt = match ? Number(match[1]) : 0;
@@ -33,7 +39,7 @@ export default function YourSolarFacility2({ estimateData, finished }) {
         />
         <div className="w-full h-2 bg-green-300 rounded-full my-6" />
         <EstimateInfoComponent
-          text={`${panelProduct} panel.`}
+          text={`${panelProduct} panel`}
           number={`${estimateData?.total_panels} stk -`}
           image={"/estimate/info2.png"}
           finished={finished}
@@ -61,6 +67,20 @@ export default function YourSolarFacility2({ estimateData, finished }) {
           type="FESTESYSTEM"
           attachmentUrl={mounting?.attachmentUrl}
         />
+
+        {batteryProduct && (
+          <>
+            <div className="w-full h-2 bg-green-300 rounded-full my-6" />
+            <EstimateInfoComponent
+              text={`${batteryProduct} batteri`}
+              number={`${batteryItem?.quantity} stk -`}
+              image={"/estimate/info2.png"}
+              finished={finished}
+              type="BATTERI"
+              attachmentUrl={batteryItem?.attachmentUrl}
+            />
+          </>
+        )}
       </div>
     </div>
   );
