@@ -509,13 +509,15 @@ export default function EstimateView({ estimateId }) {
                     )}
                   </div>
 
-                  <a
-                    href={`${estimateId}/kjoepsavtale`}
-                    target="_blank"
-                    className="bg-[#FFB356] text-white fatP self-end rounded-full w-fit px-5 py-1"
-                  >
-                    Signer dokument
-                  </a>
+                  {finished && (
+                    <a
+                      href={`${estimateId}/kjoepsavtale`}
+                      target="_blank"
+                      className="bg-[#FFB356] text-white fatP self-end rounded-full w-fit px-5 py-1"
+                    >
+                      Signer dokument
+                    </a>
+                  )}
                 </div>
 
                 {/* Inkludert i prisen */}
