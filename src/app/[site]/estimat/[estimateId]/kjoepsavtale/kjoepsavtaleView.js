@@ -32,6 +32,12 @@ export default function KjoepsavtaleView({ estimateId }) {
   // 2. Hent ut produktnavnet (f.eks. "Trina Vertex TSM- 445W")
   const panelProduct = panelItem?.product || "";
 
+  const batteryItem = estimateData?.price_data?.suppliers?.find(
+    (item) => item.category === "batteri",
+  );
+
+  const batteryProduct = batteryItem?.product || "";
+
   // 3. Regex for å finne Watt (leter etter tallet før 'W')
   const match = panelProduct.match(/(\d+)\s*W/i);
   const watt = match ? Number(match[1]) : 0;
@@ -190,6 +196,15 @@ export default function KjoepsavtaleView({ estimateId }) {
                   </strong>
                 </li>
               )}
+
+            {batteryProduct && (
+              <li>
+                Batteri:{" "}
+                <strong>
+                  {batteryItem?.quantity} stk, {batteryProduct}
+                </strong>
+              </li>
+            )}
           </ul>
           <ul className="list-disc mt-4 ml-6">
             <li>Prosjektering</li>
