@@ -509,13 +509,26 @@ export default function EstimateView({ estimateId }) {
                     )}
                   </div>
 
-                  {finished && (
+                  {finished ? (
                     <a
                       href={`${estimateId}/kjoepsavtale`}
                       target="_blank"
                       className="bg-[#FFB356] text-white fatP self-end rounded-full w-fit px-5 py-1"
                     >
                       Signer dokument
+                    </a>
+                  ) : (
+                    <a
+                      className="text-white"
+                      href={"/kjopsbetingelser"}
+                      target="_blank"
+                    >
+                      <span className="underline font-semibold">
+                        Les vilkår og betingelser
+                      </span>{" "}
+                      for
+                      <br />
+                      kjøp av solcelleanlegg
                     </a>
                   )}
                 </div>
