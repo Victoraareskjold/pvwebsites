@@ -51,7 +51,7 @@ export default function YourSolarFacility({ estimateData }) {
       <div className="md:block">
         <img
           src="/estimate/bigIllustration.png"
-          className="h-full max-h-[450px] object-contain"
+          className="w-full md:w-auto max-h-[450px] object-contain"
         />
       </div>{" "}
     </div>
