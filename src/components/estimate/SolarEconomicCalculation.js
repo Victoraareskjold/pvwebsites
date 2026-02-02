@@ -75,7 +75,7 @@ export default function SolarEconomicCalculation({
   }, [yearlyData]);
 
   useEffect(() => {
-    if (onPaybackCalculated && paybackYear != null && summary) {
+    if (onPaybackCalculated && summary) {
       onPaybackCalculated({
         paybackYear,
         ...summary,
