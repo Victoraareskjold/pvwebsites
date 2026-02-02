@@ -207,8 +207,8 @@ export default function FormModal({ isOpen, onClose }) {
           />
           <input
             type="hidden"
-            name="utm_campaign"
-            value={getLocalStorage("utm_campaign") ?? ""}
+            name="utmCampaign"
+            value={getLocalStorage("utmCampaign") ?? ""}
           />
         </form>
       </div>
