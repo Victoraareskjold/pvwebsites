@@ -513,7 +513,7 @@ export default function EstimateView({ estimateId }) {
                     <a
                       href={`${estimateId}/kjoepsavtale`}
                       target="_blank"
-                      className="bg-[#FFB356] text-white fatP self-end rounded-full w-fit px-5 py-1"
+                      className="bg-[#FFB356] text-white fatP self-end rounded-full w-fit px-5 py-1 hover:bg-black"
                     >
                       Signer dokument
                     </a>

@@ -258,7 +258,7 @@ export default function KjoepsavtaleView({ estimateId }) {
               <button
                 type="button"
                 onClick={() => downloadPdf(tos, "vilkar.pdf")}
-                className="bg-[#FFB923] rounded-full px-3 py-1 text-white font-semibold text-sm"
+                className="bg-[#FFB923] rounded-full px-3 py-1 text-white font-semibold text-sm hover:bg-black duration-100"
               >
                 Last ned som pdf
               </button>
@@ -274,7 +274,7 @@ export default function KjoepsavtaleView({ estimateId }) {
             <Link
               href={tos}
               target="_blank"
-              className="bg-[#FFB923] ml-6 rounded-full px-3 py-1 text-white font-semibold text-sm"
+              className="bg-[#FFB923] ml-6 rounded-full px-3 py-1 text-white font-semibold text-sm hover:bg-black duration-100"
             >
               Vis
             </Link>
@@ -287,7 +287,7 @@ export default function KjoepsavtaleView({ estimateId }) {
                 onClick={() =>
                   downloadPdf(withdrawalForm, "withdrawalForm.pdf")
                 }
-                className="bg-[#FFB923] rounded-full px-3 py-1 text-white font-semibold text-sm"
+                className="bg-[#FFB923] rounded-full px-3 py-1 text-white font-semibold text-sm hover:bg-black duration-100"
               >
                 Last ned som pdf
               </button>
@@ -303,7 +303,7 @@ export default function KjoepsavtaleView({ estimateId }) {
             <Link
               href={withdrawalForm}
               target="_blank"
-              className="bg-[#FFB923] ml-6 rounded-full px-3 py-1 text-white font-semibold text-sm"
+              className="bg-[#FFB923] ml-6 rounded-full px-3 py-1 text-white font-semibold text-sm hover:bg-black duration-100"
             >
               Vis
             </Link>
@@ -350,7 +350,7 @@ export default function KjoepsavtaleView({ estimateId }) {
         <div className="justify-end flex mb-8 mt-12">
           <button
             type="submit"
-            className="border-2 border-[#FFA600] bg-[#FFC64B] px-8 py-2 rounded-full text-white"
+            className="border-2 border-[#FFA600] bg-[#FFC64B] px-8 py-2 rounded-full text-white hover:bg-black duration-100"
           >
             Signer
           </button>
