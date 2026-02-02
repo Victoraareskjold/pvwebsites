@@ -4,15 +4,14 @@ export default function YourSolarFacility2({ estimateData, finished }) {
   const panelItems = estimateData?.price_data?.suppliers?.filter(
     (item) => item.category === "solcellepanel",
   );
-
   const batteryItems = estimateData?.price_data?.suppliers?.filter(
     (item) => item.category === "batteri",
   );
-
-  const mountingItems = estimateData?.price_data?.mounting;
-
   const inverterItems = estimateData?.price_data?.suppliers?.filter(
     (item) => item.category === "inverter",
+  );
+  const mountingItems = estimateData?.price_data?.suppliers?.filter(
+    (item) => item.category === "feste",
   );
 
   const panelProduct = panelItems?.[0]?.product || "";
@@ -20,8 +19,6 @@ export default function YourSolarFacility2({ estimateData, finished }) {
   // 3. Regex for å finne Watt (leter etter tallet før 'W')
   const match = panelProduct.match(/(\d+)\s*W/i);
   const watt = match ? Number(match[1]) : 0;
-
-  const formatValue = (number) => number.toLocaleString().split(",").join(" ");
 
   return (
     <div className="flex flex-row h-fit gap- px-4 items-center">
