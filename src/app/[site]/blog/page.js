@@ -5,7 +5,6 @@ import blogs from "../../../config/blogs.json";
 import "./blog.css";
 
 import Link from "next/link";
-import Image from "next/image";
 
 export default function Blog() {
   const config = useSiteConfig();
@@ -25,7 +24,7 @@ export default function Blog() {
 
   return (
     <section
-      className={`py-24 px-4 ${
+      className={`py-24 px-4 mx-auto max-w-4xl ${
         isMinel ? "bg-white text-[#1C0E52]" : "bg-black text-white"
       }p-4 min-h-screen`}
     >
@@ -34,9 +33,9 @@ export default function Blog() {
           "Ta en titt på det nyeste vi har skrevet, og bla deg bakover i tid."}
       </h1>
 
-      <ul className="grid gap-8 xl:gap-8 md:grid-cols-2 xl:grid-cols-3">
+      <ul className="flex flex-col gap-2 ">
         {sortedBlogs.map((blog) => (
-          <li key={blog.id}>
+          <li key={blog.id} className="border-b border-slate-200 pb-6">
             <Link href={`/blog/${blog.slug}`}>
               <h2
                 className={`mt-4 h-14 font-bold text-lg ${
@@ -45,14 +44,13 @@ export default function Blog() {
               >
                 {blog.nb.title}
               </h2>
-              <div className="relative w-full h-64 rounded-2xl overflow-hidden">
-                <Image
-                  fill
-                  src={blog.image}
-                  alt={blog.nb.title}
-                  className="object-cover"
-                />
-              </div>
+              <p
+                className={`line-clamp-2 ${
+                  isMinel ? "text-[#1C0E52]" : "text-white"
+                }`}
+              >
+                {blog.description.slice(0, 200)}...
+              </p>
             </Link>
           </li>
         ))}
