@@ -70,8 +70,14 @@ export default function KjoepsavtaleView({ estimateId }) {
     link.click();
   };
 
+  const handleDownloadPdf = (e) => {
+    e.preventDefault();
+    window.print();
+  };
+
   const handleSignEstimate = async (e) => {
     e.preventDefault();
+    window.print();
 
     try {
       const res = await fetch(`/api/estimate/${estimateId}/sign`, {
@@ -100,6 +106,7 @@ export default function KjoepsavtaleView({ estimateId }) {
         className="pt-24 p-4 max-w-3xl mx-auto"
         onSubmit={handleSignEstimate}
       >
+        <button onClick={handleDownloadPdf}>Last ned som PDF</button>
         <div>
           <h1 className="!text-4xl !font-medium">Kjøpsavtale</h1>
           <p className="!text-lg mt-2">

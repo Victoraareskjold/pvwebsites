@@ -23,7 +23,7 @@ export default function HandleQueryParams() {
     }
 
     if (utmCampaign) {
-      setLocalStorage("utm_campaign", utmCampaign);
+      setLocalStorage("utmCampaign", utmCampaign);
     }
   }, [searchParams]);
 
