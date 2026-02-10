@@ -112,20 +112,6 @@
     }
   },
   {
-    "id": 8,
-    "image": "/blog/blog8.png",
-    "slug": "maksimer-din-investering",
-    "description": "Skybatteri, også kjent som Solkonto, er en innovativ løsning som gjør det mulig for eiere av solcelleanlegg å lagre overskuddsstrøm i en virtuell bank. Dette gir en fleksibel måte å håndtere egenprodusert solenergi på, og kan bidra betydelig til økonomiske besparelser.",
-    "nb": {
-      "title": "Virtuelt batteri - Maksimer din investering",
-      "html": "<div><div>Skybatteri, også kjent som Solkonto, er en innovativ løsning som gjør det mulig for eiere av solcelleanlegg å lagre overskuddsstrøm i en virtuell bank. Dette gir en fleksibel måte å håndtere egenprodusert solenergi på, og kan bidra betydelig til økonomiske besparelser.<br></div></div><div><h1>Hvordan Fungerer Det?</h1><div>Når du produserer mer strøm enn du bruker, lagres overskuddet som kWh i Skybatteriet. Du kan følge og styre denne energien via en app, og bruke den når du trenger det mest, for eksempel i perioder med høyere strømpriser. Dette gir deg muligheten til å optimalisere bruken av egenprodusert energi og redusere strømkostnadene.<br>‍</div><h1>Fordeler med Skybatteri</h1><div><strong>1. Økonomiske Besparelser:</strong> Ved å lagre overskuddsstrømmen kan du bruke den når strømprisene er høyere, noe som gir direkte besparelser.<br>‍<br><strong>2 .Fleksibilitet:</strong> Styr energibruken etter behov gjennom en enkel app.<br>‍<br>‍<strong>3.Effektivitet:</strong> Øk effektiviteten av solcelleanlegget ved å utnytte all produsert energi.<br>‍</div><h1>Konklusjon</h1><div><strong>Skybatteri tilbyr en smart og økonomisk måte å maksimere avkastningen på investeringen i solcelleanlegg. Ved å lagre og optimalisere bruken av egenprodusert energi, kan du redusere strømkostnadene betydelig og bidra til en grønnere fremtid.</strong></div></div>"
-    },
-    "nn": {
-      "title": "",
-      "html": ""
-    }
-  },
-  {
     "id": 9,
     "image": "/blog/blog9.png",
     "slug": "nye-eu-krav-hvorfor-boer-du-installere-solcellepaneler-naa",
