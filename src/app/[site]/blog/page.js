@@ -24,37 +24,39 @@ export default function Blog() {
 
   return (
     <section
-      className={`py-24 px-4 mx-auto max-w-4xl ${
+      className={`py-24 px-4 ${
         isMinel ? "bg-white text-[#1C0E52]" : "bg-black text-white"
       }p-4 min-h-screen`}
     >
-      <h1 className=" mb-8">
-        {config.blogPage?.header ||
-          "Ta en titt på det nyeste vi har skrevet, og bla deg bakover i tid."}
-      </h1>
+      <div className="max-w-4xl mx-auto">
+        <h1 className=" mb-8">
+          {config.blogPage?.header ||
+            "Ta en titt på det nyeste vi har skrevet, og bla deg bakover i tid."}
+        </h1>
 
-      <ul className="flex flex-col gap-2 ">
-        {sortedBlogs.map((blog) => (
-          <li key={blog.id} className="border-b border-slate-200 pb-6">
-            <Link href={`/blog/${blog.slug}`}>
-              <h2
-                className={`mt-4 h-14 font-bold text-lg ${
-                  isMinel ? "text-[#1C0E52]" : "text-white"
-                }`}
-              >
-                {blog.nb.title}
-              </h2>
-              <p
-                className={`line-clamp-2 ${
-                  isMinel ? "text-[#1C0E52]" : "text-white"
-                }`}
-              >
-                {blog.description.slice(0, 200)}...
-              </p>
-            </Link>
-          </li>
-        ))}
-      </ul>
+        <ul className="flex flex-col gap-2 ">
+          {sortedBlogs.map((blog) => (
+            <li key={blog.id} className="border-b border-slate-200 pb-6">
+              <Link href={`/blog/${blog.slug}`}>
+                <h2
+                  className={`mt-4 h-14 font-bold text-lg ${
+                    isMinel ? "text-[#1C0E52]" : "text-white"
+                  }`}
+                >
+                  {blog.nb.title}
+                </h2>
+                <p
+                  className={`line-clamp-2 ${
+                    isMinel ? "text-[#1C0E52]" : "text-white"
+                  }`}
+                >
+                  {blog.description.slice(0, 200)}...
+                </p>
+              </Link>
+            </li>
+          ))}
+        </ul>
+      </div>
     </section>
   );
 }

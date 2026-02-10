@@ -20,11 +20,11 @@ export default function BlogPostClient({ blog, content, site }) {
     >
       <div className="max-w-6xl w-full">
         {blog.image ? (
-          <div className="relative overflow-hidden">
-            <div className="w-full aspect-video">
+          <div className="relative overflow-hidden rounded-lg">
+            <div className="w-full aspect-video ">
               <Image
                 fill
-                className="object-cover"
+                className="object-cover mt-24 rounded-lg"
                 src={blog.image}
                 alt={content.title || "Blogg bilde"}
               />
