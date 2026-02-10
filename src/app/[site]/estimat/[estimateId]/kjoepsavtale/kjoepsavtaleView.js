@@ -106,7 +106,9 @@ export default function KjoepsavtaleView({ estimateId }) {
         className="pt-24 p-4 max-w-3xl mx-auto"
         onSubmit={handleSignEstimate}
       >
-        <button onClick={handleDownloadPdf}>Last ned som PDF</button>
+        <button className="print:hidden" onClick={handleDownloadPdf}>
+          Last ned som PDF
+        </button>
         <div>
           <h1 className="!text-4xl !font-medium">Kjøpsavtale</h1>
           <p className="!text-lg mt-2">
@@ -168,7 +170,7 @@ export default function KjoepsavtaleView({ estimateId }) {
           </div>
         </div>
 
-        <div className="mt-24">
+        <div className="mt-24 break-inside-avoid">
           <h2>Hva som er inkludert</h2>
           <ul className="list-disc mt-4 ml-6">
             <li>
@@ -222,7 +224,7 @@ export default function KjoepsavtaleView({ estimateId }) {
           </ul>
         </div>
 
-        <div className="mt-12">
+        <div className="mt-12 break-inside-avoid">
           <h2>Totalpris</h2>
           <p className="border-b border-black w-64 mt-3">
             <strong className="font-semibold">
@@ -243,7 +245,7 @@ export default function KjoepsavtaleView({ estimateId }) {
           </p>
         </div>
 
-        <div className="mt-12">
+        <div className="mt-12 break-inside-avoid">
           <h2>Forbehold</h2>
           <p className="mt-3 !text-lg">
             Tilbudet er basert på tilgjengelig informasjon og mottatt
@@ -259,7 +261,7 @@ export default function KjoepsavtaleView({ estimateId }) {
         </div>
 
         <div className="mt-12">
-          <div>
+          <div className="break-inside-avoid">
             <div className="flex flex-row gap-4 items-center">
               <h2>Vilkår og betingelser</h2>
               <button
@@ -286,7 +288,7 @@ export default function KjoepsavtaleView({ estimateId }) {
               Vis
             </Link>
           </div>
-          <div className="mt-8">
+          <div className="mt-8 break-inside-avoid">
             <div className="flex flex-row gap-4 items-center">
               <h2>Angreskjema</h2>
               <button
@@ -317,7 +319,7 @@ export default function KjoepsavtaleView({ estimateId }) {
           </div>
         </div>
 
-        <div className="mt-8">
+        <div className="mt-8 break-inside-avoid">
           <h2>Parter</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-12 mt-4">
             <div>

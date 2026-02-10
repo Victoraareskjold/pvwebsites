@@ -71,27 +71,30 @@ export default async function RootLayout({ children, params }) {
         )} */}
       </head>
       <body>
-        <Navbar
-          logo={config.logo}
-          title={config.title}
-          pos={"fixed"}
-          site={config.site}
-        />
+        <div className="print:hidden">
+          <Navbar
+            logo={config.logo}
+            title={config.title}
+            pos={"fixed"}
+            site={config.site}
+          />
+        </div>
 
         <SiteConfigProvider config={config}>{children}</SiteConfigProvider>
         <Suspense fallback={<div>Loading...</div>}>
           <HandleQueryParams />
         </Suspense>
-
-        <Footer
-          logo={config.logo}
-          email={config.footer?.email}
-          address={config.footer?.address}
-          organizationNumber={config.footer?.organizationNumber}
-          primary={config.primary}
-          secondary={config.secondary}
-          site={config.site}
-        />
+        <div className="print:hidden">
+          <Footer
+            logo={config.logo}
+            email={config.footer?.email}
+            address={config.footer?.address}
+            organizationNumber={config.footer?.organizationNumber}
+            primary={config.primary}
+            secondary={config.secondary}
+            site={config.site}
+          />
+        </div>
         {config.consentifyPublicToken && (
           <script
             src={`https://www.consentify.app/api/consent?token=${config.consentifyPublicToken}`}
