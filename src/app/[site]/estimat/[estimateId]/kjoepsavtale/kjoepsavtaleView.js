@@ -106,7 +106,7 @@ export default function KjoepsavtaleView({ estimateId }) {
         className="pt-24 p-4 max-w-3xl mx-auto"
         onSubmit={handleSignEstimate}
       >
-        <button className="print:hidden" onClick={handleDownloadPdf}>
+        <button className="print:hidden my-4" onClick={handleDownloadPdf}>
           Last ned som PDF
         </button>
         <div>
@@ -170,7 +170,7 @@ export default function KjoepsavtaleView({ estimateId }) {
           </div>
         </div>
 
-        <div className="mt-24 break-inside-avoid">
+        <div className="mt-12 break-inside-avoid">
           <h2>Hva som er inkludert</h2>
           <ul className="list-disc mt-4 ml-6">
             <li>
@@ -356,7 +356,7 @@ export default function KjoepsavtaleView({ estimateId }) {
           </div>
         </div>
 
-        <div className="justify-end flex mb-8 mt-12">
+        <div className="justify-end flex mt-12">
           <button
             type="submit"
             className="border-2 border-[#FFA600] bg-[#FFC64B] px-8 py-2 rounded-full text-white hover:bg-black duration-100"

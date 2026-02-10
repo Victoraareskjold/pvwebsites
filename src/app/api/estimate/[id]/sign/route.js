@@ -20,7 +20,7 @@ export async function POST(req, { params }) {
 
     const { data, error } = await client
       .from("estimates")
-      .update({ signed: true })
+      .update({ signed_at: new Date().toISOString() })
       .eq("id", estimateId)
       .select()
       .single();

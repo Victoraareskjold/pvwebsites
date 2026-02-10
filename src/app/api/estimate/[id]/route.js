@@ -25,6 +25,7 @@ export async function GET(_req, { params }) {
           company,
           email,
           org_nr,
+          signed_at,
           created_by (
             name,
             email,
