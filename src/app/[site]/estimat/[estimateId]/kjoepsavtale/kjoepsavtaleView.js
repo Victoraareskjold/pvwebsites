@@ -80,8 +80,8 @@ export default function KjoepsavtaleView({ estimateId }) {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          leadEmail: estimateData?.leads.email,
-          createdByEmail: estimateData?.leads.created_by.email,
+          leadEmail: estimateData?.leads?.email,
+          createdByEmail: estimateData?.leads?.created_by.email,
         }),
       });
       if (!res.ok) console.error(res.error);
@@ -114,30 +114,30 @@ export default function KjoepsavtaleView({ estimateId }) {
             <div className="mt-5">
               <label className="text-sm text-gray-700">Navn</label>
               <p className="mt-1 border-b border-black !text-lg !font-medium">
-                {estimateData.leads.person_info}
+                {estimateData.leads?.person_info}
               </p>
             </div>
 
             <div className="mt-5">
               <label className="text-sm text-gray-700">Adresse</label>
               <p className="mt-1 border-b border-black !text-lg !font-medium">
-                {estimateData.leads.address}
+                {estimateData.leads?.address}
               </p>
             </div>
 
-            {estimateData?.leads.company && (
+            {estimateData?.leads?.company && (
               <div className="mt-5">
                 <label className="text-sm text-gray-700">Firma Navn</label>
                 <p className="mt-1 border-b border-black !text-lg !font-medium">
-                  {estimateData.leads.company}
+                  {estimateData.leads?.company}
                 </p>
               </div>
             )}
-            {estimateData?.leads.org_nr && (
+            {estimateData?.leads?.org_nr && (
               <div className="mt-5">
                 <label className="text-sm text-gray-700">Org.nr</label>
                 <p className="mt-1 border-b border-black !text-lg !font-medium">
-                  {estimateData.leads.org_nr}
+                  {estimateData.leads?.org_nr}
                 </p>
               </div>
             )}
@@ -331,16 +331,16 @@ export default function KjoepsavtaleView({ estimateId }) {
               </div>
 
               <p className="!text-lg mt-2">
-                Navn: {estimateData.leads.person_info}
+                Navn: {estimateData.leads?.person_info}
               </p>
-              {estimateData.leads.company && (
+              {estimateData.leads?.company && (
                 <p className="!text-lg mt-2">
-                  Firmanavn: {estimateData.leads.company}
+                  Firmanavn: {estimateData.leads?.company}
                 </p>
               )}
-              {estimateData.leads.org_nr && (
+              {estimateData.leads?.org_nr && (
                 <p className="!text-lg mt-2">
-                  Org.nr: {estimateData.leads.org_nr}
+                  Org.nr: {estimateData.leads?.org_nr}
                 </p>
               )}
             </div>

@@ -360,7 +360,7 @@ export default function EstimateView({ estimateId }) {
               elNetPrice={elNetPrice}
               expectedElPriceIncrease={expectedElPriceIncrease}
               investmentCost={
-                estimateData.leads.company
+                estimateData?.leads?.company
                   ? estimateData?.price_data?.total || 0
                   : Number(estimateData?.price_data?.["total inkl. alt"]) -
                       Number(enovaSupport()) || 0
