@@ -35,10 +35,10 @@ export default function EstimateView({ estimateId }) {
   }, [estimateId]);
 
   const [elPrice, setElPrice] = useState(
-    /* estimateData?.selected_el_price ||  */ 0.5,
+    estimateData?.leads?.company ? 0.65 : 0.5,
   );
   const [elNetPrice, setElNetPrice] = useState(
-    /* estimateData?.selected_el_price + 0.5 ||  */ 0.62,
+    estimateData?.leads?.company ? 0.3 : 0.62,
   );
   const [expectedElPriceIncrease, setExpectedElPriceIncrease] = useState(2.5);
   const [paymentTime, setPaymentTime] = useState(null);
