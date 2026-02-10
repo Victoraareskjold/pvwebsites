@@ -34,12 +34,21 @@ export default function EstimateView({ estimateId }) {
     fetchData();
   }, [estimateId]);
 
-  const [elPrice, setElPrice] = useState(
-    estimateData?.leads?.company ? 0.65 : 0.5,
-  );
-  const [elNetPrice, setElNetPrice] = useState(
-    estimateData?.leads?.company ? 0.3 : 0.62,
-  );
+  const [elPrice, setElPrice] = useState(0.5);
+  const [elNetPrice, setElNetPrice] = useState(0.62);
+
+  useEffect(() => {
+    if (!estimateData) return;
+
+    if (estimateData.leads?.company) {
+      setElPrice(0.65);
+      setElNetPrice(0.3);
+    } else {
+      setElPrice(0.5);
+      setElNetPrice(0.62);
+    }
+  }, [estimateData]);
+
   const [expectedElPriceIncrease, setExpectedElPriceIncrease] = useState(2.5);
   const [paymentTime, setPaymentTime] = useState(null);
   const maxPaymentTime = 40;
