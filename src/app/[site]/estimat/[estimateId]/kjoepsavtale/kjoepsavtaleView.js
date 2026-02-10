@@ -70,14 +70,8 @@ export default function KjoepsavtaleView({ estimateId }) {
     link.click();
   };
 
-  const handleDownloadPdf = (e) => {
-    e.preventDefault();
-    window.print();
-  };
-
   const handleSignEstimate = async (e) => {
     e.preventDefault();
-    window.print();
 
     try {
       const res = await fetch(`/api/estimate/${estimateId}/sign`, {
@@ -106,9 +100,6 @@ export default function KjoepsavtaleView({ estimateId }) {
         className="pt-24 p-4 max-w-3xl mx-auto"
         onSubmit={handleSignEstimate}
       >
-        <button className="print:hidden my-4" onClick={handleDownloadPdf}>
-          Last ned som PDF
-        </button>
         <div>
           <h1 className="!text-4xl !font-medium">Kjøpsavtale</h1>
           <p className="!text-lg mt-2">
@@ -356,13 +347,24 @@ export default function KjoepsavtaleView({ estimateId }) {
           </div>
         </div>
 
-        <div className="justify-end flex mt-12">
-          <button
-            type="submit"
-            className="border-2 border-[#FFA600] bg-[#FFC64B] px-8 py-2 rounded-full text-white hover:bg-black duration-100"
-          >
-            Signer
-          </button>
+        <div className="justify-end flex mt-12 print:hidden">
+          {estimateData?.signed_at ? (
+            <p className="mx-auto text-gray-500 !text-sm">
+              Signert{" "}
+              {new Date(estimateData.signed_at).toLocaleString("nb-NO", {
+                timeZone: "Europe/Oslo",
+                dateStyle: "short",
+                timeStyle: "short",
+              })}
+            </p>
+          ) : (
+            <button
+              type="submit"
+              className="border-2 border-[#FFA600] bg-[#FFC64B] px-8 py-2 rounded-full text-white hover:bg-black duration-100"
+            >
+              Signer
+            </button>
+          )}
         </div>
       </form>
     </main>
