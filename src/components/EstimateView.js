@@ -11,6 +11,7 @@ import YourSolarFacility from "./estimate/YourSolarFacility";
 import YourSolarFacility2 from "./estimate/YourSolarFacility2";
 import SolarEconomicCalculation from "./estimate/SolarEconomicCalculation";
 import { useSearchParams } from "next/navigation";
+import Link from "next/link";
 
 export default function EstimateView({ estimateId }) {
   const config = useSiteConfig();
@@ -542,6 +543,32 @@ export default function EstimateView({ estimateId }) {
                   )}
                 </div>
 
+                <div className="order-2 lg:hidden flex flex-col gap-5 text-white">
+                  <h5 className="font-bold text-lg">
+                    <strong>
+                      Vil du vurdere finansiering av solcelleanlegget?
+                    </strong>
+                  </h5>
+                  <p className="fatP">
+                    Med finansiering kan du fordele betalingen over tid. I
+                    enkelte tilfeller kan den årlige besparelsen fra
+                    solcelleanlegget være høyere enn kostnaden på lånet samme
+                    år, slik at investeringen kan gå i pluss allerede fra første
+                    år.
+                  </p>
+                  <Link
+                    className="rounded-full bg-[#FF5154] aspect-square h-24 w-24 items-center justify-center text-center flex underline"
+                    target="_blank"
+                    href={
+                      config.site === "MinelSol"
+                        ? "https://minel.no/finansiering-betal-i-ditt-tempo"
+                        : "https://www.dnb.no/lan/refinansiering/miljoland"
+                    }
+                  >
+                    Søk her
+                  </Link>
+                </div>
+
                 {/* Inkludert i prisen */}
                 <div className="order-3 lg:order-1 flex flex-col gap-3">
                   <h5 className="text-white">
@@ -681,6 +708,32 @@ export default function EstimateView({ estimateId }) {
                         kopper kaffe.
                       </p>
                     </div>
+                  </div>
+
+                  <div className="flex flex-col gap-5 text-white">
+                    <h5 className="font-bold text-lg">
+                      <strong>
+                        Vil du vurdere finansiering av solcelleanlegget?
+                      </strong>
+                    </h5>
+                    <p className="fatP">
+                      Med finansiering kan du fordele betalingen over tid. I
+                      enkelte tilfeller kan den årlige besparelsen fra
+                      solcelleanlegget være høyere enn kostnaden på lånet samme
+                      år, slik at investeringen kan gå i pluss allerede fra
+                      første år.
+                    </p>
+                    <Link
+                      className="rounded-full bg-[#FF5154] aspect-square h-24 w-24 items-center justify-center text-center flex underline"
+                      target="_blank"
+                      href={
+                        config.site === "MinelSol"
+                          ? "https://minel.no/finansiering-betal-i-ditt-tempo"
+                          : "https://www.dnb.no/lan/refinansiering/miljoland"
+                      }
+                    >
+                      Søk her
+                    </Link>
                   </div>
                 </div>
               </div>
