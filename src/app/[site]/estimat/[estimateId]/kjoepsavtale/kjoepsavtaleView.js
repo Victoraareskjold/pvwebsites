@@ -59,8 +59,8 @@ export default function KjoepsavtaleView({ estimateId }) {
       maximumFractionDigits: 0,
     });
 
-  const tos = "/tos.pdf";
-  const withdrawalForm = "/withdrawalForm.pdf";
+  const tos = "/vilkaar.pdf";
+  const withdrawalForm = "/angreskjema.pdf";
 
   const downloadPdf = (url, filename) => {
     // Laster ned PDF
@@ -103,7 +103,7 @@ export default function KjoepsavtaleView({ estimateId }) {
         <div>
           <h1 className="!text-4xl !font-medium">Kjøpsavtale</h1>
           <p className="!text-lg mt-2">
-            Avtalen inngås mellom kunde og {config.site} AS
+            Avtalen inngås mellom kunde og {config.legal}
           </p>
         </div>
 
@@ -284,9 +284,7 @@ export default function KjoepsavtaleView({ estimateId }) {
               <h2>Angreskjema</h2>
               <button
                 type="button"
-                onClick={() =>
-                  downloadPdf(withdrawalForm, "withdrawalForm.pdf")
-                }
+                onClick={() => downloadPdf(withdrawalForm, "angreskjema.pdf")}
                 className="bg-[#FFB923] rounded-full px-3 py-1 text-white font-semibold text-sm hover:bg-black duration-100"
               >
                 Last ned som pdf
