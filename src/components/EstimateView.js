@@ -40,7 +40,7 @@ export default function EstimateView({ estimateId }) {
   useEffect(() => {
     if (!estimateData) return;
 
-    if (estimateData.leads?.company) {
+    if (estimateData.private) {
       setElPrice(0.65);
       setElNetPrice(0.3);
     } else {
@@ -137,7 +137,7 @@ export default function EstimateView({ estimateId }) {
             <h2>
               Beregningen er utført for en{" "}
               <strong>
-                {estimateData?.leads?.company ? "næringskunde" : "privatperson"}
+                {estimateData?.private ? "næringskunde" : "privatperson"}
               </strong>{" "}
               på følgende Adresse:{" "}
               <strong className="font-medium">
@@ -360,7 +360,7 @@ export default function EstimateView({ estimateId }) {
               elNetPrice={elNetPrice}
               expectedElPriceIncrease={expectedElPriceIncrease}
               investmentCost={
-                estimateData?.leads?.company
+                estimateData?.private
                   ? estimateData?.price_data?.total || 0
                   : Number(estimateData?.price_data?.["total inkl. alt"]) -
                       Number(enovaSupport()) || 0
@@ -443,7 +443,7 @@ export default function EstimateView({ estimateId }) {
                   </h5> */}
 
                   <div>
-                    {estimateData?.leads?.company ? (
+                    {estimateData?.private ? (
                       // Næringskunde: Kun total eks. mva
                       <div className="flex flex-col">
                         <h5 className="text-white mb-2">
