@@ -2,7 +2,7 @@
 export default {
   title: "Mydlands Elektriske Sol",
 
-  site: "Mydlandsselektriskesol",
+  site: "Mydlandselektriskesol",
 
   legal: "Mydlands Elektriske AS",
 

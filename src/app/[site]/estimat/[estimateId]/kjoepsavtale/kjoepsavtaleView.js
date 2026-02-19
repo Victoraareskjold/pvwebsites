@@ -70,6 +70,8 @@ export default function KjoepsavtaleView({ estimateId }) {
   const handleSignEstimate = async (e) => {
     e.preventDefault();
 
+    const site = config.site;
+
     try {
       const res = await fetch(`/api/estimate/${estimateId}/sign`, {
         method: "POST",
@@ -79,6 +81,7 @@ export default function KjoepsavtaleView({ estimateId }) {
         body: JSON.stringify({
           leadEmail: estimateData?.leads?.email,
           createdByEmail: estimateData?.leads?.created_by.email,
+          estimateUrl: `https://www.${site}.no/estimat/${estimateId}/kjoepsavtale`,
         }),
       });
       if (!res.ok) console.error(res.error);

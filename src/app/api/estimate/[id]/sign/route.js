@@ -52,6 +52,7 @@ export async function POST(req, { params }) {
         <div style="font-family: sans-serif; max-width: 600px;">
           <h2>Kjøpsavtale signert!</h2>
           <p>Takk for din signering av kjøpsavtalen for solcelleanlegg.</p>
+          <a href="${estimateUrl}" target="_blank">Link til kjøpsavtale</a>
         </div>
       `,
     });
