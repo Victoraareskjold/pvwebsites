@@ -13,6 +13,7 @@ export default function YourSolarFacility2({ estimateData, finished }) {
   const mountingItems = estimateData?.price_data?.suppliers?.filter(
     (item) => item.category === "feste",
   );
+  const simulationPdf = estimateData?.price_data?.simulationPdfUrl;
 
   const panelProduct = panelItems?.[0]?.product || "";
 
@@ -31,7 +32,7 @@ export default function YourSolarFacility2({ estimateData, finished }) {
           image={"/estimate/info1.png"}
           finished={finished}
           type="INSTALLERT EFFEKT (KWP)"
-          attachmentUrl={estimateData?.simulation_pdf}
+          attachmentUrl={simulationPdf}
         />
 
         {hasItems(panelItems) && (
