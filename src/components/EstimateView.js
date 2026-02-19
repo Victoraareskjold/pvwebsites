@@ -729,7 +729,7 @@ export default function EstimateView({ estimateId }) {
                       href={
                         config.site === "MinelSol"
                           ? "https://minel.no/finansiering-betal-i-ditt-tempo"
-                          : "https://www.dnb.no/lan/refinansiering/miljoland"
+                          : "https://www.dnb.no/lan/refinansiering/miljolan"
                       }
                     >
                       Søk her
