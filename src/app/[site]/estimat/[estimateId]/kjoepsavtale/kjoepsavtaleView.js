@@ -54,6 +54,11 @@ export default function KjoepsavtaleView({ estimateId }) {
   const tos = "/vilkaar.pdf";
   const withdrawalForm = "/angreskjema.pdf";
 
+  const handleDownloadPdf = (e) => {
+    e.preventDefault();
+    window.print();
+  };
+
   const downloadPdf = (url, filename) => {
     // Laster ned PDF
     const link = document.createElement("a");
@@ -97,6 +102,12 @@ export default function KjoepsavtaleView({ estimateId }) {
           <p className="!text-lg mt-2">
             Avtalen inngås mellom kunde og {config.legal}
           </p>
+          <button
+            className="print:hidden underline mt-4 font-medium"
+            onClick={handleDownloadPdf}
+          >
+            Last ned som PDF
+          </button>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12 mt-8">
@@ -248,14 +259,19 @@ export default function KjoepsavtaleView({ estimateId }) {
               <button
                 type="button"
                 onClick={() => downloadPdf(tos, "vilkar.pdf")}
-                className="bg-[#FFB923] rounded-full px-3 py-1 text-white font-semibold text-sm hover:bg-black duration-100"
+                className="bg-[#FFB923] rounded-full px-3 py-1 text-white font-semibold text-sm hover:bg-black duration-100 print:hidden"
               >
                 Last ned som pdf
               </button>
             </div>
             <div className="flex flex-row items-center gap-4">
               <img src="/pdfIcon.png" className="w-24 my-4" />
-              <input id="tos" type="checkbox" required />
+              <input
+                id="tos"
+                type="checkbox"
+                required
+                className="print:hidden"
+              />
               <label htmlFor="tos">
                 Jeg bekrefter at jeg har lest, forstått og godkjent vilkår og
                 betingelser for kjøpet.
@@ -264,7 +280,7 @@ export default function KjoepsavtaleView({ estimateId }) {
             <Link
               href={tos}
               target="_blank"
-              className="bg-[#FFB923] ml-6 rounded-full px-3 py-1 text-white font-semibold text-sm hover:bg-black duration-100"
+              className="bg-[#FFB923] ml-6 rounded-full px-3 py-1 text-white font-semibold text-sm hover:bg-black duration-100 print:hidden"
             >
               Vis
             </Link>
@@ -275,14 +291,19 @@ export default function KjoepsavtaleView({ estimateId }) {
               <button
                 type="button"
                 onClick={() => downloadPdf(withdrawalForm, "angreskjema.pdf")}
-                className="bg-[#FFB923] rounded-full px-3 py-1 text-white font-semibold text-sm hover:bg-black duration-100"
+                className="bg-[#FFB923] rounded-full px-3 py-1 text-white font-semibold text-sm hover:bg-black duration-100 print:hidden"
               >
                 Last ned som pdf
               </button>
             </div>
             <div className="flex flex-row items-center gap-4">
               <img src="/pdfIcon.png" className="w-24 my-4" />
-              <input id="withdrawalForm" type="checkbox" required />
+              <input
+                id="withdrawalForm"
+                type="checkbox"
+                required
+                className="print:hidden"
+              />
               <label htmlFor="withdrawalForm">
                 Jeg bekrefter at jeg har mottatt, lest og forstått informasjon
                 om angrerett.
@@ -291,7 +312,7 @@ export default function KjoepsavtaleView({ estimateId }) {
             <Link
               href={withdrawalForm}
               target="_blank"
-              className="bg-[#FFB923] ml-6 rounded-full px-3 py-1 text-white font-semibold text-sm hover:bg-black duration-100"
+              className="bg-[#FFB923] ml-6 rounded-full px-3 py-1 text-white font-semibold text-sm hover:bg-black duration-100 print:hidden"
             >
               Vis
             </Link>
