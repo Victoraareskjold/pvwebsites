@@ -11,11 +11,13 @@ export function EstimateInfoComponent({
     <div
       className={`flex justify-between  ${finished ? "flex-col" : "flex-row items-center gap-16"}`}
     >
-      {finished && type && <p className="text-gray-600 !text-sm">{type}</p>}
+      {finished && type && (
+        <p className="text-gray-800 !font-medium !text-md">{type}</p>
+      )}
       <li
         className={`gap-1 py-2 w-full ${finished ? "flex justify-between items-center" : ""}`}
       >
-        <p>
+        <p className="!text-md">
           <strong className="font-bold">{number || ""}</strong>{" "}
           {text || "Missing text"}
         </p>
