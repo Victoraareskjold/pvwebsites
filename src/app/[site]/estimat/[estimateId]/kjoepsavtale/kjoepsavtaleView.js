@@ -25,25 +25,17 @@ export default function KjoepsavtaleView({ estimateId }) {
     fetchData();
   }, [estimateId]);
 
-  const panelItem = estimateData?.price_data?.suppliers?.find(
+  const panelItems = estimateData?.price_data?.suppliers?.filter(
     (item) => item.category === "solcellepanel",
   );
-
-  // 2. Hent ut produktnavnet (f.eks. "Trina Vertex TSM- 445W")
-  const panelProduct = panelItem?.product || "";
-
-  const batteryItem = estimateData?.price_data?.suppliers?.find(
+  const batteryItems = estimateData?.price_data?.suppliers?.filter(
     (item) => item.category === "batteri",
   );
-
-  const batteryProduct = batteryItem?.product || "";
-
-  // 3. Regex for å finne Watt (leter etter tallet før 'W')
-  const match = panelProduct.match(/(\d+)\s*W/i);
-  const watt = match ? Number(match[1]) : 0;
-
-  const inverter = estimateData?.price_data?.suppliers?.find(
+  const inverterItems = estimateData?.price_data?.suppliers?.filter(
     (item) => item.category === "inverter",
+  );
+  const mountingItems = estimateData?.price_data?.suppliers?.filter(
+    (item) => item.category === "feste",
   );
 
   if (!estimateData || loading)
@@ -168,43 +160,41 @@ export default function KjoepsavtaleView({ estimateId }) {
               Installert effekt: <strong>{estimateData.kwp} kwp</strong>
             </li>
 
-            {estimateData?.total_panels > 0 && panelProduct && (
-              <li>
+            {panelItems.map((item) => (
+              <li key={item.id}>
                 Solcellepanel:{" "}
                 <strong>
-                  {estimateData.total_panels} stk, {panelProduct}
+                  {item.quantity} stk, {item.product}
                 </strong>
               </li>
-            )}
+            ))}
 
-            {inverter?.product && inverter?.quantity > 0 && (
-              <li>
+            {inverterItems.map((item) => (
+              <li key={item.id}>
                 Vekselretter/inverter:{" "}
                 <strong>
-                  {inverter?.product} stk, {inverter?.quantity}
+                  {item.quantity} stk, {item.product}
                 </strong>
               </li>
-            )}
+            ))}
 
-            {estimateData?.price_data?.mounting[0]?.quantity > 0 &&
-              estimateData?.price_data?.mounting[0]?.product && (
-                <li>
-                  Festesystem:{" "}
-                  <strong>
-                    {estimateData?.price_data?.mounting[0]?.quantity} stk,{" "}
-                    {estimateData?.price_data?.mounting[0]?.product}
-                  </strong>
-                </li>
-              )}
+            {mountingItems.map((item) => (
+              <li key={item.id}>
+                Festesystem:{" "}
+                <strong>
+                  {item.quantity} stk, {item.product}
+                </strong>
+              </li>
+            ))}
 
-            {batteryProduct && (
-              <li>
+            {batteryItems.map((item) => (
+              <li key={item.id}>
                 Batteri:{" "}
                 <strong>
-                  {batteryItem?.quantity} stk, {batteryProduct}
+                  {item.quantity} stk, {item.product}
                 </strong>
               </li>
-            )}
+            ))}
           </ul>
           <ul className="list-disc mt-4 ml-6">
             <li>Prosjektering</li>
