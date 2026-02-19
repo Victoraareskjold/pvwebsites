@@ -709,8 +709,7 @@ export default function EstimateView({ estimateId }) {
                       </p>
                     </div>
                   </div>
-
-                  <div className="flex flex-col gap-5 text-white">
+                  <div className="flex flex-col gap-5 mt-12 text-white">
                     <h5 className="font-bold text-lg">
                       <strong>
                         Vil du vurdere finansiering av solcelleanlegget?
@@ -724,7 +723,7 @@ export default function EstimateView({ estimateId }) {
                       første år.
                     </p>
                     <Link
-                      className="rounded-full bg-[#FF5154] aspect-square h-24 w-24 items-center justify-center text-center flex underline"
+                      className="rounded-full bg-[#FF5154] aspect-square h-24 w-24 items-center justify-center text-center flex underline self-end"
                       target="_blank"
                       href={
                         config.site === "MinelSol"
