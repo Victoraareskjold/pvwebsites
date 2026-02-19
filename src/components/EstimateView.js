@@ -170,7 +170,7 @@ export default function EstimateView({ estimateId }) {
           </section>
 
           <div className="flex flex-col lg:flex-row sectionContainer bg-[#FFF0CD] rounded-md !p-0 gap-4">
-            <HowWillItLook estimateData={estimateData} />
+            <HowWillItLook estimateData={estimateData} finished={finished} />
 
             <section className="w-full">
               <h5 className="mb-8">

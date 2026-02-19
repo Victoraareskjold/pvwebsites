@@ -1,4 +1,4 @@
-export default function HowWillItLook({ estimateData }) {
+export default function HowWillItLook({ estimateData, finished }) {
   const formatValue = (number) => number.toLocaleString().split(",").join(" ");
 
   return (
@@ -24,9 +24,11 @@ export default function HowWillItLook({ estimateData }) {
           />
         </div>
       ) : null}
-      <h2 className="italic">
-        Dette oppsettet er fleksibelt – vi tilpasser det etter dine ønsker.
-      </h2>
+      {!finished && (
+        <h2 className="italic">
+          Dette oppsettet er fleksibelt - vi tilpasser det etter dine ønsker.
+        </h2>
+      )}
     </section>
   );
 }
