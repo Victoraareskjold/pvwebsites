@@ -32,7 +32,7 @@ export default function SolarEconomicCalculation({
       const replacementCost =
         year === REPLACEMENT_YEAR ? inverterCost * INVERTER_MULTIPLIER : 0;
 
-      const totalSaved = yearlySavings + replacementCost + total;
+      const totalSaved = yearlySavings - replacementCost + total;
       total = totalSaved;
 
       cumulativeTotal = totalSaved - investmentCost;

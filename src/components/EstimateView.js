@@ -654,9 +654,9 @@ export default function EstimateView({ estimateId }) {
 
                 {/* Miljø */}
                 <div className="order-1 lg:order-4 hidden lg:flex flex-col gap-6 text-white">
-                  <h4>
+                  <h5>
                     <strong>Miljø</strong>
-                  </h4>
+                  </h5>
 
                   <div>
                     <p>
@@ -737,7 +737,7 @@ export default function EstimateView({ estimateId }) {
                 </div>
               </div>
 
-              <div className="mx-auto lg:mr-0 flex flex-row gap-4 items-center my-4">
+              <div className="mx-auto lg:mr-0 flex flex-row gap-4 items-center my-12">
                 <img src="/estimate/techIcon.png" className="h-20" />
                 <div>
                   <p className="font-light text-white mb-2">
