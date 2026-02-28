@@ -135,7 +135,7 @@ export default function KjoepsavtaleView({ estimateId }) {
               <div className="mt-5">
                 <label className="text-sm text-gray-700">Firma Navn</label>
                 <p className="mt-1 border-b border-black !text-lg !font-medium">
-                  {estimateData.private}
+                  {estimateData.leads?.company}
                 </p>
               </div>
             )}
@@ -347,7 +347,7 @@ export default function KjoepsavtaleView({ estimateId }) {
               </p>
               {estimateData.private && (
                 <p className="!text-lg mt-2">
-                  Firmanavn: {estimateData.private}
+                  Firmanavn: {estimateData.leads?.company}
                 </p>
               )}
               {estimateData.leads?.org_nr && (
