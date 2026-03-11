@@ -42,10 +42,10 @@ export default function EstimateView({ estimateId }) {
     if (!estimateData) return;
 
     if (estimateData.private) {
-      setElPrice(0.65);
+      //setElPrice(0.65);
       setElNetPrice(0.3);
     } else {
-      setElPrice(0.5);
+      //setElPrice(0.5);
       setElNetPrice(0.62);
     }
   }, [estimateData]);
@@ -56,6 +56,35 @@ export default function EstimateView({ estimateId }) {
   const [widthPercentage, setWidthPercantage] = useState(
     (paymentTime / maxPaymentTime) * 100,
   );
+
+  useEffect(() => {
+    const fetchElectricityPrice = async () => {
+      try {
+        const today = new Date();
+        const year = today.getFullYear();
+        const month = String(today.getMonth() + 1).padStart(2, "0");
+        const day = String(today.getDate()).padStart(2, "0");
+
+        const zone = "NO2"; // endre hvis nødvendig
+
+        const res = await fetch(
+          `https://www.hvakosterstrommen.no/api/v1/prices/${year}/${month}-${day}_${zone}.json`,
+        );
+
+        const data = await res.json();
+
+        // Finn gjennomsnittspris for dagen
+        const avg =
+          data.reduce((sum, h) => sum + h.NOK_per_kWh, 0) / data.length;
+
+        setElPrice(Number(avg.toFixed(2)));
+      } catch (err) {
+        console.error("Kunne ikke hente strømpris", err);
+      }
+    };
+
+    fetchElectricityPrice();
+  }, []);
 
   const [economySummary, setEconomySummary] = useState(null);
 
