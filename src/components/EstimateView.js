@@ -42,10 +42,10 @@ export default function EstimateView({ estimateId }) {
     if (!estimateData) return;
 
     if (estimateData.private) {
-      //setElPrice(0.65);
+      setElPrice(0.65);
       setElNetPrice(0.3);
     } else {
-      //setElPrice(0.5);
+      setElPrice(0.5);
       setElNetPrice(0.62);
     }
   }, [estimateData]);
@@ -57,7 +57,7 @@ export default function EstimateView({ estimateId }) {
     (paymentTime / maxPaymentTime) * 100,
   );
 
-  useEffect(() => {
+  /* useEffect(() => {
     const fetchElectricityPrice = async () => {
       try {
         const today = new Date();
@@ -84,7 +84,7 @@ export default function EstimateView({ estimateId }) {
     };
 
     fetchElectricityPrice();
-  }, []);
+  }, []); */
 
   const [economySummary, setEconomySummary] = useState(null);
 
