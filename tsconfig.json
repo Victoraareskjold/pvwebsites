@@ -27,7 +27,8 @@
     ".next/dev/types/**/*.ts",
     "utils/localstorage.js",
     "src/app/api/estimate/[id]/route.js",
-    "src/app/api/estimate/[id]/sign/route.js"
+    "src/app/api/estimate/[id]/sign/route.js",
+    "src/app/api/leads/create/route.js"
   ],
   "exclude": ["node_modules"]
 }

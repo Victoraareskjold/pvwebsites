@@ -15,7 +15,7 @@ export default function FormModal({ isOpen, onClose }) {
 
   const router = useRouter();
 
-  const sendEmail = (e) => {
+  const sendEmail = async (e) => {
     e.preventDefault();
 
     const formData = new FormData(formRef.current);
@@ -32,26 +32,27 @@ export default function FormModal({ isOpen, onClose }) {
       return;
     }
 
-    setErrorMessage("");
+    await fetch("/api/leads/create", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        site,
+        user_address: address,
+        user_name: name,
+        user_phone: phone,
+        user_email: email,
+        user_equipment: equipment,
+        user_comment: comment,
+        gclid: formData.get("gclid"),
+        fbclid: formData.get("fbclid"),
+        utmCampaign: formData.get("utmCampaign"),
+      }),
+    });
 
-    emailjs
-      .sendForm(
-        process.env.NEXT_PUBLIC_SERVICE_ID,
-        process.env.NEXT_PUBLIC_TEMPLATE_ID,
-        formRef.current,
-        process.env.NEXT_PUBLIC_PUBLIC_KEY,
-      )
-      .then(
-        () => {
-          formRef.current.reset();
-          onClose();
-          router.push("/takk");
-        },
-        (error) => {
-          console.error("Noe gikk galt: ", error.text);
-          setErrorMessage("Noe gikk galt. Prøv igjen.");
-        },
-      );
+    setErrorMessage("");
+    formRef.current.reset();
+    onClose();
+    router.push("/takk");
   };
 
   const equipmentChoice = [
@@ -91,7 +92,7 @@ export default function FormModal({ isOpen, onClose }) {
             "Fyll ut dine detaljer for et uforpliktende tilbud på e-post."}
         </h2>
         <form ref={formRef} onSubmit={sendEmail} className="space-y-4">
-          <input value={config?.title || ""} name="site" hidden readOnly />
+          <input value={config?.site || ""} name="site" hidden readOnly />
           <div className="flex flex-row justify-between w-full gap-2">
             {equipmentChoice.map((choice) => {
               const isSelected = selectedEquipment === choice.label;
