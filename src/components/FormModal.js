@@ -49,6 +49,12 @@ export default function FormModal({ isOpen, onClose }) {
       }),
     });
 
+    emailjs.sendForm(
+      process.env.NEXT_PUBLIC_SERVICE_ID,
+      process.env.NEXT_PUBLIC_TEMPLATE_ID,
+      formRef.current,
+      process.env.NEXT_PUBLIC_PUBLIC_KEY,
+    );
     setErrorMessage("");
     formRef.current.reset();
     onClose();
