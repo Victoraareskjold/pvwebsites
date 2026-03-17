@@ -50,6 +50,7 @@ export async function POST(req) {
         address: user_address,
         phone: user_phone,
         email: user_email,
+        status: 6,
         note: `
 Equipment: ${user_equipment || ""}
 Comment: ${user_comment || ""}
