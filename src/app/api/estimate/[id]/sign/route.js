@@ -13,7 +13,7 @@ export async function POST(req, { params }) {
     }
 
     const body = await req.json();
-    const { leadEmail, createdByEmail } = body;
+    const { leadEmail, createdByEmail, estimateUrl } = body;
 
     const client = createSupabaseAdminClient();
     const estimateId = (await params).id;
