@@ -1,5 +1,4 @@
 import { NextResponse } from "next/server";
-import nodemailer from "nodemailer";
 import { createSupabaseAdminClient } from "../../../../../utils/supabase/client";
 
 export async function POST(req) {
@@ -65,34 +64,6 @@ utmCampaign: ${utmCampaign || ""}
       .single();
 
     if (leadError) throw leadError;
-
-    const { SMTP_HOST, SMTP_PORT, SMTP_USER, SMTP_PASS } = process.env;
-
-    if (!SMTP_HOST || !SMTP_PORT || !SMTP_USER || !SMTP_PASS) {
-      console.error("Missing SMTP env vars");
-      return new NextResponse("Server misconfigured", { status: 500 });
-    }
-
-    const transporter = nodemailer.createTransport({
-      host: SMTP_HOST,
-      port: Number(SMTP_PORT),
-      secure: Number(SMTP_PORT) === 465,
-      auth: {
-        user: SMTP_USER,
-        pass: SMTP_PASS,
-      },
-    });
-
-    await transporter.sendMail({
-      from: `"Soleklart Dashboard" <${SMTP_USER}>`,
-      to: [SMTP_USER].filter(Boolean).join(", "),
-      subject: `Ny lead for ${site}`,
-      html: `
-        <div style="font-family: sans-serif; max-width: 600px;">
-          <p>${user_name} har etterspurt estimat gjennom nettsiden.</p>
-        </div>
-      `,
-    });
 
     return NextResponse.json({ success: true, lead });
   } catch (err) {
