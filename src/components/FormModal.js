@@ -15,8 +15,12 @@ export default function FormModal({ isOpen, onClose }) {
 
   const router = useRouter();
 
+  const [loading, setLoading] = useState(false);
+
   const sendEmail = async (e) => {
     e.preventDefault();
+    if (loading) return;
+    setLoading(true);
 
     const formData = new FormData(formRef.current);
     const site = formData.get("site");
@@ -56,6 +60,7 @@ export default function FormModal({ isOpen, onClose }) {
       process.env.NEXT_PUBLIC_PUBLIC_KEY,
     );
     setErrorMessage("");
+    setLoading(false);
     formRef.current.reset();
     onClose();
     router.push("/takk");
@@ -90,6 +95,7 @@ export default function FormModal({ isOpen, onClose }) {
         <button
           className="absolute top-4 right-4 text-red-500 text-xl"
           onClick={onClose}
+          disabled={loading}
         >
           ×
         </button>
