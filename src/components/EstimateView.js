@@ -12,6 +12,8 @@ import YourSolarFacility2 from "./estimate/YourSolarFacility2";
 import SolarEconomicCalculation from "./estimate/SolarEconomicCalculation";
 import { useSearchParams } from "next/navigation";
 import Link from "next/link";
+import SpotPriceWidget from "./SpotPriceWidget";
+import { calculateKwhCostWithLoan } from "../../utils/calculateKwhCostWithLoan";
 
 export default function EstimateView({ estimateId }) {
   const config = useSiteConfig();
@@ -53,53 +55,10 @@ export default function EstimateView({ estimateId }) {
   const [expectedElPriceIncrease, setExpectedElPriceIncrease] = useState(2.5);
   const [paymentTime, setPaymentTime] = useState(null);
   const maxPaymentTime = 40;
-  const [widthPercentage, setWidthPercantage] = useState(
-    (paymentTime / maxPaymentTime) * 100,
-  );
-
-  /* useEffect(() => {
-    const fetchElectricityPrice = async () => {
-      try {
-        const today = new Date();
-        const year = today.getFullYear();
-        const month = String(today.getMonth() + 1).padStart(2, "0");
-        const day = String(today.getDate()).padStart(2, "0");
-
-        const zone = "NO2"; // endre hvis nødvendig
-
-        const res = await fetch(
-          `https://www.hvakosterstrommen.no/api/v1/prices/${year}/${month}-${day}_${zone}.json`,
-        );
-
-        const data = await res.json();
-
-        // Finn gjennomsnittspris for dagen
-        const avg =
-          data.reduce((sum, h) => sum + h.NOK_per_kWh, 0) / data.length;
-
-        setElPrice(Number(avg.toFixed(2)));
-      } catch (err) {
-        console.error("Kunne ikke hente strømpris", err);
-      }
-    };
-
-    fetchElectricityPrice();
-  }, []); */
 
   const [economySummary, setEconomySummary] = useState(null);
-
-  /* useEffect(() => {
-    if (estimateData?.selected_el_price !== undefined) {
-      setElPrice(estimateData.selected_el_price);
-      setElNetPrice(estimateData.selected_el_price) + 0.5;
-    }
-  }, [estimateData]); */
-
-  useEffect(() => {
-    if (paymentTime) {
-      setWidthPercantage((paymentTime / maxPaymentTime) * 100);
-    }
-  }, [paymentTime]);
+  const [totalProduction30Years, setTotalProduction30Years] = useState(0);
+  const [inverterReplacementCost, setInverterReplacementCost] = useState(0);
 
   if (loading || !estimateData) {
     return (
@@ -108,10 +67,6 @@ export default function EstimateView({ estimateId }) {
       </div>
     );
   }
-
-  const panelType = estimateData?.selected_panel_type;
-  const match = panelType?.match(/\d+/);
-  const watt = match ? Number(match[0]) : 0;
 
   const formatValue = (number) =>
     number.toLocaleString("nb-NO", {
@@ -158,6 +113,29 @@ export default function EstimateView({ estimateId }) {
   };
 
   const percentOf40 = (years) => (years / maxPaymentTime) * 100;
+
+  const investmentCost = estimateData?.private
+    ? estimateData?.price_data?.total || 0
+    : Number(estimateData?.price_data?.["total inkl. alt"]) -
+        Number(enovaSupport()) || 0;
+
+  const solarCostPerKwh =
+    totalProduction30Years > 0
+      ? (investmentCost + inverterReplacementCost) / totalProduction30Years
+      : 0;
+
+  const futureGridPrice =
+    (elPrice + elNetPrice) * Math.pow(1 + expectedElPriceIncrease / 100, 30);
+
+  const totalProduction30 = estimateData.yearly_prod * 30;
+
+  const solarCostWithLoan = estimateData?.yearly_prod
+    ? calculateKwhCostWithLoan(
+        totalProduction30,
+        investmentCost,
+        investmentCost,
+      )
+    : 0;
 
   return (
     <main className="min-h-screen estimateStylingSheet">
@@ -220,7 +198,7 @@ export default function EstimateView({ estimateId }) {
             <div className="w-full h-1 bg-slate-300 rounded-full mt-12" />
           </section> */}
 
-          <div className="flex flex-col lg:grid lg:grid-cols-2 sectionContainer bg-[#FFF0CD] rounded-md gap-12">
+          <div className="flex flex-col sectionContainer bg-[#FFF0CD] rounded-md gap-12">
             {/* Strømpris og besparelse */}
             <div className="w-full">
               <div className="flex flex-col gap-4">
@@ -228,25 +206,186 @@ export default function EstimateView({ estimateId }) {
                   <strong>Produksjon og besparelse</strong>
                 </h5>
                 <h2>
-                  Det er umulig å beregne helt nøyaktig hvor mye man vil spare
-                  med solceller siden strømprisene svinger, men trenden viser at
-                  de sannsynligvis vil stige over tid. Med en effektgaranti på
-                  30 år har vi laget et regnestykke som inkluderer strømpris,
-                  nettleie, forventet prisvekst, vedlikeholds- og
-                  erstatningskostnader, samt naturlig degradering og årlig
-                  produksjon. Dette gir et realistisk bilde av hva du kan tjene
-                  eller spare over anleggets levetid. Nedenfor finner du slidere
-                  med våre anbefalte verdier, men du kan enkelt justere tallene
-                  etter egne forutsetninger og se hvordan regnestykket endrer
-                  seg.
+                  Dette solcelleanlegget produserer strøm til ca.{" "}
+                  <span className="font-bold">
+                    {solarCostPerKwh.toFixed(2)} kr/kWh
+                  </span>
+                  .
+                </h2>
+                <h2>
+                  Sammenlignet med ca.{" "}
+                  <span className="font-bold">
+                    {(elPrice + elNetPrice).toFixed(2)} kr/kWh
+                  </span>{" "}
+                  som du betaler i dag for strøm fra nettet, inkludert både
+                  strømpris og nettleie.
                 </h2>
               </div>
+            </div>
 
-              <div className="gap-8 mt-12 flex flex-col">
+            <section className="w-full flex flex-row gap-8 !p-0">
+              <div className="flex flex-col justify-between w-full">
+                <div className="bg-[#B6FFBE] p-2 rounded-sm">
+                  <h1>
+                    <strong>
+                      Årsproduksjon fra solcelleanlegget:
+                      <br />
+                      <strong>
+                        {formatValue(
+                          Number(estimateData?.yearly_prod?.toFixed(0)),
+                        )}{" "}
+                        kWh
+                      </strong>
+                    </strong>
+                  </h1>
+                </div>
+                <div className="bg-[#B6FFBE] p-2 rounded-sm">
+                  <h1>
+                    <strong>
+                      Pris per kWh fra solcelleanlegget:
+                      <br />
+                      <strong>{solarCostPerKwh.toFixed(2)} kr/kWh</strong>
+                    </strong>
+                  </h1>
+                </div>
+                <div className="bg-[#B6FFBE] p-2 rounded-sm">
+                  <h1>
+                    <strong>
+                      Pris per kWh med lån(10%, 5 år):
+                      <br />
+                      <strong>{solarCostWithLoan.toFixed(2)} kr/kWh</strong>
+                    </strong>
+                  </h1>
+                </div>
+                <div className="bg-[#FBFFB6] p-2 rounded-sm">
+                  <h1>
+                    <strong>
+                      Pris på strøm du kjøper fra nettet:
+                      <br />
+                      <strong>
+                        {(elPrice + elNetPrice).toFixed(2)} kr/kWh
+                      </strong>
+                    </strong>
+                  </h1>
+                </div>
+              </div>
+              <div className="flex flex-col justify-between w-full p-4 rounded-lg shadow-lg bg-white pb-8">
                 <div>
                   <p className="fatP">
-                    Strømpris per kWh: <strong>{elPrice} kr/kWh</strong>
+                    Nedbetalingstid (estimert):{" "}
+                    <span className="font-extrabold text-lg">
+                      {paymentTime} år
+                    </span>
                   </p>
+                  <div
+                    style={{ width: `${percentOf40(paymentTime)}%` }}
+                    className="bg-green-300 border border-green-800 rounded-xl h-10"
+                  ></div>
+                </div>
+
+                <div>
+                  <p className="">
+                    Produktgaranti solcellepaneler:{" "}
+                    <span className="font-medium text-md">25 år</span>
+                  </p>
+                  <div
+                    className="bg-orange-200 border border-orange-300 rounded-xl h-10"
+                    style={{ width: `${percentOf40(25)}%` }}
+                  ></div>
+                </div>
+
+                <div>
+                  <p className="">
+                    Effektgaranti solcellepaneler:{" "}
+                    <span className="font-medium text-md">30 år</span>
+                  </p>
+                  <div
+                    className="bg-orange-300 border border-orange-400 rounded-xl h-10"
+                    style={{ width: `${percentOf40(30)}%` }}
+                  ></div>
+                </div>
+
+                <div>
+                  <p className="">
+                    Forventet levetid:{" "}
+                    <span className="font-medium text-md">40+ år</span>
+                  </p>
+                  <div
+                    className="border rounded-xl h-10 relative"
+                    style={{
+                      width: "calc(100% - 24px)",
+                      backgroundColor: "#FF9C06",
+                    }}
+                  >
+                    <img
+                      src="/estimate/sun.png"
+                      className="absolute right-[-40px] top-[12px] -translate-y-1/2 w-20"
+                      alt="Sol"
+                    />
+                  </div>
+                </div>
+              </div>
+              <div className="flex flex-col gap-4 justify-between w-[550px]">
+                <EstimatePricingInfo
+                  image={"/estimate/icon1.png"}
+                  number={`${formatValue(
+                    economySummary?.totalSavings30Years || 0,
+                  )} kr`}
+                  text={"Total besparing for ditt anlegg over 30 år."}
+                />
+
+                <EstimatePricingInfo
+                  image={"/estimate/icon2.png"}
+                  number={`${formatValue(
+                    economySummary?.averageYearlySavings || 0,
+                  )} kr`}
+                  text={"Gjennomsnittlig årlig besparelse"}
+                />
+              </div>
+            </section>
+
+            <div className="flex flex-col gap-4">
+              <h2>
+                Solstrøm fra anlegget:{" "}
+                <span className="font-bold">
+                  {solarCostPerKwh.toFixed(2)} kr/kWh
+                </span>
+              </h2>
+              <h2>
+                Strøm fra nettet i dag:{" "}
+                <span className="font-bold">
+                  {(elPrice + elNetPrice).toFixed(2)} kr/kWh
+                </span>
+              </h2>
+              <h2>
+                Forskjell:{" "}
+                <span className="font-bold">
+                  {(elPrice + elNetPrice - solarCostPerKwh).toFixed(2)} kr/kWh
+                </span>
+              </h2>
+              <h2 className="my-4">
+                Ser vi på hele effektgaranti perioden på{" "}
+                <span className="font-bold">30 år</span>, og tar med service,
+                vedlikehold og komponentbytter, ender energikostnaden fra dette
+                solcelleanlegget på{" "}
+                <span className="font-bold">
+                  {solarCostPerKwh.toFixed(2)} kr
+                </span>{" "}
+                per kWh. Strømprisen fra nettet varierer derimot over tid, og
+                ingen vet nøyaktig hva den vil være neste år eller årene
+                fremover. Under kan du selv justere sliderne for
+                strømpris/nettleie/vekst og se hvordan regnestykket endrer seg
+                direkte.
+              </h2>
+            </div>
+
+            <section className="!p-0 flex flex-row gap-8">
+              <div className="flex flex-col gap-12 w-full max-w-md">
+                <div>
+                  <h2 className="fatP">
+                    Strømpris per kWh:{" "}
+                    <strong className="font-bold">{elPrice} kr/kWh</strong>
+                  </h2>
                   <input
                     className="w-full"
                     type="range"
@@ -259,9 +398,10 @@ export default function EstimateView({ estimateId }) {
                 </div>
 
                 <div>
-                  <p className="fatP">
-                    Nettleie per kWh: <strong>{elNetPrice} kr/kWh</strong>
-                  </p>
+                  <h2 className="fatP">
+                    Nettleie per kWh:{" "}
+                    <strong className="font-bold">{elNetPrice} kr/kWh</strong>
+                  </h2>
                   <input
                     className="w-full"
                     type="range"
@@ -274,10 +414,12 @@ export default function EstimateView({ estimateId }) {
                 </div>
 
                 <div>
-                  <p className="fatP">
+                  <h2 className="fatP">
                     Forventet årlig prisvekt på strøm:{" "}
-                    <strong>{expectedElPriceIncrease} %</strong>
-                  </p>
+                    <strong className="font-bold">
+                      {expectedElPriceIncrease} %
+                    </strong>
+                  </h2>
                   <input
                     className="w-full"
                     type="range"
@@ -291,98 +433,29 @@ export default function EstimateView({ estimateId }) {
                   />
                 </div>
               </div>
-            </div>
+              <div className="w-full">
+                <SpotPriceWidget setElPrice={setElPrice} site={config.site} />
+              </div>
+            </section>
 
-            <div className="flex flex-col w-full gap-8">
-              <section className="w-full !p-0">
-                <div className="bg-green-200 p-2 mt-8 rounded-lg">
-                  <h1>
-                    <strong>
-                      Forventet årlig produksjon fra anlegget:{" "}
-                      <strong>
-                        {formatValue(
-                          Number(estimateData?.yearly_prod?.toFixed(0)),
-                        )}{" "}
-                        kWh per år.
-                      </strong>
-                    </strong>
-                  </h1>
-                </div>
-                <div className="flex flex-col gap-4 mt-6 p-4 rounded-lg shadow-lg bg-white pb-8">
-                  <div>
-                    <p className="fatP">
-                      Nedbetalingstid (estimert):{" "}
-                      <span className="font-extrabold text-lg">
-                        {paymentTime} år
-                      </span>
-                    </p>
-                    <div
-                      style={{ width: `${percentOf40(paymentTime)}%` }}
-                      className="bg-green-300 border border-green-800 rounded-xl h-10"
-                    ></div>
-                  </div>
-
-                  <div>
-                    <p className="">
-                      Produktgaranti solcellepaneler:{" "}
-                      <span className="font-medium text-md">25 år</span>
-                    </p>
-                    <div
-                      className="bg-orange-200 border border-orange-300 rounded-xl h-10"
-                      style={{ width: `${percentOf40(25)}%` }}
-                    ></div>
-                  </div>
-
-                  <div>
-                    <p className="">
-                      Effektgaranti solcellepaneler:{" "}
-                      <span className="font-medium text-md">30 år</span>
-                    </p>
-                    <div
-                      className="bg-orange-300 border border-orange-400 rounded-xl h-10"
-                      style={{ width: `${percentOf40(30)}%` }}
-                    ></div>
-                  </div>
-
-                  <div>
-                    <p className="">
-                      Forventet levetid:{" "}
-                      <span className="font-medium text-md">40+ år</span>
-                    </p>
-                    <div
-                      className="border rounded-xl h-10 relative"
-                      style={{
-                        width: "calc(100% - 24px)",
-                        backgroundColor: "#FF9C06",
-                      }}
-                    >
-                      <img
-                        src="/estimate/sun.png"
-                        className="absolute right-[-40px] top-[12px] -translate-y-1/2 w-20"
-                        alt="Sol"
-                      />
-                    </div>
-                  </div>
-                </div>
-                <div className="grid grid-cols-2 justify-between gap-4 mt-12">
-                  <EstimatePricingInfo
-                    image={"/estimate/icon1.png"}
-                    number={`${formatValue(
-                      economySummary?.totalSavings30Years || 0,
-                    )} kr`}
-                    text={"Total besparing for ditt anlegg over 30 år."}
-                  />
-
-                  <EstimatePricingInfo
-                    image={"/estimate/icon2.png"}
-                    number={`${formatValue(
-                      economySummary?.averageYearlySavings || 0,
-                    )} kr`}
-                    text={"Gjennomsnittlig årlig besparelse"}
-                  />
-                </div>
-              </section>
-            </div>
+            <h2>
+              Med en forventet årlig prisvekst på strøm på{" "}
+              <span className="font-bold">{expectedElPriceIncrease} %</span> vil
+              en strømpris på{" "}
+              <span className="font-bold">
+                {(elPrice + elNetPrice).toFixed(2)} kr/kWh
+              </span>{" "}
+              i dag tilsvare omtrent{" "}
+              <span className="font-bold">
+                {futureGridPrice.toFixed(2)} kr/kWh
+              </span>{" "}
+              om 30 år, mens strømmen fra dette solcelleanlegget produseres til
+              ca.{" "}
+              <span className="font-bold">
+                {solarCostPerKwh.toFixed(2)} kr/kWh
+              </span>{" "}
+              over hele levetiden.
+            </h2>
 
             <SolarEconomicCalculation
               yearlyProduction={estimateData?.yearly_prod || 0}
@@ -405,6 +478,8 @@ export default function EstimateView({ estimateId }) {
                     ? data
                     : prev,
                 );
+                setTotalProduction30Years(data.totalProduction30Years);
+                setInverterReplacementCost(data.inverterReplacementCost);
               }}
             />
           </div>

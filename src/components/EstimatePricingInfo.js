@@ -1,6 +1,6 @@
 export default function EstimatePricingInfo({ image, number, text }) {
   return (
-    <div className="bg-white shadow-lg rounded-xl w-full px-4 py-8 justify-center flex flex-col">
+    <div className="bg-white shadow-lg rounded-xl w-full px-2 py-4 justify-center flex flex-col">
       <img
         src={image || "/search.png"}
         className="h-16 w-16 self-center object-contain"

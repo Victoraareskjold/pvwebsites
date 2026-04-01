@@ -74,14 +74,31 @@ export default function SolarEconomicCalculation({
     return found ? found.year : null;
   }, [yearlyData]);
 
+  const totalProduction30Years = useMemo(() => {
+    return yearlyData.reduce((sum, row) => sum + row.production, 0);
+  }, [yearlyData]);
+
+  const inverterReplacementCost = useMemo(() => {
+    const row = yearlyData.find((r) => r.replacementCost > 0);
+    return row ? row.replacementCost : 0;
+  }, [yearlyData]);
+
   useEffect(() => {
     if (onPaybackCalculated && summary) {
       onPaybackCalculated({
         paybackYear,
+        totalProduction30Years,
+        inverterReplacementCost,
         ...summary,
       });
     }
-  }, [paybackYear, summary, onPaybackCalculated]);
+  }, [
+    paybackYear,
+    summary,
+    onPaybackCalculated,
+    inverterReplacementCost,
+    totalProduction30Years,
+  ]);
 
   const formatValue = (number) =>
     number.toLocaleString("nb-NO", {
