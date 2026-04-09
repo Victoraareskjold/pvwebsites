@@ -6,6 +6,8 @@ export default {
 
   legal: "Minel Elmontasje Elverum",
 
+  solarLocation: "NO1",
+
   logo: "/minelsol/minellogo.png",
 
   favicon: "/minelsol/favicon.ico",

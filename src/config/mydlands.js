@@ -6,6 +6,8 @@ export default {
 
   legal: "Mydlands Elektriske AS",
 
+  solarLocation: "NO2",
+
   logo: "/mydlands/logo.png",
 
   favicon: "/mydlands/favicon.ico",

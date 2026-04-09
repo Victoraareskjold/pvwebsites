@@ -46,21 +46,17 @@ function fmtHour(isoString) {
 // prices from API are ex-MVA — multiply by 1.25 to include 25% MVA
 const WITH_MVA = 1.25;
 
-const SITE_TO_ZONE = {
-  lynelektrosol: "NO1",
-};
-
-export default function SpotPriceWidget({ setElPrice, site }) {
+export default function SpotPriceWidget({ setElPrice, site, solarLocation }) {
   const [zone, setZone] = useState("NO1");
   const [prices, setPrices] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    if (site && SITE_TO_ZONE[site]) {
-      setZone(SITE_TO_ZONE[site]);
+    if (site && solarLocation) {
+      setZone(solarLocation);
     }
-  }, [site]);
+  }, [site, solarLocation]);
 
   useEffect(() => {
     async function fetchPrices() {

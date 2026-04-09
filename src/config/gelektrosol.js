@@ -6,6 +6,8 @@ export default {
 
   legal: "Gardermoen Elektro AS",
 
+  solarLocation: "NO1",
+
   logo: "/gardermoenelektro/logo.png",
 
   favicon: "/gardermoenelektro/favicon.ico",

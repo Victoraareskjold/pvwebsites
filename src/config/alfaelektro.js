@@ -2,6 +2,7 @@
 export default {
   title: "Alfa Elektro Sol",
   legal: "Alfa Elektro AS",
+  solarLocation: "NO3",
   site: "alfaelektrosol",
   logo: "/alfaelektro/alfaelektroLogo.png",
   favicon: "/alfaelektro/favicon.ico",

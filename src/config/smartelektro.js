@@ -6,6 +6,8 @@ export default {
 
   legal: "Smart Elektro AS",
 
+  solarLocation: "NO1",
+
   logo: "/smartelektro/logo.png",
 
   favicon: "/smartelektro/favicon.ico",

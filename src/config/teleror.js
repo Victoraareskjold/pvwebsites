@@ -6,6 +6,8 @@ export default {
 
   legal: "Telerør Elektro AS",
 
+  solarLocation: "NO2",
+
   logo: "/teleror/logo.png",
 
   favicon: "/teleror/favicon.ico",
