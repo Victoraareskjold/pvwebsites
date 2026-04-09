@@ -437,7 +437,7 @@ export default function EstimateView({ estimateId }) {
                 <SpotPriceWidget
                   setElPrice={setElPrice}
                   site={config.site}
-                  location={config.solarLocation}
+                  solarLocation={config.solarLocation}
                 />
               </div>
             </section>
