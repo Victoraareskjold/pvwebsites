@@ -223,8 +223,8 @@ export default function EstimateView({ estimateId }) {
               </div>
             </div>
 
-            <section className="w-full flex flex-row gap-8 !p-0">
-              <div className="flex flex-col justify-between w-full">
+            <section className="w-full flex flex-col lg:flex-row gap-8 !p-0">
+              <div className="flex flex-col gap-3 w-full">
                 <div className="bg-[#B6FFBE] p-2 rounded-sm">
                   <h1>
                     <strong>
@@ -269,7 +269,7 @@ export default function EstimateView({ estimateId }) {
                   </h1>
                 </div>
               </div>
-              <div className="flex flex-col justify-between w-full p-4 rounded-lg shadow-lg bg-white pb-8">
+              <div className="flex flex-col justify-between w-full p-4 rounded-lg shadow-lg bg-white pb-8 gap-6">
                 <div>
                   <p className="fatP">
                     Nedbetalingstid (estimert):{" "}
@@ -325,7 +325,7 @@ export default function EstimateView({ estimateId }) {
                   </div>
                 </div>
               </div>
-              <div className="flex flex-col gap-4 justify-between w-[550px]">
+              <div className="flex flex-col gap-4 justify-between w-full lg:w-[550px]">
                 <EstimatePricingInfo
                   image={"/estimate/icon1.png"}
                   number={`${formatValue(
@@ -379,8 +379,8 @@ export default function EstimateView({ estimateId }) {
               </h2>
             </div>
 
-            <section className="!p-0 flex flex-row gap-8">
-              <div className="flex flex-col gap-12 w-full max-w-md">
+            <section className="!p-0 flex flex-col lg:flex-row gap-8">
+              <div className="flex flex-col gap-12 w-full lg:max-w-md">
                 <div>
                   <h2 className="fatP">
                     Strømpris per kWh:{" "}
