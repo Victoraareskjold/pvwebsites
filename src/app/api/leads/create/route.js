@@ -50,6 +50,7 @@ export async function POST(req) {
         phone: user_phone,
         email: user_email,
         status: 6,
+        lead_source: gclid ? "google" : fbclid ? "facebook" : null,
         note: `
 Equipment: ${user_equipment || ""}
 Comment: ${user_comment || ""}
