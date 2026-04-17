@@ -36,7 +36,7 @@ export default function FormModal({ isOpen, onClose }) {
       return;
     }
 
-    await fetch("/api/leads/create", {
+    const res = await fetch("/api/leads/create", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
@@ -52,6 +52,13 @@ export default function FormModal({ isOpen, onClose }) {
         utmCampaign: formData.get("utmCampaign"),
       }),
     });
+
+    if (!res.ok) {
+      const err = await res.json().catch(() => ({}));
+      setErrorMessage(err.error || "Noe gikk galt. Prøv igjen.");
+      setLoading(false);
+      return;
+    }
 
     emailjs.sendForm(
       process.env.NEXT_PUBLIC_SERVICE_ID,
