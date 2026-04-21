@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { getLocalStorage } from "../../../../utils/localstorage";
 
 export default function SolkartClient({ site }) {
-  const [query, setQuery] = useState("");
+  const [query, setQuery] = useState(null);
 
   useEffect(() => {
     const gclid = getLocalStorage("gclid") ?? "";
@@ -23,12 +23,14 @@ export default function SolkartClient({ site }) {
 
   return (
     <div style={{ backgroundColor: "#1E1E1E" }} className="h-full">
-      <iframe
-        src={`https://pvmap.vercel.app/?${query}`}
-        className="h-full lg:!pb-0"
-        width="100%"
-        style={{ paddingTop: "86px" }}
-      />
+      {query !== null && (
+        <iframe
+          src={`https://pvmap.vercel.app/?${query}`}
+          className="h-full lg:!pb-0"
+          width="100%"
+          style={{ paddingTop: "86px" }}
+        />
+      )}
     </div>
   );
 }
