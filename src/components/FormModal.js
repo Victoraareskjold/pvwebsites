@@ -24,15 +24,16 @@ export default function FormModal({ isOpen, onClose }) {
 
     const formData = new FormData(formRef.current);
     const site = formData.get("site");
-    const address = formData.get("user_address");
-    const name = formData.get("user_name");
-    const phone = formData.get("user_phone");
-    const email = formData.get("user_email");
+    const address = formData.get("user_address")?.trim();
+    const name = formData.get("user_name")?.trim();
+    const phone = formData.get("user_phone")?.trim();
+    const email = formData.get("user_email")?.trim();
     const equipment = formData.get("user_equipment");
     const comment = formData.get("user_comment");
 
     if (!address || !name || !email || !phone || !equipment) {
       setErrorMessage("Alle felt må fylles ut!");
+      setLoading(false);
       return;
     }
 

@@ -16,7 +16,7 @@ export async function POST(req) {
       fbclid,
       utmCampaign,
     } = body;
-    if (!user_address || !user_name || !user_phone || !user_email) {
+    if (!user_address?.trim() || !user_name?.trim() || !user_phone?.trim() || !user_email?.trim()) {
       return NextResponse.json(
         { error: "Missing required fields" },
         { status: 400 },
