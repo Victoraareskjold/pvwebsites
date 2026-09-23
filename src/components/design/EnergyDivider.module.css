@@ -1,0 +1,40 @@
+/* A decorative energy divider. No script, images or third-party packages. */
+.divider {
+  --energy-speed: 28s;
+  position: absolute;
+  inset-inline: 0;
+  height: 64px;
+  z-index: 3;
+  pointer-events: none;
+  user-select: none;
+  /* Keep overflow local; the parent section should allow the glow to spill. */
+  overflow: hidden;
+  contain: layout style;
+}
+.top { top: -32px; }
+.bottom { bottom: -32px; }
+.divider::before {
+  content: '';
+  position: absolute;
+  inset: 16px 0;
+  background: linear-gradient(180deg, transparent, #e9801310 23%, #f7a52b29 48%, #e98e1c17 60%, transparent);
+  opacity: .7;
+}
+.divider svg { display: block; width: 100%; height: 64px; overflow: hidden; }
+.rail { stroke: #d99544; stroke-opacity: .4; stroke-width: .6; }
+.ribbon {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: se-energy-flow var(--energy-speed) linear infinite;
+}
+.ribbonA { animation-delay: -8s; }
+.ribbonB { animation-duration: calc(var(--energy-speed) * 1.2); animation-delay: -16s; }
+.ribbonC { animation-duration: calc(var(--energy-speed) * 1.45); animation-delay: -23s; }
+.reverse .ribbon { animation-direction: reverse; }
+.halo { stroke-width: 8; opacity: .62; filter: blur(5px); }
+.body { stroke-width: 1.8; opacity: .94; }
+.core { stroke-width: 1.1; opacity: .95; }
+.filament { stroke-width: .7; opacity: .45; }
+.paused .ribbon { animation-play-state: paused; }
+@keyframes se-energy-flow { from { transform: translateX(-50%); } to { transform: translateX(0); } }
+@media (prefers-reduced-motion: reduce) { .ribbon { animation: none; } }

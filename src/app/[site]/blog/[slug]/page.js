@@ -27,5 +27,5 @@ export default async function BlogPost({ params }) {
     );
   }
 
-  return <BlogPostClient blog={blog} content={content} site={site} />;
+  return <BlogPostClient blog={blog} content={content} />;
 }

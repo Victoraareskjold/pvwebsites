@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="72" height="72" viewBox="0 0 72 72" fill="none">
+  <title>Batteri</title>
+  <circle cx="36" cy="36" r="31" fill="#EAF9F1"/>
+  <rect x="28" y="9" width="16" height="7" rx="3" fill="#263D57"/>
+  <rect x="17" y="13" width="38" height="48" rx="10" fill="#FFFFFF" stroke="#263D57" stroke-width="2.2"/>
+  <rect x="22" y="19" width="28" height="36" rx="7" fill="#42CA89"/>
+  <path d="m38.5 25-9 14h7l-3 10 10-16h-7l2-8Z" fill="#FFFFFF" stroke="#FFFFFF" stroke-linejoin="round"/>
+  <path d="M27 55h18" stroke="#16945D" stroke-width="1.6" stroke-linecap="round" opacity=".55"/>
+</svg>

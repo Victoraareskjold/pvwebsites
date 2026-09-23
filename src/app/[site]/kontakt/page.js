@@ -1,27 +1,35 @@
 "use client";
-import { useSiteConfig } from "../../../contexts/siteConfigContext";
-import emailjs from "@emailjs/browser";
-import { useRouter } from "next/navigation";
+
+/**
+ * Kontaktskjema. Samme innsending som før (EmailJS + /takk) – bare
+ * innrammingen er byttet til designmalen.
+ */
+
 import { useRef, useState } from "react";
+import { useRouter } from "next/navigation";
+import emailjs from "@emailjs/browser";
+
+import { useSiteConfig } from "../../../contexts/siteConfigContext";
 import { getLocalStorage } from "../../../../utils/localstorage";
+import { ContactSection } from "../../../components/design/Sections";
+import { ArrowRight, MessageCircle } from "../../../components/design/icons";
 
 export default function Contact() {
-  const config = useSiteConfig();
-  const formRef = useRef();
-  const [errorMessage, setErrorMessage] = useState("");
+  const config = useSiteConfig() || {};
+  const formRef = useRef(null);
   const router = useRouter();
+  const [errorMessage, setErrorMessage] = useState("");
 
   const sendEmail = (e) => {
     e.preventDefault();
 
     const formData = new FormData(formRef.current);
-    const name = formData.get("user_name");
-    const email = formData.get("user_email");
-    const phone = formData.get("user_phone");
-    const message = formData.get("user_comment");
-    const site = formData.get("site");
-
-    if (!name || !email || !phone || !message) {
+    if (
+      !formData.get("user_name") ||
+      !formData.get("user_email") ||
+      !formData.get("user_phone") ||
+      !formData.get("user_comment")
+    ) {
       setErrorMessage("Alle felt må fylles ut!");
       return;
     }
@@ -37,78 +45,65 @@ export default function Contact() {
       )
       .then(
         () => {
-          console.log("SUCCESS!");
           formRef.current.reset();
           router.push("/takk");
         },
-        (error) => {
-          console.error("FAILED...", error);
-          setErrorMessage("Noe gikk galt. Prøv igjen.");
-        },
+        () => setErrorMessage("Noe gikk galt. Prøv igjen."),
       );
   };
 
   return (
-    <div
-      className={`py-24 min-h-screen px-12 justify-center flex flex-col ${
-        config.site === "MinelSol" ? "bg-[#1C0E52]" : "bg-regularOrange"
-      } text-black`}
-    >
-      <form
-        ref={formRef}
-        onSubmit={sendEmail}
-        className={`flex-col flex max-w-96 m-auto w-full ${
-          config.site === "MinelSol" ? "text-white" : ""
-        }`}
-      >
-        <h3 className="mb-4">Kontakt oss</h3>
-        <p className="mb-8">
-          Ta kontakt med oss dersom det er noe du lurer på, også kommer vi
-          tilbake til deg så fort vi har tid!
-        </p>
-        <input
-          value={config.title || "undefined"}
-          name="site"
-          readOnly
-          hidden
-        />
-        <label>Navn</label>
-        <input type="text" name="user_name" className="inputLabel" required />
-        <br />
-        <label>E-post</label>
-        <input type="email" name="user_email" className="inputLabel" required />
-        <br />
-        <label>Telefon</label>
-        <input type="tel" name="user_phone" className="inputLabel" required />
-        <br />
-        <label>Beskjed</label>
-        <textarea name="user_comment" className="inputLabel" required />
-        <br />
+    <main id="main" className="ds">
+      <section className="section">
+        <div className="wrap" style={{ maxWidth: 640 }}>
+          <span className="eyebrow">
+            <MessageCircle size={17} />
+            VI ER BARE EN PRAT UNNA
+          </span>
+          <h2>Kontakt oss</h2>
+          <p className="section-lead" style={{ marginBottom: 28 }}>
+            Ta kontakt dersom det er noe du lurer på, så kommer vi tilbake til deg så fort vi kan.
+          </p>
 
-        {errorMessage && <p className="text-red-500">{errorMessage}</p>}
-        <button
-          type="submit"
-          value="Send"
-          className="bg-white p-2 mt-8 rounded-md text-black w-full flex flex-row gap-2 justify-center hover:!bg-black hover:!text-white duration-500 self-center"
-        >
-          Send
-        </button>
-        <input
-          type="hidden"
-          name="gclid"
-          value={getLocalStorage("gclid") ?? ""}
-        />
-        <input
-          type="hidden"
-          name="fbclid"
-          value={getLocalStorage("fbclid") ?? ""}
-        />
-        <input
-          type="hidden"
-          name="utmCampaign"
-          value={getLocalStorage("utmCampaign") ?? ""}
-        />
-      </form>
-    </div>
+          <form ref={formRef} onSubmit={sendEmail} className="contact-form">
+            <input type="hidden" name="site" value={config.title || ""} readOnly />
+
+            <div className="form-grid">
+              <label>
+                Navn
+                <input type="text" name="user_name" autoComplete="name" required />
+              </label>
+              <label>
+                E-post
+                <input type="email" name="user_email" autoComplete="email" required />
+              </label>
+            </div>
+
+            <label>
+              Telefon
+              <input type="tel" name="user_phone" autoComplete="tel" required />
+            </label>
+
+            <label>
+              Beskjed
+              <textarea name="user_comment" rows={4} required />
+            </label>
+
+            {errorMessage && <p className="input-error">{errorMessage}</p>}
+
+            <button type="submit" className="btn btn-solar full">
+              Send
+              <ArrowRight size={18} />
+            </button>
+
+            <input type="hidden" name="gclid" value={getLocalStorage("gclid") ?? ""} readOnly />
+            <input type="hidden" name="fbclid" value={getLocalStorage("fbclid") ?? ""} readOnly />
+            <input type="hidden" name="utmCampaign" value={getLocalStorage("utmCampaign") ?? ""} readOnly />
+          </form>
+        </div>
+      </section>
+
+      <ContactSection />
+    </main>
   );
 }

@@ -20,10 +20,26 @@ export default {
   primary: "#FFC069",
   secondary: "#D3A45E",
 
+  // Logoen er varm gul med grønt – mørke flater får en varm, grønnlig tone.
+  // Oransje beholdes som merkefarge for solenergi.
+  theme: {
+    inkDeep: "#152513",
+    inkDeepHover: "#2c4527",
+    surfaceTopbar: "#0e1c0d",
+    surfacePanel: "#1a2f17",
+    surfacePanel2: "#20391c",
+    surfaceDeepStrong: "#152513eb",
+    localSurface: "#182a15",
+    heroRgb: "14,28,13",
+  },
+
   primaryGradient: {
     bg: "linear-gradient(90deg, #FF9D00 23%, #FFD05A 92%)",
     textColor: "black",
   },
+
+  // Området vises i toppfeltet, hero og seksjonen om lokal installatør.
+  region: "Romerike",
 
   hero: {
     header: "SOLCELLER ROMERIKE",
@@ -57,6 +73,7 @@ export default {
   solar: { header: "SOLCELLER ROMERIKE" },
 
   footer: {
+    phone: "+47 458 71 718",
     email: "asbjorn.roed@gelektro.no",
     organizationNumber: "991277943",
     address: "Elektrovegen 2, 2069 Jessheim",

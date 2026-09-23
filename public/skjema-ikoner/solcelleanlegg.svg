@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="72" height="72" viewBox="0 0 72 72" fill="none">
+  <title>Solcelleanlegg</title>
+  <circle cx="36" cy="36" r="31" fill="#FFF3D8"/>
+  <g stroke="#FFB230" stroke-width="2.2" stroke-linecap="round">
+    <path d="M53 8v3M53 25v3M43 18h-3M66 18h-3M46 11l-2-2M62 27l-2-2M60 11l2-2M44 27l2-2"/>
+  </g>
+  <circle cx="53" cy="18" r="6.5" fill="#FFB230"/>
+  <g transform="rotate(-5 34 42)">
+    <rect x="13" y="29" width="42" height="25" rx="4.5" fill="#263D57"/>
+    <path d="M27 29v25M41 29v25M13 37.3h42M13 45.7h42" stroke="#7897B7" stroke-width="1.35"/>
+    <rect x="14" y="30" width="40" height="23" rx="3.5" stroke="#15283D" stroke-width="1.5"/>
+  </g>
+  <path d="M33 55v5M26 61h14" stroke="#263D57" stroke-width="2.6" stroke-linecap="round"/>
+</svg>
