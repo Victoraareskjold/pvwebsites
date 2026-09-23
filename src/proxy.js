@@ -3,8 +3,6 @@ import { NextResponse } from "next/server";
 const HOST_TO_SITE_MAP = {
   "www.lynelektrosol.no": "lynelektrosol",
   "lynelektrosol.no": "lynelektrosol",
-  "www.vestelektrosol.no": "vestelektrosol",
-  "vestelektrosol.no": "vestelektrosol",
   "www.alfaelektrosol.no": "alfaelektrosol",
   "alfaelektrosol.no": "alfaelektrosol",
   "www.gelektrosol.no": "gelektrosol",
@@ -18,7 +16,9 @@ const HOST_TO_SITE_MAP = {
   "www.mydlandselektriskesol.no": "mydlandselektriskesol",
   "mydlandselektriskesol.no": "mydlandselektriskesol",
   // Add localhost for local development, pointing to a default site
-  "localhost:3000": "lynelektrosol",
+  "localhost:3000": "smartelektrosol",
+  "cd47-2a01-799-da4-5b01-f934-2326-b3b6-ccb9.ngrok-free.app":
+    "smartelektrosol",
 };
 
 export function proxy(request) {

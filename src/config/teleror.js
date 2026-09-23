@@ -18,6 +18,19 @@ export default {
   primary: "#FFC069",
   secondary: "#D3A45E",
 
+  // Logoen er sort med oransje – mørke flater får grafittone.
+  // Oransje beholdes som merkefarge for solenergi.
+  theme: {
+    inkDeep: "#15191c",
+    inkDeepHover: "#333b40",
+    surfaceTopbar: "#0f1214",
+    surfacePanel: "#1b2126",
+    surfacePanel2: "#212930",
+    surfaceDeepStrong: "#15191ceb",
+    localSurface: "#171d21",
+    heroRgb: "15,18,20",
+  },
+
   hubspotScript: "Ingenting skal være her, skal ikke bruke hubspot",
 
   googleTagManager: "Kommer snart",
@@ -28,6 +41,9 @@ export default {
     bg: "linear-gradient(90deg, #FF9D00 23%, #FFD05A 92%)",
     textColor: "black",
   },
+
+  // Området vises i toppfeltet, hero og seksjonen om lokal installatør.
+  region: "Vestfold og Telemark",
 
   hero: {
     header: "SOLCELLER VESTFOLD OG TELEMARK",
@@ -61,6 +77,7 @@ export default {
   solar: { header: "SOLCELLER VESTFOLD OG TELEMARK" },
 
   footer: {
+    phone: "+47 458 71 718",
     email: "sol@teleror.no",
     organizationNumber: "928978192",
     address: "Versvikvegen 11, 3937 Porsgrunn",

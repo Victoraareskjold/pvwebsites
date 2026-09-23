@@ -1,62 +1,106 @@
 "use client";
 
-import { useSiteConfig } from "../../../contexts/siteConfigContext";
-import blogs from "../../../config/blogs.json";
-import "./blog.css";
+/**
+ * Bloggoversikten.
+ *
+ * Artikler, nettadresser og datakilde er uendret (src/config/blogs.json);
+ * bare visningen er ny. Nyeste artikkel vises som et bredt kort øverst,
+ * resten som kort i rutenett (3 / 2 / 1 kolonner).
+ */
 
 import Link from "next/link";
+import { useSiteConfig } from "../../../contexts/siteConfigContext";
+import blogs from "../../../config/blogs.json";
+import { ArrowRight, Sun } from "../../../components/design/icons";
+
+function excerpt(text, length) {
+  if (!text) return "";
+  const clean = text.trim();
+  if (clean.length <= length) return clean;
+  return `${clean.slice(0, clean.lastIndexOf(" ", length) || length).trim()} …`;
+}
 
 export default function Blog() {
   const config = useSiteConfig();
+  if (!config) return null;
 
-  if (!config) return <p>Laster...</p>;
+  const language = config.language || "nb";
 
-  const filteredBlogs = blogs.filter((blog) => {
-    if (blog.id === 12) {
-      return config.site === "alfaelektrosol";
-    }
-    return true;
-  });
+  const posts = blogs
+    // Artikkel 12 er skrevet for Alfa Elektro og vises bare der (som før).
+    .filter((blog) => (blog.id === 12 ? config.site === "alfaelektrosol" : true))
+    .sort((a, b) => b.id - a.id)
+    .map((blog) => ({
+      ...blog,
+      title: blog[language]?.title || blog.nb?.title || "",
+    }));
 
-  const sortedBlogs = [...filteredBlogs].sort((a, b) => b.id - a.id);
-
-  const isMinel = config.site === "MinelSol";
+  const [featured, ...rest] = posts;
 
   return (
-    <section
-      className={`py-24 px-4 ${
-        isMinel ? "bg-white text-[#1C0E52]" : "bg-black text-white"
-      }p-4 min-h-screen`}
-    >
-      <div className="max-w-4xl mx-auto">
-        <h1 className=" mb-8">
-          {config.blogPage?.header ||
-            "Ta en titt på det nyeste vi har skrevet, og bla deg bakover i tid."}
-        </h1>
+    <main id="main" className="ds blog-page">
+      <section className="section">
+        <div className="wrap">
+          <div className="section-heading">
+            <div>
+              <span className="eyebrow">
+                <Sun size={16} />
+                KUNNSKAP OG INSPIRASJON
+              </span>
+              <h2>{config.blogPage?.header2 || "Artikler om solenergi"}</h2>
+            </div>
+            <p>
+              {config.blogPage?.header ||
+                "Ta en titt på det nyeste vi har skrevet, og bla deg bakover i tid."}
+            </p>
+          </div>
 
-        <ul className="flex flex-col gap-2 ">
-          {sortedBlogs.map((blog) => (
-            <li key={blog.id} className="border-b border-slate-200 pb-6">
-              <Link href={`/blog/${blog.slug}`}>
-                <h2
-                  className={`mt-4 h-14 font-bold text-lg ${
-                    isMinel ? "text-[#1C0E52]" : "text-white"
-                  }`}
-                >
-                  {blog.nb.title}
-                </h2>
-                <p
-                  className={`line-clamp-2 ${
-                    isMinel ? "text-[#1C0E52]" : "text-white"
-                  }`}
-                >
-                  {blog.description.slice(0, 200)}...
-                </p>
+          {featured && (
+            <Link className="blog-feature" href={`/blog/${featured.slug}`}>
+              <div className="blog-media">
+                {featured.image ? (
+                  <img src={featured.image} alt="" loading="lazy" />
+                ) : (
+                  <span className="blog-media-empty">
+                    <Sun size={34} />
+                  </span>
+                )}
+              </div>
+              <div className="blog-feature-copy">
+                <span className="blog-tag">NYESTE ARTIKKEL</span>
+                <h3>{featured.title}</h3>
+                <p>{excerpt(featured.description, 260)}</p>
+                <span className="blog-more">
+                  Les mer
+                  <ArrowRight size={17} />
+                </span>
+              </div>
+            </Link>
+          )}
+
+          <div className="blog-grid">
+            {rest.map((blog) => (
+              <Link className="blog-card" key={blog.id} href={`/blog/${blog.slug}`}>
+                <div className="blog-media">
+                  {blog.image ? (
+                    <img src={blog.image} alt="" loading="lazy" />
+                  ) : (
+                    <span className="blog-media-empty">
+                      <Sun size={28} />
+                    </span>
+                  )}
+                </div>
+                <h3>{blog.title}</h3>
+                <p>{excerpt(blog.description, 140)}</p>
+                <span className="blog-more">
+                  Les mer
+                  <ArrowRight size={16} />
+                </span>
               </Link>
-            </li>
-          ))}
-        </ul>
-      </div>
-    </section>
+            ))}
+          </div>
+        </div>
+      </section>
+    </main>
   );
 }

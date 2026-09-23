@@ -20,6 +20,74 @@ export default {
   primary: "#1C0E52",
   secondary: "#E00034",
 
+  // Minel har egne farger. Nøklene her overstyrer designets standardfarger
+  // bare for denne nettsiden – se src/config/design/theme.js.
+  theme: {
+    ink: "#1C0E52",
+    inkDeep: "#1C0E52",
+    inkDeepHover: "#2c1a73",
+    surfaceTopbar: "#150A3F",
+    surfacePanel: "#1C0E52",
+    surfacePanel2: "#261571",
+    surfaceDeepStrong: "#1C0E52eb",
+    localSurface: "#1C0E52",
+    localCopy: "#cfc9e4",
+    heroRgb: "20,9,58",
+
+    brand: "#E00034",
+    brandInk: "#ffffff",
+    brandHover: "#c40030",
+    brandStrong: "#c40030",
+    brandBright: "#ff7d93",
+    brandBrightSoft: "#ffc2ce",
+    brandBrightBorder: "#ff7d934d",
+    brandAccent: "#c00030",
+    brandSoft: "#fdeaee",
+    brandSoftStrong: "#fbd5dd",
+    brandSelected: "#fdeef1",
+    brandSelectedBorder: "#f0a7b7",
+    brandSelection: "#ffd0da",
+    brandOnDark: "#ff9fb0",
+    brandOnDarkBorder: "#ffffff33",
+    brandMuted: "#6d6390",
+    brandWarmInk: "#a00026",
+    brandWarmLine: "#e7dff0",
+    brandWarmBorder: "#f5d8de",
+    brandWarmBorderSoft: "#e0003440",
+    sunSurface: "#f6f2ff",
+
+    // Minel har hvit navigasjon, ikke mørk.
+    headerSurface: "#ffffff",
+    headerInk: "#1C0E52",
+    headerBorder: "#e7e3f1",
+    headerLink: "#1C0E52",
+    headerLinkHover: "#E00034",
+    topbarInk: "#d8d2ea",
+    topbarBorder: "#ffffff1f",
+
+    ctaSurface: "#E00034",
+    ctaInk: "#ffffff",
+    ctaMuted: "#ffd3db",
+    ctaAccent: "#ffe4e9",
+
+    chartAlt: "#9fc0e0",
+
+    // Minel har ikke Manrope i dag – de bruker systemfonten. Beholdes.
+    siteFont:
+      'ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif',
+  },
+
+  // Minel bruker konsernets personvernerklæring.
+  privacyUrl: "https://minel.no/personvernerklaering",
+
+  region: "Innlandet",
+
+  trust: [
+    ["Trygt fra start til slutt", "Rådgivning, installasjon og oppfølging"],
+    ["Lokale folk. Lokal kunnskap.", "Innlandet"],
+    ["Lokalt forankret", "Minel Elmontasje Elverum"],
+  ],
+
   primaryGradient: {
     bg: "linear-gradient(90deg, #1C0E52 100%, #1C0E52 100%)",
     textColor: "black",
@@ -35,6 +103,11 @@ export default {
     text: "Prøv vår solcellekalkulator",
   },
 
+  // Seksjonen på forsiden som lenker til Solkartet.
+  solkart: {
+    text: "Skriv inn adressen din og oppdag solcelleløsningen som passer perfekt for deg. Utforsk i ditt eget tempo, og ta kontakt hvis du vil ha råd eller veiledning – helt uforpliktende.",
+  },
+
   infoCard: {
     one: "Når du velger oss som lokal installatør, får du direkte kontakt med fagfolkene som faktisk utfører arbeidet. Det gir kortere beslutningsveier, større fleksibilitet og løsninger tilpasset både bygget og lokale forhold Vi kjenner klimaet og forholdene i området godt, og bruker denne kunnskapen til å skreddersy løsninger som fungerer optimalt – både nå og over tid.",
     titleTwo: "Høy kvalitet - til en bedre pris",
@@ -46,6 +119,8 @@ export default {
 
   about: {
     header: "Minel Sol",
+
+    title: "Folk i nærheten. Fagfolk du kan stole på.",
 
     image: "/minelsol/omOssHero.png",
 
@@ -64,6 +139,9 @@ export default {
   },
 
   advantage: {
+    header: "FORDELEN MED EN LOKAL INSTALLATØR",
+    title: "Nær deg, også etter montering.",
+    text: "Gjennom oss som din lokale totalentreprenør for solcellepaneler, får du samme kompetanse som de store aktørene – men til en lavere pris.",
     heroImage: "/minelsol/fordelBilde.png",
     image: "/minelsol/bilBilde.png",
   },
@@ -76,6 +154,7 @@ export default {
   },
 
   footer: {
+    phone: "+47 458 71 718",
     email: "asbjorn.roed@minel.no",
     organizationNumber: "980349683",
     address: "Kirkevegen 74, 2413 Elverum",

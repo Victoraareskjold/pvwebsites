@@ -1,61 +1,46 @@
-// app/blog/[slug]/BlogPostClient.tsx
 "use client";
 
-import { useState } from "react";
-import Image from "next/image";
+/**
+ * Artikkelvisning. Innholdet er uendret – bare innrammingen følger
+ * designmalen, slik at artikkelen ser ut som resten av nettsiden.
+ */
+
+import Link from "next/link";
 import "../blog.css";
+import { OfferButton } from "../../../../components/design/Shell";
+import { ContactSection } from "../../../../components/design/Sections";
+import { ArrowLeft } from "../../../../components/design/icons";
 
-import FormModal from "../../../../components/FormModal";
-
-import { EstimateButton2 } from "../../../../components/EstimateButton2";
-
-export default function BlogPostClient({ blog, content, site }) {
-  const [isModalOpen, setModalOpen] = useState(false);
-
+export default function BlogPostClient({ blog, content }) {
   return (
-    <div
-      className={`min-h-screen ${
-        site === "minelsol" ? "bg-white text-[#1C0E52]" : "bg-black text-white"
-      } justify-center flex pb-12`}
-    >
-      <div className="max-w-6xl w-full">
-        {blog.image ? (
-          <div className="relative overflow-hidden rounded-lg">
-            <div className="w-full aspect-video ">
-              <Image
-                fill
-                className="object-cover mt-24 rounded-lg"
-                src={blog.image}
-                alt={content.title || "Blogg bilde"}
-              />
-            </div>
-            {!site === "minelsol" && (
-              <>
-                <div className="blackFade2"></div>
-                <div className="blackFade3"></div>
-                <div className="blackFade4"></div>
-              </>
-            )}
-          </div>
-        ) : (
-          <div className="py-8"></div>
-        )}
+    <main id="main" className="ds article-page">
+      <article className="section">
+        <div className="wrap article-wrap">
+          <Link className="breadcrumb" href="/blog">
+            <ArrowLeft size={15} />
+            Alle artikler
+          </Link>
 
-        <div className="px-12 mt-12">
-          <h1 className="text-center text-3xl mb-6">
-            {content.title || "Ingen tittel"}
-          </h1>
+          <h1>{content.title || "Ingen tittel"}</h1>
+
+          {blog.image && (
+            <div className="article-media">
+              <img src={blog.image} alt="" />
+            </div>
+          )}
 
           <div
-            className="blogContent text-lg flex flex-col gap-4"
+            className="blogContent"
             dangerouslySetInnerHTML={{ __html: content.html }}
           />
 
-          <EstimateButton2 setModalOpen={setModalOpen} />
+          <div className="article-cta">
+            <OfferButton />
+          </div>
         </div>
-      </div>
+      </article>
 
-      <FormModal isOpen={isModalOpen} onClose={() => setModalOpen(false)} />
-    </div>
+      <ContactSection />
+    </main>
   );
 }

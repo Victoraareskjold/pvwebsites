@@ -18,6 +18,19 @@ export default {
   primary: "#FFC069",
   secondary: "#D3A45E",
 
+  // Logoen er marineblå med oransje – mørke flater får marinetone.
+  // Oransje beholdes som merkefarge for solenergi.
+  theme: {
+    inkDeep: "#111f3d",
+    inkDeepHover: "#2a3c63",
+    surfaceTopbar: "#0c1730",
+    surfacePanel: "#16264a",
+    surfacePanel2: "#1b2d56",
+    surfaceDeepStrong: "#111f3deb",
+    localSurface: "#132243",
+    heroRgb: "12,23,48",
+  },
+
   hubspotScript: "Ingenting skal være her, skal ikke bruke hubspot",
 
   googleTagManager: "Kommer snart",
@@ -28,6 +41,9 @@ export default {
     bg: "linear-gradient(90deg, #FF9D00 23%, #FFD05A 92%)",
     textColor: "black",
   },
+
+  // Området vises i toppfeltet, hero og seksjonen om lokal installatør.
+  region: "Kristiansand",
 
   hero: {
     header: "SOLCELLER KRISTIANSAND",
@@ -61,6 +77,7 @@ export default {
   solar: { header: "SOLCELLER KRISTIANSAND" },
 
   footer: {
+    phone: "+47 458 71 718",
     email: "asbjorn.roed@m-el.no",
     organizationNumber: "980386562",
     address: "Rosselandsvegen 6, 4647 Brennåsen",

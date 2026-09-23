@@ -1,18 +1,16 @@
-/* eslint-disable @next/next/no-css-tags */
+import { Suspense } from "react";
+import { GoogleTagManager } from "@next/third-parties/google";
+
 import HandleQueryParams from "../../components/HandleQueryParams";
-import { Footer } from "../../components/Footer";
-import { Navbar } from "../../components/Navbar";
+import { SiteShell } from "../../components/design/Shell";
 import { SiteConfigProvider } from "../../contexts/siteConfigContext";
+import { themeCss } from "../../config/design/theme";
 import "../globals.css";
+import "../../styles/design.css";
 import { configs } from "./solkart/layout";
 
-import { Suspense } from "react";
-
 export async function generateStaticParams() {
-  const configKeys = Object.keys(configs);
-  return configKeys.map((key) => ({
-    site: key,
-  }));
+  return Object.keys(configs).map((key) => ({ site: key }));
 }
 
 export default async function RootLayout({ children, params }) {
@@ -25,76 +23,31 @@ export default async function RootLayout({ children, params }) {
   config.language = configName === "vestelektrosol" ? "nn" : "nb";
 
   const faviconUrl = config.favicon || "/favicon.ico";
+  const theme = themeCss(config.theme);
 
   return (
-    <html>
+    <html lang={config.language}>
       <head>
-        <link rel="stylesheet" href="/globals.css" />
         <title>{config.title || "Standard Tittel"}</title>
-
         <meta name="description" content={config.metaDesc || null} />
-
         <link rel="icon" href={faviconUrl} type="image/x-icon" />
-        <link
-          rel="apple-touch-icon"
-          href={`${faviconUrl.replace(".ico", ".png")}`}
-        />
-
-        {/* {config.metaPixel && (
-          <>
-            <script
-              id="meta-pixel"
-              strategy="afterInteractive"
-              dangerouslySetInnerHTML={{
-                __html: `
-          !function(f,b,e,v,n,t,s)
-          {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-          n.callMethod.apply(n,arguments):n.queue.push(arguments)};
-          if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
-          n.queue=[];t=b.createElement(e);t.async=!0;
-          t.src=v;s=b.getElementsByTagName(e)[0];
-          s.parentNode.insertBefore(t,s)}(window, document,'script',
-          'https://connect.facebook.net/en_US/fbevents.js');
-          fbq('init', '${config.metaPixel}');
-          fbq('track', 'PageView');`,
-              }}
-            />
-            <noscript>
-              <img
-                height="1"
-                width="1"
-                style={{ display: "none" }}
-                src={`https://www.facebook.com/tr?id=${config.metaPixel}&ev=PageView&noscript=1`}
-              />
-            </noscript>
-          </>
-        )} */}
+        <link rel="apple-touch-icon" href={`${faviconUrl.replace(".ico", ".png")}`} />
+        {/* Farger for denne ene nettsiden. Standardfargene ligger i src/styles/design.css. */}
+        {theme && <style dangerouslySetInnerHTML={{ __html: theme }} />}
       </head>
       <body>
-        <div className="print:hidden">
-          <Navbar
-            logo={config.logo}
-            title={config.title}
-            pos={"fixed"}
-            site={config.site}
-          />
-        </div>
+        <SiteConfigProvider config={config}>
+          <SiteShell site={configName} language={config.language}>
+            {children}
+          </SiteShell>
+        </SiteConfigProvider>
 
-        <SiteConfigProvider config={config}>{children}</SiteConfigProvider>
-        <Suspense fallback={<div>Loading...</div>}>
+        <Suspense fallback={null}>
           <HandleQueryParams />
         </Suspense>
-        <div className="print:hidden">
-          <Footer
-            logo={config.logo}
-            email={config.footer?.email}
-            address={config.footer?.address}
-            organizationNumber={config.footer?.organizationNumber}
-            primary={config.primary}
-            secondary={config.secondary}
-            site={config.site}
-          />
-        </div>
+
+        {config.googleTagManager && <GoogleTagManager gtmId={config.googleTagManager} />}
+
         {config.consentifyPublicToken && (
           <script
             src={`https://www.consentify.app/api/consent?token=${config.consentifyPublicToken}`}

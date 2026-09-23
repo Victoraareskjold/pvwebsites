@@ -1,10 +1,6 @@
-import { GoogleTagManager } from "@next/third-parties/google";
 import "../../globals.css";
-import { SiteConfigProvider } from "../../../contexts/siteConfigContext";
-import { Navbar } from "../../../components/Navbar";
 
 export const configs = {
-  vestelektrosol: () => import("../../../config/vestelektro"),
   alfaelektrosol: () => import("../../../config/alfaelektro"),
   lynelektrosol: () => import("../../../config/lynelektro"),
   gelektrosol: () => import("../../../config/gelektrosol"),
@@ -22,7 +18,6 @@ export default async function SolkartLayout({ children, params }) {
 
   config.language = site === "vestelektro" ? "nn" : "nb";
 
-  console.log(site);
-
-  return <div className="h-[100vh]">{children}</div>;
+  // Solkartet fyller resten av vinduet under den faste toppmenyen.
+  return <div className="h-[calc(100vh-125px)] min-h-[520px]">{children}</div>;
 }
