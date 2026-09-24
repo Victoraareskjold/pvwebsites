@@ -22,7 +22,10 @@ export default async function RootLayout({ children, params }) {
 
   config.language = configName === "vestelektrosol" ? "nn" : "nb";
 
-  const faviconUrl = config.favicon || "/favicon.ico";
+  // Ikonene ligger i samme mappe som config.favicon peker på.
+  // De gamle .ico-filene var egentlig PNG-er med gjennomsiktige hjørner,
+  // som ble svarte i mørk fanerad og på iOS. Filene under har hvit flate.
+  const iconDir = config.favicon ? config.favicon.replace(/\/[^/]+$/, "") : null;
   const theme = themeCss(config.theme);
 
   return (
@@ -30,8 +33,14 @@ export default async function RootLayout({ children, params }) {
       <head>
         <title>{config.title || "Standard Tittel"}</title>
         <meta name="description" content={config.metaDesc || null} />
-        <link rel="icon" href={faviconUrl} type="image/x-icon" />
-        <link rel="apple-touch-icon" href={`${faviconUrl.replace(".ico", ".png")}`} />
+        {iconDir && (
+          <>
+            <link rel="icon" href={`${iconDir}/icon-32.png`} type="image/png" sizes="32x32" />
+            <link rel="icon" href={`${iconDir}/icon-192.png`} type="image/png" sizes="192x192" />
+            <link rel="apple-touch-icon" href={`${iconDir}/apple-touch-icon.png`} sizes="180x180" />
+            <link rel="shortcut icon" href={`${iconDir}/icon.ico`} />
+          </>
+        )}
         {/* Farger for denne ene nettsiden. Standardfargene ligger i src/styles/design.css. */}
         {theme && <style dangerouslySetInnerHTML={{ __html: theme }} />}
       </head>
