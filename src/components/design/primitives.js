@@ -124,12 +124,15 @@ export function Slider({ min, max, step = 1, value, onValueChange, ariaLabelledB
 
 function useOverlay(open, onClose) {
   const ref = useRef(null);
+  // Keep the latest onClose without re-running the effect (which would steal focus on every render).
+  const onCloseRef = useRef(onClose);
+  onCloseRef.current = onClose;
 
   useEffect(() => {
     if (!open) return undefined;
 
     const onKeyDown = (e) => {
-      if (e.key === "Escape") onClose();
+      if (e.key === "Escape") onCloseRef.current();
     };
     const previousOverflow = document.body.style.overflow;
     document.body.style.overflow = "hidden";
@@ -144,7 +147,7 @@ function useOverlay(open, onClose) {
       document.body.style.overflow = previousOverflow;
       document.removeEventListener("keydown", onKeyDown);
     };
-  }, [open, onClose]);
+  }, [open]);
 
   return ref;
 }
