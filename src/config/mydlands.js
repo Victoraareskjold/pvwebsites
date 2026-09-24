@@ -78,7 +78,7 @@ export default {
 
   footer: {
     phone: "+47 458 71 718",
-    email: "asbjorn.roed@m-el.no",
+    email: "asbjorn@mydlands.no",
     organizationNumber: "980386562",
     address: "Rosselandsvegen 6, 4647 Brennåsen",
   },
