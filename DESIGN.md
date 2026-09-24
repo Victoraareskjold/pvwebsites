@@ -5,6 +5,28 @@ innhold ligger i hver site-config. Multitenant-oppsettet er uendret:
 `src/proxy.js` mapper domene → site, og `src/app/[site]/solkart/layout.js`
 holder registeret over hvilke configer som finnes.
 
+## Fellestekst vs. lokalt innhold
+
+Dette er regelen etter gjennomgangen 24.09.2026:
+
+**Fellestekst har ett hjem – standardverdien i komponenten.** Når Asbjørn
+oppdaterer en tekst som skal gjelde alle nettstedene, endres standardverdien,
+ikke `smartelektro.js`. Da følger alle åtte automatisk.
+
+| Fellestekst | Hvor den ligger |
+| --- | --- |
+| Hero-overskrift, ingress og overtekst | `src/app/[site]/page.js` |
+| Løsningsseksjonens overskrift og ingress (`header2`/`header3`) | `Sections.js` |
+| De tre punktene om lokal installatør | `Sections.js` (`LocalSection`) |
+| Overskrift og tekst i lokal-seksjonen | `Sections.js` |
+| De fire stegene, FAQ, kontaktbånd, batteri, kalkulator | `Sections.js` / `Battery.js` / `Calculator.js` |
+
+**Lokalt innhold ligger i site-configen:** logo, favicon, bilder, `region`,
+`solar.header` (geografisk overtekst), `about.*` (firmapresentasjon),
+`about.since`, `trust`, `footer.*`, `legal`, `theme`, `privacyUrl`,
+sporingskoder. Et nettsted overstyrer fellestekst bare der det er avtalt –
+i praksis Minel Sol.
+
 ## Vanlige endringer
 
 | Ønsket endring | Fil |

@@ -35,7 +35,6 @@ export default {
   region: "Sunnmøre",
 
   hero: {
-    header: "SOLCELLER SUNNMØRE",
     background: "/alfaelektro/background.png",
   },
 

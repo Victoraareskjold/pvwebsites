@@ -35,7 +35,6 @@ export default {
   region: "Østfold",
 
   hero: {
-    header: "SOLCELLER ØSTFOLD",
     video: "/lynelektro/lynHeroVideo.mp4",
   },
 

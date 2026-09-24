@@ -46,7 +46,6 @@ export default {
   region: "Kristiansand",
 
   hero: {
-    header: "SOLCELLER KRISTIANSAND",
     background: "/mydlands/heroImage.png",
   },
 

@@ -78,11 +78,11 @@ export function SolutionsSection({ site, language = "nb" }) {
         <div className="section-heading">
           <div>
             <span className="eyebrow">{config.solar?.header || "LA OSS SE PÅ MULIGHETENE HOS DEG"}</span>
-            <h2>{config.solar?.header2 || "Utforsk våre solcelleløsninger"}</h2>
+            <h2>{config.solar?.header2 || "Hva kan solenergi gi deg?"}</h2>
           </div>
           <p>
             {config.solar?.header3 ||
-              "Om du eier en enebolig, driver et bedriftsbygg, er en del av et borettslag eller er involvert i landbruk, tilbyr vi solcelleløsninger som passer dine behov."}
+              "Kanskje du bare er nysgjerrig. Kanskje du har tenkt på solceller en stund. Her kan du lese om mulighetene for hjemmet, gården eller bygget ditt, i ditt eget tempo."}
           </p>
         </div>
 
@@ -160,26 +160,26 @@ export function LocalSection() {
     {
       icon: MessageCircle,
       label: "DIN LOKALE INSTALLATØR",
-      title: config.infoCard?.titleOne || "Hopp over mellomleddet",
+      title: config.infoCard?.titleOne || "Direkte kontakt med oss som gjør jobben",
       text:
         config.infoCard?.one ||
-        "Som lokal installatør får du direkte kontakt med oss som utfører jobben. Vi er fleksible og kjenner klimaet godt, slik at vi kan skreddersy løsninger optimalt for deg.",
+        "Hos oss har du direkte kontakt med en lokal elektrobedrift som både planlegger og installerer anlegget. Vi ser solceller, batteri og det elektriske anlegget i sammenheng, og forklarer hvilke løsninger vi anbefaler og hvorfor. Det gir deg én leverandør å forholde deg til gjennom hele prosjektet.",
     },
     {
       icon: Handshake,
       label: "PRIS OG KVALITET",
-      title: config.infoCard?.titleTwo || "Bedre pris, høyere kvalitet",
+      title: config.infoCard?.titleTwo || "Gode produkter til en god pris",
       text:
         config.infoCard?.two ||
-        "Vi tilbyr bedre priser på anlegg med minst like god – ofte enda bedre – kvalitet enn store landsdekkende aktører i markedet. Vi bruker kun de mest optimale solcellepanelene og jobber kontinuerlig for å finne den beste løsningen for deg.",
+        "Vi er ikke bundet til ett bestemt merke og sammenligner produkter og priser fra flere leverandører. Det gir oss mulighet til å finne gode produkter til en bedre pris, tilpasset behovene dine. Vi følger utviklingen innen solceller, batterier, festesystemer og styring, og holder oss oppdatert på støtteordninger du kan ha nytte av. Slik kan vi anbefale et gjennomtenkt anlegg som gir deg mye for pengene.",
     },
     {
       icon: ShieldCheck,
       label: "OPPFØLGING ETTERPÅ",
-      title: config.infoCard?.titleThree || "Tett dialog og rask responstid",
+      title: config.infoCard?.titleThree || "Lokale fagfolk og rask responstid",
       text:
         config.infoCard?.three ||
-        "Med en lokal aktør får du tett dialog og rask responstid. Enten det gjelder garantier, service eller vedlikehold, er hjelpen alltid nær. Skulle noe skje, stiller vi som regel opp samme dag eller dagen etter.",
+        "Vi følger opp anlegget også etter at det er satt i drift. Som elektrobedrift er vi vant til både service og hasteoppdrag, og har fagfolk i nærheten dersom noe må undersøkes eller utbedres. Du vet hvem du skal kontakte, enten du har et spørsmål, trenger hjelp eller vil bygge ut anlegget senere.",
     },
   ];
 

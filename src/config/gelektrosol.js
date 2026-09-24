@@ -42,7 +42,6 @@ export default {
   region: "Romerike",
 
   hero: {
-    header: "SOLCELLER ROMERIKE",
     background: "/gardermoenelektro/heroImage.png",
   },
 

@@ -26,25 +26,10 @@ export default {
   // Området vises i toppfeltet, i hero og i seksjonen om lokal installatør.
   region: "Oslo, Lillestrøm og omegn",
 
+  // Hero-tekstene er fellestekst og ligger i src/app/[site]/page.js.
+  // Her settes bare bildet.
   hero: {
-    header: "DIN LOKALE SOLCELLEINSTALLATØR",
-    // To linjer; linje 2 får merkefargen.
-    title: ["Solenergi.", "Gjort ordentlig."],
-    p: "Et solcelleanlegg skal fungere i mange år. Som din lokale elektrobedrift tar vi hånd om hele jobben, fra rådgivning og planlegging til installasjon og oppfølging. Da vet du hvem du skal ringe, også etter at jobben er gjort.",
     background: "/smartelektro/heroImage.png",
-  },
-
-  // De tre punktene i seksjonen om lokal installatør.
-  infoCard: {
-    titleOne: "Direkte kontakt med oss som gjør jobben",
-    one: "Hos oss har du direkte kontakt med en lokal elektrobedrift som både planlegger og installerer anlegget. Vi ser solceller, batteri og det elektriske anlegget i sammenheng, og forklarer hvilke løsninger vi anbefaler og hvorfor. Det gir deg én leverandør å forholde deg til gjennom hele prosjektet.",
-
-    titleTwo: "Gode produkter til en god pris",
-    two: "Vi er ikke bundet til ett bestemt merke og sammenligner produkter og priser fra flere leverandører. Det gir oss mulighet til å finne gode produkter til en bedre pris, tilpasset behovene dine. Vi følger utviklingen innen solceller, batterier, festesystemer og styring, og holder oss oppdatert på støtteordninger du kan ha nytte av. Slik kan vi anbefale et gjennomtenkt anlegg som gir deg mye for pengene.",
-
-    titleThree: "Lokale fagfolk og rask responstid",
-    three:
-      "Vi følger opp anlegget også etter at det er satt i drift. Som elektrobedrift er vi vant til både service og hasteoppdrag, og har fagfolk i nærheten dersom noe må undersøkes eller utbedres. Du vet hvem du skal kontakte, enten du har et spørsmål, trenger hjelp eller vil bygge ut anlegget senere.",
   },
 
   // Tre punkter i stripen rett under hero.
@@ -79,19 +64,13 @@ export default {
   },
 
   advantage: {
-    header: "FORDELEN MED EN LOKAL INSTALLATØR",
-    title: "Nær deg, også etter montering.",
-    text: "Hos oss får du snakke med folkene som gjør jobben. Vi kjenner området, tar oss tid til spørsmålene dine og følger deg opp når anlegget er på plass.",
     heroImage: "/smartelektro/fordelBilde.png",
     image: "/smartelektro/bilBilde.png",
   },
 
-  solar: {
-    header: "SOLCELLER LILLESTRØM OG STOR-OSLO",
-    header2: "Hva kan solenergi gi deg?",
-    header3:
-      "Kanskje du bare er nysgjerrig. Kanskje du har tenkt på solceller en stund. Her kan du lese om mulighetene for hjemmet, gården eller bygget ditt, i ditt eget tempo.",
-  },
+  // header er den geografiske overteksten. header2/header3 er fellestekst
+  // og ligger i src/components/design/Sections.js.
+  solar: { header: "SOLCELLER LILLESTRØM OG STOR-OSLO" },
 
   footer: {
     phone: "+47 458 71 718",

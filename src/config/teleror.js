@@ -46,7 +46,6 @@ export default {
   region: "Vestfold og Telemark",
 
   hero: {
-    header: "SOLCELLER VESTFOLD OG TELEMARK",
     background: "/teleror/heroImage.png",
   },
 

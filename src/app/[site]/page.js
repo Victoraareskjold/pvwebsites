@@ -40,7 +40,9 @@ export default function Page({ params }) {
   const config = useSiteConfig() || {};
   const language = config.language || "nb";
 
-  const heroTitle = config.hero?.title || ["Din lokale", "installatør."];
+  // Fellestekst for alle nettstedene, fra den godkjente Smart Elektro-siden.
+  // Et nettsted overstyrer bare der vi har avtalt noe eget (Minel Sol).
+  const heroTitle = config.hero?.title || ["Solenergi.", "Gjort ordentlig."];
   const solkartText = config.exploreBtn?.text || "Se taket ditt i Solkartet";
   const solutions = solutionLinks(site, language);
   const learnImage = config.advantage?.image || solutions[0]?.image;
@@ -75,7 +77,7 @@ export default function Page({ params }) {
             </h1>
             <p>
               {config.hero?.p ||
-                "Et godt solcelleanlegg handler om mer enn paneler. Det handler om hjemmet ditt, hverdagen din og folk du kan stole på."}
+                "Et solcelleanlegg skal fungere i mange år. Som din lokale elektrobedrift tar vi hånd om hele jobben, fra rådgivning og planlegging til installasjon og oppfølging. Da vet du hvem du skal ringe, også etter at jobben er gjort."}
             </p>
             <div className="hero-actions">
               <OfferButton>{config.estimateBtn?.text || "Få et uforpliktende tilbud"}</OfferButton>
