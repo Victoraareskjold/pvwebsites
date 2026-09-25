@@ -72,6 +72,12 @@ export default {
 
     chartAlt: "#9fc0e0",
 
+    // Batterikortet: lys rødtone leser bedre enn #E00034 på indigo,
+    // og "nettet frakoblet" får en varm tone så den ikke drukner i rødt.
+    batteryAccent: "#ff7d93",
+    batteryAlert: "#ffc46b",
+    batteryMuted: "#c6bfe0",
+
     // Minel har ikke Manrope i dag – de bruker systemfonten. Beholdes.
     siteFont:
       'ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif',
@@ -85,7 +91,7 @@ export default {
   trust: [
     ["Trygt fra start til slutt", "Rådgivning, installasjon og oppfølging"],
     ["Lokale folk. Lokal kunnskap.", "Innlandet"],
-    ["Lokalt forankret", "Minel Elmontasje Elverum"],
+    ["Et solid elektrofirma", "Over 320 ansatte i Minel"],
   ],
 
   primaryGradient: {
@@ -108,40 +114,29 @@ export default {
     text: "Skriv inn adressen din og oppdag solcelleløsningen som passer perfekt for deg. Utforsk i ditt eget tempo, og ta kontakt hvis du vil ha råd eller veiledning – helt uforpliktende.",
   },
 
-  infoCard: {
-    one: "Når du velger oss som lokal installatør, får du direkte kontakt med fagfolkene som faktisk utfører arbeidet. Det gir kortere beslutningsveier, større fleksibilitet og løsninger tilpasset både bygget og lokale forhold Vi kjenner klimaet og forholdene i området godt, og bruker denne kunnskapen til å skreddersy løsninger som fungerer optimalt – både nå og over tid.",
-    titleTwo: "Høy kvalitet - til en bedre pris",
-    two: "Vi gir deg konkurransedyktige priser uten å at det går utover kvaliteten. Våre solcelleanlegg holder høy standard, med nøye utvalgte solcellepaneler. Vi jobber kontinuerlig for å finne den løsningen som passer best for deg og ditt behov.",
-    titleThree: "Tett oppfølging - rask hjelp når du trenger det",
-    three:
-      "Som lokal aktør er vi alltid lett tilgjengelige. Enten det gjelder garantier, service eller vedlikehold, får du rask respons og tett dialog.",
-  },
 
+  // Minels egen Om oss-tekst. Overstyrer fellesteksten i Sections.js.
   about: {
     header: "Minel Sol",
 
-    title: "Folk i nærheten. Fagfolk du kan stole på.",
+    title: "Solenergi fra folk du kan få tak i",
 
     image: "/minelsol/omOssHero.png",
 
-    subHeader:
-      "Gjennom oss som din lokale totalentreprenør for solcellepaneler, får du samme kompetanse som de store aktørene – men til en lavere pris.",
+    p1: "Når du velger oss, får du et solcelleanlegg tilpasset boligen din og folk i nærheten som følger opp. Vi tar ansvar for hele jobben – fra første samtale til anlegget er i drift.",
 
-    p1: "Mange store selskaper samarbeider med installatører som oss og tar ofte en ekstra høy kommisjon på toppen av det. Ved å komme direkte til kilden hopper du over mellomleddet og sparer penger. I tillegg er vi bare en telefon unna: Skulle det oppstå problemer, stiller vi opp raskt, i stedet for at du må vente på en fjern kundeservice.",
+    p2: "Vi er en del av Minel, som leverer elektriske installasjoner til privat- og næringskunder i Oslo, Akershus, Østfold og Innlandet. Konsernet består av ni selskaper, fra Otta i nord til Drøbak i sør, og har rundt 320 ansatte og en årlig omsetning på cirka 550 millioner kroner. For deg betyr det at vi har et stort fagmiljø i ryggen, samtidig som du får personlig oppfølging fra folk i ditt område.",
 
-    p2: "Vi tilbyr bedre priser på solcelleanlegg med minst like god – ofte enda bedre – kvalitet enn de store, landsdekkende aktørene. Gjennom færre mellomledd og et lokalt fokus kan vi holde kostnadene nede uten å gå på kompromiss med kvaliteten. Vi bruker kun solcellepaneler som er nøye utvalgt for optimal ytelse og lang levetid, og vi holder oss kontinuerlig oppdatert på ny teknologi. På den måten kan vi skreddersy et anlegg spesielt tilpasset dine behov, slik at du får maksimalt utbytte av investeringen din.",
-
-    p3: "Kort sagt: Vi finner det som faktisk passer deg. Ikke det som er dyrt, ikke det som er standard – men det som gir deg mest igjen for pengene. Du får et anlegg som er tilpasset boligen din, bygget på kvalitet og valgt med hensikt, slik at investeringen din blir så lønnsom og problemfri som mulig.",
+    p3: "Vi tror på å anbefale det som passer deg, ikke en standardpakke som skal passe alle. Derfor ser vi på taket, strømforbruket og hva du ønsker å få ut av anlegget før vi foreslår en løsning. Vi velger produkter vi har tro på, og er åpne om hva du betaler for.",
 
     image2: "/minelsol/omOssBilde.png",
 
-    p4: "Vi er stolte av grundig håndverk og kjenner lokale forhold, klima og forskrifter ut og inn. Dermed monterer vi solpaneler med høy presisjon og kvalitet, slik at anlegget ditt kan stå i flere tiår. Med oss på laget får du dessuten personlig oppfølging – år etter år. Solmarkedet kan svinge, og bedrifter som kun driver med solceller risikerer å gå konkurs over tid. Vi, derimot, er et solid elektro-firma med flere bein å stå på. Det betyr at du kan stole på at vi fortsatt er her, dersom noe skulle skje med anlegget ditt.",
+    p4: "Du skal vite hvem du kan kontakte, også etter at anlegget er montert. Målet vårt er enkelt: et solid anlegg, en fornuftig pris og en installasjon du kan være trygg på i mange år.",
   },
 
+  // Overskrift, innledning og de tre punktene er fellestekst
+  // (src/components/design/Sections.js). Her settes bare bildene.
   advantage: {
-    header: "FORDELEN MED EN LOKAL INSTALLATØR",
-    title: "Nær deg, også etter montering.",
-    text: "Gjennom oss som din lokale totalentreprenør for solcellepaneler, får du samme kompetanse som de store aktørene – men til en lavere pris.",
     heroImage: "/minelsol/fordelBilde.png",
     image: "/minelsol/bilBilde.png",
   },

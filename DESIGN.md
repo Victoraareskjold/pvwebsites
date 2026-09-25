@@ -159,6 +159,28 @@ Disse er ikke funnet på, og må fylles inn per firma:
 4. **Årstall (`about.since`).** Bare Smart Elektro har 2017. Boksen er skjult
    for de andre – ingen reserveverdi er satt.
 
+## Endringsrunde 4 (Asbjørn, 25.09.2026)
+
+- **Minel Om oss** – egen tekst i `minelsol.js` (`about.title` + `p1`–`p4`).
+  Vises både på forsiden (to første avsnitt) og på undersiden.
+- **Minel lokal installatør-seksjon** – Minels gamle `infoCard`- og
+  `advantage`-overstyringer er fjernet, så seksjonen følger fellesteksten.
+  Området på bildet kommer fortsatt fra Minels egen `region`.
+- **«Et solid elektrofirma»** – standard undertekst er nå
+  «Her for deg, også etter montering.» Smart Elektro (80 ansatte) og Minel
+  (320 ansatte) har sine egne i `trust` i site-configen.
+- **Felles Om oss-tekst** – `SHARED_ABOUT_TITLE` og `SHARED_ABOUT` i
+  `Sections.js`. Et nettsted som har `about.p1` i configen beholder sin egen;
+  det gjelder Smart Elektro og Minel. De fem andre har fått sin gamle tekst
+  fjernet og arver fellesteksten.
+- **Batterikortet følger firmaprofilen** – `smart-battery.css` ble endret så
+  alle merkefarger går gjennom `--se-*`-variablene, og `design.css` setter dem
+  fra temaet (`--ink-deep`, `--surface-panel-2`, `--battery-accent`,
+  `--chart-alt`, `--battery-alert`, `--battery-muted`). Standardverdiene er
+  komponentens egne, så Smart Elektro er uendret. Minel bruker en lysere
+  rødtone i kortet og en varm tone på «nettet frakoblet», siden rødt på rødt
+  ikke skiller seg.
+
 ## Gjenstår
 
 - Telefonnummer er fortsatt felles (`+47 458 71 718`). Sett `footer.phone` og

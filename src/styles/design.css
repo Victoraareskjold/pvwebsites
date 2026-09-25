@@ -31,7 +31,7 @@
  --ink-deep-hover:#254350;
  --surface-topbar:#081b26;
  --surface-panel:#102a38;           /* resultatpanel i kalkulatoren */
- --surface-panel-2:#142f3c;         /* illustrasjonskort i batteriseksjonen */
+ --surface-panel-2:#152f3b;         /* kortet i batteriseksjonen */
  --surface-deep-strong:#0c202ceb;
  --local-surface:#102c38;
  --local-copy:#c7d6dc;           /* seksjonen om lokal installatør */
@@ -78,6 +78,14 @@
 
  /* Illustrasjoner */
  --chart-alt:#87bace;
+
+ /* Batterianimasjonen. Standardverdiene er komponentens egne, så
+    Smart Elektro ser uendret ut. Et nettsted overstyrer med
+    theme.batteryAccent / batteryAlert / batteryMuted. */
+ --battery-accent:var(--brand);
+ --battery-alert:#efb0a6;
+ --battery-text:#f6f9fa;
+ --battery-muted:#b3cbd6;
 }
 
 *{box-sizing:border-box}
@@ -439,4 +447,18 @@ video.hero-photo{object-fit:cover}
   .blog-card p{margin-inline:20px}
   .blog-card .blog-more{margin-inline:20px}
   .article-wrap{width:calc(100% - 40px)}
+}
+
+
+/* Punkt 5 (runde 4): batterikortet arver firmaets profil.
+   Variablene leses inne i komponentens Shadow DOM. */
+.battery-story smart-battery-story{
+  --se-bg:var(--ink-deep);
+  --se-panel:var(--surface-panel-2);
+  --se-amber:var(--battery-accent);
+  --se-blue:var(--chart-alt);
+  --se-text:var(--battery-text);
+  --se-muted:var(--battery-muted);
+  --se-heading:var(--battery-muted);
+  --se-alert:var(--battery-alert);
 }

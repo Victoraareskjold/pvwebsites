@@ -40,7 +40,7 @@ export function TrustStrip() {
   const items = config.trust || [
     ["Trygt fra start til slutt", "Rådgivning, installasjon og oppfølging"],
     ["Lokale folk. Lokal kunnskap.", config.region || "Vi kjenner området ditt"],
-    ["Et solid elektrofirma", config.legal || "Flere ben å stå på enn solceller alene"],
+    ["Et solid elektrofirma", "Her for deg, også etter montering."],
   ];
   const icons = [ShieldCheck, MapPin, Wrench];
 
@@ -295,14 +295,27 @@ export function ProcessSection() {
   );
 }
 
+const SHARED_ABOUT_TITLE = "Solenergi fra folk du kan få tak i";
+
+/** Felles Om oss-tekst for firmaer uten egen tekst i site-configen. */
+const SHARED_ABOUT = [
+  "Når du velger oss, får du et solcelleanlegg tilpasset boligen din og folk i nærheten som følger opp. Vi er et lokalt elektrofirma, og tar ansvar for hele jobben – fra første samtale til anlegget er i drift.",
+  "Vi tror på å anbefale det som passer deg, ikke en standardpakke som skal passe alle. Derfor ser vi på taket, strømforbruket og hva du ønsker å få ut av anlegget før vi foreslår en løsning. Vi velger produkter vi har tro på, og er åpne om hva du betaler for.",
+  "Som lokal aktør kan vi holde veien fra spørsmål til svar kort. Du vet hvem du skal kontakte, også etter at anlegget er montert. Skulle noe oppstå senere, er vi her for å hjelpe deg videre.",
+  "Målet vårt er enkelt: et solid anlegg, en fornuftig pris og en installasjon du kan være trygg på i mange år.",
+];
+
 /* ------------------------------------------------------------------ */
-/* Om oss – bruker config.about slik den er i dag                       */
+/* Om oss                                                               */
 /* ------------------------------------------------------------------ */
 
 export function AboutSection({ full = false }) {
   const config = useSiteConfig() || {};
   const about = config.about || {};
-  const paragraphs = [about.p1, about.p2, about.p3, about.p4, about.p5].filter(Boolean);
+  // Felles Om oss-tekst. Minel Sol og Smart Elektro Sol har sin egen i
+  // site-configen (about.title + about.p1…) og arver derfor ikke denne.
+  const ownParagraphs = [about.p1, about.p2, about.p3, about.p4, about.p5].filter(Boolean);
+  const paragraphs = ownParagraphs.length ? ownParagraphs : SHARED_ABOUT;
   const Heading = full ? "h1" : "h2";
 
   return (
@@ -332,7 +345,7 @@ export function AboutSection({ full = false }) {
 
         <div className="about-copy">
           <span className="eyebrow">BLI KJENT MED {(about.header || config.title || "OSS").toUpperCase()}</span>
-          <Heading>{about.title || "Folk i nærheten. Fagfolk du kan stole på."}</Heading>
+          <Heading>{about.title || SHARED_ABOUT_TITLE}</Heading>
           {about.subHeader && <p className="section-lead">{about.subHeader}</p>}
           {(full ? paragraphs : paragraphs.slice(0, 2)).map((text, i) => (
             <p key={i}>{text}</p>

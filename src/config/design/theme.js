@@ -62,6 +62,12 @@ const TOKENS = {
 
   chartAlt: "--chart-alt",
 
+  // Batterianimasjonen.
+  batteryAccent: "--battery-accent",
+  batteryAlert: "--battery-alert",
+  batteryText: "--battery-text",
+  batteryMuted: "--battery-muted",
+
   // Skrift for hele nettstedet.
   siteFont: "--site-font",
 };
