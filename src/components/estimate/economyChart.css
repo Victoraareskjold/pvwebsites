@@ -1,0 +1,258 @@
+/* ─────────────────────────────────────────────────────────────────────────
+   Grafen over samlet økonomi.
+
+   Én serie, én farge. Nedbetalingspunktet er markert og navngitt, slik at
+   figuren leses uten å tolke farger. Tabellen under er dataversjonen.
+
+   Linjefargen er kontrollert mot flaten (over 3:1) og ligger innenfor
+   lyshetsbåndet, så den tåler både lys bakgrunn og utskrift.
+   ───────────────────────────────────────────────────────────────────────── */
+
+.economy-chart {
+  --chart-accent: #c07a12;
+  --chart-ink: var(--ink, #152d38);
+  --chart-muted: color-mix(in srgb, var(--chart-ink) 62%, white);
+  --chart-line: color-mix(in srgb, var(--chart-ink) 14%, white);
+
+  margin: 0;
+  background: white;
+  border: 1px solid var(--chart-line);
+  border-radius: 0.75rem;
+  padding: 1.5rem 1.5rem 1.25rem;
+  font-family: var(--site-font, "Manrope", Arial, sans-serif);
+  color: var(--chart-ink);
+}
+
+.economy-chart figcaption {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  margin-bottom: 1rem;
+}
+
+.economy-chart figcaption strong {
+  font-size: 1.05rem;
+  font-weight: 600;
+}
+
+.economy-chart figcaption span {
+  font-size: 0.9rem;
+  color: var(--chart-muted);
+  line-height: 1.5;
+}
+
+.economy-chart-plot {
+  position: relative;
+}
+
+.economy-chart svg {
+  width: 100%;
+  height: auto;
+  display: block;
+  overflow: visible;
+  font-variant-numeric: tabular-nums;
+}
+
+.economy-chart .chart-grid {
+  stroke: var(--chart-line);
+  stroke-width: 1;
+}
+
+.economy-chart .chart-zero {
+  stroke: color-mix(in srgb, var(--chart-ink) 38%, white);
+  stroke-width: 1.5;
+}
+
+.economy-chart .chart-area {
+  fill: color-mix(in srgb, var(--chart-accent) 12%, transparent);
+}
+
+.economy-chart .chart-line {
+  fill: none;
+  stroke: var(--chart-accent);
+  stroke-width: 2;
+  stroke-linejoin: round;
+  stroke-linecap: round;
+}
+
+.economy-chart .chart-tick {
+  fill: var(--chart-muted);
+  font-size: 11px;
+  text-anchor: end;
+}
+
+.economy-chart .chart-tick-x {
+  text-anchor: middle;
+}
+
+.economy-chart .chart-payback line {
+  stroke: var(--chart-accent);
+  stroke-width: 1;
+  stroke-dasharray: 3 4;
+}
+
+.economy-chart .chart-payback circle {
+  fill: var(--chart-accent);
+  stroke: white;
+  stroke-width: 2;
+}
+
+.economy-chart .chart-payback text {
+  fill: var(--chart-ink);
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.economy-chart .chart-end {
+  fill: var(--chart-accent);
+  stroke: white;
+  stroke-width: 2;
+}
+
+.economy-chart .chart-hover line {
+  stroke: color-mix(in srgb, var(--chart-ink) 30%, white);
+  stroke-width: 1;
+}
+
+.economy-chart .chart-hover circle {
+  fill: white;
+  stroke: var(--chart-accent);
+  stroke-width: 2.5;
+}
+
+.economy-tooltip {
+  position: absolute;
+  top: 0;
+  transform: translateX(-50%);
+  background: var(--ink-deep, #0c202c);
+  color: white;
+  border-radius: 0.5rem;
+  padding: 0.5rem 0.7rem;
+  font-size: 0.8rem;
+  line-height: 1.4;
+  display: flex;
+  flex-direction: column;
+  white-space: nowrap;
+  pointer-events: none;
+}
+
+.economy-tooltip strong {
+  font-weight: 600;
+}
+
+.economy-chart-ends {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  border-top: 1px solid var(--chart-line);
+  margin-top: 1rem;
+  padding-top: 0.9rem;
+}
+
+.economy-chart-ends div {
+  display: flex;
+  flex-direction: column;
+  gap: 0.1rem;
+}
+
+.economy-chart-ends div:last-child {
+  text-align: right;
+}
+
+.economy-chart-ends span {
+  font-size: 0.78rem;
+  color: var(--chart-muted);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.economy-chart-ends strong {
+  font-size: 1.15rem;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+
+@media (max-width: 700px) {
+  .economy-chart {
+    padding: 1.1rem 1rem 1rem;
+  }
+
+  .economy-chart .chart-payback text {
+    font-size: 14px;
+  }
+
+  .economy-chart .chart-tick {
+    font-size: 13px;
+  }
+}
+
+/* ── Tabellen bak grafen ─────────────────────────────────────────────────── */
+
+.economy-table {
+  background: white;
+  border: 1px solid color-mix(in srgb, var(--ink, #152d38) 14%, white);
+  border-radius: 0.75rem;
+  font-family: var(--site-font, "Manrope", Arial, sans-serif);
+  color: var(--ink, #152d38);
+}
+
+.economy-table > summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  flex-wrap: wrap;
+  padding: 1.1rem 1.4rem;
+  cursor: pointer;
+  list-style: none;
+}
+
+.economy-table > summary::-webkit-details-marker {
+  display: none;
+}
+
+.economy-table > summary > span:first-child {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+}
+
+.economy-table > summary strong {
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.economy-table > summary small {
+  font-size: 0.85rem;
+  color: color-mix(in srgb, var(--ink, #152d38) 62%, white);
+}
+
+.economy-table-open {
+  font-size: 0.85rem;
+  font-weight: 600;
+  border: 1px solid color-mix(in srgb, var(--ink, #152d38) 20%, white);
+  border-radius: 100px;
+  padding: 0.4rem 0.9rem;
+  white-space: nowrap;
+}
+
+.economy-table-open::after {
+  content: " ↓";
+}
+
+.economy-table[open] .economy-table-open::after {
+  content: " ↑";
+}
+
+.economy-table[open] .economy-table-open {
+  background: color-mix(in srgb, var(--ink, #152d38) 6%, white);
+}
+
+.economy-table > div {
+  border-top: 1px solid color-mix(in srgb, var(--ink, #152d38) 12%, white);
+  border-radius: 0 0 0.75rem 0.75rem;
+}
+
+.economy-table table {
+  font-variant-numeric: tabular-nums;
+}

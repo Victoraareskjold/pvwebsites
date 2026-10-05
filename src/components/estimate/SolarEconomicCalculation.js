@@ -1,4 +1,5 @@
 import { useEffect, useMemo } from "react";
+import EconomyChart from "./EconomyChart";
 
 export default function SolarEconomicCalculation({
   yearlyProduction,
@@ -112,7 +113,21 @@ export default function SolarEconomicCalculation({
 
   return (
     <div className="flex flex-col gap-6 !w-full col-span-2">
-      {/* Data Table */}
+      <EconomyChart
+        rows={yearlyData}
+        investmentCost={investmentCost}
+        paybackYear={paybackYear}
+      />
+
+      {/* Tallene bak grafen. Tydelig at den kan åpnes, og lesbar på mobil. */}
+      <details className="economy-table">
+        <summary>
+          <span>
+            <strong>Se hele beregningen – år for år</strong>
+            <small>Produksjon, verdi og kostnader gjennom 30 år</small>
+          </span>
+          <span className="economy-table-open">Åpne tabellen</span>
+        </summary>
       <div className="overflow-x-auto bg-white !w-full rounded-lg shadow">
         <table className="w-full text-sm">
           <thead className="bg-gray-100 border-b-2 border-gray-300">
@@ -191,6 +206,7 @@ export default function SolarEconomicCalculation({
           </tbody>
         </table>
       </div>
+      </details>
     </div>
   );
 }

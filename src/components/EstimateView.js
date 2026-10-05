@@ -10,6 +10,16 @@ import HowDoesItWork from "./estimate/HowDoesItWork";
 import YourSolarFacility from "./estimate/YourSolarFacility";
 import YourSolarFacility2 from "./estimate/YourSolarFacility2";
 import SolarEconomicCalculation from "./estimate/SolarEconomicCalculation";
+import BatteryOptions from "./estimate/BatteryOptions";
+
+/**
+ * Batteriseksjonen vises på tilbud laget fra og med denne datoen.
+ * Tilbud som allerede var sendt ut før dette skal se ut som da de ble sendt.
+ *
+ * Uten Z, fordi estimates.created_at er lagret uten tidssone og dermed
+ * tolkes som lokal tid — da sammenlignes epler med epler.
+ */
+const BATTERY_SECTION_FROM = new Date("2026-10-05T00:00:00");
 import { useSearchParams } from "next/navigation";
 import Link from "next/link";
 import SpotPriceWidget from "./SpotPriceWidget";
@@ -73,6 +83,21 @@ export default function EstimateView({ estimateId }) {
       minimumFractionDigits: 0,
       maximumFractionDigits: 0,
     });
+
+  // Oppsettet for batteriseksjonen. Egen nøkkel, ikke å forveksle med
+  // price_data.installation.battery, som er installasjonsarbeidet.
+  const batteryConfig = estimateData?.price_data?.batterySection;
+
+  // Batteriseksjonen gjelder tilbud laget fra og med denne datoen. Eldre
+  // tilbud er sendt ut uten den og skal ikke endre seg i ettertid.
+  const createdAt = estimateData?.created_at
+    ? new Date(estimateData.created_at)
+    : null;
+  const showBatterySection =
+    createdAt instanceof Date &&
+    !Number.isNaN(createdAt.getTime()) &&
+    createdAt >= BATTERY_SECTION_FROM &&
+    Boolean(batteryConfig?.catalogue);
 
   const inverter = estimateData?.price_data?.suppliers?.find(
     (item) => item.category === "inverter",
@@ -487,6 +512,16 @@ export default function EstimateView({ estimateId }) {
               }}
             />
           </div>
+
+          {/* Batteri, hybridinverter og nødstrøm.
+
+              Alle tilbud laget fra og med BATTERY_SECTION_FROM viser seksjonen,
+              uavhengig av om det ligger batteri i tilbudet — poenget er at
+              kunden selv kan utforske om hen vil ha det. Eldre tilbud er
+              urørt. */}
+          {showBatterySection && (
+            <BatteryOptions config={batteryConfig} />
+          )}
 
           <section className="flex lg:hidden flex-col gap-6 !p- sectionContainer0">
             <h4>

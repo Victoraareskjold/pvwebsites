@@ -1,0 +1,217 @@
+/**
+ * Batteriseksjonen på estimatsiden.
+ *
+ * Stilene er hentet fra prototypens `offer.css` (Soleklart, 28. september
+ * 2026) og scopet under `.offer-battery`, slik at de ikke kolliderer med
+ * estimatsidens øvrige stiler eller med design.css.
+ *
+ * Fargene nedenfor er prototypens egne, satt som variabler på seksjonen.
+ */
+
+.offer-battery {
+  /* Prototypens variabelnavn, men verdiene hentes fra design.css, slik at
+     seksjonen følger hvert selskaps tema — også Minel med sine egne farger.
+
+     --ink og --brand defineres ikke her: de arver fra :root i design.css.
+     Resten finnes ikke der, og får sin verdi av nærmeste slektning. */
+  --muted: color-mix(in srgb, var(--ink) 68%, white);
+  --navy: var(--ink-deep);
+  --gold: var(--brand);
+  --gold-soft: var(--brand-soft-strong);
+  --paper: var(--brand-soft);
+  --line: color-mix(in srgb, var(--ink) 16%, white);
+  --green: #24765d;
+  --green-soft: #eaf5ef;
+  --radius: 0.75rem;
+
+  color: var(--ink);
+  font-family: var(--site-font);
+  font-synthesis: weight;
+}
+
+.offer-battery *,
+.offer-battery *::before,
+.offer-battery *::after {
+  box-sizing: border-box;
+}
+
+.offer-battery button,
+.offer-battery input,
+.offer-battery select {
+  font: inherit;
+  color: inherit;
+}
+
+.offer-battery button {
+  cursor: pointer;
+}
+
+.offer-battery button:disabled {
+  cursor: not-allowed;
+  opacity: 0.55;
+}
+
+.offer-battery svg {
+  display: block;
+}
+
+.offer-battery button svg,
+.offer-battery .icon {
+  width: 23px;
+  height: 23px;
+  flex-shrink: 0;
+}
+
+.offer-battery .section-heading {display:flex;align-items:center;justify-content:space-between;gap:24px}
+.offer-battery .solar-card>.section-heading {padding:30px 34px 0}
+.offer-battery .section-heading p:not(.eyebrow) {color:var(--muted);margin-bottom:0;max-width:700px}
+.offer-battery .label-pill {border:1px solid var(--line);font-size:13px;padding:8px 12px;border-radius:100px;white-space:nowrap}
+.offer-battery .assumptions {border-top:1px solid var(--line);font-size:14px;margin:0 34px}
+.offer-battery .assumptions>summary {padding:16px 0;display:flex;justify-content:space-between;cursor:pointer;list-style:none}
+.offer-battery .assumptions>summary::-webkit-details-marker, .offer-battery .year-details>summary::-webkit-details-marker {display:none}
+.offer-battery .assumptions[open]>summary>span {transform:rotate(45deg)}
+.offer-battery .small-note {font-size:13px;color:var(--muted);line-height:1.7}
+.offer-battery .options-section {padding-top:64px}
+.offer-battery .options-section>.section-heading {margin-bottom:26px}
+.offer-battery .path-options {display:grid;grid-template-columns:repeat(3,1fr);gap:15px;margin-bottom:24px}
+.offer-battery .path-card {appearance:none;text-align:left;border:1px solid #d8dfdd;background:white;border-radius:12px;padding:23px;position:relative;display:flex;flex-direction:column;align-items:start;min-height:208px;transition:border-color .2s,background .2s,box-shadow .2s}
+.offer-battery .path-card:hover {border-color:color-mix(in srgb, var(--brand) 70%, var(--ink))}
+.offer-battery .path-card[aria-checked=true] {border:2px solid var(--brand-strong);background:var(--brand-selected);padding:22px;box-shadow:0 0 0 3px var(--brand-on-dark-border)}
+.offer-battery .path-top {display:flex;align-items:center;justify-content:space-between;width:100%;margin-bottom:17px}
+.offer-battery .path-top svg {color:var(--brand-accent)}
+.offer-battery .choice-dot {width:21px;height:21px;border:1.5px solid #bcc5bf;border-radius:50%;display:grid;place-items:center}
+.offer-battery .path-card[aria-checked=true] .choice-dot {border-color:var(--brand-strong);background:var(--brand-strong)}
+.offer-battery .path-card[aria-checked=true] .choice-dot:after {content:'';width:7px;height:7px;border-radius:50%;background:#fff}
+.offer-battery .path-card strong {font-size:17px}
+.offer-battery .path-card small {font-size:13px;color:var(--muted);line-height:1.55;margin-top:6px;display:block}
+.offer-battery .path-price {font-size:15px;font-weight:700;margin-top:auto;padding-top:16px}
+.offer-battery .path-recommended {font-size:11px;text-transform:uppercase;letter-spacing:.06em;color:var(--brand-warm-ink);background:var(--brand-warm-border);border-radius:4px;padding:3px 6px;position:absolute;top:21px;left:58px}
+.offer-battery .mode-note {border-radius:12px;background:#edf1ed;padding:20px 24px;display:flex;align-items:flex-start;gap:14px;font-size:15px;margin-bottom:20px}
+.offer-battery .mode-note p {margin:0;color:var(--muted)}
+.offer-battery .mode-note strong {display:block;margin-bottom:4px;color:var(--ink)}
+.offer-battery .mode-note svg {color:var(--green);flex-shrink:0;width:25px;height:25px}
+.offer-battery .text-button {border:0;background:none;color:var(--ink);padding:0;text-decoration:underline;text-underline-offset:4px;font-weight:700;font-size:14px}
+.offer-battery .battery-grid {display:grid;grid-template-columns:1fr 1.08fr;gap:24px;align-items:start}
+.offer-battery .config-panel {border:1px solid var(--line);background:white;border-radius:16px;padding:30px}
+.offer-battery .config-top {display:flex;justify-content:space-between;align-items:flex-start;gap:16px}
+.offer-battery .recommend-tag {display:inline-block;color:var(--green);background:var(--green-soft);padding:5px 9px;border-radius:5px;font-size:12px;font-weight:700}
+.offer-battery .capacity-display {display:flex;justify-content:space-between;align-items:end;margin:25px 0 16px}
+.offer-battery .capacity-display strong {font-size:48px;letter-spacing:-2px;line-height:1.1}
+.offer-battery .capacity-display strong small {font-size:20px;letter-spacing:0;font-weight:400}
+.offer-battery .capacity-display p {margin:6px 0 0;font-size:13px;color:var(--muted)}
+.offer-battery .stepper {display:flex;align-items:center;gap:13px}
+.offer-battery .stepper button {border:1px solid var(--line);background:white;border-radius:50%;height:40px;width:40px;font-size:24px;line-height:1}
+.offer-battery .stepper output {min-width:20px;text-align:center;font-size:16px;font-weight:700}
+.offer-battery .capacity-gauge {display:flex;gap:4px;height:10px;margin-bottom:24px}
+.offer-battery .capacity-gauge span {flex:1;background:#e6ece8;border-radius:2px}
+.offer-battery .capacity-gauge span.filled {background:var(--brand-strong)}
+.offer-battery .config-divider {height:1px;background:var(--line);margin:22px 0}
+.offer-battery .price-inline {display:flex;justify-content:space-between;align-items:baseline;gap:14px;font-size:14px}
+.offer-battery .price-inline strong {font-size:23px;letter-spacing:-.7px;white-space:nowrap}
+.offer-battery .supporting {color:var(--muted);font-size:13px;margin:7px 0 0;line-height:1.6}
+.offer-battery .discount-line {color:var(--green);font-size:13px;margin:10px 0 0}
+.offer-battery .config-options {border-top:1px solid var(--line);margin-top:22px;padding-top:18px}
+.offer-battery .config-options summary {cursor:pointer;font-size:14px;font-weight:700}
+.offer-battery .field {display:flex;flex-direction:column;gap:6px;margin-top:16px;font-size:14px}
+.offer-battery .field label {font-weight:700}
+.offer-battery .field small {font-size:12px;color:var(--muted)}
+.offer-battery .warning-note {border-left:3px solid var(--brand-strong);padding:10px 13px;background:var(--brand-selected);font-size:13px;color:var(--brand-warm-ink);margin-top:20px}
+.offer-battery .field-row {display:grid;grid-template-columns:1fr 1fr;gap:15px}
+.offer-battery .backup-section {margin-top:26px;padding-top:24px;border-top:1px solid var(--line)}
+.offer-battery .backup-section h3 {font-size:18px;margin-bottom:7px}
+.offer-battery .backup-options {display:flex;flex-direction:column;gap:10px;margin-top:15px}
+.offer-battery .backup-choice {display:flex;gap:11px;align-items:flex-start;cursor:pointer;font-size:14px}
+.offer-battery .backup-choice input {accent-color:var(--green);margin-top:6px;width:16px;height:16px;flex-shrink:0}
+.offer-battery .backup-choice small {display:block;font-size:12px;color:var(--muted)}
+.offer-battery .circuit-select {display:flex;justify-content:space-between;align-items:center;padding:14px 0;font-size:14px}
+.offer-battery .circuit-select select {width:90px}
+.offer-battery .backup-info {font-size:12px;color:var(--muted);line-height:1.6;margin:13px 0 0}
+.offer-battery .story-panel {background:var(--navy);border-radius:16px;padding:26px 28px;color:white;overflow:hidden}
+.offer-battery .story-head {display:flex;justify-content:space-between;align-items:center;gap:15px}
+.offer-battery .story-head .eyebrow {color:#b5c6cc;font-size:11px;margin:0}
+.offer-battery .pause-button {color:#c0d1d7;background:none;border:1px solid #3c525c;border-radius:6px;padding:5px 10px;font-size:12px}
+.offer-battery .scene-tabs {display:flex;border-bottom:1px solid #354b55;margin:23px 0 22px;gap:20px}
+.offer-battery .scene-tabs button {border:0;border-bottom:2px solid transparent;background:none;color:#a9c1cb;padding:0 0 10px;font-size:14px}
+.offer-battery .scene-tabs button[aria-pressed=true] {color:var(--gold);border-bottom-color:var(--gold)}
+.offer-battery .story-panel h3 {font-size:26px;letter-spacing:-.8px;margin-bottom:9px;max-width:400px}
+.offer-battery .story-description {font-size:14px;color:#b9cdd5;line-height:1.7;min-height:48px;margin-bottom:0}
+.offer-battery .energy-diagram {position:relative;height:322px;margin:7px 0 14px}
+.offer-battery .energy-wires {position:absolute;inset:0;width:100%;height:100%}
+.offer-battery .wire-base {fill:none;stroke:#34505c;stroke-width:2}
+.offer-battery .wire-flow {fill:none;stroke:var(--gold);stroke-width:2.5;stroke-dasharray:4 9;stroke-linecap:round;animation:energy-flow 3s linear infinite}
+.offer-battery .wire-flow.inactive {display:none}
+.offer-battery .wire-flow.reverse {animation-direction:reverse}
+.offer-battery .energy-diagram.paused .wire-flow {animation-play-state:paused}
+.offer-battery .energy-node {position:absolute;display:flex;flex-direction:column;align-items:center;gap:4px;transform:translate(-50%,-50%);font-size:12px;white-space:nowrap;color:#aac0c9;min-width:90px}
+.offer-battery .energy-node .node-symbol {width:46px;height:44px;display:grid;place-items:center;background:#1b3846;border:1px solid #36535f;border-radius:10px;color:#c2d5dc}
+.offer-battery .energy-node svg {width:24px;height:24px}
+.offer-battery .energy-node strong {font-size:14px;color:#eaf2f5;font-weight:700}
+.offer-battery .energy-node.sun .node-symbol {color:var(--gold)}
+.offer-battery .energy-node.sun {left:50%;top:13%}
+.offer-battery .energy-node.grid {left:14%;top:51%}
+.offer-battery .energy-node.home {left:86%;top:51%}
+.offer-battery .energy-node.inverter {left:50%;top:51%;font-size:11px}
+.offer-battery .energy-node.inverter .node-symbol {background:#26444e;border-color:#506975;width:55px;height:56px}
+.offer-battery .energy-node.battery {left:50%;top:87%}
+.offer-battery .energy-node.battery .node-symbol {color:var(--gold)}
+.offer-battery .energy-node.off {opacity:.4}
+.offer-battery .story-benefit {padding:16px 18px;background:#1a3844;border:1px solid #35505b;border-radius:10px;margin-top:8px}
+.offer-battery .story-benefit strong {color:var(--gold);font-size:21px;display:block;margin-bottom:4px;letter-spacing:-.5px}
+.offer-battery .story-benefit p {font-size:13px;color:#c3d5dc;margin:0;line-height:1.7}
+.offer-battery .story-caption {font-size:11px;color:#a1b9c4;line-height:1.65;margin:16px 0 0}
+.offer-battery .battery-value {grid-column:1/-1;border-top:1px solid var(--line);margin-top:6px;padding-top:20px;display:flex;align-items:flex-start;gap:16px;font-size:14px}
+.offer-battery .battery-value svg {color:var(--green);width:25px;height:25px;flex-shrink:0}
+.offer-battery .battery-value p {color:var(--muted);margin:4px 0 0;font-size:13px}
+.offer-battery .sticky-right .text-button {font-size:13px}
+@keyframes energy-flow{to{stroke-dashoffset:-52}}
+@media(max-width:950px) {
+  .offer-battery .solar-card>.section-heading {padding:25px 24px 0}
+  .offer-battery .assumptions {margin:0 24px}
+  .offer-battery .battery-grid {gap:18px;grid-template-columns:1fr 1fr}
+  .offer-battery .config-panel, .offer-battery .story-panel {padding:23px}
+  .offer-battery .path-card {padding:19px}
+  .offer-battery .path-card[aria-checked=true] {padding:18px}
+  .offer-battery .path-recommended {font-size:10px;left:51px;top:19px}
+  .offer-battery .path-card strong {font-size:16px}
+  .offer-battery .energy-node {min-width:65px;font-size:11px}
+  .offer-battery .energy-node strong {font-size:12px}
+  .offer-battery .story-panel h3 {font-size:23px}
+}
+@media(max-width:700px) {
+  .offer-battery .section-heading {align-items:flex-start;gap:12px;flex-wrap:wrap}
+  .offer-battery .solar-card>.section-heading {padding:22px 20px 0}
+  .offer-battery .solar-card .section-heading h2 {font-size:25px}
+  .offer-battery .label-pill {font-size:11px;padding:5px 9px}
+  .offer-battery .assumptions {margin:0 20px}
+  .offer-battery .assumptions>summary {font-size:13px}
+  .offer-battery .options-section {padding-top:40px}
+  .offer-battery .options-section h2 {font-size:28px;max-width:420px}
+  .offer-battery .options-section>.section-heading p:not(.eyebrow) {font-size:14px}
+  .offer-battery .path-options {grid-template-columns:1fr;gap:10px;margin-bottom:18px}
+  .offer-battery .path-card {min-height:0;display:grid;grid-template-columns:35px 1fr auto;align-items:center;padding:17px 16px;column-gap:13px;row-gap:3px}
+  .offer-battery .path-card[aria-checked=true] {padding:16px 15px}
+  .offer-battery .path-top {grid-row:1/4;margin:0;display:block}
+  .offer-battery .path-top>svg {display:none}
+  .offer-battery .path-card strong {grid-column:2;font-size:16px}
+  .offer-battery .path-card small {grid-column:2/4;font-size:12px;margin:0}
+  .offer-battery .path-price {grid-column:2/4;grid-row:3;font-size:13px;padding-top:4px;margin:0}
+  .offer-battery .path-recommended {position:static;grid-column:3;grid-row:1;font-size:9px;padding:2px 5px}
+  .offer-battery .battery-grid {grid-template-columns:1fr;gap:18px}
+  .offer-battery .config-panel, .offer-battery .story-panel {padding:24px 21px}
+  .offer-battery .capacity-display strong {font-size:43px}
+  .offer-battery .energy-diagram {height:318px;margin:10px 0}
+  .offer-battery .energy-node {min-width:80px;font-size:12px}
+  .offer-battery .energy-node strong {font-size:14px}
+  .offer-battery .story-description {min-height:0}
+  .offer-battery .story-panel h3 {font-size:26px}
+  .offer-battery .battery-value {padding:18px 0 0;font-size:13px;gap:12px}
+  .offer-battery .mode-note {padding:18px;font-size:13px}
+  .offer-battery .sticky-right .text-button {display:none}
+  .offer-battery .field-row {grid-template-columns:1fr}
+  .offer-battery .battery-value strong {font-size:14px}
+}
+@media print {
+  .offer-battery .demo-bar, .offer-battery .sticky-summary, .offer-battery .path-options, .offer-battery .scene-tabs, .offer-battery .pause-button, .offer-battery .primary-button, .offer-battery .text-button, .offer-battery .backup-options {display:none!important}
+  .offer-battery .story-panel {color:black;background:#eee}
+  .offer-battery .solar-card, .offer-battery .quote-card, .offer-battery .config-panel {break-inside:avoid}
+}
