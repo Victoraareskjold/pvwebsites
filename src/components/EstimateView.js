@@ -11,6 +11,7 @@ import YourSolarFacility from "./estimate/YourSolarFacility";
 import YourSolarFacility2 from "./estimate/YourSolarFacility2";
 import SolarEconomicCalculation from "./estimate/SolarEconomicCalculation";
 import BatteryOptions from "./estimate/BatteryOptions";
+import defaultBatteryConfig from "../config/battery";
 
 /**
  * Batteriseksjonen vises på tilbud laget fra og med denne datoen.
@@ -84,20 +85,30 @@ export default function EstimateView({ estimateId }) {
       maximumFractionDigits: 0,
     });
 
-  // Oppsettet for batteriseksjonen. Egen nøkkel, ikke å forveksle med
+  // Oppsettet for batteriseksjonen. Tilbudet kan overstyre fellesoppsettet
+  // med price_data.batterySection — ikke å forveksle med
   // price_data.installation.battery, som er installasjonsarbeidet.
-  const batteryConfig = estimateData?.price_data?.batterySection;
+  const batteryConfig = {
+    ...defaultBatteryConfig,
+    ...(estimateData?.price_data?.batterySection ?? {}),
+    // Kundetype og årsforbruk hører til tilbudet, ikke til fellesoppsettet.
+    customerType: estimateData?.private ? "business" : "private",
+    annualConsumption:
+      estimateData?.price_data?.batterySection?.annualConsumption ??
+      estimateData?.leads?.own_consumption ??
+      defaultBatteryConfig.annualConsumption,
+  };
 
-  // Batteriseksjonen gjelder tilbud laget fra og med denne datoen. Eldre
-  // tilbud er sendt ut uten den og skal ikke endre seg i ettertid.
+  // Seksjonen gjelder tilbud laget fra og med denne datoen — uavhengig av om
+  // det ligger batteri i tilbudet. Eldre tilbud er sendt ut uten den og skal
+  // ikke endre seg i ettertid.
   const createdAt = estimateData?.created_at
     ? new Date(estimateData.created_at)
     : null;
   const showBatterySection =
     createdAt instanceof Date &&
     !Number.isNaN(createdAt.getTime()) &&
-    createdAt >= BATTERY_SECTION_FROM &&
-    Boolean(batteryConfig?.catalogue);
+    createdAt >= BATTERY_SECTION_FROM;
 
   const inverter = estimateData?.price_data?.suppliers?.find(
     (item) => item.category === "inverter",
