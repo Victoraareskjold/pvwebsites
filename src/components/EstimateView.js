@@ -5,6 +5,7 @@ import EstimatePricingInfo from "./EstimatePricingInfo";
 import { useState, useEffect } from "react";
 
 import "./estimate.css";
+import "./estimate/offerLayout.css";
 import HowWillItLook from "./estimate/HowWillItLook";
 import HowDoesItWork from "./estimate/HowDoesItWork";
 import YourSolarFacility from "./estimate/YourSolarFacility";
@@ -12,6 +13,11 @@ import YourSolarFacility2 from "./estimate/YourSolarFacility2";
 import SolarEconomicCalculation from "./estimate/SolarEconomicCalculation";
 import BatteryOptions from "./estimate/BatteryOptions";
 import defaultBatteryConfig from "../config/battery";
+import OfferSummary from "./estimate/OfferSummary";
+import { useSearchParams } from "next/navigation";
+import Link from "next/link";
+import SpotPriceWidget from "./SpotPriceWidget";
+import { calculateKwhCostWithLoan } from "../../utils/calculateKwhCostWithLoan";
 
 /**
  * Batteriseksjonen vises på tilbud laget fra og med denne datoen.
@@ -21,10 +27,7 @@ import defaultBatteryConfig from "../config/battery";
  * tolkes som lokal tid — da sammenlignes epler med epler.
  */
 const BATTERY_SECTION_FROM = new Date("2026-10-05T00:00:00");
-import { useSearchParams } from "next/navigation";
-import Link from "next/link";
-import SpotPriceWidget from "./SpotPriceWidget";
-import { calculateKwhCostWithLoan } from "../../utils/calculateKwhCostWithLoan";
+
 
 export default function EstimateView({ estimateId }) {
   const config = useSiteConfig();
@@ -67,6 +70,10 @@ export default function EstimateView({ estimateId }) {
   const [paymentTime, setPaymentTime] = useState(null);
   const maxPaymentTime = 40;
 
+  // Kundens batterivalg, løftet opp hit slik at prisoppsummeringen
+  // nederst følger det som er valgt lenger oppe på siden.
+  const [batteryQuote, setBatteryQuote] = useState(null);
+
   const [economySummary, setEconomySummary] = useState(null);
   const [totalProduction30Years, setTotalProduction30Years] = useState(0);
   const [inverterReplacementCost, setInverterReplacementCost] = useState(0);
@@ -98,6 +105,10 @@ export default function EstimateView({ estimateId }) {
       estimateData?.leads?.own_consumption ??
       defaultBatteryConfig.annualConsumption,
   };
+
+  // Kunden har lagt til noe som ikke er godkjent for signering ennå.
+  const hasUnreviewedExtras = (batteryQuote?.extrasEx ?? 0) > 0;
+  const contactPerson = estimateData?.leads?.created_by;
 
   // Seksjonen gjelder tilbud laget fra og med denne datoen — uavhengig av om
   // det ligger batteri i tilbudet. Eldre tilbud er sendt ut uten den og skal
@@ -177,33 +188,52 @@ export default function EstimateView({ estimateId }) {
     <main className="min-h-screen estimateStylingSheet">
       {estimateData ? (
         <main className="flex flex-col gap-12 lg:gap-4 items-center">
-          <section>
-            <h2>
+          {/* Innledningen, med ordlyden fra kravdokumentet. */}
+          <section className="offer-intro">
+            <p className="offer-intro-meta">
               Beregningen er utført for en{" "}
               <strong>
                 {estimateData?.private ? "næringskunde" : "privatperson"}
-              </strong>{" "}
-              på følgende Adresse:{" "}
-              <strong className="font-medium">
-                {estimateData?.leads?.address || "Missing address"}
               </strong>
-            </h2>
+              {estimateData?.leads?.address ? (
+                <>
+                  {" "}
+                  på følgende adresse:{" "}
+                  <strong>{estimateData.leads.address}</strong>
+                </>
+              ) : null}
+            </p>
+
+            <h1 className="offer-intro-greeting">
+              Hei {estimateData?.leads?.person_info}
+            </h1>
+
+            <p className="offer-intro-lead">
+              Her er ditt {finished ? "tilbud" : "estimat"} på et komplett
+              solcelleanlegg fra <strong>{config.title}</strong>.
+            </p>
+
+            {estimateData?.leads?.created_by?.name && (
+              <div className="offer-intro-advisor">
+                <span className="offer-intro-avatar" aria-hidden="true">
+                  {estimateData.leads.created_by.name
+                    .split(" ")
+                    .map((part) => part[0])
+                    .slice(0, 2)
+                    .join("")}
+                </span>
+                <div>
+                  <strong>{estimateData.leads.created_by.name}</strong>
+                  <span>Din kontaktperson</span>
+                </div>
+              </div>
+            )}
           </section>
 
-          <section>
-            <h5 className="mb-4">
-              Hei <strong>{estimateData?.leads?.person_info}</strong>
-            </h5>
-            <div>
-              <h2 className="font-light text-lg text-gray-900">
-                Her er ditt {finished ? "tilbud" : "estimat"} på et komplett
-                solcelleanlegg fra{" "}
-                <span className="font-semibold">
-                  {config.title || "mangler firma"}.
-                </span>
-              </h2>
-            </div>
-          </section>
+          <div className="offer-step">
+            <p className="offer-step-number">01 · SOLCELLER</p>
+            <h2>Anlegget ditt, og hva det kan gi deg.</h2>
+          </div>
 
           <section>
             <h5 className="mb-4">
@@ -212,7 +242,7 @@ export default function EstimateView({ estimateId }) {
             <HowDoesItWork finished={finished} />
           </section>
 
-          <div className="flex flex-col lg:flex-row sectionContainer bg-[#FFF0CD] rounded-md !p-0 gap-4">
+          <div className="flex flex-col lg:flex-row sectionContainer offer-panel !p-0 gap-4">
             <HowWillItLook estimateData={estimateData} finished={finished} />
 
             <section className="w-full">
@@ -234,7 +264,7 @@ export default function EstimateView({ estimateId }) {
             <div className="w-full h-1 bg-slate-300 rounded-full mt-12" />
           </section> */}
 
-          <div className="flex flex-col sectionContainer bg-[#FFF0CD] rounded-md gap-12">
+          <div className="flex flex-col sectionContainer offer-panel gap-12">
             {/* Strømpris og besparelse */}
             <div className="w-full">
               <div className="flex flex-col gap-4">
@@ -531,7 +561,10 @@ export default function EstimateView({ estimateId }) {
               kunden selv kan utforske om hen vil ha det. Eldre tilbud er
               urørt. */}
           {showBatterySection && (
-            <BatteryOptions config={batteryConfig} />
+            <BatteryOptions
+              config={batteryConfig}
+              onSelectionChange={(selection, quote) => setBatteryQuote(quote)}
+            />
           )}
 
           <section className="flex lg:hidden flex-col gap-6 !p- sectionContainer0">
@@ -588,7 +621,13 @@ export default function EstimateView({ estimateId }) {
             </div>
           </section>
 
-          <section className="bg-[#4D4D4D] maxSection items-center w-full flex justify-center">
+          <div className="offer-step">
+            <p className="offer-step-number">03 · DIN OVERSIKT</p>
+            <h2>Dette har du valgt.</h2>
+            <p>Se hva som inngår, og hva valgene dine betyr for prisen.</p>
+          </div>
+
+          <section className="offer-panel-dark maxSection items-center w-full flex justify-center">
             <section className="w-full flex flex-col gap-8 self-center">
               <div className="flex flex-col lg:grid lg:grid-cols-2 lg:gap-x-24 lg:gap-y-24 gap-16">
                 {/* Bestill anlegg */}
@@ -597,87 +636,51 @@ export default function EstimateView({ estimateId }) {
                     <strong>Bestill anlegg</strong>
                   </h5> */}
 
-                  <div>
-                    {estimateData?.private ? (
-                      // Næringskunde: Kun total eks. mva
-                      <div className="flex flex-col">
-                        <h5 className="text-white mb-2">
-                          <strong>Samlet total kostnad</strong>
-                        </h5>
-                        <div className="flex flex-row justify-between">
-                          <h1 className="fatP text-white">
-                            Komplett ferdig installert anlegg eks. mva
-                          </h1>
-                          <h1 className="fatP text-white">
-                            <strong>
-                              {formatValue(
-                                Number(estimateData?.price_data?.total),
-                              )}{" "}
-                              kr
-                            </strong>
-                          </h1>
-                        </div>
-                        <div className="w-full h-2 bg-green-300 rounded-full mb-2 mt-2" />
-                        <div className="w-24 h-2 bg-green-300 self-end rounded-full" />
-                      </div>
-                    ) : (
-                      // Privatperson: Total inkl. mva og Enova-støtte
-                      <div className="flex flex-col">
-                        <h5 className="text-white mb-2">
-                          <strong>Samlet total kostnad</strong>
-                        </h5>
-                        <div className="flex flex-row justify-between">
-                          <h1 className="fatP text-white">
-                            Komplett ferdig installert anlegg
-                          </h1>
-                          <h1 className="fatP text-white">
-                            <strong>
-                              {formatValue(
-                                Number(
-                                  estimateData?.price_data?.["total inkl. alt"],
-                                ),
-                              )}{" "}
-                              kr
-                            </strong>
-                          </h1>
-                        </div>
-                        <div className="w-full h-2 bg-green-300 rounded-full mb-6 mt-2" />
-                        <div className="flex flex-row justify-between">
-                          <h1 className="fatP text-white">Enova støtte</h1>
-                          <h1 className="fatP text-white">
-                            -{" "}
-                            <strong>
-                              {formatValue(Number(enovaSupport()))} kr
-                            </strong>
-                          </h1>
-                        </div>
-                        <div className="w-full h-2 bg-green-300 rounded-full mb-6 mt-2" />
-                        <div className="flex flex-row justify-between">
-                          <h1 className="fatP text-white">
-                            Totalkostnad inkl. mva
-                          </h1>
-                          <h1 className="fatP text-white">
-                            <strong>
-                              {formatValue(
-                                Number(
-                                  estimateData?.price_data?.["total inkl. alt"],
-                                ) - Number(enovaSupport()),
-                              )}{" "}
-                              kr
-                            </strong>
-                          </h1>
-                        </div>
-                        <div className="w-full h-2 bg-green-300 rounded-full mb-2 mt-2" />
-                        <div className="w-24 h-2 bg-green-300 self-end rounded-full" />
-                      </div>
-                    )}
-                  </div>
+                  <OfferSummary
+                    basePriceEx={estimateData?.price_data?.total}
+                    isBusiness={Boolean(estimateData?.private)}
+                    enovaSupport={enovaSupport()}
+                    batteryQuote={batteryQuote}
+                  />
 
-                  {finished ? (
+                  {/* Signeringen gjelder standardanlegget. Har kunden lagt
+                      til hybrid, batteri eller nødstrøm, er det et ønske som
+                      må gjennomgås av oss først — et valg her er ingen
+                      bestilling. */}
+                  {hasUnreviewedExtras ? (
+                    <div className="offer-review-note">
+                      <strong>Vi går gjennom valget ditt sammen.</strong>
+                      <p>
+                        Hybridinverter, batteri og nødstrøm må vi kontrollere
+                        mot anlegget ditt før det kan avtales — kompatibilitet,
+                        omfang og endelig pris. Ta kontakt, så tar vi det
+                        derfra.
+                      </p>
+                      {contactPerson?.email && (
+                        <a href={`mailto:${contactPerson.email}`}>
+                          {contactPerson.email}
+                        </a>
+                      )}
+                      {contactPerson?.phone && (
+                        <a href={`tel:${contactPerson.phone}`}>
+                          {contactPerson.phone}
+                        </a>
+                      )}
+                      {finished && (
+                        <a
+                          className="offer-review-plain"
+                          href={`${estimateId}/kjoepsavtale`}
+                          target="_blank"
+                        >
+                          Signer standardanlegget uten tillegg
+                        </a>
+                      )}
+                    </div>
+                  ) : finished ? (
                     <a
                       href={`${estimateId}/kjoepsavtale`}
                       target="_blank"
-                      className="bg-[#FFB356] text-white fatP self-end rounded-full w-fit px-5 py-1 hover:bg-black"
+                      className="offer-sign-button"
                     >
                       Signer dokument
                     </a>

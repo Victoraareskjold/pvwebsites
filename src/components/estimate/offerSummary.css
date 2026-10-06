@@ -1,0 +1,121 @@
+/**
+ * Prisoppsummeringen. Ligger på den mørke flaten nederst på tilbudet, og
+ * bruker samme mørke tone som resten av nettstedet.
+ */
+
+.offer-summary {
+  font-family: var(--site-font, "Manrope", Arial, sans-serif);
+  color: white;
+  display: flex;
+  flex-direction: column;
+}
+
+.offer-summary-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 0.75rem;
+}
+
+.offer-summary-head h3 {
+  font-size: 1.25rem;
+  font-weight: 700;
+  margin: 0;
+}
+
+.offer-summary-tax {
+  font-size: 0.8rem;
+  letter-spacing: 0.04em;
+  color: rgb(255 255 255 / 0.65);
+}
+
+.offer-summary-line {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1.5rem;
+  padding: 0.7rem 0;
+  border-top: 1px solid rgb(255 255 255 / 0.16);
+  font-size: 0.95rem;
+  line-height: 1.45;
+}
+
+.offer-summary-line > div {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+  min-width: 0;
+}
+
+.offer-summary-line small {
+  font-size: 0.8rem;
+  color: rgb(255 255 255 / 0.6);
+}
+
+.offer-summary-line strong {
+  font-weight: 700;
+  white-space: nowrap;
+  font-variant-numeric: tabular-nums;
+}
+
+.offer-summary-total {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1.5rem;
+  margin-top: 0.5rem;
+  padding-top: 0.9rem;
+  border-top: 2px solid var(--brand, #ffb44d);
+  font-size: 1.1rem;
+}
+
+.offer-summary-total strong {
+  font-size: 1.6rem;
+  font-weight: 800;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+.offer-summary-support {
+  margin-top: 1.1rem;
+  padding: 0.2rem 1rem 0.9rem;
+  background: rgb(255 255 255 / 0.07);
+  border-radius: 0.6rem;
+}
+
+.offer-summary-after strong {
+  color: var(--brand, #ffb44d);
+}
+
+.offer-summary-note {
+  font-size: 0.82rem;
+  line-height: 1.55;
+  color: rgb(255 255 255 / 0.68);
+  margin: 0.75rem 0 0;
+}
+
+.offer-summary-support .offer-summary-note {
+  margin-top: 0.5rem;
+}
+
+.offer-summary-extras-note {
+  border-left: 2px solid var(--brand, #ffb44d);
+  padding-left: 0.8rem;
+}
+
+.offer-summary-warning {
+  color: var(--brand-soft-strong, #ffe2b2);
+  font-weight: 600;
+}
+
+@media (max-width: 640px) {
+  .offer-summary-line {
+    gap: 1rem;
+    font-size: 0.9rem;
+  }
+
+  .offer-summary-total strong {
+    font-size: 1.35rem;
+  }
+}

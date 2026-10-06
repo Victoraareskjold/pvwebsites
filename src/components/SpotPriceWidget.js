@@ -69,11 +69,15 @@ export default function SpotPriceWidget({ setElPrice, site, solarLocation }) {
         const day = String(now.getDate()).padStart(2, "0");
         const url = `https://www.hvakosterstrommen.no/api/v1/prices/${year}/${month}-${day}_${zone}.json`;
         const res = await fetch(url);
-        if (!res.ok) throw new Error("Kunne ikke hente priser");
+        if (!res.ok) throw new Error("http");
         const data = await res.json();
+        if (!Array.isArray(data) || data.length === 0) throw new Error("tom");
         setPrices(data);
-      } catch (e) {
-        setError(e.message);
+      } catch {
+        setPrices(null);
+        setError(
+          "Vi får ikke hentet dagens spotpris akkurat nå. Regnestykket under bruker verdiene du selv har satt.",
+        );
       } finally {
         setLoading(false);
       }
@@ -81,40 +85,52 @@ export default function SpotPriceWidget({ setElPrice, site, solarLocation }) {
     fetchPrices();
   }, [zone]);
 
-  const derived = prices
-    ? (() => {
-        const now = new Date();
-        const currentHour = now.getHours();
-        const current = prices[currentHour];
-        const currentNok = current ? current.NOK_per_kWh * WITH_MVA : null;
+  const derived =
+    prices && prices.length
+      ? (() => {
+          const now = new Date();
 
-        const all = prices.map((p) => p.NOK_per_kWh * WITH_MVA);
-        const avg = all.reduce((a, b) => a + b, 0) / all.length;
-        const maxVal = Math.max(...all);
-        const minVal = Math.min(...all);
-        const maxEntry = prices[all.indexOf(maxVal)];
-        const minEntry = prices[all.indexOf(minVal)];
+          // Finn timen ut fra tidsstemplene, ikke ut fra plass i lista.
+          // Døgn med sommertidsomlegging har 23 eller 25 timer, og da peker
+          // prices[getHours()] på feil time.
+          const index = prices.findIndex(
+            (entry) =>
+              new Date(entry.time_start) <= now &&
+              now < new Date(entry.time_end),
+          );
+          const current = index >= 0 ? prices[index] : null;
+          const currentNok = current ? current.NOK_per_kWh * WITH_MVA : null;
 
-        // % change vs previous hour
-        const prevHour = currentHour > 0 ? prices[currentHour - 1] : null;
-        const pctChange =
-          prevHour && currentNok
-            ? ((currentNok - prevHour.NOK_per_kWh * WITH_MVA) /
-                (prevHour.NOK_per_kWh * WITH_MVA)) *
-              100
+          const all = prices.map((p) => p.NOK_per_kWh * WITH_MVA);
+          const avg = all.reduce((a, b) => a + b, 0) / all.length;
+          const maxVal = Math.max(...all);
+          const minVal = Math.min(...all);
+          const maxEntry = prices[all.indexOf(maxVal)];
+          const minEntry = prices[all.indexOf(minVal)];
+
+          // Endring mot timen før. Spotprisen kan være null eller negativ,
+          // og da gir en prosentregning enten Infinity eller et tall som
+          // ikke betyr noe — i de tilfellene vises ingen endring.
+          const previous = index > 0 ? prices[index - 1] : null;
+          const previousNok = previous
+            ? previous.NOK_per_kWh * WITH_MVA
             : null;
+          const pctChange =
+            currentNok !== null && previousNok !== null && previousNok > 0
+              ? ((currentNok - previousNok) / previousNok) * 100
+              : null;
 
-        return {
-          currentNok,
-          avg,
-          maxVal,
-          minVal,
-          maxEntry,
-          minEntry,
-          pctChange,
-        };
-      })()
-    : null;
+          return {
+            currentNok,
+            avg,
+            maxVal,
+            minVal,
+            maxEntry,
+            minEntry,
+            pctChange,
+          };
+        })()
+      : null;
 
   // sync with parent slider when data loads
   /* useEffect(() => {
@@ -158,9 +174,9 @@ export default function SpotPriceWidget({ setElPrice, site, solarLocation }) {
         {loading && (
           <p className="text-sm text-amber-700 mt-3">Henter priser...</p>
         )}
-        {error && <p className="text-sm text-red-600 mt-3">Feil: {error}</p>}
+        {error && <p className="text-sm text-gray-600 mt-3">{error}</p>}
 
-        {derived && (
+        {derived && derived.currentNok !== null && (
           <>
             <div className="flex items-baseline gap-3 mt-3">
               <span className="text-sm text-amber-700">Nå</span>
@@ -213,7 +229,7 @@ export default function SpotPriceWidget({ setElPrice, site, solarLocation }) {
       </div>
 
       {/* Appliance cost cards */}
-      {derived && (
+      {derived && derived.currentNok !== null && (
         <div>
           <p className="text-sm font-semibold text-gray-700 mb-2">
             Med strømprisen i dag koster...

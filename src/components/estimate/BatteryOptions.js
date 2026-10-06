@@ -24,6 +24,7 @@ import {
   vatMultiplier,
 } from "./batteryModel";
 import "./battery.css";
+import "./offerLayout.css";
 
 const number = (value, decimals = 0) =>
   Number(value || 0).toLocaleString("nb-NO", {
@@ -285,17 +286,16 @@ export default function BatteryOptions({ config, onSelectionChange }) {
       className="offer-battery options-section"
       aria-labelledby="battery-options-title"
     >
-      <div className="section-heading">
-        <div>
-          <p className="eyebrow">02 · MULIGHETENE DINE</p>
-          <h2 id="battery-options-title">
-            Vil du ta vare på mer av solstrømmen?
-          </h2>
-          <p>
-            Velg batteri nå, klargjør for senere, eller behold anlegget slik det
-            er.
-          </p>
-        </div>
+      {/* Samme overskriftsstil som 01 og 03, slik at delene hører sammen. */}
+      <div className="offer-step offer-step-inline">
+        <p className="offer-step-number">02 · MULIGHETENE DINE</p>
+        <h2 id="battery-options-title">
+          Vil du ta vare på mer av solstrømmen?
+        </h2>
+        <p>
+          Velg batteri nå, klargjør for senere, eller behold anlegget slik det
+          er.
+        </p>
       </div>
 
       <div

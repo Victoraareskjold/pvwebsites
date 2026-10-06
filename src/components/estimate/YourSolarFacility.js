@@ -18,6 +18,9 @@ export default function YourSolarFacility({ estimateData }) {
     (item) => item.category === "inverter",
   );
 
+  // Uten gardering krasjer siden på tilbud uten monteringslinjer.
+  const mounting = estimateData?.price_data?.mounting?.[0];
+
   return (
     <div className="flex flex-row h-fit gap- px-4 items-center">
       <div className="w-full mt-2">
@@ -34,17 +37,15 @@ export default function YourSolarFacility({ estimateData }) {
         />
         <div className="w-full h-2 bg-green-300 rounded-full my-6" />
         <EstimateInfoComponent
-          text={`- ${inverter?.product + " inverter" || "Inverter"} `}
+          text={`- ${inverter?.product ? `${inverter.product} inverter` : "Inverter"} `}
           number={`${inverter?.quantity || 0} stk`}
           image={"/estimate/info3.png"}
         />
 
         <div className="w-full h-2 bg-green-300 rounded-full my-6" />
         <EstimateInfoComponent
-          text={`- ${
-            estimateData?.price_data?.mounting[0]?.product ?? "Ingen valgt"
-          } feste`}
-          number={`${estimateData?.price_data?.mounting[0]?.quantity ?? 0} stk`}
+          text={`- ${mounting?.product ?? "Ingen valgt"} feste`}
+          number={`${mounting?.quantity ?? 0} stk`}
           image={"/estimate/info4.png"}
         />
       </div>

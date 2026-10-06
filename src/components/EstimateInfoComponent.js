@@ -1,4 +1,5 @@
 import Link from "next/link";
+import "./estimate/offerLayout.css";
 
 export function EstimateInfoComponent({
   text,
@@ -19,13 +20,13 @@ export function EstimateInfoComponent({
       >
         <p className="!text-md">
           <strong className="font-bold">{number || ""}</strong>{" "}
-          {text || "Missing text"}
+          {text || ""}
         </p>
         {finished && attachmentUrl && (
           <Link
             href={attachmentUrl}
             target="_blank"
-            className="underline bg-[#666666] text-white px-3 py-1 text-xs font-semibold rounded-md text-nowrap h-fit"
+            className="offer-datasheet-link"
           >
             {type === "INSTALLERT EFFEKT (KWP)"
               ? "Åpne simulering"
