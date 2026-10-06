@@ -108,7 +108,11 @@ export default function EstimateView({ estimateId }) {
 
   // Kunden har lagt til noe som ikke er godkjent for signering ennå.
   const hasUnreviewedExtras = (batteryQuote?.extrasEx ?? 0) > 0;
-  const contactPerson = estimateData?.leads?.created_by;
+  // Samme kontaktinfo som resten av nettsiden, ikke selgeren på tilbudet.
+  const contactPhone = config.footer?.phone || "+47 458 71 718";
+  const contactPhoneHref =
+    config.footer?.phoneHref || contactPhone.replace(/\s/g, "");
+  const contactEmail = config.footer?.email;
 
   // Seksjonen gjelder tilbud laget fra og med denne datoen — uavhengig av om
   // det ligger batteri i tilbudet. Eldre tilbud er sendt ut uten den og skal
@@ -656,16 +660,10 @@ export default function EstimateView({ estimateId }) {
                         omfang og endelig pris. Ta kontakt, så tar vi det
                         derfra.
                       </p>
-                      {contactPerson?.email && (
-                        <a href={`mailto:${contactPerson.email}`}>
-                          {contactPerson.email}
-                        </a>
+                      {contactEmail && (
+                        <a href={`mailto:${contactEmail}`}>{contactEmail}</a>
                       )}
-                      {contactPerson?.phone && (
-                        <a href={`tel:${contactPerson.phone}`}>
-                          {contactPerson.phone}
-                        </a>
-                      )}
+                      <a href={`tel:${contactPhoneHref}`}>{contactPhone}</a>
                       {finished && (
                         <a
                           className="offer-review-plain"
