@@ -62,6 +62,13 @@ const TOKENS = {
 
   chartAlt: "--chart-alt",
 
+  // Tilbudssiden (estimat): logoens hovedfarge og en rolig sidebakgrunn.
+  // siteAccent må ha minst 4,5:1 mot hvitt (brukes på liten tekst).
+  siteAccent: "--site-accent",
+  siteAccentSoft: "--site-accent-soft",
+  siteAccentLine: "--site-accent-line",
+  offerSurface: "--offer-surface",
+
   // Batterianimasjonen.
   batteryAccent: "--battery-accent",
   batteryAlert: "--battery-alert",

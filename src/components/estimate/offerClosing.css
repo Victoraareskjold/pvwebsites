@@ -1,0 +1,206 @@
+/**
+ * «03 · DIN OVERSIKT» — den mørke avslutningen på tilbudet.
+ *
+ * Flaten er --ink-deep (selskapets mørke tone). Kort er --surface-panel,
+ * uthevinger --brand (knapper) og --brand-bright (tekst på mørk flate).
+ * Bruker div-er, ikke section, så globals.css sine section-regler ikke slår inn.
+ */
+
+.offer-closing {
+  width: 100%;
+  background: var(--ink-deep);
+  color: white;
+  font-family: var(--site-font);
+  padding: 56px 24px 64px;
+}
+
+.offer-closing * { box-sizing: border-box; }
+
+.offer-closing .closing-inner {
+  width: min(var(--page-max, 1280px), 100%);
+  margin-inline: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+}
+
+.offer-closing .closing-eyebrow {
+  margin: 0 0 12px;
+  font-size: 12px !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.12em;
+  color: var(--brand-bright);
+}
+
+.offer-closing p { font-weight: 400; }
+
+/* ── Topp: pris + inkludert ────────────────────────────────────────────── */
+
+.offer-closing .closing-top {
+  display: grid;
+  grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr);
+  gap: 48px;
+  align-items: start;
+}
+
+.offer-closing .closing-card {
+  background: var(--surface-panel);
+  border: 1px solid rgb(255 255 255 / 0.1);
+  border-radius: 18px;
+  padding: 28px 30px;
+}
+
+.offer-closing .closing-actions {
+  margin-top: 22px;
+  padding-top: 20px;
+  border-top: 1px solid rgb(255 255 255 / 0.12);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.offer-closing .closing-sign {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  width: 100%;
+  padding: 15px 22px;
+  border-radius: 12px;
+  background: var(--brand);
+  color: var(--brand-ink);
+  font-size: 17px;
+  font-weight: 800;
+  text-decoration: none;
+  transition: background 0.15s, transform 0.15s;
+}
+
+.offer-closing .closing-sign:hover { background: var(--brand-hover); }
+.offer-closing .closing-sign:active { transform: translateY(1px); }
+
+.offer-closing .closing-fine {
+  margin: 0;
+  font-size: 13px !important;
+  color: rgb(255 255 255 / 0.65);
+  line-height: 1.6;
+}
+
+.offer-closing .closing-fine a,
+.offer-closing .closing-review a {
+  color: white;
+  font-weight: 600;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.offer-closing .closing-review {
+  border-left: 3px solid var(--brand);
+  background: rgb(255 255 255 / 0.06);
+  border-radius: 0 12px 12px 0;
+  padding: 16px 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.offer-closing .closing-review p {
+  margin: 0;
+  font-size: 14px !important;
+  line-height: 1.6;
+  color: rgb(255 255 255 / 0.78);
+}
+
+.offer-closing .closing-review-links { display: flex; flex-wrap: wrap; gap: 6px 18px; }
+.offer-closing .closing-plain { font-size: 13px; color: rgb(255 255 255 / 0.75) !important; margin-top: 4px; }
+
+.offer-closing .closing-side { display: flex; flex-direction: column; gap: 34px; padding-top: 6px; }
+
+.offer-closing .closing-included { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 12px; }
+
+.offer-closing .closing-included li {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 16px;
+  font-weight: 500;
+}
+
+.offer-closing .closing-check { width: 22px; height: 22px; flex: none; }
+.offer-closing .closing-check circle { fill: var(--brand); }
+.offer-closing .closing-check path { fill: none; stroke: var(--brand-ink); stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round; }
+
+.offer-closing .closing-reasons { margin: 0; display: grid; grid-template-columns: 1fr 1fr; gap: 16px 28px; }
+.offer-closing .closing-reasons dt { font-size: 15px; font-weight: 700; margin-bottom: 2px; }
+.offer-closing .closing-reasons dd { margin: 0; font-size: 14px; line-height: 1.55; color: rgb(255 255 255 / 0.7); }
+
+/* ── Bunn: miljø + kontakt ─────────────────────────────────────────────── */
+
+.offer-closing .closing-bottom {
+  display: grid;
+  grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr);
+  gap: 24px;
+  padding-top: 36px;
+  border-top: 1px solid rgb(255 255 255 / 0.12);
+  align-items: stretch;
+}
+
+.offer-closing .closing-env-lead { margin: 0 0 16px; font-size: 15px !important; color: rgb(255 255 255 / 0.78); }
+.offer-closing .closing-env-lead strong { color: white; font-weight: 700; }
+
+.offer-closing .closing-env-stats { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; }
+
+.offer-closing .closing-env-stats > div {
+  background: rgb(255 255 255 / 0.06);
+  border-radius: 14px;
+  padding: 16px 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.offer-closing .closing-env-stats strong { font-size: 28px; font-weight: 800; letter-spacing: -0.8px; font-variant-numeric: tabular-nums; color: var(--brand-bright); }
+.offer-closing .closing-env-stats span { font-size: 13px; color: rgb(255 255 255 / 0.7); }
+
+.offer-closing .closing-contact {
+  display: flex;
+  gap: 16px;
+  align-items: flex-start;
+  background: var(--surface-panel);
+  border: 1px solid rgb(255 255 255 / 0.1);
+  border-radius: 18px;
+  padding: 22px 24px;
+}
+
+.offer-closing .closing-avatar {
+  flex: none;
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  background: var(--brand);
+  color: var(--brand-ink);
+  font-weight: 800;
+  font-size: 17px;
+}
+
+.offer-closing .closing-contact > div { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+.offer-closing .closing-contact .closing-eyebrow { margin-bottom: 4px; }
+.offer-closing .closing-contact strong { font-size: 18px; font-weight: 700; }
+.offer-closing .closing-contact span { font-size: 13px; color: rgb(255 255 255 / 0.65); }
+.offer-closing .closing-contact-links { display: flex; flex-direction: column; gap: 2px; margin-top: 8px; }
+.offer-closing .closing-contact-links a { color: white; font-size: 14px; font-weight: 600; overflow-wrap: anywhere; text-decoration: underline; text-decoration-color: rgb(255 255 255 / 0.3); text-underline-offset: 3px; }
+
+@media (max-width: 960px) {
+  .offer-closing { padding: 40px 16px 48px; }
+  .offer-closing .closing-top,
+  .offer-closing .closing-bottom { grid-template-columns: 1fr; gap: 28px; }
+}
+
+@media (max-width: 640px) {
+  .offer-closing .closing-card { padding: 22px 18px; }
+  .offer-closing .closing-reasons { grid-template-columns: 1fr; }
+  .offer-closing .closing-env-stats { grid-template-columns: 1fr; }
+  .offer-closing .closing-env-stats > div { flex-direction: row; align-items: baseline; gap: 10px; }
+  .offer-closing .closing-env-stats strong { font-size: 22px; }
+}

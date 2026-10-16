@@ -14,6 +14,9 @@ export default {
   // Logoen er klar blå – mørke flater får blåtone.
   // Oransje beholdes som merkefarge for solenergi.
   theme: {
+    // Tilbudssiden: logoens farge + rolig bakgrunn
+    siteAccent: "#0073b0",
+    offerSurface: "#f2f5f8",
     inkDeep: "#0b2333",
     inkDeepHover: "#1d4257",
     surfaceTopbar: "#071a27",

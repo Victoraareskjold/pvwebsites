@@ -9,7 +9,7 @@
    ───────────────────────────────────────────────────────────────────────── */
 
 .economy-chart {
-  --chart-accent: #c07a12;
+  --chart-accent: var(--site-accent, #c07a12);
   --chart-ink: var(--ink, #152d38);
   --chart-muted: color-mix(in srgb, var(--chart-ink) 62%, white);
   --chart-line: color-mix(in srgb, var(--chart-ink) 14%, white);
@@ -64,7 +64,7 @@
 }
 
 .economy-chart .chart-area {
-  fill: color-mix(in srgb, var(--chart-accent) 12%, transparent);
+  fill: color-mix(in srgb, var(--chart-accent) 8%, transparent);
 }
 
 .economy-chart .chart-line {

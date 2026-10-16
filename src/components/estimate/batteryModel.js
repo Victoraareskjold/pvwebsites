@@ -14,12 +14,58 @@ export const BACKUP_CHOICES = ["none", "circuits", "whole"];
 
 const MAX_CIRCUITS = 12;
 
+/**
+ * Batterier er bygget ulikt. `structure` på modellen:
+ *   "modular" – moduler som stables, med én BMS/base per `modulesPerBase` moduler
+ *   "unit"    – hele enheter med fast kapasitet, uten egen BMS
+ * Eldre oppsett uten `structure` regnes som modulære.
+ */
+export const isModular = (product) =>
+  product?.structure !== "unit" && Number(product?.modulesPerBase) > 0;
+
+/** "modul"/"moduler" eller "enhet"/"enheter" for en modell. */
+export function unitWord(product, count = 2) {
+  if (product?.structure === "unit") return count === 1 ? "enhet" : "enheter";
+  return count === 1 ? "modul" : "moduler";
+}
+
+/** Anbefalt modell, eller første modell i katalogen hvis anbefalingen mangler. */
+export function recommendedFor(config) {
+  const catalogue = config?.catalogue ?? {};
+  const model = catalogue[config?.recommended?.model]
+    ? config.recommended.model
+    : Object.keys(catalogue)[0] ?? null;
+  const product = catalogue[model];
+  if (!product) return null;
+  const wanted =
+    model === config?.recommended?.model ? Number(config.recommended.modules) : NaN;
+  return { model, modules: clampModules(product, wanted) };
+}
+
+function clampModules(product, requested) {
+  const fallback =
+    product.moduleKwh > 0 ? Math.round(10 / product.moduleKwh) : product.min;
+  const value = Number.isFinite(requested) ? Math.round(requested) : fallback;
+  return Math.max(product.min, Math.min(product.max, value));
+}
+
+/** Når kunden bytter modell: behold omtrent samme kapasitet. */
+export function modulesForCapacity(product, capacityKwh) {
+  if (!product) return 0;
+  if (!(capacityKwh > 0) || !(product.moduleKwh > 0)) return product.min;
+  return clampModules(product, capacityKwh / product.moduleKwh);
+}
+
+export const hasBatteries = (config) =>
+  Object.keys(config?.catalogue ?? {}).length > 0;
+
 /** Første gyldige valg: standardanlegget, med anbefalt batteri klart i bakgrunnen. */
 export function defaultSelection(config) {
+  const recommended = recommendedFor(config);
   return {
     mode: "solar",
-    model: config?.recommended?.model ?? Object.keys(config?.catalogue ?? {})[0],
-    modules: config?.recommended?.modules ?? 1,
+    model: recommended?.model ?? null,
+    modules: recommended?.modules ?? 1,
     backup: "none",
     circuits: 2,
   };
@@ -28,10 +74,11 @@ export function defaultSelection(config) {
 /** Klemmer et valg innenfor det katalogen tillater. */
 export function normalizedSelection(input, config) {
   const catalogue = config?.catalogue ?? {};
-  const mode = MODES.includes(input?.mode) ? input.mode : "solar";
+  let mode = MODES.includes(input?.mode) ? input.mode : "solar";
+  // Uten batterimodeller på tilbudet finnes det ikke noe batterivalg.
+  if (mode === "battery" && !hasBatteries(config)) mode = "hybrid";
 
-  const fallbackModel =
-    config?.recommended?.model ?? Object.keys(catalogue)[0] ?? null;
+  const fallbackModel = recommendedFor(config)?.model ?? null;
   const model = catalogue[input?.model] ? input.model : fallbackModel;
   const product = catalogue[model];
 
@@ -104,16 +151,20 @@ export function calculateExtras(input, config) {
     }
 
     discountEx = (product.moduleEx - unitEx) * selection.modules;
-    bases = Math.ceil(selection.modules / product.modulesPerBase);
-
-    lines.push({
-      id: "bms",
-      label: `BMS / base · ${bases} stk.`,
-      amountEx: bases * product.baseEx,
-    });
+    // Hele enheter har ingen BMS. Modulære får én BMS per påbegynte modulesPerBase.
+    if (isModular(product)) {
+      bases = Math.ceil(selection.modules / product.modulesPerBase);
+      if ((product.baseEx ?? 0) > 0) {
+        lines.push({
+          id: "bms",
+          label: `${product.bmsName || "BMS / base"} · ${bases} stk.`,
+          amountEx: bases * product.baseEx,
+        });
+      }
+    }
     lines.push({
       id: "modules",
-      label: `${product.brand} · ${selection.modules} moduler`,
+      label: `${product.brand} · ${selection.modules} ${unitWord(product, selection.modules)}`,
       detail: discountEx > 0 ? "Kvantumspris på alle modulene" : null,
       amountEx: selection.modules * unitEx,
     });

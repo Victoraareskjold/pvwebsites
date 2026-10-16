@@ -16,7 +16,7 @@ const HOST_TO_SITE_MAP = {
   "www.mydlandselektriskesol.no": "mydlandselektriskesol",
   "mydlandselektriskesol.no": "mydlandselektriskesol",
   // Add localhost for local development, pointing to a default site
-  "localhost:3000": "smartelektrosol",
+  "localhost:3001": "smartelektrosol",
   "cd47-2a01-799-da4-5b01-f934-2326-b3b6-ccb9.ngrok-free.app":
     "smartelektrosol",
 };

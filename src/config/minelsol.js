@@ -23,6 +23,9 @@ export default {
   // Minel har egne farger. Nøklene her overstyrer designets standardfarger
   // bare for denne nettsiden – se src/config/design/theme.js.
   theme: {
+    // Tilbudssiden: logoens farge + rolig bakgrunn
+    siteAccent: "#c00030",
+    offerSurface: "#f5f4f8",
     ink: "#1C0E52",
     inkDeep: "#1C0E52",
     inkDeepHover: "#2c1a73",

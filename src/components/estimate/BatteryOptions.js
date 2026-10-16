@@ -20,7 +20,12 @@ import {
   calculateExtras,
   dayCycleExample,
   defaultSelection,
+  hasBatteries,
+  isModular,
+  modulesForCapacity,
   normalizedSelection,
+  recommendedFor,
+  unitWord,
   vatMultiplier,
 } from "./batteryModel";
 import "./battery.css";
@@ -230,15 +235,22 @@ function BatteryStory({ capacity, config }) {
 export default function BatteryOptions({ config, onSelectionChange }) {
   const [selection, setSelection] = useState(() => defaultSelection(config));
 
-  if (!config?.catalogue || Object.keys(config.catalogue).length === 0) {
-    return null;
-  }
-
   const vat = vatMultiplier(config);
   const quote = calculateExtras(selection, config);
   const product = quote.product;
+  const withBattery = hasBatteries(config);
+  const recommended = recommendedFor(config);
+  const recommendedProduct = recommended ? config.catalogue[recommended.model] : null;
 
   const update = (patch) => {
+    // Bytter kunden modell, beholdes omtrent samme kapasitet: batteriene har
+    // ulik kWh per modul/enhet, så samme antall ville gitt et helt annet batteri.
+    if (patch.model && patch.model !== selection.model && patch.modules == null) {
+      patch = {
+        ...patch,
+        modules: modulesForCapacity(config.catalogue[patch.model], quote.capacity),
+      };
+    }
     const next = normalizedSelection({ ...selection, ...patch }, config);
     setSelection(next);
     onSelectionChange?.(next, calculateExtras(next, config));
@@ -246,11 +258,14 @@ export default function BatteryOptions({ config, onSelectionChange }) {
 
   // Prisene på kortene: hybrid alene, og den anbefalte batteripakken.
   const hybridPrice = (config.hybridQty ?? 1) * (config.hybridUnitEx ?? 0) * vat;
-  const recommendedPrice =
-    calculateExtras(
-      { ...selection, mode: "battery", ...config.recommended, backup: "none" },
-      config,
-    ).extrasEx * vat;
+  const recommendedPrice = recommended
+    ? calculateExtras(
+        { ...selection, mode: "battery", ...recommended, backup: "none" },
+        config,
+      ).extrasEx * vat
+    : 0;
+  const recommendedKwh =
+    (recommended?.modules ?? 0) * (recommendedProduct?.moduleKwh ?? 0);
 
   const paths = [
     [
@@ -267,19 +282,20 @@ export default function BatteryOptions({ config, onSelectionChange }) {
       "Hybridinverter nå. Mulighet for batteri senere.",
       `+ ${money(hybridPrice)}`,
     ],
-    [
+    withBattery && [
       "battery",
       "battery",
       "Solceller + batteri",
       "Ta vare på overskuddet og bruk det senere.",
       `+ ${money(recommendedPrice)} · anbefalt pakke`,
     ],
-  ];
+  ].filter(Boolean);
 
   const taxLabel = config.customerType === "private" ? "inkl. mva." : "eks. mva.";
   const isRecommended =
-    selection.model === config.recommended?.model &&
-    selection.modules === config.recommended?.modules;
+    selection.model === recommended?.model &&
+    selection.modules === recommended?.modules;
+  const modular = isModular(product);
 
   return (
     <section
@@ -300,6 +316,7 @@ export default function BatteryOptions({ config, onSelectionChange }) {
 
       <div
         className="path-options"
+        style={withBattery ? undefined : { gridTemplateColumns: "repeat(2, 1fr)" }}
         role="radiogroup"
         aria-label="Velg løsning"
       >
@@ -340,20 +357,16 @@ export default function BatteryOptions({ config, onSelectionChange }) {
                 ? "Strømmen brukes direkte i bygget når du trenger den. Overskuddet kan selges til strømnettet."
                 : "Hybridinverteren erstatter standardinverteren i dette oppsettet. Et kompatibelt batteri kan legges til senere. Nødstrøm krever eget utstyr og avklart løsning."}
             </p>
-            <button
-              type="button"
-              className="text-button"
-              style={{ marginTop: 12 }}
-              onClick={() => update({ mode: "battery", ...config.recommended })}
-            >
-              Utforsk anbefalt batteri{" "}
-              {number(
-                (config.recommended?.modules ?? 0) *
-                  (config.catalogue[config.recommended?.model]?.moduleKwh ?? 0),
-                1,
-              )}{" "}
-              kWh ↗
-            </button>
+            {withBattery && recommended && (
+              <button
+                type="button"
+                className="text-button"
+                style={{ marginTop: 12 }}
+                onClick={() => update({ mode: "battery", ...recommended })}
+              >
+                Utforsk anbefalt batteri {number(recommendedKwh, 1)} kWh ↗
+              </button>
+            )}
           </div>
         </div>
       ) : (
@@ -376,14 +389,14 @@ export default function BatteryOptions({ config, onSelectionChange }) {
                     {number(quote.capacity, 1)} <small>kWh</small>
                   </strong>
                   <p>
-                    {selection.modules} moduler ·{" "}
-                    {number(product?.moduleKwh, 1)} kWh per modul
+                    {selection.modules} {unitWord(product, selection.modules)} ·{" "}
+                    {number(product?.moduleKwh, 1)} kWh per {unitWord(product, 1)}
                   </p>
                 </div>
-                <div className="stepper" aria-label="Antall batterimoduler">
+                <div className="stepper" aria-label={`Antall ${unitWord(product)}`}>
                   <button
                     type="button"
-                    aria-label="Fjern én batterimodul"
+                    aria-label={`Fjern én ${unitWord(product, 1)}`}
                     disabled={selection.modules <= (product?.min ?? 0)}
                     onClick={() => update({ modules: selection.modules - 1 })}
                   >
@@ -392,7 +405,7 @@ export default function BatteryOptions({ config, onSelectionChange }) {
                   <output aria-live="polite">{selection.modules}</output>
                   <button
                     type="button"
-                    aria-label="Legg til én batterimodul"
+                    aria-label={`Legg til én ${unitWord(product, 1)}`}
                     disabled={selection.modules >= (product?.max ?? 0)}
                     onClick={() => update({ modules: selection.modules + 1 })}
                   >
@@ -408,7 +421,11 @@ export default function BatteryOptions({ config, onSelectionChange }) {
               </div>
 
               <div className="price-inline">
-                <span>Batteri, base og installasjon</span>
+                <span>
+                  {modular && (product?.baseEx ?? 0) > 0
+                    ? "Batteri, BMS og installasjon"
+                    : "Batteri og installasjon"}
+                </span>
                 <strong>{money(quote.batteryOnlyEx * vat)}</strong>
               </div>
               <p className="supporting">
@@ -417,8 +434,8 @@ export default function BatteryOptions({ config, onSelectionChange }) {
 
               {quote.discountEx > 0 && (
                 <p className="discount-line">
-                  Kvantumspris: {money(quote.unitEx * vat)} per modul, på alle{" "}
-                  {selection.modules} modulene.
+                  Kvantumspris: {money(quote.unitEx * vat)} per {unitWord(product, 1)}, på alle{" "}
+                  {selection.modules} {unitWord(product)}.
                 </p>
               )}
 
@@ -433,14 +450,17 @@ export default function BatteryOptions({ config, onSelectionChange }) {
                   >
                     {Object.values(config.catalogue).map((item) => (
                       <option key={item.id} value={item.id}>
-                        {item.brand} · {number(item.moduleKwh, 1)} kWh/modul
+                        {item.brand} · {number(item.moduleKwh, 1)} kWh per{" "}
+                        {unitWord(item, 1)} · {number(item.min * item.moduleKwh, 1)}–
+                        {number(item.max * item.moduleKwh, 1)} kWh
                       </option>
                     ))}
                   </select>
                 </div>
                 <p className="supporting">
-                  {quote.bases} BMS/base{quote.bases > 1 ? "r" : ""}. Oppsettet
-                  bruker inntil {product?.modulesPerBase} moduler per base.
+                  {modular
+                    ? `${quote.bases} ${product?.bmsName || "BMS/base"}${quote.bases > 1 ? " stk." : ""}. Oppsettet bruker inntil ${product?.modulesPerBase} moduler per BMS. `
+                    : `Hele enheter med fast kapasitet, uten egen BMS. Fra ${product?.min} til ${product?.max} ${unitWord(product)}. `}
                   Kompatibilitet og antall invertere avklares i tilbudet.
                 </p>
                 {product?.datasheetUrl ? (
@@ -461,7 +481,7 @@ export default function BatteryOptions({ config, onSelectionChange }) {
                   <button
                     type="button"
                     className="text-button"
-                    onClick={() => update({ ...config.recommended })}
+                    onClick={() => update({ ...recommended })}
                   >
                     Tilbake til anbefalt størrelse
                   </button>

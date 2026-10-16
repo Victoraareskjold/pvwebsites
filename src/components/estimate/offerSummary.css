@@ -85,7 +85,7 @@
 }
 
 .offer-summary-after strong {
-  color: var(--brand, #ffb44d);
+  color: var(--brand-bright, #ffbe65);
 }
 
 .offer-summary-note {

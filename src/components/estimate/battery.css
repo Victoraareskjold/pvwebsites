@@ -75,17 +75,17 @@
 .offer-battery .options-section>.section-heading {margin-bottom:26px}
 .offer-battery .path-options {display:grid;grid-template-columns:repeat(3,1fr);gap:15px;margin-bottom:24px}
 .offer-battery .path-card {appearance:none;text-align:left;border:1px solid #d8dfdd;background:white;border-radius:12px;padding:23px;position:relative;display:flex;flex-direction:column;align-items:start;min-height:208px;transition:border-color .2s,background .2s,box-shadow .2s}
-.offer-battery .path-card:hover {border-color:color-mix(in srgb, var(--brand) 70%, var(--ink))}
-.offer-battery .path-card[aria-checked=true] {border:2px solid var(--brand-strong);background:var(--brand-selected);padding:22px;box-shadow:0 0 0 3px var(--brand-on-dark-border)}
+.offer-battery .path-card:hover {border-color:var(--site-accent-line)}
+.offer-battery .path-card[aria-checked=true] {border:2px solid var(--site-accent);background:var(--site-accent-soft);padding:22px;box-shadow:0 0 0 3px color-mix(in srgb, var(--site-accent) 18%, transparent)}
 .offer-battery .path-top {display:flex;align-items:center;justify-content:space-between;width:100%;margin-bottom:17px}
-.offer-battery .path-top svg {color:var(--brand-accent)}
+.offer-battery .path-top svg {color:var(--site-accent)}
 .offer-battery .choice-dot {width:21px;height:21px;border:1.5px solid #bcc5bf;border-radius:50%;display:grid;place-items:center}
-.offer-battery .path-card[aria-checked=true] .choice-dot {border-color:var(--brand-strong);background:var(--brand-strong)}
+.offer-battery .path-card[aria-checked=true] .choice-dot {border-color:var(--site-accent);background:var(--site-accent)}
 .offer-battery .path-card[aria-checked=true] .choice-dot:after {content:'';width:7px;height:7px;border-radius:50%;background:#fff}
 .offer-battery .path-card strong {font-size:17px}
 .offer-battery .path-card small {font-size:13px;color:var(--muted);line-height:1.55;margin-top:6px;display:block}
 .offer-battery .path-price {font-size:15px;font-weight:700;margin-top:auto;padding-top:16px}
-.offer-battery .path-recommended {font-size:11px;text-transform:uppercase;letter-spacing:.06em;color:var(--brand-warm-ink);background:var(--brand-warm-border);border-radius:4px;padding:3px 6px;position:absolute;top:21px;left:58px}
+.offer-battery .path-recommended {font-size:11px;text-transform:uppercase;letter-spacing:.06em;color:var(--site-accent);background:var(--site-accent-soft);box-shadow:inset 0 0 0 1px var(--site-accent-line);border-radius:4px;padding:3px 6px;position:absolute;top:21px;left:58px}
 .offer-battery .mode-note {border-radius:12px;background:#edf1ed;padding:20px 24px;display:flex;align-items:flex-start;gap:14px;font-size:15px;margin-bottom:20px}
 .offer-battery .mode-note p {margin:0;color:var(--muted)}
 .offer-battery .mode-note strong {display:block;margin-bottom:4px;color:var(--ink)}
@@ -104,7 +104,7 @@
 .offer-battery .stepper output {min-width:20px;text-align:center;font-size:16px;font-weight:700}
 .offer-battery .capacity-gauge {display:flex;gap:4px;height:10px;margin-bottom:24px}
 .offer-battery .capacity-gauge span {flex:1;background:#e6ece8;border-radius:2px}
-.offer-battery .capacity-gauge span.filled {background:var(--brand-strong)}
+.offer-battery .capacity-gauge span.filled {background:var(--site-accent)}
 .offer-battery .config-divider {height:1px;background:var(--line);margin:22px 0}
 .offer-battery .price-inline {display:flex;justify-content:space-between;align-items:baseline;gap:14px;font-size:14px}
 .offer-battery .price-inline strong {font-size:23px;letter-spacing:-.7px;white-space:nowrap}
@@ -115,7 +115,7 @@
 .offer-battery .field {display:flex;flex-direction:column;gap:6px;margin-top:16px;font-size:14px}
 .offer-battery .field label {font-weight:700}
 .offer-battery .field small {font-size:12px;color:var(--muted)}
-.offer-battery .warning-note {border-left:3px solid var(--brand-strong);padding:10px 13px;background:var(--brand-selected);font-size:13px;color:var(--brand-warm-ink);margin-top:20px}
+.offer-battery .warning-note {border-left:3px solid var(--site-accent);padding:10px 13px;background:var(--site-accent-soft);font-size:13px;color:var(--ink);margin-top:20px}
 .offer-battery .field-row {display:grid;grid-template-columns:1fr 1fr;gap:15px}
 .offer-battery .backup-section {margin-top:26px;padding-top:24px;border-top:1px solid var(--line)}
 .offer-battery .backup-section h3 {font-size:18px;margin-bottom:7px}

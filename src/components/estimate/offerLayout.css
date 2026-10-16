@@ -105,7 +105,7 @@
   font-size: 0.78rem;
   font-weight: 700;
   letter-spacing: 0.12em;
-  color: var(--brand-accent, #bf782b);
+  color: var(--site-accent, #bf782b);
 }
 
 .offer-step h2 {
@@ -172,7 +172,7 @@
 
 /** Sidens bakgrunn. Lå tidligere hardkodet som #FFF7E4 i rutefila. */
 .offer-page {
-  background: var(--brand-soft, #faf0e1);
+  background: var(--offer-surface, #f4f3ef);
 }
 
 /** Lenken til produktark og simulering. */
@@ -248,4 +248,16 @@
   font-size: 0.85rem;
   color: rgb(255 255 255 / 0.7);
   font-weight: 500;
+}
+
+/* estimate.css setter tynne !important-størrelser på h1–h5 for hele tilbudet.
+   Innledningen og de nummererte overskriftene skal ha designets vekt. */
+.estimateStylingSheet .offer-intro-greeting {
+  font-size: clamp(1.9rem, 5vw, 2.6rem) !important;
+  font-weight: 700 !important;
+}
+.estimateStylingSheet .offer-step h2 {
+  font-size: clamp(1.5rem, 3.6vw, 2rem) !important;
+  font-weight: 700 !important;
+  letter-spacing: -0.01em !important;
 }

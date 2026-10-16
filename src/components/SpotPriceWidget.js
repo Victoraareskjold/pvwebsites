@@ -148,18 +148,18 @@ export default function SpotPriceWidget({ setElPrice, site, solarLocation }) {
   return (
     <div className="w-full flex flex-col gap-4">
       {/* Header card */}
-      <div className="rounded-xl border border-gray-200 bg-white p-5">
+      <div className="rounded-xl border border-[color:var(--site-accent-line)] bg-white p-5">
         <div className="flex items-center justify-between mb-1">
           <div>
-            <p className="text-sm font-medium text-amber-800">
+            <p className="text-sm font-medium text-[color:var(--site-accent)]">
               Spotpris i dag {today}
             </p>
-            <p className="text-xs text-amber-700 italic">
+            <p className="text-xs text-[color:color-mix(in_srgb,var(--ink)_65%,white)] italic">
               med mva. men uten nettleie, avgifter og strømstøtte
             </p>
           </div>
           <select
-            className="text-xs border border-amber-300 rounded-md bg-white px-2 py-1 text-amber-800"
+            className="text-xs border border-[color:var(--site-accent-line)] rounded-md bg-white px-2 py-1 text-[color:var(--site-accent)]"
             value={zone}
             onChange={(e) => setZone(e.target.value)}
           >
@@ -172,18 +172,18 @@ export default function SpotPriceWidget({ setElPrice, site, solarLocation }) {
         </div>
 
         {loading && (
-          <p className="text-sm text-amber-700 mt-3">Henter priser...</p>
+          <p className="text-sm text-[color:color-mix(in_srgb,var(--ink)_65%,white)] mt-3">Henter priser...</p>
         )}
         {error && <p className="text-sm text-gray-600 mt-3">{error}</p>}
 
         {derived && derived.currentNok !== null && (
           <>
             <div className="flex items-baseline gap-3 mt-3">
-              <span className="text-sm text-amber-700">Nå</span>
-              <span className="text-4xl font-bold text-amber-900">
+              <span className="text-sm text-[color:color-mix(in_srgb,var(--ink)_65%,white)]">Nå</span>
+              <span className="text-4xl font-bold text-[color:var(--ink)]">
                 {fmt(derived.currentNok)}
               </span>
-              <span className="text-sm text-amber-700">kr/kWh</span>
+              <span className="text-sm text-[color:color-mix(in_srgb,var(--ink)_65%,white)]">kr/kWh</span>
               {derived.pctChange !== null && (
                 <span
                   className={`text-xs font-semibold px-2 py-1 rounded-full ${
@@ -216,7 +216,7 @@ export default function SpotPriceWidget({ setElPrice, site, solarLocation }) {
 
             {setElPrice && (
               <button
-                className="mt-3 text-xs underline text-amber-700 hover:text-amber-900"
+                className="mt-3 text-xs underline text-[color:color-mix(in_srgb,var(--ink)_65%,white)] hover:text-[color:var(--ink)]"
                 onClick={() =>
                   setElPrice(Math.round(derived.currentNok * 100) / 100)
                 }
@@ -246,7 +246,7 @@ export default function SpotPriceWidget({ setElPrice, site, solarLocation }) {
                 >
                   <div className="flex items-center gap-2 mb-1">
                     <span
-                      className="flex-shrink-0 w-9 h-9 flex items-center justify-center rounded-full bg-amber-100 leading-none"
+                      className="flex-shrink-0 w-9 h-9 flex items-center justify-center rounded-full bg-[color:var(--site-accent-soft)] leading-none"
                       style={{ fontSize: "16px" }}
                     >
                       {a.icon}

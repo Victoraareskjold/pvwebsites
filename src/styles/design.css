@@ -76,6 +76,12 @@
  --cta-muted:#79674b;
  --cta-accent:#936524;
 
+ /* Tilbudssiden (estimat). Overstyres per nettsted med theme.siteAccent osv. */
+ --site-accent:var(--brand-accent);   /* logoens hovedfarge, mørk nok for tekst */
+ --site-accent-soft:color-mix(in srgb,var(--site-accent) 7%,white);
+ --site-accent-line:color-mix(in srgb,var(--site-accent) 28%,white);
+ --offer-surface:#f4f3ef;             /* nøytral sidebakgrunn bak hvite kort */
+
  /* Illustrasjoner */
  --chart-alt:#87bace;
 

@@ -1,22 +1,16 @@
 "use client";
 
 import { useSiteConfig } from "../contexts/siteConfigContext";
-import EstimatePricingInfo from "./EstimatePricingInfo";
 import { useState, useEffect } from "react";
 
 import "./estimate.css";
 import "./estimate/offerLayout.css";
-import HowWillItLook from "./estimate/HowWillItLook";
-import HowDoesItWork from "./estimate/HowDoesItWork";
-import YourSolarFacility from "./estimate/YourSolarFacility";
-import YourSolarFacility2 from "./estimate/YourSolarFacility2";
 import SolarEconomicCalculation from "./estimate/SolarEconomicCalculation";
+import SolarOverview from "./estimate/SolarOverview";
 import BatteryOptions from "./estimate/BatteryOptions";
 import defaultBatteryConfig from "../config/battery";
-import OfferSummary from "./estimate/OfferSummary";
+import OfferClosing from "./estimate/OfferClosing";
 import { useSearchParams } from "next/navigation";
-import Link from "next/link";
-import SpotPriceWidget from "./SpotPriceWidget";
 import { calculateKwhCostWithLoan } from "../../utils/calculateKwhCostWithLoan";
 
 /**
@@ -68,7 +62,6 @@ export default function EstimateView({ estimateId }) {
 
   const [expectedElPriceIncrease, setExpectedElPriceIncrease] = useState(2.5);
   const [paymentTime, setPaymentTime] = useState(null);
-  const maxPaymentTime = 40;
 
   // Kundens batterivalg, løftet opp hit slik at prisoppsummeringen
   // nederst følger det som er valgt lenger oppe på siden.
@@ -86,11 +79,6 @@ export default function EstimateView({ estimateId }) {
     );
   }
 
-  const formatValue = (number) =>
-    number.toLocaleString("nb-NO", {
-      minimumFractionDigits: 0,
-      maximumFractionDigits: 0,
-    });
 
   // Oppsettet for batteriseksjonen. Tilbudet kan overstyre fellesoppsettet
   // med price_data.batterySection — ikke å forveksle med
@@ -162,8 +150,6 @@ export default function EstimateView({ estimateId }) {
     const eligibleKwp = Math.min(kwp ?? 0, 15);
     return (eligibleKwp * 2500).toFixed(2);
   };
-
-  const percentOf40 = (years) => (years / maxPaymentTime) * 100;
 
   const investmentCost = estimateData?.private
     ? estimateData?.price_data?.total || 0
@@ -239,309 +225,30 @@ export default function EstimateView({ estimateId }) {
             <h2>Anlegget ditt, og hva det kan gi deg.</h2>
           </div>
 
-          <section>
-            <h5 className="mb-4">
-              <strong>Hvordan funker dette?</strong>
-            </h5>
-            <HowDoesItWork finished={finished} />
-          </section>
+          <SolarOverview
+            estimateData={estimateData}
+            finished={finished}
+            config={config}
+            solarCostPerKwh={solarCostPerKwh}
+            solarCostWithLoan={solarCostWithLoan}
+            elPrice={elPrice}
+            setElPrice={setElPrice}
+            elNetPrice={elNetPrice}
+            setElNetPrice={setElNetPrice}
+            expectedElPriceIncrease={expectedElPriceIncrease}
+            setExpectedElPriceIncrease={setExpectedElPriceIncrease}
+            futureGridPrice={futureGridPrice}
+            paymentTime={paymentTime}
+            economySummary={economySummary}
+          />
 
-          <div className="flex flex-col lg:flex-row sectionContainer offer-panel !p-0 gap-4">
-            <HowWillItLook estimateData={estimateData} finished={finished} />
-
-            <section className="w-full">
-              <h5 className="mb-8">
-                <strong>Ditt anlegg består av</strong>
-              </h5>
-              {finished ? (
-                <YourSolarFacility2
-                  estimateData={estimateData}
-                  finished={finished}
-                />
-              ) : (
-                <YourSolarFacility estimateData={estimateData} />
-              )}
-            </section>
-          </div>
-
-          {/* <section className="hidden lg:block ">
-            <div className="w-full h-1 bg-slate-300 rounded-full mt-12" />
-          </section> */}
-
-          <div className="flex flex-col sectionContainer offer-panel gap-12">
-            {/* Strømpris og besparelse */}
-            <div className="w-full">
-              <div className="flex flex-col gap-4">
-                <h5 className="!font-bold">
-                  <strong>Produksjon og besparelse</strong>
-                </h5>
-                <h2>
-                  Dette solcelleanlegget produserer strøm til ca.{" "}
-                  <span className="font-bold">
-                    {solarCostPerKwh.toFixed(2)} kr/kWh
-                  </span>
-                  .
-                </h2>
-                <h2>
-                  Sammenlignet med ca.{" "}
-                  <span className="font-bold">
-                    {(elPrice + elNetPrice).toFixed(2)} kr/kWh
-                  </span>{" "}
-                  som du betaler i dag for strøm fra nettet, inkludert både
-                  strømpris og nettleie.
-                </h2>
-              </div>
-            </div>
-
-            <section className="w-full flex flex-col lg:flex-row gap-8 !p-0">
-              <div className="flex flex-col gap-3 w-full">
-                <div className="bg-[#B6FFBE] p-2 rounded-sm">
-                  <h1>
-                    <strong>
-                      Årsproduksjon fra solcelleanlegget:
-                      <br />
-                      <strong>
-                        {formatValue(
-                          Number(estimateData?.yearly_prod?.toFixed(0)),
-                        )}{" "}
-                        kWh
-                      </strong>
-                    </strong>
-                  </h1>
-                </div>
-                <div className="bg-[#B6FFBE] p-2 rounded-sm">
-                  <h1>
-                    <strong>
-                      Pris per kWh fra solcelleanlegget:
-                      <br />
-                      <strong>{solarCostPerKwh.toFixed(2)} kr/kWh</strong>
-                    </strong>
-                  </h1>
-                </div>
-                <div className="bg-[#B6FFBE] p-2 rounded-sm">
-                  <h1>
-                    <strong>
-                      Pris per kWh med lån(10%, 5 år):
-                      <br />
-                      <strong>{solarCostWithLoan.toFixed(2)} kr/kWh</strong>
-                    </strong>
-                  </h1>
-                </div>
-                <div className="bg-[#FBFFB6] p-2 rounded-sm">
-                  <h1>
-                    <strong>
-                      Pris på strøm du kjøper fra nettet:
-                      <br />
-                      <strong>
-                        {(elPrice + elNetPrice).toFixed(2)} kr/kWh
-                      </strong>
-                    </strong>
-                  </h1>
-                </div>
-              </div>
-              <div className="flex flex-col justify-between w-full p-4 rounded-lg shadow-lg bg-white pb-8 gap-6">
-                <div>
-                  <p className="fatP">
-                    Nedbetalingstid (estimert):{" "}
-                    <span className="font-extrabold text-lg">
-                      {paymentTime} år
-                    </span>
-                  </p>
-                  <div
-                    style={{ width: `${percentOf40(paymentTime)}%` }}
-                    className="bg-green-300 border border-green-800 rounded-xl h-10"
-                  ></div>
-                </div>
-
-                <div>
-                  <p className="">
-                    Produktgaranti solcellepaneler:{" "}
-                    <span className="font-medium text-md">25 år</span>
-                  </p>
-                  <div
-                    className="bg-orange-200 border border-orange-300 rounded-xl h-10"
-                    style={{ width: `${percentOf40(25)}%` }}
-                  ></div>
-                </div>
-
-                <div>
-                  <p className="">
-                    Effektgaranti solcellepaneler:{" "}
-                    <span className="font-medium text-md">30 år</span>
-                  </p>
-                  <div
-                    className="bg-orange-300 border border-orange-400 rounded-xl h-10"
-                    style={{ width: `${percentOf40(30)}%` }}
-                  ></div>
-                </div>
-
-                <div>
-                  <p className="">
-                    Forventet levetid:{" "}
-                    <span className="font-medium text-md">40+ år</span>
-                  </p>
-                  <div
-                    className="border rounded-xl h-10 relative"
-                    style={{
-                      width: "calc(100% - 24px)",
-                      backgroundColor: "#FF9C06",
-                    }}
-                  >
-                    <img
-                      src="/estimate/sun.png"
-                      className="absolute right-[-40px] top-[12px] -translate-y-1/2 w-20"
-                      alt="Sol"
-                    />
-                  </div>
-                </div>
-              </div>
-              <div className="flex flex-col gap-4 justify-between w-full lg:w-[550px]">
-                <EstimatePricingInfo
-                  image={"/estimate/icon1.png"}
-                  number={`${formatValue(
-                    economySummary?.totalSavings30Years || 0,
-                  )} kr`}
-                  text={"Total besparing for ditt anlegg over 30 år."}
-                />
-
-                <EstimatePricingInfo
-                  image={"/estimate/icon2.png"}
-                  number={`${formatValue(
-                    economySummary?.averageYearlySavings || 0,
-                  )} kr`}
-                  text={"Gjennomsnittlig årlig besparelse"}
-                />
-              </div>
-            </section>
-
-            <div className="flex flex-col gap-4">
-              <h2>
-                Solstrøm fra anlegget:{" "}
-                <span className="font-bold">
-                  {solarCostPerKwh.toFixed(2)} kr/kWh
-                </span>
-              </h2>
-              <h2>
-                Strøm fra nettet i dag:{" "}
-                <span className="font-bold">
-                  {(elPrice + elNetPrice).toFixed(2)} kr/kWh
-                </span>
-              </h2>
-              <h2>
-                Forskjell:{" "}
-                <span className="font-bold">
-                  {(elPrice + elNetPrice - solarCostPerKwh).toFixed(2)} kr/kWh
-                </span>
-              </h2>
-              <h2 className="my-4">
-                Ser vi på hele effektgaranti perioden på{" "}
-                <span className="font-bold">30 år</span>, og tar med service,
-                vedlikehold og komponentbytter, ender energikostnaden fra dette
-                solcelleanlegget på{" "}
-                <span className="font-bold">
-                  {solarCostPerKwh.toFixed(2)} kr
-                </span>{" "}
-                per kWh. Strømprisen fra nettet varierer derimot over tid, og
-                ingen vet nøyaktig hva den vil være neste år eller årene
-                fremover. Under kan du selv justere sliderne for
-                strømpris/nettleie/vekst og se hvordan regnestykket endrer seg
-                direkte.
-              </h2>
-            </div>
-
-            <section className="!p-0 flex flex-col lg:flex-row gap-8">
-              <div className="flex flex-col gap-12 w-full lg:max-w-md">
-                <div>
-                  <h2 className="fatP">
-                    Strømpris per kWh:{" "}
-                    <strong className="font-bold">{elPrice} kr/kWh</strong>
-                  </h2>
-                  <input
-                    className="w-full"
-                    type="range"
-                    value={elPrice}
-                    min={0.1}
-                    max={2}
-                    step={0.05}
-                    onChange={(e) => setElPrice(Number(e.target.value))}
-                  />
-                </div>
-
-                <div>
-                  <h2 className="fatP">
-                    Nettleie per kWh:{" "}
-                    <strong className="font-bold">{elNetPrice} kr/kWh</strong>
-                  </h2>
-                  <input
-                    className="w-full"
-                    type="range"
-                    value={elNetPrice}
-                    min={0.1}
-                    max={2}
-                    step={0.05}
-                    onChange={(e) => setElNetPrice(Number(e.target.value))}
-                  />
-                </div>
-
-                <div>
-                  <h2 className="fatP">
-                    Forventet årlig prisvekt på strøm:{" "}
-                    <strong className="font-bold">
-                      {expectedElPriceIncrease} %
-                    </strong>
-                  </h2>
-                  <input
-                    className="w-full"
-                    type="range"
-                    value={expectedElPriceIncrease}
-                    min={0.1}
-                    max={10}
-                    step={0.05}
-                    onChange={(e) =>
-                      setExpectedElPriceIncrease(Number(e.target.value))
-                    }
-                  />
-                </div>
-              </div>
-              <div className="w-full">
-                <SpotPriceWidget
-                  setElPrice={setElPrice}
-                  site={config.site}
-                  solarLocation={config.solarLocation}
-                />
-              </div>
-            </section>
-
-            <h2>
-              Med en forventet årlig prisvekst på strøm på{" "}
-              <span className="font-bold">{expectedElPriceIncrease} %</span> vil
-              en strømpris på{" "}
-              <span className="font-bold">
-                {(elPrice + elNetPrice).toFixed(2)} kr/kWh
-              </span>{" "}
-              i dag tilsvare omtrent{" "}
-              <span className="font-bold">
-                {futureGridPrice.toFixed(2)} kr/kWh
-              </span>{" "}
-              om 30 år, mens strømmen fra dette solcelleanlegget produseres til
-              ca.{" "}
-              <span className="font-bold">
-                {solarCostPerKwh.toFixed(2)} kr/kWh
-              </span>{" "}
-              over hele levetiden.
-            </h2>
-
+          <div className="offer-solar-chart">
             <SolarEconomicCalculation
               yearlyProduction={estimateData?.yearly_prod || 0}
               elPrice={elPrice}
               elNetPrice={elNetPrice}
               expectedElPriceIncrease={expectedElPriceIncrease}
-              investmentCost={
-                estimateData?.private
-                  ? estimateData?.price_data?.total || 0
-                  : Number(estimateData?.price_data?.["total inkl. alt"]) -
-                      Number(enovaSupport()) || 0
-              }
+              investmentCost={investmentCost}
               inverterCost={inverter?.priceWithMarkup || 0}
               onPaybackCalculated={(data) => {
                 setPaymentTime((prev) =>
@@ -571,346 +278,24 @@ export default function EstimateView({ estimateId }) {
             />
           )}
 
-          <section className="flex lg:hidden flex-col gap-6 !p- sectionContainer0">
-            <h4>
-              <strong>Miljø</strong>
-            </h4>
-
-            <div>
-              <p>
-                Ved å satse på solenergi investerer du i mer enn bare strøm – du
-                tar et viktig steg mot en{" "}
-                <strong className="font-semibold">bærekraftig fremtid.</strong>
-              </p>
-              <br />
-              <p>
-                Strømmen som solcellene produserer kan drive alt som går på
-                strøm i bygget ditt. Her er noen eksempler på hva de{" "}
-                <strong className="font-semibold">
-                  {formatValue(Number(estimateData?.yearly_prod).toFixed(0))}{" "}
-                  kWh
-                </strong>{" "}
-                du produserer årlig kan drifte:
-              </p>
-            </div>
-
-            <div className="flex flex-row gap-10 !p-4">
-              <div>
-                <li>Elbil-ladninger:</li>
-                <li>Kjøleskap:</li>
-                <li>Kaffekopper:</li>
-              </div>
-              <div>
-                <p>
-                  <strong className="font-semibold">
-                    {Number(estimateData?.yearly_prod / 60).toFixed(0)}
-                  </strong>{" "}
-                  full ladninger til elbilen din.
-                </p>
-                <p>
-                  drive{" "}
-                  <strong className="font-semibold">
-                    {Number(estimateData?.yearly_prod / 300).toFixed(0)}
-                  </strong>{" "}
-                  kjøleskap på et år.
-                </p>
-                <p>
-                  brygge{" "}
-                  <strong className="font-semibold">
-                    {Number(estimateData?.yearly_prod / 0.03).toFixed(0)}
-                  </strong>{" "}
-                  kopper kaffe.
-                </p>
-              </div>
-            </div>
-          </section>
-
           <div className="offer-step">
             <p className="offer-step-number">03 · DIN OVERSIKT</p>
             <h2>Dette har du valgt.</h2>
             <p>Se hva som inngår, og hva valgene dine betyr for prisen.</p>
           </div>
 
-          <section className="offer-panel-dark maxSection items-center w-full flex justify-center">
-            <section className="w-full flex flex-col gap-8 self-center">
-              <div className="flex flex-col lg:grid lg:grid-cols-2 lg:gap-x-24 lg:gap-y-24 gap-16">
-                {/* Bestill anlegg */}
-                <div className="order-2 lg:order-2 flex flex-col gap-6">
-                  {/* <h5 className="text-white">
-                    <strong>Bestill anlegg</strong>
-                  </h5> */}
-
-                  <OfferSummary
-                    basePriceEx={estimateData?.price_data?.total}
-                    isBusiness={Boolean(estimateData?.private)}
-                    enovaSupport={enovaSupport()}
-                    batteryQuote={batteryQuote}
-                  />
-
-                  {/* Signeringen gjelder standardanlegget. Har kunden lagt
-                      til hybrid, batteri eller nødstrøm, er det et ønske som
-                      må gjennomgås av oss først — et valg her er ingen
-                      bestilling. */}
-                  {hasUnreviewedExtras ? (
-                    <div className="offer-review-note">
-                      <strong>Vi går gjennom valget ditt sammen.</strong>
-                      <p>
-                        Hybridinverter, batteri og nødstrøm må vi kontrollere
-                        mot anlegget ditt før det kan avtales — kompatibilitet,
-                        omfang og endelig pris. Ta kontakt, så tar vi det
-                        derfra.
-                      </p>
-                      {contactEmail && (
-                        <a href={`mailto:${contactEmail}`}>{contactEmail}</a>
-                      )}
-                      <a href={`tel:${contactPhoneHref}`}>{contactPhone}</a>
-                      {finished && (
-                        <a
-                          className="offer-review-plain"
-                          href={`${estimateId}/kjoepsavtale`}
-                          target="_blank"
-                        >
-                          Signer standardanlegget uten tillegg
-                        </a>
-                      )}
-                    </div>
-                  ) : finished ? (
-                    <a
-                      href={`${estimateId}/kjoepsavtale`}
-                      target="_blank"
-                      className="offer-sign-button"
-                    >
-                      Signer dokument
-                    </a>
-                  ) : (
-                    <a
-                      className="text-white"
-                      href={"/kjopsbetingelser"}
-                      target="_blank"
-                    >
-                      <span className="underline font-semibold">
-                        Les vilkår og betingelser
-                      </span>{" "}
-                      for
-                      <br />
-                      kjøp av solcelleanlegg
-                    </a>
-                  )}
-                </div>
-
-                <div className="order-2 lg:hidden flex flex-col gap-5 text-white">
-                  <h5 className="font-bold text-lg">
-                    <strong>
-                      Vil du vurdere finansiering av solcelleanlegget?
-                    </strong>
-                  </h5>
-                  <p className="fatP">
-                    Med finansiering kan du fordele betalingen over tid. I
-                    enkelte tilfeller kan den årlige besparelsen fra
-                    solcelleanlegget være høyere enn kostnaden på lånet samme
-                    år, slik at investeringen kan gå i pluss allerede fra første
-                    år.
-                  </p>
-                  <Link
-                    className="rounded-full bg-[#FF5154] aspect-square h-24 w-24 items-center justify-center text-center flex underline"
-                    target="_blank"
-                    href={
-                      config.site === "MinelSol"
-                        ? "https://minel.no/finansiering-betal-i-ditt-tempo"
-                        : "https://www.dnb.no/lan/refinansiering/miljoland"
-                    }
-                  >
-                    Søk her
-                  </Link>
-                </div>
-
-                {/* Inkludert i prisen */}
-                <div className="order-3 lg:order-1 flex flex-col gap-3">
-                  <h5 className="text-white">
-                    <strong>Inkludert i prisen</strong>
-                  </h5>
-                  <div className="flex flex-row gap-4 items-center">
-                    <img src="/estimate/greenCheck.png" />
-                    <p className="fatP text-white">
-                      Montering av komplett solcelleanlegg.
-                    </p>
-                  </div>
-                  <div className="flex flex-row gap-4 items-center">
-                    <img src="/estimate/greenCheck.png" />
-                    <p className="fatP text-white">
-                      Veiledning til å søke om Enova-støtte.
-                    </p>
-                  </div>
-                  <div className="flex flex-row gap-4 items-center">
-                    <img src="/estimate/greenCheck.png" />
-                    <p className="fatP text-white">
-                      App til å følge produksjonen din.
-                    </p>
-                  </div>
-                  <div className="flex flex-row gap-4 items-center">
-                    <img src="/estimate/greenCheck.png" />
-                    <p className="fatP text-white">
-                      Kundestøtte og service etter installasjon.
-                    </p>
-                  </div>
-                </div>
-
-                {/* Hvorfor velge oss */}
-                <div className="order-4 lg:order-3 flex flex-col gap-3">
-                  <h5 className="text-white">
-                    <strong>Hvorfor velge oss som er lokal installatør?</strong>
-                  </h5>
-                  <div className="flex flex-row gap-4 items-center">
-                    <img src="/estimate/greenCircle.png" />
-                    <p className="text-white">
-                      <strong className="font-semibold">
-                        Personlig oppfølging
-                      </strong>{" "}
-                      – hos oss har du én fast kontaktperson, ikke et
-                      kundesenter.
-                    </p>
-                  </div>
-                  <div className="flex flex-row gap-4 items-center">
-                    <img src="/estimate/greenCircle.png" />
-                    <p className="text-white">
-                      <strong className="font-semibold">Rask service</strong> –
-                      vi er i nærheten, så du får rask hjelp både før og etter
-                      installasjon.
-                    </p>
-                  </div>
-                  <div className="flex flex-row gap-4 items-center">
-                    <img src="/estimate/greenCircle.png" />
-                    <p className="text-white">
-                      <strong className="font-semibold">
-                        Kvalitet og trygghet
-                      </strong>{" "}
-                      – lokale fagfolk med kunnskap om området og strømnettet.
-                    </p>
-                  </div>
-                  <div className="flex flex-row gap-4 items-center">
-                    <img src="/estimate/greenCircle.png" />
-                    <p className="text-white">
-                      <strong className="font-semibold">
-                        Langsiktig samarbeid
-                      </strong>{" "}
-                      – vi blir ikke borte etter installasjon.
-                    </p>
-                  </div>
-                  <div className="flex flex-row gap-4 items-center">
-                    <img src="/estimate/greenCircle.png" />
-                    <p className="text-white">
-                      <strong className="font-semibold">
-                        Konkurransedyktig pris{" "}
-                      </strong>
-                      – vi har ingen dyre mellomledd.
-                    </p>
-                  </div>
-                </div>
-
-                {/* Miljø */}
-                <div className="order-1 lg:order-4 hidden lg:flex flex-col gap-6 text-white">
-                  <h5>
-                    <strong>Miljø</strong>
-                  </h5>
-
-                  <div>
-                    <p>
-                      Ved å satse på solenergi investerer du i mer enn bare
-                      strøm – du tar et viktig steg mot en{" "}
-                      <strong className="font-semibold">
-                        bærekraftig fremtid.
-                      </strong>
-                    </p>
-                    <br />
-                    <p>
-                      Strømmen som solcellene produserer kan drive alt som går
-                      på strøm i bygget ditt. Her er noen eksempler på hva de{" "}
-                      <strong className="font-semibold">
-                        {formatValue(
-                          Number(estimateData?.yearly_prod).toFixed(0),
-                        )}{" "}
-                        kWh
-                      </strong>{" "}
-                      du produserer årlig kan drifte:
-                    </p>
-                  </div>
-
-                  <div className="flex flex-row gap-10 !p-4">
-                    <div>
-                      <li>Elbil-ladninger:</li>
-                      <li>Kjøleskap:</li>
-                      <li>Kaffekopper:</li>
-                    </div>
-                    <div>
-                      <p>
-                        <strong className="font-semibold">
-                          {Number(estimateData?.yearly_prod / 60).toFixed(0)}
-                        </strong>{" "}
-                        full ladninger til elbilen din.
-                      </p>
-                      <p>
-                        drive{" "}
-                        <strong className="font-semibold">
-                          {Number(estimateData?.yearly_prod / 300).toFixed(0)}
-                        </strong>{" "}
-                        kjøleskap på et år.
-                      </p>
-                      <p>
-                        brygge{" "}
-                        <strong className="font-semibold">
-                          {Number(estimateData?.yearly_prod / 0.03).toFixed(0)}
-                        </strong>{" "}
-                        kopper kaffe.
-                      </p>
-                    </div>
-                  </div>
-                  <div className="flex flex-col gap-5 mt-12 text-white">
-                    <h5 className="font-bold text-lg">
-                      <strong>
-                        Vil du vurdere finansiering av solcelleanlegget?
-                      </strong>
-                    </h5>
-                    <p className="fatP">
-                      Med finansiering kan du fordele betalingen over tid. I
-                      enkelte tilfeller kan den årlige besparelsen fra
-                      solcelleanlegget være høyere enn kostnaden på lånet samme
-                      år, slik at investeringen kan gå i pluss allerede fra
-                      første år.
-                    </p>
-                    <Link
-                      className="rounded-full bg-[#FF5154] aspect-square h-24 w-24 items-center justify-center text-center flex underline self-end"
-                      target="_blank"
-                      href={
-                        config.site === "MinelSol"
-                          ? "https://minel.no/finansiering-betal-i-ditt-tempo"
-                          : "https://www.dnb.no/lan/refinansiering/miljolan"
-                      }
-                    >
-                      Søk her
-                    </Link>
-                  </div>
-                </div>
-              </div>
-
-              <div className="mx-auto lg:mr-0 flex flex-row gap-4 items-center my-12">
-                <img src="/estimate/techIcon.png" className="h-20" />
-                <div>
-                  <p className="font-light text-white mb-2">
-                    TEKNISK KONSULENT
-                  </p>
-                  <h2 className="text-white ">
-                    <strong className="font-semibold">
-                      {estimateData?.leads?.created_by?.name}
-                    </strong>
-                  </h2>
-                  <h2 className="text-white ">{config.footer.email}</h2>
-                  <h2 className="text-white ">
-                    {estimateData?.leads?.created_by?.phone}
-                  </h2>
-                </div>
-              </div>
-            </section>
-          </section>
+          <OfferClosing
+            estimateData={estimateData}
+            estimateId={estimateId}
+            finished={finished}
+            config={config}
+            enovaSupport={enovaSupport()}
+            batteryQuote={batteryQuote}
+            hasUnreviewedExtras={hasUnreviewedExtras}
+            contactEmail={contactEmail}
+            contactPhone={contactPhone}
+            contactPhoneHref={contactPhoneHref}
+          />
         </main>
       ) : (
         <p>No estimate found.</p>

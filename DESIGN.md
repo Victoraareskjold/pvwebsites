@@ -189,3 +189,22 @@ Disse er ikke funnet på, og må fylles inn per firma:
 - Blogg, estimat og takk har fortsatt gammel styling inni sidene.
 - Målgruppesidene mangler «Dette er fint å ha klart»-listen fra designet;
   den må skrives på nb (og nn der det er aktuelt) før den kan slås på.
+
+## Tilbudssiden (estimat) per nettsted – 16.10.2026
+
+Tilbudssiden bruker to egne farger i tillegg til merkefargen:
+
+| Token (`theme`) | CSS-variabel | Brukes til |
+| --- | --- | --- |
+| `siteAccent` | `--site-accent` | Logoens hovedfarge: overskrifter (01/02/03), valgt kort, grafen, sliderne, tidslinjen. Må ha minst 4,5:1 mot hvitt. |
+| `offerSurface` | `--offer-surface` | Rolig sidebakgrunn bak de hvite kortene (erstatter `--brand-soft`, som ble rosa hos Minel og beige hos de andre). |
+
+`--site-accent-soft` og `--site-accent-line` regnes ut fra `siteAccent` i `design.css`.
+Knapper (signering, «Få tilbud») bruker fortsatt `--brand`. Den mørke avslutningen (03)
+bruker `--ink-deep` og `--surface-panel`, slik at den følger selskapets mørke tone.
+
+Valgte farger: Alfa `#0073b0` (blå), Gardermoen `#4c7419` (grønn), Lyn `#3b7a1a` (grønn),
+Minel `#c00030` (rød), Mydlands `#1f3a85` (marine), Smart `#0067a6` (blå), Telerør `#a85a10` (oransje/brun).
+
+Filer: `src/components/estimate/SolarOverview.js` + `offerSolar.css` (del 01),
+`OfferClosing.js` + `offerClosing.css` (del 03).

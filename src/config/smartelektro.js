@@ -9,6 +9,11 @@ export default {
   solarLocation: "NO1",
 
   logo: "/smartelektro/logo.png",
+  // Tilbudssiden: logoens blå + rolig bakgrunn. Resten følger standardtemaet.
+  theme: {
+    siteAccent: "#0067a6",
+    offerSurface: "#f2f5f8",
+  },
 
   favicon: "/smartelektro/favicon.ico",
 

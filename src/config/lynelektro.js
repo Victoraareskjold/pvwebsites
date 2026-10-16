@@ -14,6 +14,9 @@ export default {
   // Logoen er grønn med gult lyn – mørke flater får skogsgrønn tone.
   // Oransje beholdes som merkefarge for solenergi.
   theme: {
+    // Tilbudssiden: logoens farge + rolig bakgrunn
+    siteAccent: "#3b7a1a",
+    offerSurface: "#f3f5f1",
     inkDeep: "#0c2417",
     inkDeepHover: "#204630",
     surfaceTopbar: "#071a10",

@@ -1,0 +1,387 @@
+/**
+ * «01 · SOLCELLER» på tilbudet — alt over økonomigrafen.
+ *
+ * Samme uttrykk som batteriseksjonen (battery.css): hvite kort med tynn
+ * ramme på sidens varme bakgrunn, eyebrow i merkefargen, tabellsifre.
+ * Fargene kommer fra design.css, så hvert selskaps tema slår gjennom.
+ *
+ * Overskriftene ligger som h3 med egne klasser; estimate.css setter
+ * !important-størrelser på h1–h5 under .estimateStylingSheet, derfor er
+ * reglene her skrevet med samme vekt.
+ */
+
+.offer-solar {
+  --muted: color-mix(in srgb, var(--ink) 66%, white);
+  --line: color-mix(in srgb, var(--ink) 14%, white);
+  --green: #24765d;
+  --green-soft: #eaf5ef;
+
+  width: min(var(--page-max, 1280px), 100%);
+  margin-inline: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  color: var(--ink);
+  font-family: var(--site-font);
+  font-variant-numeric: tabular-nums;
+}
+
+.offer-solar *,
+.offer-solar *::before,
+.offer-solar *::after { box-sizing: border-box; }
+
+/* ── Kort ──────────────────────────────────────────────────────────────── */
+
+.offer-solar .solar-card {
+  background: white;
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  padding: 28px 30px;
+  min-width: 0;
+}
+
+.offer-solar .solar-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 18px;
+  align-items: start;
+}
+
+.offer-solar .solar-eyebrow {
+  margin: 0 0 10px;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  color: var(--site-accent);
+}
+
+.estimateStylingSheet .offer-solar .solar-title {
+  margin: 0 0 8px;
+  font-size: 22px !important;
+  font-weight: 700 !important;
+  line-height: 1.3;
+  letter-spacing: -0.3px !important;
+  text-wrap: balance;
+}
+
+.estimateStylingSheet .offer-solar .solar-title-lg {
+  font-size: clamp(22px, 2.6vw, 28px) !important;
+}
+
+.offer-solar .solar-title mark {
+  background: none;
+  color: var(--site-accent);
+  white-space: nowrap;
+}
+
+.offer-solar .solar-muted {
+  margin: 0;
+  color: var(--muted);
+  font-size: 15px;
+  line-height: 1.65;
+  max-width: 70ch;
+}
+
+.offer-solar .solar-image {
+  display: block;
+  width: 100%;
+  height: auto;
+  margin-top: 18px;
+  border-radius: 12px;
+  border: 1px solid var(--line);
+}
+
+/* ── Fremdrift ─────────────────────────────────────────────────────────── */
+
+.offer-solar .solar-steps {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0;
+  counter-reset: none;
+}
+
+.offer-solar .solar-steps li {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 16px 14px 0;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--muted);
+}
+
+.offer-solar .solar-steps li:not(:last-child)::after {
+  content: "";
+  flex: 1;
+  height: 2px;
+  min-width: 16px;
+  background: var(--line);
+  margin-left: 6px;
+}
+
+.offer-solar .solar-steps li.done:not(:last-child)::after { background: var(--green); }
+
+.offer-solar .solar-step-dot {
+  flex: none;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  font-size: 13px;
+  font-weight: 700;
+  border: 1.5px solid var(--line);
+  background: white;
+  color: var(--muted);
+}
+
+.offer-solar .solar-steps li.done { color: var(--ink); }
+.offer-solar .solar-steps li.done .solar-step-dot { background: var(--green); border-color: var(--green); color: white; }
+.offer-solar .solar-steps li.current { color: var(--ink); }
+.offer-solar .solar-steps li.current .solar-step-dot { border-color: var(--site-accent); color: var(--site-accent); background: var(--site-accent-soft); }
+
+/* ── Spesifikasjon ─────────────────────────────────────────────────────── */
+
+.offer-solar .solar-specs { margin: 0; }
+
+.offer-solar .solar-specs > div {
+  display: grid;
+  grid-template-columns: 150px minmax(0, 1fr) auto;
+  gap: 14px;
+  align-items: baseline;
+  padding: 9px 0;
+}
+
+.offer-solar .solar-specs > div.first { border-top: 1px solid var(--line); padding-top: 14px; }
+.offer-solar .solar-specs > div.first:first-child { border-top: 0; padding-top: 4px; }
+
+.offer-solar .solar-specs dt {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--muted);
+}
+
+.offer-solar .solar-specs dd {
+  margin: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 10px;
+  align-items: baseline;
+  font-size: 15px;
+  min-width: 0;
+}
+
+.offer-solar .solar-specs dd strong { font-weight: 700; white-space: nowrap; }
+.offer-solar .solar-specs dd span { color: var(--muted); overflow-wrap: anywhere; }
+
+.offer-solar .solar-link {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--ink);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  white-space: nowrap;
+}
+
+/* ── Nøkkeltall ────────────────────────────────────────────────────────── */
+
+.offer-solar .solar-figures {
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  gap: 12px;
+  margin-top: 22px;
+}
+
+.offer-solar .solar-figure {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: 16px;
+  border-radius: 12px;
+  background: color-mix(in srgb, var(--ink) 4%, white);
+  min-width: 0;
+}
+
+.offer-solar .solar-figure span { font-size: 13px; color: var(--muted); font-weight: 600; }
+.offer-solar .solar-figure strong { font-size: 28px; font-weight: 700; letter-spacing: -1px; line-height: 1.15; white-space: nowrap; }
+.offer-solar .solar-figure small { font-size: 12px; color: var(--muted); }
+.offer-solar .solar-figure.accent { background: var(--site-accent-soft); box-shadow: inset 0 0 0 1px var(--site-accent-line); }
+.offer-solar .solar-figure.accent strong { color: var(--site-accent); }
+.offer-solar .solar-figure.positive { background: var(--green-soft); }
+.offer-solar .solar-figure.positive strong { color: var(--green); }
+
+.offer-solar .solar-subsection {
+  margin-top: 26px;
+  padding-top: 22px;
+  border-top: 1px solid var(--line);
+}
+
+/* ── Tidslinje ─────────────────────────────────────────────────────────── */
+
+.offer-solar .solar-timeline { display: flex; flex-direction: column; gap: 12px; }
+
+.offer-solar .solar-timeline-row {
+  display: grid;
+  grid-template-columns: 220px minmax(0, 1fr);
+  gap: 16px;
+  align-items: center;
+}
+
+.offer-solar .solar-timeline-label { display: flex; justify-content: space-between; gap: 10px; font-size: 14px; }
+.offer-solar .solar-timeline-label span { color: var(--muted); }
+.offer-solar .solar-timeline-label strong { font-weight: 700; white-space: nowrap; }
+
+.offer-solar .solar-timeline-track {
+  height: 12px;
+  border-radius: 100px;
+  background: color-mix(in srgb, var(--ink) 6%, white);
+  overflow: hidden;
+}
+
+.offer-solar .solar-timeline-bar {
+  display: block;
+  height: 100%;
+  border-radius: 100px;
+  background: color-mix(in srgb, var(--ink) 22%, white);
+}
+
+.offer-solar .solar-timeline-bar.payback { background: var(--green); }
+.offer-solar .solar-timeline-bar.life { background: var(--site-accent); }
+
+.offer-solar .solar-timeline-axis {
+  display: flex;
+  justify-content: space-between;
+  margin-left: 236px;
+  font-size: 11px;
+  color: var(--muted);
+}
+
+/* ── Forutsetninger ────────────────────────────────────────────────────── */
+
+.offer-solar .solar-adjust {
+  display: grid;
+  grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+  gap: 28px;
+  margin-top: 22px;
+  align-items: start;
+}
+
+.offer-solar .solar-adjust-controls { display: flex; flex-direction: column; gap: 20px; }
+
+.offer-solar .solar-slider label {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  font-size: 14px;
+  margin-bottom: 8px;
+}
+
+.offer-solar .solar-slider label span { color: var(--muted); font-weight: 600; }
+.offer-solar .solar-slider label strong { font-weight: 700; }
+
+/* globals.css gir alle sliders fast oransje; her følger de nettstedets farge */
+.offer-solar .solar-slider input[type="range"] {
+  width: 100%;
+  height: 6px;
+  border-radius: 100px;
+  background: var(--site-accent-line);
+  accent-color: var(--site-accent);
+}
+
+.offer-solar .solar-slider input[type="range"]::-webkit-slider-thumb {
+  background: var(--site-accent);
+  border: 3px solid white;
+  box-shadow: 0 1px 4px rgb(0 0 0 / 0.25);
+}
+
+.offer-solar .solar-slider input[type="range"]::-moz-range-thumb {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: var(--site-accent);
+  border: 3px solid white;
+}
+
+.offer-solar .solar-compare {
+  margin: 4px 0 0;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.offer-solar .solar-compare > div {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 10px 14px;
+  font-size: 14px;
+  border-top: 1px solid var(--line);
+}
+
+.offer-solar .solar-compare > div:first-child { border-top: 0; }
+.offer-solar .solar-compare dt { color: var(--muted); }
+.offer-solar .solar-compare dd { margin: 0; font-weight: 700; white-space: nowrap; }
+.offer-solar .solar-compare .positive { background: var(--green-soft); }
+.offer-solar .solar-compare .positive dd { color: var(--green); }
+.offer-solar .solar-compare .negative dd { color: #a13f30; }
+
+.offer-solar .solar-note {
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.7;
+  color: var(--muted);
+}
+
+.offer-solar .solar-note strong { color: var(--ink); }
+
+/* ── Grafen under ──────────────────────────────────────────────────────── */
+
+.offer-solar-chart {
+  width: min(var(--page-max, 1280px), 100%);
+  margin-inline: auto;
+}
+
+/* ── Mindre skjermer ───────────────────────────────────────────────────── */
+
+@media (max-width: 1100px) {
+  .offer-solar .solar-figures { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+}
+
+@media (max-width: 900px) {
+  .offer-solar, .offer-solar-chart { padding-inline: 1rem; }
+  .offer-solar .solar-grid, .offer-solar .solar-adjust { grid-template-columns: 1fr; }
+  .offer-solar .solar-steps { grid-template-columns: 1fr 1fr; row-gap: 4px; }
+  .offer-solar .solar-steps li::after { display: none; }
+}
+
+@media (max-width: 640px) {
+  .offer-solar .solar-card { padding: 22px 18px; }
+  .offer-solar .solar-figures { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+  .offer-solar .solar-figure strong { font-size: 23px; }
+  .offer-solar .solar-specs > div { grid-template-columns: 1fr auto; }
+  .offer-solar .solar-specs dt { grid-column: 1 / -1; }
+  .offer-solar .solar-specs dt:empty { display: none; }
+  .offer-solar .solar-timeline-row { grid-template-columns: 1fr; gap: 6px; }
+  .offer-solar .solar-timeline-axis { margin-left: 0; }
+  .offer-solar .solar-steps { grid-template-columns: 1fr; }
+  .offer-solar .solar-steps li { padding: 5px 0; }
+}
+
+/* globals.css gir alle section-elementer på tilbudet max-width 1200px */
+.estimateStylingSheet .offer-solar section.solar-card { max-width: none; }
+
+/* Batteriseksjonen (02) skal flukte med kortene over: samme bredde, ingen ekstra innrykk */
+.estimateStylingSheet section.offer-battery {
+  width: min(var(--page-max, 1280px), 100%);
+  max-width: none;
+  padding-inline: 0;
+  margin-inline: auto;
+}
+
+@media (max-width: 900px) {
+  .estimateStylingSheet section.offer-battery { padding-inline: 1rem; }
+}
