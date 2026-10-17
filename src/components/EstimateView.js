@@ -8,7 +8,7 @@ import "./estimate/offerLayout.css";
 import SolarEconomicCalculation from "./estimate/SolarEconomicCalculation";
 import SolarOverview from "./estimate/SolarOverview";
 import BatteryOptions from "./estimate/BatteryOptions";
-import defaultBatteryConfig from "../config/battery";
+import { batteryConfigFor, canSignExtras } from "./estimate/offerConfig";
 import OfferClosing from "./estimate/OfferClosing";
 import { useSearchParams } from "next/navigation";
 import { calculateKwhCostWithLoan } from "../../utils/calculateKwhCostWithLoan";
@@ -47,10 +47,21 @@ export default function EstimateView({ estimateId }) {
 
   const [elPrice, setElPrice] = useState(0.5);
   const [elNetPrice, setElNetPrice] = useState(0.62);
+  const [expectedElPriceIncrease, setExpectedElPriceIncrease] = useState(2.5);
 
   useEffect(() => {
     if (!estimateData) return;
 
+    // Nye tilbud: standardverdiene fra kalkulatoren (Beregningsregler), låst med tilbudet.
+    const economy = estimateData?.price_data?.economy;
+    if (economy) {
+      setElPrice(Number(economy.elPrice));
+      setElNetPrice(Number(economy.netPrice));
+      setExpectedElPriceIncrease(Number(economy.priceGrowthPercent));
+      return;
+    }
+
+    // Eldre tilbud: verdiene som gjaldt da de ble sendt
     if (estimateData.private) {
       setElPrice(0.65);
       setElNetPrice(0.3);
@@ -60,7 +71,6 @@ export default function EstimateView({ estimateId }) {
     }
   }, [estimateData]);
 
-  const [expectedElPriceIncrease, setExpectedElPriceIncrease] = useState(2.5);
   const [paymentTime, setPaymentTime] = useState(null);
 
   // Kundens batterivalg, løftet opp hit slik at prisoppsummeringen
@@ -83,19 +93,16 @@ export default function EstimateView({ estimateId }) {
   // Oppsettet for batteriseksjonen. Tilbudet kan overstyre fellesoppsettet
   // med price_data.batterySection — ikke å forveksle med
   // price_data.installation.battery, som er installasjonsarbeidet.
-  const batteryConfig = {
-    ...defaultBatteryConfig,
-    ...(estimateData?.price_data?.batterySection ?? {}),
-    // Kundetype og årsforbruk hører til tilbudet, ikke til fellesoppsettet.
-    customerType: estimateData?.private ? "business" : "private",
-    annualConsumption:
-      estimateData?.price_data?.batterySection?.annualConsumption ??
-      estimateData?.leads?.own_consumption ??
-      defaultBatteryConfig.annualConsumption,
-  };
+  const batteryConfig = batteryConfigFor(estimateData);
 
-  // Kunden har lagt til noe som ikke er godkjent for signering ennå.
-  const hasUnreviewedExtras = (batteryQuote?.extrasEx ?? 0) > 0;
+  // Tillegg som må gjennomgås før signering: nødstrøm, store anlegg som krever
+  // leverandørpris, og eldre tilbud uten priser fra kalkulatoren.
+  const hasExtras = (batteryQuote?.extrasEx ?? 0) > 0;
+  const hasUnreviewedExtras =
+    hasExtras &&
+    (!canSignExtras(estimateData) ||
+      Boolean(batteryQuote?.backupRequired) ||
+      Boolean(batteryQuote?.supplierRequired));
   // Samme kontaktinfo som resten av nettsiden, ikke selgeren på tilbudet.
   const contactPhone = config.footer?.phone || "+47 458 71 718";
   const contactPhoneHref =

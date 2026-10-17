@@ -258,6 +258,9 @@ export default function BatteryOptions({ config, onSelectionChange }) {
 
   // Prisene på kortene: hybrid alene, og den anbefalte batteripakken.
   const hybridPrice = (config.hybridQty ?? 1) * (config.hybridUnitEx ?? 0) * vat;
+  // Anlegget har allerede hybridinverter i grunnpakken: klargjøring koster ingenting ekstra.
+  const hybridIncluded = Boolean(config.hybridIncluded);
+  const hybridSheet = config.hybrid?.datasheetUrl;
   const recommendedPrice = recommended
     ? calculateExtras(
         { ...selection, mode: "battery", ...recommended, backup: "none" },
@@ -279,8 +282,10 @@ export default function BatteryOptions({ config, onSelectionChange }) {
       "hybrid",
       "inverter",
       "Klargjør for batteri",
-      "Hybridinverter nå. Mulighet for batteri senere.",
-      `+ ${money(hybridPrice)}`,
+      hybridIncluded
+        ? "Anlegget har allerede hybridinverter. Batteri kan legges til senere."
+        : "Hybridinverter nå. Mulighet for batteri senere.",
+      hybridIncluded || !hybridPrice ? "Inkludert i tilbudet" : `+ ${money(hybridPrice)}`,
     ],
     withBattery && [
       "battery",
@@ -355,8 +360,13 @@ export default function BatteryOptions({ config, onSelectionChange }) {
             <p>
               {selection.mode === "solar"
                 ? "Strømmen brukes direkte i bygget når du trenger den. Overskuddet kan selges til strømnettet."
-                : "Hybridinverteren erstatter standardinverteren i dette oppsettet. Et kompatibelt batteri kan legges til senere. Nødstrøm krever eget utstyr og avklart løsning."}
+                : `${config.hybrid?.name ? `${config.hybrid.name} ` : "Hybridinverteren "}${hybridIncluded ? "er allerede valgt i anlegget." : "erstatter standardinverteren i dette oppsettet."} Et kompatibelt batteri kan legges til senere. Nødstrøm krever eget utstyr og avklart løsning.`}
             </p>
+            {selection.mode === "hybrid" && hybridSheet && (
+              <a className="text-button" href={hybridSheet} target="_blank" rel="noopener noreferrer" style={{ marginTop: 12, marginRight: 16 }}>
+                Åpne produktblad (hybridinverter) ↗
+              </a>
+            )}
             {withBattery && recommended && (
               <button
                 type="button"
@@ -470,12 +480,17 @@ export default function BatteryOptions({ config, onSelectionChange }) {
                     target="_blank"
                     rel="noopener noreferrer"
                   >
-                    Se produktark ↗
+                    Åpne produktblad (batteri) ↗
                   </a>
                 ) : (
                   <p className="small-note">
-                    Produktark vises her når det er lagt inn for modellen.
+                    Produktblad vises her når det er lagt inn for modellen.
                   </p>
+                )}
+                {hybridSheet && (
+                  <a className="text-button" href={hybridSheet} target="_blank" rel="noopener noreferrer">
+                    Åpne produktblad (hybridinverter) ↗
+                  </a>
                 )}
                 {!isRecommended && (
                   <button

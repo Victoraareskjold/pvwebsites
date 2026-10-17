@@ -55,7 +55,8 @@ function facilityRows(estimateData) {
         value: `${nok(item.quantity)} stk`,
         detail: [item.product || item.name, suffix].filter(Boolean).join(" "),
         link: item.attachmentUrl,
-        linkLabel: "Produktark",
+        datasheet: true,
+        linkLabel: "Åpne produktblad",
       }),
     );
   add("Solcellepaneler", panels.length ? panels : [{ quantity: estimateData?.total_panels, product: panelProduct }]);
@@ -198,7 +199,7 @@ export default function SolarOverview({
                   <strong>{row.value}</strong>
                   <span>{row.detail}</span>
                 </dd>
-                {finished && row.link ? (
+                {row.link && (finished || row.datasheet) ? (
                   <Link className="solar-link" href={row.link} target="_blank">
                     {row.linkLabel} ↗
                   </Link>

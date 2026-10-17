@@ -12,6 +12,7 @@
  */
 
 import OfferSummary from "./OfferSummary";
+import { encodeSelection } from "./offerConfig";
 import "./offerClosing.css";
 
 const nok = (value) =>
@@ -55,6 +56,10 @@ export default function OfferClosing({
 }) {
   const yearly = Number(estimateData?.yearly_prod || 0);
   const advisor = estimateData?.leads?.created_by;
+  // Kundens valg følger med til kjøpsavtalen og låses ved signering
+  const choice = encodeSelection(batteryQuote?.selection);
+  const signHref = `${estimateId}/kjoepsavtale${choice ? `?valg=${encodeURIComponent(choice)}` : ""}`;
+  const withExtras = Boolean(choice) && (batteryQuote?.extrasEx ?? 0) > 0;
   const initials = advisor?.name
     ? advisor.name.split(" ").map((p) => p[0]).slice(0, 2).join("")
     : null;
@@ -93,12 +98,12 @@ export default function OfferClosing({
                 </div>
               ) : finished ? (
                 <>
-                  <a href={`${estimateId}/kjoepsavtale`} target="_blank" className="closing-sign">
-                    Gå til signering
+                  <a href={signHref} target="_blank" className="closing-sign">
+                    {withExtras ? "Gå til signering med valgene dine" : "Gå til signering"}
                     <span aria-hidden="true">→</span>
                   </a>
                   <p className="closing-fine">
-                    Du ser hele kjøpsavtalen før du signerer.{" "}
+                    Du ser hele kjøpsavtalen{withExtras ? ", med hybridinverter og batteri slik du har valgt," : ""} før du signerer.{" "}
                     <a href="/kjopsbetingelser" target="_blank">Les kjøpsbetingelsene</a>
                   </p>
                 </>

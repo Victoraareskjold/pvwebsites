@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { createSupabaseAdminClient } from "../../../../../../utils/supabase/client";
 import nodemailer from "nodemailer";
+import { signedOfferFor } from "../../../../../components/estimate/offerConfig";
 
 export async function POST(req, { params }) {
   try {
@@ -13,19 +14,35 @@ export async function POST(req, { params }) {
     }
 
     const body = await req.json();
-    const { leadEmail, createdByEmail, estimateUrl } = body;
+    const { leadEmail, createdByEmail, estimateUrl, selection } = body;
 
     const client = createSupabaseAdminClient();
     const estimateId = (await params).id;
 
+    // Kundens endelige valg låses med signeringen. Tilleggene regnes på nytt
+    // her fra estimatets egne priser (ikke fra nettleseren).
+    const { data: estimate, error: readError } = await client
+      .from("estimates")
+      .select("id, private, signed_at, price_data, quote_version_id, created_at, leads ( own_consumption )")
+      .eq("id", estimateId)
+      .maybeSingle();
+    if (readError) throw readError;
+    if (!estimate) return NextResponse.json({ error: "Fant ikke estimatet" }, { status: 404 });
+    if (estimate.signed_at) return NextResponse.json({ error: "Avtalen er allerede signert" }, { status: 409 });
+
+    const signedAt = new Date().toISOString();
+    const offer = { ...signedOfferFor(estimate, selection), signedAt };
+
     const { data, error } = await client
       .from("estimates")
-      .update({ signed_at: new Date().toISOString() })
+      .update({ signed_at: signedAt, signed_selection: offer.selection, signed_offer: offer })
       .eq("id", estimateId)
+      .is("signed_at", null)
       .select()
-      .single();
+      .maybeSingle();
 
     if (error) throw error;
+    if (!data) return NextResponse.json({ error: "Avtalen er allerede signert" }, { status: 409 });
 
     const { SMTP_HOST, SMTP_PORT, SMTP_USER, SMTP_PASS } = process.env;
 

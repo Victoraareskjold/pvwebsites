@@ -4,8 +4,9 @@ import { useEffect, useState } from "react";
 import { useSiteConfig } from "../../../../../contexts/siteConfigContext";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { decodeSelection, signedOfferFor } from "../../../../../components/estimate/offerConfig";
 
-export default function KjoepsavtaleView({ estimateId }) {
+export default function KjoepsavtaleView({ estimateId, choice = "" }) {
   const config = useSiteConfig();
   const router = useRouter();
 
@@ -37,6 +38,14 @@ export default function KjoepsavtaleView({ estimateId }) {
   const mountingItems = estimateData?.price_data?.suppliers?.filter(
     (item) => item.category === "feste",
   );
+
+  // Signert: det som ble låst ved signering. Ellers: valget fra tilbudssiden.
+  const offer = estimateData
+    ? (estimateData.signed_at && estimateData.signed_offer) ||
+      signedOfferFor(estimateData, estimateData.signed_selection ?? decodeSelection(choice))
+    : null;
+  const hasExtras = (offer?.extrasEx ?? 0) > 0;
+  const vatFactor = 1 + (offer?.vatRate ?? 0.25);
 
   if (!estimateData || loading)
     return (
@@ -80,6 +89,8 @@ export default function KjoepsavtaleView({ estimateId }) {
         },
         body: JSON.stringify({
           leadEmail: estimateData?.leads?.email,
+          // Serveren regner tilleggene på nytt fra estimatets egne priser og låser dem
+          selection: offer?.selection ?? { mode: "solar" },
           createdByEmail: estimateData?.leads?.created_by.email,
           estimateUrl: `https://www.${site}.no/estimat/${estimateId}/kjoepsavtale`,
         }),
@@ -183,14 +194,21 @@ export default function KjoepsavtaleView({ estimateId }) {
               </li>
             ))}
 
-            {inverterItems.map((item) => (
-              <li key={item.id}>
+            {offer?.hybrid && !estimateData?.price_data?.batterySection?.hybridIncluded ? (
+              <li>
                 Vekselretter/inverter:{" "}
-                <strong>
-                  {item.quantity} stk, {item.product}
-                </strong>
+                <strong>1 stk, {offer.hybrid.name || "hybridinverter"} (hybrid, erstatter standardinverteren)</strong>
               </li>
-            ))}
+            ) : (
+              inverterItems.map((item) => (
+                <li key={item.id}>
+                  Vekselretter/inverter:{" "}
+                  <strong>
+                    {item.quantity} stk, {item.product}
+                  </strong>
+                </li>
+              ))
+            )}
 
             {mountingItems.map((item) => (
               <li key={item.id}>
@@ -209,6 +227,17 @@ export default function KjoepsavtaleView({ estimateId }) {
                 </strong>
               </li>
             ))}
+
+            {offer?.battery && (
+              <li>
+                Batteri:{" "}
+                <strong>
+                  {offer.battery.modules} stk, {offer.battery.name} ({formatValue(offer.capacityKwh)} kWh)
+                  {offer.battery.bms > 0 ? `, ${offer.battery.bms} stk ${offer.battery.bmsName || "BMS"}` : ""}
+                </strong>
+              </li>
+            )}
+            {offer?.battery && <li>Installasjon av batteri</li>}
           </ul>
           <ul className="list-disc mt-4 ml-6">
             <li>Prosjektering</li>
@@ -221,15 +250,31 @@ export default function KjoepsavtaleView({ estimateId }) {
 
         <div className="mt-12 break-inside-avoid">
           <h2>Totalpris</h2>
+          {hasExtras && (
+            <table className="mt-3 w-full max-w-xl text-left">
+              <tbody>
+                <tr className="border-b border-gray-300">
+                  <td className="py-1">Solcelleanlegg</td>
+                  <td className="py-1 text-right">{formatValue(offer.baseEx)} kr eks. mva</td>
+                </tr>
+                {offer.lines.map((line) => (
+                  <tr key={line.id} className="border-b border-gray-300">
+                    <td className="py-1">{line.label}</td>
+                    <td className="py-1 text-right">{formatValue(line.amountEx)} kr eks. mva</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          )}
           <p className="border-b border-black w-64 mt-3">
             <strong className="font-semibold">
-              {formatValue(Number(estimateData?.price_data?.total))} kr{" "}
+              {formatValue(Number(offer?.totalEx ?? estimateData?.price_data?.total))} kr{" "}
             </strong>
             eks. mva
           </p>
           <p className="border-b border-black w-64 mt-3">
             <strong className="font-semibold">
-              {formatValue(Number(estimateData?.price_data?.total * 1.25))}{" "}
+              {formatValue(Number(offer?.totalEx ?? estimateData?.price_data?.total) * vatFactor)}{" "}
               kr{" "}
             </strong>
             inkl. mva
