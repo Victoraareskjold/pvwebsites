@@ -47,6 +47,44 @@ export const OFFER_DEFAULTS = {
 };
 
 /**
+ * Forutsetningene tilbudet regner med.
+ *  - usignert tilbud: gjeldende verdier fra Beregningsregler i dashboardet (economyDefaults)
+ *  - signert tilbud: verdiene som ble låst da tilbudet ble laget (price_data.economy)
+ *  - eldre tilbud uten noe av dette: verdiene som gjaldt da de ble sendt
+ */
+export function assumptionsFor(estimateData) {
+  const locked = estimateData?.price_data?.economy;
+  const e = (!estimateData?.signed_at && estimateData?.economyDefaults) || locked || null;
+  const isBusiness = Boolean(estimateData?.private);
+  const num = (v, fallback) => (v === null || v === undefined || v === "" || !Number.isFinite(Number(v)) ? fallback : Number(v));
+  const period = num(e?.periodYears, 30);
+  return {
+    // Eldre tilbud: private = true er næring
+    elPrice: num(e?.elPrice, isBusiness ? 0.65 : 0.5),
+    netPrice: num(e?.netPrice, isBusiness ? 0.3 : 0.62),
+    priceGrowthPercent: num(e?.priceGrowthPercent, 2.5),
+    exportPrice: num(e?.exportPrice, OFFER_DEFAULTS.exportPrice),
+    /** null = anslås fra produksjon og forbruk */
+    selfUseShare: e?.selfUsePercent == null ? null : num(e.selfUsePercent, 35) / 100,
+    degradation: num(e?.degradationPercent, OFFER_DEFAULTS.degradation * 100) / 100,
+    replacementYear: Math.round(num(e?.replacementYear, OFFER_DEFAULTS.replacementYear)),
+    replacementFactor: num(e?.replacementFactor, OFFER_DEFAULTS.replacementFactor),
+    maintenancePerYear: num(e?.maintenancePerYear, OFFER_DEFAULTS.maintenancePerYear),
+    consumptionFallback: num(e?.consumptionFallback, OFFER_DEFAULTS.consumptionFallback),
+    periodYears: [10, 20, 30].includes(period) ? period : 30,
+  };
+}
+
+/**
+ * Høyeste egenbruksandel som gir mening: kunden kan ikke bruke mer solstrøm enn hele forbruket.
+ * Over denne grensen endrer ikke andelen noe, så slideren stopper der.
+ */
+export function maxSelfUseShare(production, consumption) {
+  if (!(production > 0) || !(consumption > 0)) return 0.9;
+  return Math.max(0.1, Math.min(0.9, consumption / production));
+}
+
+/**
  * Anslått andel av solstrømmen kunden bruker selv, uten batteri.
  * Jo mindre anlegget er i forhold til forbruket, jo mer brukes direkte.
  * Gir ca. 35 % når årsproduksjon = årsforbruk, ca. 48 % ved halvparten.
@@ -107,19 +145,24 @@ export function priceFor(estimateData, extrasEx = 0) {
 }
 
 /** Inverterbytte i bytteåret: hva som byttes og hva det koster (samme mva.-visning som prisen). */
-export function replacementFor(estimateData) {
+export function replacementFor(estimateData, assumptions = {}) {
+  const year = assumptions.replacementYear ?? OFFER_DEFAULTS.replacementYear;
+  const factor = assumptions.replacementFactor ?? OFFER_DEFAULTS.replacementFactor;
   const isBusiness = Boolean(estimateData?.private);
   const vat = isBusiness ? 1 : 1 + OFFER_DEFAULTS.vatRate;
   const inverters = (estimateData?.price_data?.suppliers ?? []).filter((s) => String(s.category).includes("inverter"));
   const inverterEx = inverters.reduce((sum, i) => sum + Number(i.priceWithMarkup || 0), 0);
-  const baseEx = inverterEx > 0 ? inverterEx * OFFER_DEFAULTS.replacementFactor : OFFER_DEFAULTS.replacementFallbackEx;
+  const baseEx = inverterEx > 0 ? inverterEx * factor : OFFER_DEFAULTS.replacementFallbackEx;
   return {
-    year: OFFER_DEFAULTS.replacementYear,
+    year,
     cost: Math.round((baseEx * vat) / 100) * 100,
     what: inverters.length
       ? `${inverters.map((i) => i.product || i.name).filter(Boolean).join(" og ") || "inverteren"}`
       : "inverteren",
-    basis: inverterEx > 0 ? "inverterens pris i dag × 1,4 (ny inverter, montering og prisstigning)" : "et anslag på 15 000 kr eks. mva.",
+    basis:
+      inverterEx > 0
+        ? `inverterens pris i dag × ${factor.toLocaleString("nb-NO")} (ny inverter, montering og prisstigning)`
+        : "et anslag på 15 000 kr eks. mva.",
   };
 }
 

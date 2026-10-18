@@ -181,6 +181,7 @@ export default function CostComparison({
   consumptionIsDefault,
   consumptionFromLead,
   selfUseShare,
+  selfUseMax = 0.9,
   setSelfUseShare,
   selfUseIsDefault,
   exportPrice,
@@ -193,6 +194,7 @@ export default function CostComparison({
   setGrowth,
   price,
   replacement,
+  assumptions,
   costKwh,
   config,
 }) {
@@ -392,23 +394,42 @@ export default function CostComparison({
         </summary>
         <div className="story-assumptions">
           <div className="story-sliders">
-            <Slider id="el-price" label="Strømpris" help="Det du betaler per kWh, etter eventuell strømstøtte eller Norgespris" value={elPrice} min={0.1} max={3} step={0.01} unit="kr/kWh" onChange={setElPrice} />
-            <Slider id="net-price" label="Nettleie, energiledd" help="Pris per kWh inkl. avgifter. Fastleddet er holdt utenfor" value={netPrice} min={0.1} max={2} step={0.01} unit="kr/kWh" onChange={setNetPrice} />
-            <Slider id="growth" label="Årlig prisvekst" help="Gjelder både strøm du kjøper og strøm du selger" value={growth} min={0} max={8} step={0.1} unit="%" decimals={1} onChange={setGrowth} />
-            <Slider id="self-use" label="Andel av solstrømmen du bruker selv" help="Høyere hvis du bruker mye strøm på dagtid" value={Math.round(selfUseShare * 100)} min={10} max={90} step={1} unit="%" decimals={0} onChange={(v) => setSelfUseShare(v / 100)} />
-            <Slider id="export-price" label="Salgspris for overskudd" help="Spotpris når du selger, ofte lavere midt på dagen" value={exportPrice} min={0} max={2} step={0.01} unit="kr/kWh" onChange={setExportPrice} />
+            <Slider id="el-price" label="Strømpris" help="Det du betaler per kWh, etter eventuell strømstøtte eller Norgespris" value={elPrice} min={0} max={Math.max(3, Math.ceil(elPrice))} step={0.01} unit="kr/kWh" onChange={setElPrice} />
+            <Slider id="net-price" label="Nettleie, energiledd" help="Pris per kWh inkl. avgifter. Fastleddet er holdt utenfor" value={netPrice} min={0} max={Math.max(2, Math.ceil(netPrice))} step={0.01} unit="kr/kWh" onChange={setNetPrice} />
+            <Slider id="growth" label="Årlig prisvekst" help="Gjelder både strøm du kjøper og strøm du selger" value={growth} min={Math.min(0, Math.floor(growth))} max={Math.max(8, Math.ceil(growth))} step={0.1} unit="%" decimals={1} onChange={setGrowth} />
+            <Slider
+              id="self-use"
+              label="Andel av solstrømmen du bruker selv"
+              help={
+                selfUseMax < 0.9
+                  ? `Høyere hvis du bruker mye strøm på dagtid. Maks ${num(selfUseMax * 100)} %: du kan ikke bruke mer enn hele forbruket ditt (${num(consumption)} kWh).`
+                  : "Høyere hvis du bruker mye strøm på dagtid"
+              }
+              value={Math.round(selfUseShare * 100)}
+              min={10}
+              max={Math.max(10, Math.floor(selfUseMax * 100))}
+              step={1}
+              unit="%"
+              decimals={0}
+              onChange={(v) => setSelfUseShare(v / 100)}
+            />
+            <Slider id="export-price" label="Salgspris for overskudd" help="Spotpris når du selger, ofte lavere midt på dagen" value={exportPrice} min={0} max={Math.max(2, Math.ceil(exportPrice))} step={0.01} unit="kr/kWh" onChange={setExportPrice} />
           </div>
           <div>
             <SpotPriceWidget setElPrice={setElPrice} site={config.site} solarLocation={config.solarLocation} />
           </div>
         </div>
         <ul className="story-assumption-list">
-          <li>Panelene mister ca. 0,4 % produksjon i året. Dette er tatt med.</li>
+          <li>Panelene mister ca. {num((assumptions?.degradation ?? 0.004) * 100, 1)} % produksjon i året. Dette er tatt med.</li>
           <li>
             I år {replacement.year} regner vi med at {replacement.what} byttes, for ca. {kr(replacement.cost)} {tax}{" "}
             ({replacement.basis}). Kostnaden er med i sammenligningen fra og med år {replacement.year}.
           </li>
-          <li>Ingen andre faste driftskostnader er lagt inn. Solcelleanlegg har lite løpende vedlikehold.</li>
+          <li>
+            {assumptions?.maintenancePerYear > 0
+              ? `Faste driftskostnader på ${kr(assumptions.maintenancePerYear)} i året er lagt inn.`
+              : "Ingen andre faste driftskostnader er lagt inn. Solcelleanlegg har lite løpende vedlikehold."}
+          </li>
           <li>
             Strøm du bruker selv er verdt det du ellers ville betalt: strømpris og nettleie per kWh. Overskudd selges
             til salgsprisen, uten nettleie.

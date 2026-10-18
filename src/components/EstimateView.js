@@ -10,8 +10,9 @@ import OfferHighlights from "./estimate/OfferHighlights";
 import OfferPrice from "./estimate/OfferPrice";
 import CostComparison from "./estimate/CostComparison";
 import {
-  OFFER_DEFAULTS,
+  assumptionsFor,
   costPerProducedKwh,
+  maxSelfUseShare,
   kwpOf,
   defaultSelfUseShare,
   knownConsumption,
@@ -61,33 +62,23 @@ export default function EstimateView({ estimateId }) {
   const [elNetPrice, setElNetPrice] = useState(0.62);
   const [expectedElPriceIncrease, setExpectedElPriceIncrease] = useState(2.5);
 
+  // Forutsetningene starter på verdiene fra Beregningsregler (se assumptionsFor), og kunden kan justere dem.
+  const [exportPrice, setExportPrice] = useState(0.6);
+  const [selfUseOverride, setSelfUseOverride] = useState(null);
+  const [period, setPeriod] = useState(30);
   useEffect(() => {
     if (!estimateData) return;
-
-    // Nye tilbud: standardverdiene fra kalkulatoren (Beregningsregler), låst med tilbudet.
-    const economy = estimateData?.price_data?.economy;
-    if (economy) {
-      setElPrice(Number(economy.elPrice));
-      setElNetPrice(Number(economy.netPrice));
-      setExpectedElPriceIncrease(Number(economy.priceGrowthPercent));
-      return;
-    }
-
-    // Eldre tilbud: verdiene som gjaldt da de ble sendt
-    if (estimateData.private) {
-      setElPrice(0.65);
-      setElNetPrice(0.3);
-    } else {
-      setElPrice(0.5);
-      setElNetPrice(0.62);
-    }
+    const a = assumptionsFor(estimateData);
+    setElPrice(a.elPrice);
+    setElNetPrice(a.netPrice);
+    setExpectedElPriceIncrease(a.priceGrowthPercent);
+    setExportPrice(a.exportPrice);
+    setSelfUseOverride(a.selfUseShare);
+    setPeriod(a.periodYears);
   }, [estimateData]);
 
   // Sammenligningen med og uten solceller
   const [consumption, setConsumptionState] = useState(null);
-  const [selfUseOverride, setSelfUseOverride] = useState(null);
-  const [exportPrice, setExportPrice] = useState(OFFER_DEFAULTS.exportPrice);
-  const [period, setPeriod] = useState(20);
 
   // Kundens eget forbruk huskes i nettleseren for dette tilbudet
   const storageKey = `offer-consumption-${estimateId}`;
@@ -125,7 +116,8 @@ export default function EstimateView({ estimateId }) {
   // Oppsettet for batteriseksjonen. Tilbudet kan overstyre fellesoppsettet
   // med price_data.batterySection — ikke å forveksle med
   // price_data.installation.battery, som er installasjonsarbeidet.
-  const batteryConfig = batteryConfigFor(estimateData);
+  // Døgneksempelet i batteridelen bruker de samme forutsetningene som resten av tilbudet
+  const batteryConfig = { ...batteryConfigFor(estimateData), purchase: elPrice + elNetPrice, exportPrice };
 
   // Tillegg som må gjennomgås før signering: nødstrøm, store anlegg som krever
   // leverandørpris, og eldre tilbud uten priser fra kalkulatoren.
@@ -156,13 +148,16 @@ export default function EstimateView({ estimateId }) {
     createdAt >= BATTERY_SECTION_FROM;
 
   // ── Økonomien: én beregning som alle seksjonene bruker ──────────────────
+  const assumptions = assumptionsFor(estimateData);
   const production = Number(estimateData?.yearly_prod || 0);
   const leadConsumption = knownConsumption(estimateData);
-  const annualConsumption = consumption ?? leadConsumption ?? OFFER_DEFAULTS.consumptionFallback;
+  const annualConsumption = consumption ?? leadConsumption ?? assumptions.consumptionFallback;
   const consumptionIsDefault = consumption == null && leadConsumption == null;
-  const selfUseShare = selfUseOverride ?? defaultSelfUseShare(production, annualConsumption);
+  // Egenbruk kan ikke overstige forbruket. Over grensen ville slideren flyttet seg uten at tallene endret seg.
+  const selfUseMax = maxSelfUseShare(production, annualConsumption);
+  const selfUseShare = Math.min(selfUseOverride ?? defaultSelfUseShare(production, annualConsumption), selfUseMax);
   const price = priceFor(estimateData, batteryQuote?.extrasEx ?? 0);
-  const replacement = replacementFor(estimateData);
+  const replacement = replacementFor(estimateData, assumptions);
   const sim = simulate({
     consumption: annualConsumption,
     production,
@@ -174,6 +169,8 @@ export default function EstimateView({ estimateId }) {
     // Grunnberegningen gjelder selve solcelleanlegget; batteri og hybrid vises separat
     investment: price.isBusiness ? price.solarInvoiced : price.solarNet,
     replacement,
+    degradation: assumptions.degradation,
+    maintenancePerYear: assumptions.maintenancePerYear,
   });
   const costKwh = costPerProducedKwh(sim);
   const firstYear = sim.rows[0];
@@ -229,8 +226,8 @@ export default function EstimateView({ estimateId }) {
           <OfferHighlights
             price={price}
             firstYear={firstYear}
-            summary={periodSummary(sim, 20)}
-            periodYears={20}
+            summary={periodSummary(sim, period)}
+            periodYears={period}
           />
 
           <div className="offer-step">
@@ -270,6 +267,7 @@ export default function EstimateView({ estimateId }) {
             consumptionIsDefault={consumptionIsDefault}
             consumptionFromLead={consumption == null && leadConsumption != null}
             selfUseShare={selfUseShare}
+            selfUseMax={selfUseMax}
             setSelfUseShare={setSelfUseOverride}
             selfUseIsDefault={selfUseOverride == null}
             exportPrice={exportPrice}
@@ -282,6 +280,7 @@ export default function EstimateView({ estimateId }) {
             setGrowth={setExpectedElPriceIncrease}
             price={price}
             replacement={replacement}
+            assumptions={assumptions}
             costKwh={costKwh}
             config={config}
           />
