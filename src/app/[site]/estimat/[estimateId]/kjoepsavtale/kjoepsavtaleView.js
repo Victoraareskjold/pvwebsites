@@ -197,7 +197,7 @@ export default function KjoepsavtaleView({ estimateId, choice = "" }) {
             {offer?.hybrid && !estimateData?.price_data?.batterySection?.hybridIncluded ? (
               <li>
                 Vekselretter/inverter:{" "}
-                <strong>1 stk, {offer.hybrid.name || "hybridinverter"} (hybrid, erstatter standardinverteren)</strong>
+                <strong>{offer.hybrid.quantity ?? 1} stk, {offer.hybrid.name || "hybridinverter"} (hybrid, erstatter standardinverteren)</strong>
               </li>
             ) : (
               inverterItems.map((item) => (

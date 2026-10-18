@@ -1,0 +1,353 @@
+/**
+ * Tilbudets fortelling: «Kort fortalt», «Hva anlegget koster» og
+ * «Strømkostnadene dine med og uten solceller».
+ *
+ * Samme uttrykk som resten av tilbudet (hvite kort, --site-accent fra
+ * logoen), men med større tekst og tall: mange kunder er eldre, og
+ * hovedtallene skal kunne leses uten å lete.
+ */
+
+.offer-story {
+  --muted: color-mix(in srgb, var(--ink) 74%, white);
+  --line: color-mix(in srgb, var(--ink) 14%, white);
+  --green: #1f6f55;
+  --green-soft: #e8f4ee;
+  --without: color-mix(in srgb, var(--ink) 55%, white);
+
+  width: min(var(--page-max, 1280px), 100%);
+  margin-inline: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  color: var(--ink);
+  font-family: var(--site-font);
+  font-size: 17px;
+  line-height: 1.6;
+  font-variant-numeric: tabular-nums;
+}
+
+.offer-story * { box-sizing: border-box; }
+.estimateStylingSheet .offer-story p { font-weight: 400; font-size: inherit; }
+
+.offer-story .story-card {
+  background: white;
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  padding: 28px 30px;
+  min-width: 0;
+}
+
+.offer-story .story-eyebrow {
+  margin: 0 0 10px;
+  font-size: 13px !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.12em;
+  color: var(--site-accent);
+}
+
+.offer-story .story-muted { margin: 0; color: var(--muted); }
+.offer-story .story-lead { margin: 0 0 14px; font-size: 18px !important; }
+.offer-story .story-fine { margin: 12px 0 0; font-size: 15px !important; color: var(--muted); line-height: 1.6; }
+.offer-story strong { font-weight: 700; }
+
+/* ── Kort fortalt ──────────────────────────────────────────────────────── */
+
+.offer-story .story-highlights {
+  display: grid;
+  grid-template-columns: 1.25fr 1fr 1fr;
+  gap: 14px;
+}
+
+.offer-story .story-hl {
+  background: white;
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  padding: 24px 26px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.offer-story .story-hl-main {
+  background: var(--ink-deep);
+  border-color: var(--ink-deep);
+  color: white;
+}
+
+.offer-story .story-hl-label { font-size: 15px; font-weight: 600; color: var(--muted); }
+.offer-story .story-hl-main .story-hl-label { color: rgb(255 255 255 / 0.78); }
+.offer-story .story-hl-value { font-size: clamp(30px, 3.4vw, 42px); font-weight: 800 !important; letter-spacing: -1px; line-height: 1.15; }
+.offer-story .story-hl-main .story-hl-value { color: var(--brand-bright, white); }
+.offer-story .story-hl-value.positive { color: var(--green); }
+.offer-story .story-hl-sub { font-size: 15px; color: var(--muted); line-height: 1.5; }
+.offer-story .story-hl-main .story-hl-sub { color: rgb(255 255 255 / 0.78); }
+
+.offer-story .story-hl-link {
+  align-self: flex-start;
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--site-accent);
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
+/* ── Pris ──────────────────────────────────────────────────────────────── */
+
+.offer-story .story-price {
+  display: grid;
+  grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
+  gap: 36px;
+  align-items: start;
+}
+
+.offer-story .story-price-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 16px;
+  padding: 16px 0;
+  border-top: 1px solid var(--line);
+  font-size: 18px;
+}
+
+.offer-story .story-price-row:first-child { border-top: 0; padding-top: 0; }
+.offer-story .story-price-row span { display: flex; flex-direction: column; gap: 2px; }
+.offer-story .story-price-row small { font-size: 14px; color: var(--muted); }
+.offer-story .story-price-row strong { font-size: 22px; white-space: nowrap; }
+.offer-story .story-price-support strong { color: var(--green); }
+
+.offer-story .story-price-net {
+  margin-top: 6px;
+  padding: 20px 22px;
+  border: 0;
+  border-radius: 14px;
+  background: var(--site-accent-soft);
+  box-shadow: inset 0 0 0 2px var(--site-accent);
+  align-items: center;
+}
+
+.offer-story .story-price-net span { font-size: 19px; font-weight: 700; }
+.offer-story .story-price-net strong { font-size: clamp(30px, 3.6vw, 40px); font-weight: 800; letter-spacing: -1px; color: var(--ink); }
+.offer-story .story-price-total strong { font-size: 32px; }
+
+.offer-story .story-steps { margin: 0; padding-left: 22px; display: flex; flex-direction: column; gap: 10px; }
+.offer-story .story-steps li { padding-left: 4px; }
+.offer-story .story-steps li::marker { font-weight: 700; color: var(--site-accent); }
+
+/* ── Med og uten: kundens tall ─────────────────────────────────────────── */
+
+.offer-story .story-inputs {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 20px 40px;
+}
+
+.offer-story .story-consumption { flex: 1 1 420px; min-width: 0; }
+.offer-story .story-consumption label { display: block; font-size: 18px; font-weight: 700; margin-bottom: 8px; }
+
+.offer-story .story-consumption-field { display: flex; align-items: center; gap: 12px; }
+.offer-story .story-consumption-field input {
+  width: 200px;
+  font: inherit;
+  font-size: 28px;
+  font-weight: 800;
+  text-align: right;
+  padding: 10px 14px;
+  border: 2px solid var(--site-accent-line);
+  border-radius: 12px;
+  color: var(--ink);
+  background: white;
+}
+.offer-story .story-consumption-field input:focus { outline: 3px solid color-mix(in srgb, var(--site-accent) 30%, transparent); border-color: var(--site-accent); }
+.offer-story .story-consumption-field span { font-size: 18px; color: var(--muted); }
+
+.offer-story .story-period span { display: block; font-size: 15px; font-weight: 600; color: var(--muted); margin-bottom: 8px; }
+.offer-story .story-segment { display: inline-flex; padding: 4px; border-radius: 14px; background: color-mix(in srgb, var(--ink) 6%, white); gap: 4px; }
+.offer-story .story-segment button {
+  font: inherit;
+  font-size: 18px;
+  font-weight: 700;
+  padding: 10px 22px;
+  border: 0;
+  border-radius: 10px;
+  background: transparent;
+  color: var(--ink);
+  cursor: pointer;
+  min-width: 84px;
+}
+.offer-story .story-segment button[aria-checked="true"] { background: var(--site-accent); color: white; box-shadow: 0 1px 4px rgb(0 0 0 / 0.15); }
+
+/* ── Resultat ──────────────────────────────────────────────────────────── */
+
+.offer-story .story-compare { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+
+.offer-story .story-total {
+  background: white;
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  padding: 24px 26px;
+}
+
+.offer-story .story-total-label { display: flex; align-items: center; gap: 8px; font-size: 17px; font-weight: 700; }
+.offer-story .story-total-label::before { content: ""; width: 14px; height: 4px; border-radius: 4px; background: var(--without); }
+.offer-story .story-total-with .story-total-label::before { background: var(--site-accent); }
+.offer-story .story-total > strong { display: block; font-size: clamp(30px, 3.4vw, 40px); font-weight: 800; letter-spacing: -1px; margin: 4px 0 8px; }
+.offer-story .story-total p { margin: 0; color: var(--muted); font-size: 15px !important; }
+.offer-story .story-total dl { margin: 0; }
+.offer-story .story-total dl div { display: flex; justify-content: space-between; gap: 12px; padding: 5px 0; border-top: 1px solid var(--line); font-size: 15px; }
+.offer-story .story-total dt { color: var(--muted); }
+.offer-story .story-total dd { margin: 0; font-weight: 700; white-space: nowrap; }
+
+.offer-story .story-diff {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 20px 24px;
+  border-radius: 16px;
+}
+.offer-story .story-diff strong { font-size: 21px; }
+.offer-story .story-diff span { font-size: 16px; }
+.offer-story .story-diff.positive { background: var(--green-soft); color: #10432f; }
+.offer-story .story-diff.pending { background: #fff6e5; color: #5c3b06; box-shadow: inset 0 0 0 1px #f0d29a; }
+
+/* ── Graf ──────────────────────────────────────────────────────────────── */
+
+.offer-story .story-chart { margin: 0; }
+.offer-story .story-chart figcaption { display: flex; flex-wrap: wrap; gap: 6px 22px; margin-bottom: 8px; font-size: 15px; }
+.offer-story .story-legend { display: inline-flex; align-items: center; gap: 8px; }
+.offer-story .lg-without, .offer-story .lg-with { display: inline-block; width: 18px; height: 4px; border-radius: 4px; background: var(--without); }
+.offer-story .lg-with { background: var(--site-accent); }
+
+.offer-story .story-chart-plot { position: relative; }
+.offer-story .story-chart svg { display: block; width: 100%; height: auto; overflow: visible; touch-action: pan-y; }
+.offer-story .ch-grid { stroke: var(--line); stroke-width: 1; }
+.offer-story .ch-tick { fill: var(--muted); font-size: 13px; text-anchor: end; }
+.offer-story .ch-tick-x { text-anchor: middle; }
+.offer-story .ch-line { fill: none; stroke-width: 3; stroke-linejoin: round; stroke-linecap: round; }
+.offer-story .ch-without { stroke: var(--without); fill: var(--without); }
+.offer-story .ch-with { stroke: var(--site-accent); fill: var(--site-accent); }
+.offer-story path.ch-without, .offer-story path.ch-with { fill: none; }
+.offer-story .ch-end { stroke: white; stroke-width: 2; }
+.offer-story .ch-endlabel { fill: var(--ink); font-size: 14px; font-weight: 700; }
+.offer-story .ch-payback circle { fill: var(--green); stroke: white; stroke-width: 2.5; }
+.offer-story .ch-payback text { fill: var(--green); font-size: 13px; font-weight: 700; text-anchor: middle; }
+.offer-story .ch-repl line { stroke: var(--muted); stroke-dasharray: 3 4; }
+.offer-story .ch-repl text { fill: var(--muted); font-size: 12px; }
+.offer-story .ch-hover line { stroke: color-mix(in srgb, var(--ink) 35%, white); }
+.offer-story .ch-hover circle { stroke: white; stroke-width: 2; }
+
+.offer-story .story-tip {
+  position: absolute;
+  top: 0;
+  transform: translateX(-50%);
+  pointer-events: none;
+  background: var(--ink-deep);
+  color: white;
+  border-radius: 10px;
+  padding: 8px 12px;
+  font-size: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  white-space: nowrap;
+  box-shadow: 0 6px 20px rgb(0 0 0 / 0.2);
+}
+.offer-story .story-tip span { display: flex; align-items: center; gap: 6px; }
+
+/* ── Solstrømmen ───────────────────────────────────────────────────────── */
+
+.offer-story .story-split { display: flex; height: 18px; border-radius: 100px; overflow: hidden; gap: 3px; margin: 6px 0 16px; }
+.offer-story .split-self { background: var(--site-accent); }
+.offer-story .split-export { background: var(--site-accent-line); }
+.offer-story .story-split-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; }
+.offer-story .story-split-grid > div { display: flex; flex-direction: column; gap: 2px; padding: 14px 16px; border-radius: 14px; background: color-mix(in srgb, var(--ink) 4%, white); }
+.offer-story .story-split-grid span { display: flex; align-items: center; gap: 8px; font-size: 15px; font-weight: 600; color: var(--muted); }
+.offer-story .story-split-grid strong { font-size: 26px; font-weight: 800; letter-spacing: -0.5px; }
+.offer-story .story-split-grid small { font-size: 14px; color: var(--muted); }
+.offer-story .dot-self, .offer-story .dot-export, .offer-story .dot-bought { width: 12px; height: 12px; border-radius: 4px; background: var(--site-accent); flex: none; }
+.offer-story .dot-export { background: var(--site-accent-line); }
+.offer-story .dot-bought { background: var(--without); }
+
+.offer-story .story-two { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+.offer-story .story-big { margin: 0 0 8px; font-size: 40px !important; font-weight: 800 !important; letter-spacing: -1px; color: var(--site-accent); line-height: 1.1; }
+.offer-story .story-big small { font-size: 18px; font-weight: 600; color: var(--muted); letter-spacing: 0; }
+
+/* ── Detaljer ──────────────────────────────────────────────────────────── */
+
+.offer-story .story-details { background: white; border: 1px solid var(--line); border-radius: 18px; overflow: hidden; }
+.offer-story .story-details > summary {
+  list-style: none;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  padding: 20px 26px;
+}
+.offer-story .story-details > summary::-webkit-details-marker { display: none; }
+.offer-story .story-details > summary > span:first-child { display: flex; flex-direction: column; gap: 2px; }
+.offer-story .story-details > summary strong { font-size: 18px; }
+.offer-story .story-details > summary small { font-size: 15px; color: var(--muted); }
+.offer-story .story-details-open {
+  flex: none;
+  font-size: 15px;
+  font-weight: 700;
+  padding: 8px 16px;
+  border-radius: 100px;
+  border: 1px solid var(--site-accent-line);
+  color: var(--site-accent);
+}
+.offer-story .story-details[open] .story-details-open { background: var(--site-accent-soft); }
+.offer-story .story-details[open] .story-details-open::after { content: " ↑"; }
+.offer-story .story-details:not([open]) .story-details-open::after { content: " ↓"; }
+
+.offer-story .story-assumptions {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 28px;
+  padding: 4px 26px 8px;
+}
+.offer-story .story-sliders { display: flex; flex-direction: column; gap: 18px; }
+.offer-story .story-slider label { display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; margin-bottom: 6px; }
+.offer-story .story-slider label > span { display: flex; flex-direction: column; font-weight: 700; font-size: 16px; }
+.offer-story .story-slider small { font-weight: 400; font-size: 14px; color: var(--muted); }
+.offer-story .story-slider strong { white-space: nowrap; font-size: 17px; }
+.offer-story .story-slider input[type="range"] { width: 100%; height: 6px; border-radius: 100px; background: var(--site-accent-line); accent-color: var(--site-accent); }
+.offer-story .story-slider input[type="range"]::-webkit-slider-thumb { background: var(--site-accent); border: 3px solid white; box-shadow: 0 1px 4px rgb(0 0 0 / 0.25); width: 24px; height: 24px; }
+.offer-story .story-slider input[type="range"]::-moz-range-thumb { width: 20px; height: 20px; border-radius: 50%; background: var(--site-accent); border: 3px solid white; }
+
+.offer-story .story-assumption-list { margin: 8px 26px 24px; padding-left: 20px; display: flex; flex-direction: column; gap: 6px; font-size: 15px; color: var(--muted); }
+
+.offer-story .story-table-wrap { overflow-x: auto; padding: 0 26px 24px; }
+.offer-story .story-table { width: 100%; border-collapse: collapse; font-size: 15px; }
+.offer-story .story-table th { text-align: right; font-size: 13px; font-weight: 700; color: var(--muted); padding: 8px 10px; border-bottom: 2px solid var(--line); white-space: nowrap; }
+.offer-story .story-table td { text-align: right; padding: 7px 10px; border-bottom: 1px solid var(--line); white-space: nowrap; }
+.offer-story .story-table th:first-child, .offer-story .story-table td:first-child { text-align: left; }
+.offer-story .story-table td small { color: var(--muted); font-size: 12px; }
+.offer-story .story-table .pos { color: var(--green); font-weight: 700; }
+.offer-story .story-table .neg { color: #9a3412; font-weight: 700; }
+.offer-story .story-table tr.payback td { background: var(--green-soft); font-weight: 700; }
+
+/* ── Mindre skjermer ───────────────────────────────────────────────────── */
+
+@media (max-width: 960px) {
+  .offer-story { padding-inline: 1rem; }
+  .offer-story .story-highlights { grid-template-columns: 1fr; }
+  .offer-story .story-price, .offer-story .story-assumptions, .offer-story .story-two { grid-template-columns: 1fr; gap: 20px; }
+}
+
+@media (max-width: 640px) {
+  .offer-story .story-card, .offer-story .story-total, .offer-story .story-hl { padding: 20px 18px; }
+  .offer-story .story-compare, .offer-story .story-split-grid { grid-template-columns: 1fr; }
+  .offer-story .story-segment { width: 100%; }
+  .offer-story .story-segment button { flex: 1; min-width: 0; padding: 10px 8px; }
+  .offer-story .story-period { width: 100%; }
+  .offer-story .story-consumption-field input { width: 100%; max-width: 220px; }
+  .offer-story .story-details > summary { padding: 18px; }
+  .offer-story .story-assumptions { padding: 4px 18px 8px; }
+  .offer-story .story-assumption-list { margin: 8px 18px 20px; }
+  .offer-story .story-table-wrap { padding: 0 12px 18px; }
+  .offer-story .story-price-net { flex-direction: column; align-items: flex-start; gap: 4px; }
+}

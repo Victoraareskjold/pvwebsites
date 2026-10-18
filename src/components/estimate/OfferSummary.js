@@ -65,23 +65,26 @@ export default function OfferSummary({
       ))}
 
       <div className="offer-summary-total">
-        <span>Samlet pris</span>
+        <span>{support > 0 ? "Vi fakturerer" : "Samlet pris"}</span>
         <strong>{nok(total)}</strong>
       </div>
 
       {support > 0 && (
         <div className="offer-summary-support">
           <div className="offer-summary-line">
-            <span>Antatt Enova-støtte</span>
+            <span>
+              Beregnet Enova-støtte
+              <small>Utbetales av Enova til deg, trekkes ikke fra fakturaen</small>
+            </span>
             <strong>−{nok(support)}</strong>
           </div>
-          <div className="offer-summary-line offer-summary-after">
-            <span>Kostnad etter antatt støtte</span>
+          <div className="offer-summary-after">
+            <span>Din kostnad etter støtte</span>
             <strong>{nok(total - support)}</strong>
           </div>
           <p className="offer-summary-note">
-            Støtten er vist separat fra avtaleprisen, og gjelder
-            solcelleanlegget. Tilleggene øker ikke støttebeløpet.
+            Støtten forutsetter at Enovas vilkår er oppfylt, og at søknaden er godkjent før du signerer.
+            Den gjelder solcelleanlegget; tilleggene øker ikke støttebeløpet.
           </p>
         </div>
       )}

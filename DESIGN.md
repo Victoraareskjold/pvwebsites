@@ -208,3 +208,29 @@ Minel `#c00030` (rød), Mydlands `#1f3a85` (marine), Smart `#0067a6` (blå), Tel
 
 Filer: `src/components/estimate/SolarOverview.js` + `offerSolar.css` (del 01),
 `OfferClosing.js` + `offerClosing.css` (del 03).
+
+## Tilbudsmalen for privatkunder – 18.10.2026
+
+Rekkefølge: Kort fortalt → 01 Anlegget ditt → 02 Hva det koster → 03 Strømkostnadene
+dine med og uten solceller → 04 Batteri → 05 Din oversikt.
+
+All økonomi regnes i `src/components/estimate/offerEconomics.js`, og alle seksjonene
+bruker samme beregning. Forutsetningene som ikke kommer fra Beregningsregler ligger i
+`OFFER_DEFAULTS` øverst i fila:
+
+| Forutsetning | Standard | Merknad |
+| --- | --- | --- |
+| Salgspris overskudd | 0,60 kr/kWh | Kan justeres av kunden |
+| Egenbruk | 25–60 % | Anslås fra produksjon/forbruk (ca. 35 % når de er like) |
+| Degradering | 0,4 % i året | |
+| Inverterbytte | år 15, inverterpris × 1,4 | 15 000 kr eks. mva. hvis tilbudet mangler inverterlinje |
+| Drift | 0 kr i året | |
+| Årsforbruk | leadens forbruk, ellers 20 000 kWh | Kunden kan legge inn eget (huskes i nettleseren) |
+
+Strømpris, nettleie og prisvekst kommer fra `price_data.economy` (Beregningsregler).
+Enova-støtten kommer fra `price_data.estimatedSupport` (kalkulatoren); eldre tilbud
+bruker 2 500 kr/kWp, maks 15 kWp og maks 25 % av kostnaden.
+
+Ikke lenger i bruk på tilbudssiden (kan slettes): `SolarEconomicCalculation.js`,
+`EconomyChart.js`, `economyChart.css`, `HowDoesItWork.js`, `HowWillItLook.js`,
+`YourSolarFacility.js`, `YourSolarFacility2.js`, `EstimatePricingInfo.js`.

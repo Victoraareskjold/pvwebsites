@@ -1,7 +1,7 @@
 "use client";
 
 /**
- * «02 · MULIGHETENE DINE» — batteri, hybridinverter og nødstrøm.
+ * «04 · BATTERI OG MULIGHETER» — batteri, hybridinverter og nødstrøm.
  *
  * Bygget etter prototypen fra Asbjørn (Soleklart, 28. september 2026):
  * tre valgkort, batterikonfigurator med modulstepper, nødstrømvalg og
@@ -26,8 +26,7 @@ import {
   normalizedSelection,
   recommendedFor,
   unitWord,
-  vatMultiplier,
-} from "./batteryModel";
+  vatMultiplier, orderedModels } from "./batteryModel";
 import "./battery.css";
 import "./offerLayout.css";
 
@@ -309,7 +308,7 @@ export default function BatteryOptions({ config, onSelectionChange }) {
     >
       {/* Samme overskriftsstil som 01 og 03, slik at delene hører sammen. */}
       <div className="offer-step offer-step-inline">
-        <p className="offer-step-number">02 · MULIGHETENE DINE</p>
+        <p className="offer-step-number">04 · BATTERI OG MULIGHETER</p>
         <h2 id="battery-options-title">
           Vil du ta vare på mer av solstrømmen?
         </h2>
@@ -458,7 +457,7 @@ export default function BatteryOptions({ config, onSelectionChange }) {
                     value={selection.model}
                     onChange={(e) => update({ model: e.target.value })}
                   >
-                    {Object.values(config.catalogue).map((item) => (
+                    {orderedModels(config).map((item) => (
                       <option key={item.id} value={item.id}>
                         {item.brand} · {number(item.moduleKwh, 1)} kWh per{" "}
                         {unitWord(item, 1)} · {number(item.min * item.moduleKwh, 1)}–

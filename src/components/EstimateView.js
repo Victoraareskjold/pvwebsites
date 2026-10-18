@@ -5,13 +5,25 @@ import { useState, useEffect } from "react";
 
 import "./estimate.css";
 import "./estimate/offerLayout.css";
-import SolarEconomicCalculation from "./estimate/SolarEconomicCalculation";
 import SolarOverview from "./estimate/SolarOverview";
+import OfferHighlights from "./estimate/OfferHighlights";
+import OfferPrice from "./estimate/OfferPrice";
+import CostComparison from "./estimate/CostComparison";
+import {
+  OFFER_DEFAULTS,
+  costPerProducedKwh,
+  kwpOf,
+  defaultSelfUseShare,
+  knownConsumption,
+  periodSummary,
+  priceFor,
+  replacementFor,
+  simulate,
+} from "./estimate/offerEconomics";
 import BatteryOptions from "./estimate/BatteryOptions";
 import { batteryConfigFor, canSignExtras } from "./estimate/offerConfig";
 import OfferClosing from "./estimate/OfferClosing";
 import { useSearchParams } from "next/navigation";
-import { calculateKwhCostWithLoan } from "../../utils/calculateKwhCostWithLoan";
 
 /**
  * Batteriseksjonen vises på tilbud laget fra og med denne datoen.
@@ -71,15 +83,35 @@ export default function EstimateView({ estimateId }) {
     }
   }, [estimateData]);
 
-  const [paymentTime, setPaymentTime] = useState(null);
+  // Sammenligningen med og uten solceller
+  const [consumption, setConsumptionState] = useState(null);
+  const [selfUseOverride, setSelfUseOverride] = useState(null);
+  const [exportPrice, setExportPrice] = useState(OFFER_DEFAULTS.exportPrice);
+  const [period, setPeriod] = useState(20);
+
+  // Kundens eget forbruk huskes i nettleseren for dette tilbudet
+  const storageKey = `offer-consumption-${estimateId}`;
+  useEffect(() => {
+    try {
+      const saved = Number(localStorage.getItem(storageKey));
+      if (saved > 0) setConsumptionState(saved);
+    } catch {
+      /* ingen lagring tilgjengelig */
+    }
+  }, [storageKey]);
+  const setConsumption = (v) => {
+    setConsumptionState(v);
+    try {
+      localStorage.setItem(storageKey, String(v));
+    } catch {
+      /* ignorer */
+    }
+  };
 
   // Kundens batterivalg, løftet opp hit slik at prisoppsummeringen
   // nederst følger det som er valgt lenger oppe på siden.
   const [batteryQuote, setBatteryQuote] = useState(null);
 
-  const [economySummary, setEconomySummary] = useState(null);
-  const [totalProduction30Years, setTotalProduction30Years] = useState(0);
-  const [inverterReplacementCost, setInverterReplacementCost] = useState(0);
 
   if (loading || !estimateData) {
     return (
@@ -115,71 +147,37 @@ export default function EstimateView({ estimateId }) {
   const createdAt = estimateData?.created_at
     ? new Date(estimateData.created_at)
     : null;
+  // Slått av på tilbudet i dashboardet: kunden ser verken hybridoppgradering eller batteri.
+  const extrasOff = estimateData?.price_data?.batterySection?.enabled === false;
   const showBatterySection =
+    !extrasOff &&
     createdAt instanceof Date &&
     !Number.isNaN(createdAt.getTime()) &&
     createdAt >= BATTERY_SECTION_FROM;
 
-  const inverter = estimateData?.price_data?.suppliers?.find(
-    (item) => item.category === "inverter",
-  );
-
-  const getPanelWp = (panelName) => {
-    // Regex for å finne tall etter W eller w (f.eks. "Premium 415 W" → 415)
-
-    const panelItem = estimateData?.price_data?.suppliers?.find(
-      (item) => item.category === "solcellepanel",
-    );
-
-    // 2. Hent ut produktnavnet (f.eks. "Trina Vertex TSM- 445W")
-    const panelProduct = panelItem?.product || "";
-
-    // 3. Regex for å finne Watt (leter etter tallet før 'W')
-    const match = panelProduct.match(/(\d+)\s*W/i);
-
-    if (match) {
-      return parseInt(match[1], 10);
-    }
-    // Fallback om regex ikke matcher
-    console.warn(`Kunne ikke finne watt for panel: ${panelName}`);
-    return 0;
-  };
-
-  const getkWp = (selectedPanelType, totalPanels) => {
-    const panelWp = getPanelWp(selectedPanelType);
-    return (totalPanels * panelWp) / 1000;
-  };
-
-  const enovaSupport = () => {
-    const kwp =
-      estimateData?.kwp ??
-      getkWp(estimateData?.selected_panel_type, estimateData?.total_panels);
-    const eligibleKwp = Math.min(kwp ?? 0, 15);
-    return (eligibleKwp * 2500).toFixed(2);
-  };
-
-  const investmentCost = estimateData?.private
-    ? estimateData?.price_data?.total || 0
-    : Number(estimateData?.price_data?.["total inkl. alt"]) -
-        Number(enovaSupport()) || 0;
-
-  const solarCostPerKwh =
-    totalProduction30Years > 0
-      ? (investmentCost + inverterReplacementCost) / totalProduction30Years
-      : 0;
-
-  const futureGridPrice =
-    (elPrice + elNetPrice) * Math.pow(1 + expectedElPriceIncrease / 100, 30);
-
-  const totalProduction30 = estimateData.yearly_prod * 30;
-
-  const solarCostWithLoan = estimateData?.yearly_prod
-    ? calculateKwhCostWithLoan(
-        totalProduction30,
-        investmentCost,
-        investmentCost,
-      )
-    : 0;
+  // ── Økonomien: én beregning som alle seksjonene bruker ──────────────────
+  const production = Number(estimateData?.yearly_prod || 0);
+  const leadConsumption = knownConsumption(estimateData);
+  const annualConsumption = consumption ?? leadConsumption ?? OFFER_DEFAULTS.consumptionFallback;
+  const consumptionIsDefault = consumption == null && leadConsumption == null;
+  const selfUseShare = selfUseOverride ?? defaultSelfUseShare(production, annualConsumption);
+  const price = priceFor(estimateData, batteryQuote?.extrasEx ?? 0);
+  const replacement = replacementFor(estimateData);
+  const sim = simulate({
+    consumption: annualConsumption,
+    production,
+    selfUseShare,
+    elPrice,
+    netPrice: elNetPrice,
+    growthPercent: expectedElPriceIncrease,
+    exportPrice,
+    // Grunnberegningen gjelder selve solcelleanlegget; batteri og hybrid vises separat
+    investment: price.isBusiness ? price.solarInvoiced : price.solarNet,
+    replacement,
+  });
+  const costKwh = costPerProducedKwh(sim);
+  const firstYear = sim.rows[0];
+  const kwp = kwpOf(estimateData);
 
   return (
     <main className="min-h-screen estimateStylingSheet">
@@ -227,50 +225,66 @@ export default function EstimateView({ estimateId }) {
             )}
           </section>
 
+          {/* Kort fortalt: verdien tidlig, detaljene lenger ned */}
+          <OfferHighlights
+            price={price}
+            firstYear={firstYear}
+            summary={periodSummary(sim, 20)}
+            periodYears={20}
+          />
+
           <div className="offer-step">
-            <p className="offer-step-number">01 · SOLCELLER</p>
-            <h2>Anlegget ditt, og hva det kan gi deg.</h2>
+            <p className="offer-step-number">01 · ANLEGGET DITT</p>
+            <h2>Dette foreslår vi, og hvorfor det passer boligen din.</h2>
           </div>
 
           <SolarOverview
             estimateData={estimateData}
             finished={finished}
-            config={config}
-            solarCostPerKwh={solarCostPerKwh}
-            solarCostWithLoan={solarCostWithLoan}
-            elPrice={elPrice}
-            setElPrice={setElPrice}
-            elNetPrice={elNetPrice}
-            setElNetPrice={setElNetPrice}
-            expectedElPriceIncrease={expectedElPriceIncrease}
-            setExpectedElPriceIncrease={setExpectedElPriceIncrease}
-            futureGridPrice={futureGridPrice}
-            paymentTime={paymentTime}
-            economySummary={economySummary}
+            consumption={annualConsumption}
+            firstYear={firstYear}
           />
 
-          <div className="offer-solar-chart">
-            <SolarEconomicCalculation
-              yearlyProduction={estimateData?.yearly_prod || 0}
-              elPrice={elPrice}
-              elNetPrice={elNetPrice}
-              expectedElPriceIncrease={expectedElPriceIncrease}
-              investmentCost={investmentCost}
-              inverterCost={inverter?.priceWithMarkup || 0}
-              onPaybackCalculated={(data) => {
-                setPaymentTime((prev) =>
-                  prev !== data.paybackYear ? data.paybackYear : prev,
-                );
-                setEconomySummary((prev) =>
-                  prev?.totalSavings30Years !== data.totalSavings30Years
-                    ? data
-                    : prev,
-                );
-                setTotalProduction30Years(data.totalProduction30Years);
-                setInverterReplacementCost(data.inverterReplacementCost);
-              }}
-            />
+          <div className="offer-step">
+            <p className="offer-step-number">02 · HVA DET KOSTER</p>
+            <h2>{price.isBusiness ? "Pris for anlegget." : "Pris, støtte og din egen kostnad."}</h2>
           </div>
+
+          <OfferPrice price={price} kwp={kwp} />
+
+          <div className="offer-step">
+            <p className="offer-step-number">03 · ØKONOMIEN DIN</p>
+            <h2>Strømkostnadene dine med og uten solceller.</h2>
+            <p>
+              Hva du samlet kan forvente å betale for strøm hvis du fortsetter som i dag, sammenlignet med å investere i
+              anlegget. Legg inn ditt eget forbruk og velg periode.
+            </p>
+          </div>
+
+          <CostComparison
+            sim={sim}
+            period={period}
+            setPeriod={setPeriod}
+            consumption={annualConsumption}
+            setConsumption={setConsumption}
+            consumptionIsDefault={consumptionIsDefault}
+            consumptionFromLead={consumption == null && leadConsumption != null}
+            selfUseShare={selfUseShare}
+            setSelfUseShare={setSelfUseOverride}
+            selfUseIsDefault={selfUseOverride == null}
+            exportPrice={exportPrice}
+            setExportPrice={setExportPrice}
+            elPrice={elPrice}
+            setElPrice={setElPrice}
+            netPrice={elNetPrice}
+            setNetPrice={setElNetPrice}
+            growth={expectedElPriceIncrease}
+            setGrowth={setExpectedElPriceIncrease}
+            price={price}
+            replacement={replacement}
+            costKwh={costKwh}
+            config={config}
+          />
 
           {/* Batteri, hybridinverter og nødstrøm.
 
@@ -286,7 +300,7 @@ export default function EstimateView({ estimateId }) {
           )}
 
           <div className="offer-step">
-            <p className="offer-step-number">03 · DIN OVERSIKT</p>
+            <p className="offer-step-number">05 · DIN OVERSIKT</p>
             <h2>Dette har du valgt.</h2>
             <p>Se hva som inngår, og hva valgene dine betyr for prisen.</p>
           </div>
@@ -296,7 +310,7 @@ export default function EstimateView({ estimateId }) {
             estimateId={estimateId}
             finished={finished}
             config={config}
-            enovaSupport={enovaSupport()}
+            enovaSupport={price.support}
             batteryQuote={batteryQuote}
             hasUnreviewedExtras={hasUnreviewedExtras}
             contactEmail={contactEmail}

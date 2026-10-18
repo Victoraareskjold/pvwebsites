@@ -10,7 +10,6 @@
  */
 
 import Link from "next/link";
-import SpotPriceWidget from "../SpotPriceWidget";
 import "./offerSolar.css";
 
 const nok = (value, decimals = 0) =>
@@ -19,7 +18,6 @@ const nok = (value, decimals = 0) =>
     maximumFractionDigits: decimals,
   });
 
-const kr = (value) => `${nok(value, 2)} kr/kWh`;
 
 /** Linjene i «Anlegget består av», fra price_data. */
 function facilityRows(estimateData) {
@@ -92,79 +90,9 @@ function Steps({ finished }) {
   );
 }
 
-function Timeline({ paymentTime }) {
-  const MAX = 40;
-  const rows = [
-    ["Nedbetalt", paymentTime, paymentTime ? `ca. ${paymentTime} år` : "Mer enn 30 år", "payback"],
-    ["Produktgaranti paneler", 25, "25 år", ""],
-    ["Effektgaranti paneler", 30, "30 år", ""],
-    ["Forventet levetid", MAX, "40+ år", "life"],
-  ];
-  return (
-    <div className="solar-timeline">
-      {rows.map(([label, years, text, variant]) => (
-        <div key={label} className="solar-timeline-row">
-          <div className="solar-timeline-label">
-            <span>{label}</span>
-            <strong>{text}</strong>
-          </div>
-          <div className="solar-timeline-track">
-            <span
-              className={`solar-timeline-bar ${variant}`}
-              style={{ width: `${Math.min(100, ((years || 30) / MAX) * 100)}%` }}
-            />
-          </div>
-        </div>
-      ))}
-      <div className="solar-timeline-axis" aria-hidden="true">
-        {[0, 10, 20, 30, 40].map((y) => (
-          <span key={y}>{y} år</span>
-        ))}
-      </div>
-    </div>
-  );
-}
-
-function Slider({ id, label, value, unit, min, max, step, onChange, decimals = 2 }) {
-  return (
-    <div className="solar-slider">
-      <label htmlFor={id}>
-        <span>{label}</span>
-        <strong>
-          {nok(value, decimals)} {unit}
-        </strong>
-      </label>
-      <input
-        id={id}
-        type="range"
-        value={value}
-        min={min}
-        max={max}
-        step={step}
-        onChange={(e) => onChange(Number(e.target.value))}
-      />
-    </div>
-  );
-}
-
-export default function SolarOverview({
-  estimateData,
-  finished,
-  config,
-  solarCostPerKwh,
-  solarCostWithLoan,
-  elPrice,
-  setElPrice,
-  elNetPrice,
-  setElNetPrice,
-  expectedElPriceIncrease,
-  setExpectedElPriceIncrease,
-  futureGridPrice,
-  paymentTime,
-  economySummary,
-}) {
-  const gridPrice = elPrice + elNetPrice;
-  const difference = gridPrice - solarCostPerKwh;
+export default function SolarOverview({ estimateData, finished, consumption, firstYear }) {
+  const coverPct = consumption > 0 ? (Number(estimateData?.yearly_prod || 0) / consumption) * 100 : null;
+  const selfPct = consumption > 0 && firstYear ? (firstYear.selfUse / consumption) * 100 : null;
   const rows = facilityRows(estimateData);
 
   return (
@@ -212,106 +140,29 @@ export default function SolarOverview({
         </section>
       </div>
 
-      {/* Produksjon og besparelse */}
-      <section className="solar-card">
-        <p className="solar-eyebrow">PRODUKSJON OG BESPARELSE</p>
-        <h3 className="solar-title solar-title-lg">
-          Anlegget produserer strøm til ca. <mark>{kr(solarCostPerKwh)}</mark>, mot{" "}
-          {kr(gridPrice)} for strøm fra nettet i dag.
-        </h3>
-        <p className="solar-muted">
-          Strøm fra nettet inkluderer både strømpris og nettleie. Prisen for solstrømmen tar med
-          service, vedlikehold og inverterbytte gjennom effektgarantien på 30 år.
-        </p>
-
-        <div className="solar-figures">
-          <div className="solar-figure accent">
-            <span>Solstrøm fra anlegget</span>
-            <strong>{nok(solarCostPerKwh, 2)}</strong>
-            <small>kr/kWh over 30 år</small>
-          </div>
-          <div className="solar-figure">
-            <span>Solstrøm med lån</span>
-            <strong>{nok(solarCostWithLoan, 2)}</strong>
-            <small>kr/kWh · 10 % rente, 5 år</small>
-          </div>
-          <div className="solar-figure">
-            <span>Strøm fra nettet i dag</span>
-            <strong>{nok(gridPrice, 2)}</strong>
-            <small>kr/kWh inkl. nettleie</small>
-          </div>
-          <div className="solar-figure">
-            <span>Årsproduksjon</span>
-            <strong>{nok(estimateData?.yearly_prod)}</strong>
-            <small>kWh i året</small>
-          </div>
-          <div className="solar-figure positive">
-            <span>Total besparelse</span>
-            <strong>{nok(economySummary?.totalSavings30Years)}</strong>
-            <small>kr over 30 år</small>
-          </div>
-          <div className="solar-figure positive">
-            <span>Snitt per år</span>
-            <strong>{nok(economySummary?.averageYearlySavings)}</strong>
-            <small>kr i årlig besparelse</small>
-          </div>
+      {/* Hvorfor anlegget passer */}
+      <div className="solar-fit">
+        <div>
+          <span>Årsproduksjon</span>
+          <strong>{nok(estimateData?.yearly_prod)} kWh</strong>
+          <small>Beregnet for takflatene, retningen og vinkelen på taket ditt</small>
         </div>
-
-        <div className="solar-subsection">
-          <p className="solar-eyebrow">LØNNSOMHET OG LEVETID</p>
-          <Timeline paymentTime={paymentTime} />
-        </div>
-      </section>
-
-      {/* Forutsetninger */}
-      <section className="solar-card">
-        <p className="solar-eyebrow">JUSTER FORUTSETNINGENE</p>
-        <h3 className="solar-title">Ingen vet hva strømmen koster om ti år. Prøv selv.</h3>
-        <p className="solar-muted">
-          Strømprisen fra nettet varierer over tid. Juster strømpris, nettleie og forventet
-          prisvekst, så endres regnestykket og grafen under med en gang.
-        </p>
-
-        <div className="solar-adjust">
-          <div className="solar-adjust-controls">
-            <Slider id="el-price" label="Strømpris" value={elPrice} unit="kr/kWh" min={0.1} max={2} step={0.05} onChange={setElPrice} />
-            <Slider id="el-net-price" label="Nettleie" value={elNetPrice} unit="kr/kWh" min={0.1} max={2} step={0.05} onChange={setElNetPrice} />
-            <Slider
-              id="el-increase"
-              label="Forventet årlig prisvekst"
-              value={expectedElPriceIncrease}
-              unit="%"
-              min={0.1}
-              max={10}
-              step={0.05}
-              onChange={setExpectedElPriceIncrease}
-            />
-
-            <dl className="solar-compare">
-              <div>
-                <dt>Solstrøm fra anlegget</dt>
-                <dd>{kr(solarCostPerKwh)}</dd>
-              </div>
-              <div>
-                <dt>Strøm fra nettet i dag</dt>
-                <dd>{kr(gridPrice)}</dd>
-              </div>
-              <div className={difference >= 0 ? "positive" : "negative"}>
-                <dt>Forskjell per kWh</dt>
-                <dd>{kr(difference)}</dd>
-              </div>
-            </dl>
-
-            <p className="solar-note">
-              Med {nok(expectedElPriceIncrease, 2)} % årlig prisvekst tilsvarer{" "}
-              {kr(gridPrice)} i dag omtrent <strong>{kr(futureGridPrice)}</strong> om 30 år. Strømmen
-              fra anlegget koster ca. <strong>{kr(solarCostPerKwh)}</strong> gjennom hele levetiden.
-            </p>
+        {coverPct != null && (
+          <div>
+            <span>Ditt forbruk</span>
+            <strong>{nok(consumption)} kWh</strong>
+            <small>
+              Anlegget produserer tilsvarende ca. {nok(coverPct)} % av det. Ca. {nok(selfPct)} % av forbruket dekkes direkte
+              av solstrømmen.
+            </small>
           </div>
-
-          <SpotPriceWidget setElPrice={setElPrice} site={config.site} solarLocation={config.solarLocation} />
+        )}
+        <div>
+          <span>Garantier og levetid</span>
+          <strong>25 / 30 / 40+ år</strong>
+          <small>Produktgaranti 25 år og effektgaranti 30 år på panelene. Forventet levetid over 40 år.</small>
         </div>
-      </section>
+      </div>
     </div>
   );
 }

@@ -29,12 +29,23 @@ export function unitWord(product, count = 2) {
   return count === 1 ? "modul" : "moduler";
 }
 
+/**
+ * Modellene i rekkefølgen kunden skal se dem. `config.order` kommer fra kalkulatoren
+ * (jsonb tar ikke vare på rekkefølgen av nøklene i `catalogue`).
+ */
+export function orderedModels(config) {
+  const catalogue = config?.catalogue ?? {};
+  const order = Array.isArray(config?.order) ? config.order.filter((id) => catalogue[id]) : [];
+  const rest = Object.keys(catalogue).filter((id) => !order.includes(id));
+  return [...order, ...rest].map((id) => catalogue[id]);
+}
+
 /** Anbefalt modell, eller første modell i katalogen hvis anbefalingen mangler. */
 export function recommendedFor(config) {
   const catalogue = config?.catalogue ?? {};
   const model = catalogue[config?.recommended?.model]
     ? config.recommended.model
-    : Object.keys(catalogue)[0] ?? null;
+    : orderedModels(config)[0]?.id ?? Object.keys(catalogue)[0] ?? null;
   const product = catalogue[model];
   if (!product) return null;
   const wanted =

@@ -61,7 +61,7 @@ export function signedOfferFor(estimateData, rawSelection) {
   return {
     selection: { mode: selection.mode, model: selection.mode === "battery" ? selection.model : null, modules: selection.mode === "battery" ? selection.modules : 0 },
     capacityKwh: extras.capacity,
-    hybrid: selection.mode === "solar" ? null : (config.hybrid ?? null),
+    hybrid: selection.mode === "solar" ? null : config.hybrid ? { ...config.hybrid, quantity: config.hybridQty ?? 1 } : null,
     battery:
       selection.mode === "battery" && product
         ? { id: product.id ?? selection.model, name: product.brand, moduleKwh: product.moduleKwh, modules: selection.modules, bms: extras.bases, bmsName: product.bmsName ?? null }

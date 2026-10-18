@@ -385,3 +385,31 @@
 @media (max-width: 900px) {
   .estimateStylingSheet section.offer-battery { padding-inline: 1rem; }
 }
+
+/* Hvorfor anlegget passer: tre fakta under anlegget */
+.offer-solar .solar-fit {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 14px;
+}
+.offer-solar .solar-fit > div {
+  background: white;
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  padding: 20px 22px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.offer-solar .solar-fit span { font-size: 15px; font-weight: 600; color: var(--muted); }
+.offer-solar .solar-fit strong { font-size: 28px; font-weight: 800; letter-spacing: -0.6px; }
+.offer-solar .solar-fit small { font-size: 15px; color: var(--muted); line-height: 1.5; }
+@media (max-width: 900px) {
+  .offer-solar .solar-fit { grid-template-columns: 1fr; }
+}
+
+/* Lesbarhet: litt større tekst og sterkere kontrast i del 01 */
+.offer-solar { --muted: color-mix(in srgb, var(--ink) 74%, white); font-size: 17px; }
+.offer-solar .solar-muted, .offer-solar .solar-specs dd { font-size: 17px; }
+.offer-solar .solar-specs dt { font-size: 15px; }
+.offer-solar .solar-steps li { font-size: 15px; }

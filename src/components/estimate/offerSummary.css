@@ -84,8 +84,29 @@
   border-radius: 0.6rem;
 }
 
+.offer-summary-line span { display: flex; flex-direction: column; gap: 2px; }
+
+/* Kostnaden etter støtte: det tallet kunden skal se */
+.offer-summary-after {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  margin-top: 0.4rem;
+  padding: 0.9rem 1rem;
+  border-radius: 0.6rem;
+  background: rgb(255 255 255 / 0.1);
+  box-shadow: inset 0 0 0 2px var(--brand-bright, #ffbe65);
+  font-size: 1.05rem;
+  font-weight: 700;
+}
+
 .offer-summary-after strong {
+  font-size: 1.7rem;
+  font-weight: 800;
   color: var(--brand-bright, #ffbe65);
+  white-space: nowrap;
+  font-variant-numeric: tabular-nums;
 }
 
 .offer-summary-note {
