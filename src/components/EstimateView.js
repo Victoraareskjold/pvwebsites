@@ -232,7 +232,11 @@ export default function EstimateView({ estimateId }) {
 
           <div className="offer-step">
             <p className="offer-step-number">01 · ANLEGGET DITT</p>
-            <h2>Dette foreslår vi, og hvorfor det passer boligen din.</h2>
+            <h2>
+              {price.isBusiness
+                ? "Dette foreslår vi, og hvorfor det passer bygget ditt."
+                : "Dette foreslår vi, og hvorfor det passer boligen din."}
+            </h2>
           </div>
 
           <SolarOverview

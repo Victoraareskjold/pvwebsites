@@ -121,7 +121,10 @@ export default function OfferClosing({
             <div>
               <p className="closing-eyebrow">INKLUDERT I PRISEN</p>
               <ul className="closing-included">
-                {INCLUDED.map((text) => (
+                {(estimateData?.private
+                  ? INCLUDED.filter((t) => !t.includes("Enova"))
+                  : INCLUDED
+                ).map((text) => (
                   <li key={text}>
                     <Check />
                     {text}

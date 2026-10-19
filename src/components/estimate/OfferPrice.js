@@ -22,7 +22,9 @@ export default function OfferPrice({ price, kwp }) {
             <span>Pris for solcelleanlegget</span>
             <strong>{kr(price.solarInvoiced)}</strong>
           </div>
-          <p className="story-muted">Prisen er eks. mva. Næringskunder har normalt ikke Enova-støtte til solceller.</p>
+          <p className="story-muted">
+            Prisen er eks. mva. Enovas støtte til solceller gjelder boliger, så den er ikke trukket fra her.
+          </p>
         </div>
       </div>
     );

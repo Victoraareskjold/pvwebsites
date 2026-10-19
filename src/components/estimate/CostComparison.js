@@ -240,7 +240,9 @@ export default function CostComparison({
           </div>
           <p id="consumption-help" className="story-fine">
             {consumptionIsDefault
-              ? "Vi har brukt et vanlig forbruk for en enebolig. Legg inn ditt eget tall for en mer treffsikker beregning. "
+              ? price.isBusiness
+                ? "Vi har brukt et anslått årsforbruk. Legg inn byggets faktiske forbruk for en mer treffsikker beregning. "
+                : "Vi har brukt et vanlig forbruk for en enebolig. Legg inn ditt eget tall for en mer treffsikker beregning. "
               : consumptionFromLead
                 ? "Tallet er det du oppga til oss. Endre det hvis du vet mer nøyaktig. "
                 : ""}
@@ -348,7 +350,8 @@ export default function CostComparison({
         <p className="story-eyebrow">SLIK BRUKES SOLSTRØMMEN DET FØRSTE ÅRET</p>
         <p className="story-lead">
           Anlegget produserer ca. <strong>{num(first.production)} kWh</strong>. Sola skinner mest midt på dagen, ofte når
-          du ikke bruker så mye strøm. Derfor brukes en del direkte i huset, og resten selges.
+          du ikke bruker så mye strøm. Derfor brukes en del direkte i {price.isBusiness ? "bygget" : "huset"}, og resten
+          selges.
         </p>
         <div className="story-split" aria-hidden="true">
           <span className="split-self" style={{ flexGrow: first.selfUse }} />
@@ -392,12 +395,29 @@ export default function CostComparison({
           </p>
         </div>
         <div className="story-card">
-          <p className="story-eyebrow">HVIS DU FLYTTER</p>
-          <p className="story-lead">Ikke alle blir boende i 30 år. Derfor viser vi også 10 og 20 år.</p>
-          <p className="story-muted">
-            Et hus med egen strømproduksjon og lavere forventede strømutgifter kan være attraktivt for en kjøper.
-            Vi legger likevel ingen verdiøkning på boligen inn i beregningen, og kan ikke love at den gir høyere pris.
-          </p>
+          {price.isBusiness ? (
+            <>
+              <p className="story-eyebrow">EIENDOMSVERDI</p>
+              <p className="story-lead">Ikke alle eier bygget i 30 år. Derfor viser vi også 10 og 20 år.</p>
+              <p className="story-muted">
+                Et solcelleanlegg kan redusere byggets strømkostnader og gjøre eiendommen mer attraktiv for
+                leietakere og kjøpere. For næringsbygg kan lavere driftskostnader også bidra til økt eiendomsverdi.
+                Dette avhenger blant annet av anleggets lønnsomhet, hvem som får nytten av besparelsene, og markedet
+                for eiendommen. Vi inkluderer ikke eventuell verdiøkning i lønnsomhetsberegningen og kan ikke
+                garantere en høyere salgspris.
+              </p>
+            </>
+          ) : (
+            <>
+              <p className="story-eyebrow">HVIS DU FLYTTER</p>
+              <p className="story-lead">Ikke alle blir boende i 30 år. Derfor viser vi også 10 og 20 år.</p>
+              <p className="story-muted">
+                Et hus med egen strømproduksjon og lavere forventede strømutgifter kan være attraktivt for en kjøper.
+                Vi legger likevel ingen verdiøkning på boligen inn i beregningen, og kan ikke love at den gir høyere
+                pris.
+              </p>
+            </>
+          )}
         </div>
       </div>
 

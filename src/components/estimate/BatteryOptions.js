@@ -72,6 +72,10 @@ function EnergyNode({ variant, icon, title, value, off = false }) {
 
 /** Animasjonspanelet. Tre merkede øyeblikk, ikke måledata. */
 function BatteryStory({ capacity, config }) {
+  // Næringstilbud: bygget, ikke huset
+  const business = config?.customerType === "business";
+  const place = business ? "bygget" : "huset";
+  const Place = business ? "Bygget" : "Huset";
   const [scene, setScene] = useState("day");
   const [paused, setPaused] = useState(false);
 
@@ -81,8 +85,8 @@ function BatteryStory({ capacity, config }) {
 
   const scenes = {
     day: {
-      title: "Sol til huset. Overskuddet lagres.",
-      copy: "Solcellene forsyner huset først. Batteriet lades av strømmen som er til overs.",
+      title: `Sol til ${place}. Overskuddet lagres.`,
+      copy: `Solcellene forsyner ${place} først. Batteriet lades av strømmen som er til overs.`,
       solar: "6 kW",
       home: "2 kW",
       battery: "+4 kW",
@@ -93,7 +97,7 @@ function BatteryStory({ capacity, config }) {
     },
     evening: {
       title: "Dagens sol blir kveldens strøm.",
-      copy: "Batteriet leverer lagret solstrøm når huset trenger den. Du kjøper mindre fra nettet.",
+      copy: `Batteriet leverer lagret solstrøm når ${place} trenger den. Du kjøper mindre fra nettet.`,
       solar: "0 kW",
       home: "2 kW",
       battery: "−2 kW",
@@ -162,7 +166,7 @@ function BatteryStory({ capacity, config }) {
         className={`energy-diagram ${paused ? "paused" : ""}`}
         role="img"
         aria-label={`${current.copy} Solceller ${current.solar}, batteri ${current.battery}, ${
-          isOutage ? "valgte kurser" : "hus"
+          isOutage ? "valgte kurser" : business ? "bygg" : "hus"
         } ${current.home}, strømnettet ${current.grid}.`}
       >
         <svg
@@ -205,7 +209,7 @@ function BatteryStory({ capacity, config }) {
         <EnergyNode
           variant="home"
           icon={isOutage ? "shield" : "home"}
-          title={isOutage ? "Valgte kurser" : "Huset"}
+          title={isOutage ? "Valgte kurser" : Place}
           value={current.home}
         />
         <EnergyNode
