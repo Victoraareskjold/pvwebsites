@@ -266,7 +266,25 @@ export default function CostComparison({
           <span className="story-total-label">Uten solceller</span>
           <strong>{kr(summary.without)}</strong>
           <p>
-            Strøm for {num(consumption)} kWh i året, i dag {num(gridPrice, 2)} kr/kWh og {num(growth, 1)} % prisvekst i året.
+            {num(consumption)} kWh i året, med {num(growth, 1)} % prisvekst i året. Prisen per kWh i dag er strøm og nettleie
+            til sammen:
+          </p>
+          <dl className="story-kwh-price" aria-label="Pris per kWh i dag">
+            <div>
+              <dt>Strømpris</dt>
+              <dd>{num(elPrice, 2)} kr/kWh</dd>
+            </div>
+            <div>
+              <dt>+ Nettleie (energiledd)</dt>
+              <dd>{num(netPrice, 2)} kr/kWh</dd>
+            </div>
+            <div className="story-kwh-sum">
+              <dt>= Samlet pris per kWh</dt>
+              <dd>{num(gridPrice, 2)} kr/kWh</dd>
+            </div>
+          </dl>
+          <p className="story-fine">
+            Strømprisen er det du betaler strømleverandøren (eller Norgespris). Nettleien betaler du i tillegg til nettselskapet.
           </p>
         </div>
         <div className="story-total story-total-with">

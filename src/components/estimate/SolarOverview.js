@@ -90,7 +90,10 @@ function Steps({ finished }) {
   );
 }
 
-export default function SolarOverview({ estimateData, finished, consumption, firstYear }) {
+export default function SolarOverview({ estimateData, finished, consumption, firstYear, assumptions }) {
+  const product = assumptions?.productWarrantyYears ?? 25;
+  const power = assumptions?.powerWarrantyYears ?? 30;
+  const life = assumptions?.expectedLifetimeYears ?? 40;
   const coverPct = consumption > 0 ? (Number(estimateData?.yearly_prod || 0) / consumption) * 100 : null;
   const selfPct = consumption > 0 && firstYear ? (firstYear.selfUse / consumption) * 100 : null;
   const rows = facilityRows(estimateData);
@@ -159,8 +162,12 @@ export default function SolarOverview({ estimateData, finished, consumption, fir
         )}
         <div>
           <span>Garantier og levetid</span>
-          <strong>25 / 30 / 40+ år</strong>
-          <small>Produktgaranti 25 år og effektgaranti 30 år på panelene. Forventet levetid over 40 år.</small>
+          <strong>
+            {product} / {power} / {life}+ år
+          </strong>
+          <small>
+            Produktgaranti {product} år og effektgaranti {power} år på panelene. Forventet levetid over {life} år.
+          </small>
         </div>
       </div>
     </div>

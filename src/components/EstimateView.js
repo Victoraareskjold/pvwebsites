@@ -240,6 +240,7 @@ export default function EstimateView({ estimateId }) {
             finished={finished}
             consumption={annualConsumption}
             firstYear={firstYear}
+            assumptions={assumptions}
           />
 
           <div className="offer-step">

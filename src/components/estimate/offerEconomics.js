@@ -72,6 +72,10 @@ export function assumptionsFor(estimateData) {
     maintenancePerYear: num(e?.maintenancePerYear, OFFER_DEFAULTS.maintenancePerYear),
     consumptionFallback: num(e?.consumptionFallback, OFFER_DEFAULTS.consumptionFallback),
     periodYears: [10, 20, 30].includes(period) ? period : 30,
+    // Garantier og levetid for panelene (Beregningsregler)
+    productWarrantyYears: Math.round(num(e?.productWarrantyYears, 25)),
+    powerWarrantyYears: Math.round(num(e?.powerWarrantyYears, 30)),
+    expectedLifetimeYears: Math.round(num(e?.expectedLifetimeYears, 40)),
   };
 }
 

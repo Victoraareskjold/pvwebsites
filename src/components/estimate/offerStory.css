@@ -351,3 +351,11 @@
   .offer-story .story-table-wrap { padding: 0 12px 18px; }
   .offer-story .story-price-net { flex-direction: column; align-items: flex-start; gap: 4px; }
 }
+
+/* «Uten solceller»: strømpris + nettleie = samlet pris per kWh */
+.story-kwh-price { margin: 8px 0 6px; display: grid; gap: 2px; font-size: 14px; max-width: 340px; }
+.story-kwh-price > div { display: flex; justify-content: space-between; gap: 12px; }
+.story-kwh-price dt { font-weight: 400; }
+.story-kwh-price dd { margin: 0; font-variant-numeric: tabular-nums; white-space: nowrap; }
+.story-kwh-sum { border-top: 1px solid currentColor; padding-top: 3px; margin-top: 2px; font-weight: 650; }
+.story-kwh-sum dt { font-weight: 650; }
