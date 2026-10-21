@@ -176,10 +176,34 @@ export default function EstimateView({ estimateId }) {
   const firstYear = sim.rows[0];
   const kwp = kwpOf(estimateData);
 
+  // Ikke interessert (3, 16) / Nyhetsbrev (11): estimatbildet er slettet i dashboardet,
+  // og tilbudet regnes som utløpt. Laster selgeren opp nytt bilde, forsvinner banneret.
+  const expired =
+    !estimateData?.signed_at &&
+    !estimateData?.image_url &&
+    [3, 11, 16].includes(Number(estimateData?.leads?.status));
+  const advisor = estimateData?.leads?.created_by;
+
   return (
     <main className="min-h-screen estimateStylingSheet">
       {estimateData ? (
         <main className="flex flex-col gap-12 lg:gap-4 items-center">
+          {expired && (
+            <div className="offer-expired" role="alert">
+              <strong>Dette tilbudet har utløpt.</strong> Ta kontakt dersom du
+              ønsker en ny vurdering og et oppdatert tilbud.
+              {(advisor?.phone || advisor?.email) && (
+                <span className="offer-expired-contact">
+                  {advisor?.name ? `${advisor.name}: ` : ""}
+                  {advisor?.phone && (
+                    <a href={`tel:${advisor.phone.replace(/\s/g, "")}`}>{advisor.phone}</a>
+                  )}
+                  {advisor?.phone && advisor?.email ? " · " : ""}
+                  {advisor?.email && <a href={`mailto:${advisor.email}`}>{advisor.email}</a>}
+                </span>
+              )}
+            </div>
+          )}
           {/* Innledningen, med ordlyden fra kravdokumentet. */}
           <section className="offer-intro">
             <p className="offer-intro-meta">

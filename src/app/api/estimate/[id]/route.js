@@ -40,6 +40,7 @@ export async function GET(_req, { params }) {
         `
         *,
         leads (
+          status,
           person_info,
           address,
           company,

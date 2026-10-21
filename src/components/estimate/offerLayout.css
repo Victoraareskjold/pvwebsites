@@ -261,3 +261,29 @@
   font-weight: 700 !important;
   letter-spacing: -0.01em !important;
 }
+
+/* Utløpt tilbud (lead satt til Ikke interessert / Nyhetsbrev, bildet slettet) */
+.offer-expired {
+  width: min(var(--page-max, 1280px), 100%);
+  box-sizing: border-box;
+  padding: 18px 22px;
+  border-radius: 14px;
+  background: #fdecec;
+  border: 2px solid #d92d20;
+  color: #9b1c14;
+  font-size: 1.05rem;
+  line-height: 1.5;
+}
+.offer-expired strong {
+  color: #b42318;
+}
+.offer-expired-contact {
+  display: block;
+  margin-top: 6px;
+  font-size: 0.95rem;
+}
+.offer-expired-contact a {
+  color: inherit;
+  font-weight: 600;
+  text-decoration: underline;
+}
