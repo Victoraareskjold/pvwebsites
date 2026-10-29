@@ -359,3 +359,52 @@
 .story-kwh-price dd { margin: 0; font-variant-numeric: tabular-nums; white-space: nowrap; }
 .story-kwh-sum { border-top: 1px solid currentColor; padding-top: 3px; margin-top: 2px; font-weight: 650; }
 .story-kwh-sum dt { font-weight: 650; }
+
+/* ── Næringsanalyse (price_data.businessAnalysis) ─────────────────────── */
+
+.offer-story .ba-grid { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr); gap: 36px; margin-top: 8px; }
+@media (max-width: 860px) { .offer-story .ba-grid { grid-template-columns: 1fr; gap: 24px; } }
+.offer-story .ba-h { font-size: 17px; font-weight: 700; margin: 0 0 10px; }
+.offer-story .ba-part { display: grid; grid-template-columns: minmax(0, 1.4fr) minmax(60px, 1fr) auto; gap: 12px; align-items: center; padding: 8px 0; border-top: 1px solid var(--line); font-size: 16px; }
+.offer-story .ba-part:first-of-type { border-top: 0; }
+.offer-story .ba-part strong { white-space: nowrap; }
+.offer-story .ba-bar { height: 10px; background: color-mix(in srgb, var(--green) 10%, white); border-radius: 6px; overflow: hidden; }
+.offer-story .ba-bar i { display: block; height: 100%; background: var(--green); border-radius: 6px; }
+.offer-story .ba-total { font-weight: 700; border-top: 2px solid var(--ink); }
+.offer-story .ba-bars { display: grid; grid-template-columns: repeat(12, 1fr); gap: 4px; align-items: end; height: 200px; }
+.offer-story .ba-bars > div { position: relative; height: 100%; display: flex; align-items: flex-end; justify-content: center; gap: 2px; padding-bottom: 22px; }
+.offer-story .ba-bars span { width: 42%; min-height: 1px; border-radius: 4px 4px 0 0; }
+.offer-story .ba-bars em { position: absolute; bottom: 0; font-style: normal; font-size: 12px; color: var(--muted); }
+.offer-story .ba-before { background: var(--without); }
+.offer-story .ba-after { background: var(--green); }
+.offer-story .ba-legend { margin: 8px 0 0; font-size: 14px !important; color: var(--muted); }
+.offer-story .ba-legend i { display: inline-block; width: 12px; height: 12px; border-radius: 3px; margin: 0 6px 0 12px; vertical-align: -1px; }
+.offer-story .ba-legend i:first-child { margin-left: 0; }
+.offer-story .ba-tabs { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 16px; }
+.offer-story .ba-tabs button { border: 1px solid var(--line); background: white; border-radius: 999px; padding: 7px 14px; font: inherit; font-size: 15px; cursor: pointer; color: var(--ink); }
+.offer-story .ba-tabs button.on { background: var(--ink-deep, var(--ink)); color: white; border-color: transparent; }
+.offer-story .ba-kpis { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 12px; }
+.offer-story .ba-kpis > div { background: color-mix(in srgb, var(--ink) 4%, white); border-radius: 14px; padding: 16px 18px; display: flex; flex-direction: column; gap: 2px; }
+.offer-story .ba-kpis span { font-size: 14px; color: var(--muted); font-weight: 600; }
+.offer-story .ba-kpis strong { font-size: 26px; font-weight: 800; letter-spacing: -0.5px; }
+.offer-story .ba-cash { margin: 18px 0 0; }
+.offer-story .ba-cash svg { width: 100%; height: auto; }
+.offer-story .ba-cash text { font-size: 13px; fill: var(--muted); }
+.offer-story .ba-cash .ba-zero { stroke: var(--line); stroke-width: 1.5; }
+.offer-story .ba-cash .ba-line { fill: none; stroke: var(--green); stroke-width: 3; }
+.offer-story .ba-cash figcaption { font-size: 14px; color: var(--muted); margin-top: 4px; }
+.offer-story .ba-details summary { cursor: pointer; font-weight: 700; font-size: 18px; }
+.offer-story .ba-basis { width: 100%; border-collapse: collapse; margin-top: 14px; font-size: 15px; }
+.offer-story .ba-basis th, .offer-story .ba-basis td { text-align: left; padding: 10px 8px; border-top: 1px solid var(--line); vertical-align: top; }
+.offer-story .ba-basis th { font-weight: 600; width: 170px; }
+.offer-story .ba-basis small { color: var(--muted); }
+.offer-story .ba-status { display: inline-block; border-radius: 999px; padding: 1px 10px; font-size: 13px; font-weight: 700; }
+.offer-story .ba-målt { background: #e3f1e6; color: #24613a; }
+.offer-story .ba-beregnet { background: #e6eef7; color: #2b4f78; }
+.offer-story .ba-antatt { background: #fff0d7; color: #8a5414; }
+@media (max-width: 560px) {
+  .offer-story .ba-part { grid-template-columns: minmax(0, 1fr) auto; }
+  .offer-story .ba-part .ba-bar { display: none; }
+  .offer-story .ba-basis th { width: auto; }
+  .offer-story .ba-kpis strong { font-size: 22px; }
+}

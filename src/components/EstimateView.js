@@ -24,6 +24,7 @@ import {
 import BatteryOptions from "./estimate/BatteryOptions";
 import { batteryConfigFor, canSignExtras } from "./estimate/offerConfig";
 import OfferClosing from "./estimate/OfferClosing";
+import BusinessAnalysis, { BusinessHighlights } from "./estimate/BusinessAnalysis";
 import { useSearchParams } from "next/navigation";
 
 /**
@@ -173,6 +174,10 @@ export default function EstimateView({ estimateId }) {
     maintenancePerYear: assumptions.maintenancePerYear,
   });
   const costKwh = costPerProducedKwh(sim);
+  // Næring med låst analyse fra kalkulatortjenesten (time for time). Erstatter den forenklede
+  // årsmodellen i «Kort fortalt» og «Økonomien din». «ikke beregnet» = vis som før.
+  const businessAnalysis =
+    estimateData?.price_data?.businessAnalysis?.status === "beregnet" ? estimateData.price_data.businessAnalysis : null;
   const firstYear = sim.rows[0];
   const kwp = kwpOf(estimateData);
 
@@ -247,12 +252,16 @@ export default function EstimateView({ estimateId }) {
           </section>
 
           {/* Kort fortalt: verdien tidlig, detaljene lenger ned */}
-          <OfferHighlights
-            price={price}
-            firstYear={firstYear}
-            summary={periodSummary(sim, period)}
-            periodYears={period}
-          />
+          {businessAnalysis ? (
+            <BusinessHighlights analysis={businessAnalysis} />
+          ) : (
+            <OfferHighlights
+              price={price}
+              firstYear={firstYear}
+              summary={periodSummary(sim, period)}
+              periodYears={period}
+            />
+          )}
 
           <div className="offer-step">
             <p className="offer-step-number">01 · ANLEGGET DITT</p>
@@ -278,41 +287,57 @@ export default function EstimateView({ estimateId }) {
 
           <OfferPrice price={price} kwp={kwp} />
 
-          <div className="offer-step">
-            <p className="offer-step-number">03 · ØKONOMIEN DIN</p>
-            <h2>Strømkostnadene dine med og uten solceller.</h2>
-            <p>
-              Hva du samlet kan forvente å betale for strøm hvis du fortsetter som i dag, sammenlignet med å investere i
-              anlegget. Legg inn ditt eget forbruk og velg periode.
-            </p>
-          </div>
+          {businessAnalysis ? (
+            <>
+              <div className="offer-step">
+                <p className="offer-step-number">03 · ØKONOMIEN DIN</p>
+                <h2>Hva solcellene betyr for strømregningen og økonomien.</h2>
+                <p>
+                  Regnet time for time med byggets forbruk, simulert solproduksjon, faktiske strømpriser og nettleien
+                  for {businessAnalysis.period.label}. Deretter regnet frem over anleggets levetid.
+                </p>
+              </div>
+              <BusinessAnalysis analysis={businessAnalysis} />
+            </>
+          ) : (
+            <>
+              <div className="offer-step">
+                <p className="offer-step-number">03 · ØKONOMIEN DIN</p>
+                <h2>Strømkostnadene dine med og uten solceller.</h2>
+                <p>
+                  Hva du samlet kan forvente å betale for strøm hvis du fortsetter som i dag, sammenlignet med å investere i
+                  anlegget. Legg inn ditt eget forbruk og velg periode.
+                </p>
+              </div>
 
-          <CostComparison
-            sim={sim}
-            period={period}
-            setPeriod={setPeriod}
-            consumption={annualConsumption}
-            setConsumption={setConsumption}
-            consumptionIsDefault={consumptionIsDefault}
-            consumptionFromLead={consumption == null && leadConsumption != null}
-            selfUseShare={selfUseShare}
-            selfUseMax={selfUseMax}
-            setSelfUseShare={setSelfUseOverride}
-            selfUseIsDefault={selfUseOverride == null}
-            exportPrice={exportPrice}
-            setExportPrice={setExportPrice}
-            elPrice={elPrice}
-            setElPrice={setElPrice}
-            netPrice={elNetPrice}
-            setNetPrice={setElNetPrice}
-            growth={expectedElPriceIncrease}
-            setGrowth={setExpectedElPriceIncrease}
-            price={price}
-            replacement={replacement}
-            assumptions={assumptions}
-            costKwh={costKwh}
-            config={config}
-          />
+              <CostComparison
+                sim={sim}
+                period={period}
+                setPeriod={setPeriod}
+                consumption={annualConsumption}
+                setConsumption={setConsumption}
+                consumptionIsDefault={consumptionIsDefault}
+                consumptionFromLead={consumption == null && leadConsumption != null}
+                selfUseShare={selfUseShare}
+                selfUseMax={selfUseMax}
+                setSelfUseShare={setSelfUseOverride}
+                selfUseIsDefault={selfUseOverride == null}
+                exportPrice={exportPrice}
+                setExportPrice={setExportPrice}
+                elPrice={elPrice}
+                setElPrice={setElPrice}
+                netPrice={elNetPrice}
+                setNetPrice={setElNetPrice}
+                growth={expectedElPriceIncrease}
+                setGrowth={setExpectedElPriceIncrease}
+                price={price}
+                replacement={replacement}
+                assumptions={assumptions}
+                costKwh={costKwh}
+                config={config}
+              />
+            </>
+          )}
 
           {/* Batteri, hybridinverter og nødstrøm.
 
