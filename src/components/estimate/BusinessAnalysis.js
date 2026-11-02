@@ -52,7 +52,7 @@ export function BusinessHighlights({ analysis }) {
         <div className="story-hl story-hl-main">
           <span className="story-hl-label">Investering i solcelleanlegget</span>
           <strong className="story-hl-value">{unresolved ? "Avklares" : kr(analysis.investmentNok)}</strong>
-          <span className="story-hl-sub">eks. mva. · {num(analysis.system.kwp, 1)} kWp</span>
+          <span className="story-hl-sub">{analysis.vat === "inkl" ? "inkl." : "eks."} mva. · {num(analysis.system.kwp, 1)} kWp</span>
         </div>
         <div className="story-hl">
           <span className="story-hl-label">Netto gevinst med {price ?? analysis.period.label}-priser</span>
@@ -75,6 +75,16 @@ export function BusinessHighlights({ analysis }) {
                 : `Anlegget tjenes ikke inn innen ${analysis.assumptions.years} år med disse forutsetningene.`}
           </span>
         </div>
+        {analysis.battery?.alternatives?.length === 3 && (
+          <div className="story-hl">
+            <span className="story-hl-label">Med batteri og smart styring</span>
+            <strong className="story-hl-value">{kr(analysis.battery.alternatives[2].net)}</strong>
+            <span className="story-hl-sub">
+              Netto gevinst med {price ?? analysis.period.label}-priser for solceller og batteri samlet. Batteriet endrer netto gevinst med{" "}
+              {kr(analysis.battery.alternatives[2].net - analysis.battery.alternatives[0].net)} – se egen beregning.
+            </span>
+          </div>
+        )}
       </div>
       <a className="story-hl-link" href="#naeringsanalyse">
         Se beregningen og hva den bygger på ↓
@@ -110,7 +120,7 @@ export default function BusinessAnalysis({ analysis }) {
       <section className="story-card">
         <p className="story-eyebrow">BEREGNET FOR BYGGET DITT</p>
         <p className="story-lead">{analysis.customerSentence}</p>
-        {analysis.scope?.batteryOffered && (
+        {analysis.scope?.batteryOffered && !analysis.battery && (
           <p className="story-fine">
             Beregningen gjelder solcelleanlegget. Batteriet i tilbudet er ikke med i disse tallene; nytten av batteriet er ikke beregnet her.
           </p>
@@ -222,6 +232,8 @@ export default function BusinessAnalysis({ analysis }) {
         </section>
       )}
 
+      {analysis.battery && <BatterySection battery={analysis.battery} priceYear={price ?? analysis.period.label} years={analysis.assumptions.years} />}
+
       <details className="story-card ba-details">
         <summary>Hva beregningen bygger på</summary>
         <table className="ba-basis">
@@ -283,5 +295,80 @@ function CashflowChart({ rows, invest }) {
       </svg>
       <figcaption>Akkumulert kontantstrøm: investeringen i dag, deretter netto gevinst hvert år (inkl. service og inverterbytte).</figcaption>
     </figure>
+  );
+}
+
+/**
+ * Batteriet: samme bygg og år regnet som tre alternativer. Viser hva batteriet og smartstyringen
+ * tilfører hver for seg, slik at kunden ser at hele pakken er analysert – ikke bare solcellene.
+ */
+function BatterySection({ battery, priceYear, years }) {
+  const [scenario, setScenario] = useState(0);
+  const alts = battery.alternatives ?? [];
+  if (!alts.length) return null;
+  const eco = (a) => a.economy?.[scenario] ?? null;
+  const scenarios = alts[0].economy ?? [];
+  return (
+    <section className="story-card">
+      <p className="story-eyebrow">MED BATTERI</p>
+      <p className="story-lead">
+        {battery.label}: regnet med samme forbruk, priser og nettleie som solcellene, time for time og med én felles energibalanse.
+      </p>
+      <div className="ba-tablewrap">
+        <table className="ba-basis ba-alts">
+          <thead>
+            <tr>
+              <th scope="col">{priceYear}</th>
+              {alts.map((a) => (
+                <th key={a.key} scope="col">{a.name}</th>
+              ))}
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th scope="row">Lavere netto energikostnad</th>
+              {alts.map((a) => <td key={a.key}>{kr(a.energySaving)}</td>)}
+            </tr>
+            <tr>
+              <th scope="row">Løpende kostnader</th>
+              {alts.map((a) => <td key={a.key}>−{kr(a.opex)}</td>)}
+            </tr>
+            <tr className="ba-strong">
+              <th scope="row">Netto gevinst</th>
+              {alts.map((a) => <td key={a.key}>{kr(a.net)}</td>)}
+            </tr>
+            <tr>
+              <th scope="row">Investering</th>
+              {alts.map((a) => <td key={a.key}>{a.investmentNok == null ? "Avklares" : kr(a.investmentNok)}</td>)}
+            </tr>
+            <tr>
+              <th scope="row">Tilbakebetaling</th>
+              {alts.map((a) => (
+                <td key={a.key}>{a.investmentNok == null ? "—" : eco(a)?.paybackYears != null ? `${num(eco(a).paybackYears, 1)} år` : `Ikke innen ${years} år`}</td>
+              ))}
+            </tr>
+            <tr>
+              <th scope="row">Nåverdi</th>
+              {alts.map((a) => <td key={a.key}>{eco(a)?.npv == null ? "—" : kr(eco(a).npv)}</td>)}
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      {scenarios.length > 1 && (
+        <div className="ba-tabs" role="tablist">
+          {scenarios.map((e, i) => (
+            <button key={e.name} type="button" role="tab" aria-selected={i === scenario} className={i === scenario ? "on" : ""} onClick={() => setScenario(i)}>
+              {e.name}
+            </button>
+          ))}
+        </div>
+      )}
+      <p className="story-fine">
+        Batteriet med grunnstyring (lader av overskudd fra solcellene og dekker eget forbruk) endrer netto gevinst i {priceYear} med {kr(battery.value.grunn)} sammenlignet
+        med solceller alene. Smart prisstyring endrer den med ytterligere {kr(battery.value.smart)}, etter styringskostnaden på {kr(battery.value.smartFee)}. Smartstyringen planlegger med spotprisene
+        som er kjent dagen før og en enkel prognose for forbruk og sol – en representativ strategi, ikke en garanti for hva en bestemt inverter oppnår. Kjøp av
+        ladestrøm, nettleie, elavgift, tap i batteriet og utskifting ved endt levetid er med. Tilbakebetaling og nåverdi gjelder scenarioet som er valgt over.
+      </p>
+    </section>
   );
 }

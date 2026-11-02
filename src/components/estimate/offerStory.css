@@ -408,3 +408,10 @@
   .offer-story .ba-basis th { width: auto; }
   .offer-story .ba-kpis strong { font-size: 22px; }
 }
+
+/* Næring: batterialternativer */
+.offer-story .ba-tablewrap { overflow-x: auto; }
+.offer-story .ba-alts td { text-align: right; font-variant-numeric: tabular-nums; white-space: nowrap; }
+.offer-story .ba-alts thead th { text-align: right; font-size: 13px; color: var(--muted); font-weight: 700; vertical-align: bottom; }
+.offer-story .ba-alts thead th:first-child { text-align: left; }
+.offer-story .ba-alts .ba-strong th, .offer-story .ba-alts .ba-strong td { font-weight: 800; }
