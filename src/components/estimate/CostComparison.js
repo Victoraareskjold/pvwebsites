@@ -242,7 +242,7 @@ export default function CostComparison({
             {consumptionIsDefault
               ? price.isBusiness
                 ? "Vi har brukt et anslått årsforbruk. Legg inn byggets faktiske forbruk for en mer treffsikker beregning. "
-                : "Vi har brukt et vanlig forbruk for en enebolig. Legg inn ditt eget tall for en mer treffsikker beregning. "
+                : "Vi har anslått forbruket ut fra hvor mye anlegget produserer. Legg inn ditt eget tall for en mer treffsikker beregning. "
               : consumptionFromLead
                 ? "Tallet er det du oppga til oss. Endre det hvis du vet mer nøyaktig. "
                 : ""}

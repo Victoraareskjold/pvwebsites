@@ -4,13 +4,25 @@
  */
 import defaultBatteryConfig from "../../config/battery";
 import { calculateExtras, normalizedSelection } from "./batteryModel";
+import { assumptionsFor } from "./offerEconomics";
 
 /** Oppsettet batteriseksjonen regner med (estimatets batterySection over fellesoppsettet). */
 export function batteryConfigFor(estimateData) {
   const section = estimateData?.price_data?.batterySection ?? {};
+  // Nødstrømprisene settes under Beregningsregler (usignert: gjeldende, signert: låst i tilbudet).
+  // Eldre tilbud uten dem bruker batteriseksjonen eller config/battery.js.
+  const a = assumptionsFor(estimateData);
+  const backup = Object.fromEntries(
+    [
+      ["backupCircuitBaseEx", a.backupCircuitBaseEx],
+      ["backupCircuitUnitEx", a.backupCircuitUnitEx],
+      ["backupWholeEstimateEx", a.backupWholeEx],
+    ].filter(([, v]) => v != null)
+  );
   return {
     ...defaultBatteryConfig,
     ...section,
+    ...backup,
     // estimates.private = true betyr næring (eksisterende navngiving)
     customerType: estimateData?.private ? "business" : "private",
     annualConsumption:

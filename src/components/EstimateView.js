@@ -15,6 +15,7 @@ import {
   maxSelfUseShare,
   kwpOf,
   defaultSelfUseShare,
+  estimatedConsumption,
   knownConsumption,
   periodSummary,
   priceFor,
@@ -152,7 +153,7 @@ export default function EstimateView({ estimateId }) {
   const assumptions = assumptionsFor(estimateData);
   const production = Number(estimateData?.yearly_prod || 0);
   const leadConsumption = knownConsumption(estimateData);
-  const annualConsumption = consumption ?? leadConsumption ?? assumptions.consumptionFallback;
+  const annualConsumption = consumption ?? leadConsumption ?? estimatedConsumption(assumptions, production);
   const consumptionIsDefault = consumption == null && leadConsumption == null;
   // Egenbruk kan ikke overstige forbruket. Over grensen ville slideren flyttet seg uten at tallene endret seg.
   const selfUseMax = maxSelfUseShare(production, annualConsumption);

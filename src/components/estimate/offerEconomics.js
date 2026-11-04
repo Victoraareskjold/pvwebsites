@@ -36,8 +36,10 @@ export const OFFER_DEFAULTS = {
   replacementFallbackEx: 15000,
   /** Faste driftskostnader per år (kr). Solcelleanlegg har lite løpende vedlikehold. */
   maintenancePerYear: 0,
-  /** Årsforbruk når verken kunden eller leaden har oppgitt det */
+  /** Årsforbruk når verken kunden eller leaden har oppgitt det og produksjonen mangler */
   consumptionFallback: 20000,
+  /** Årsforbruk når det mangler = årsproduksjon × denne faktoren (0 = bruk consumptionFallback) */
+  consumptionFactor: 1.4,
   /** Enova: kr per kWp, maks kWp, maks andel av kostnaden (brukes bare på eldre tilbud) */
   enovaPerKwp: 2500,
   enovaMaxKwp: 15,
@@ -71,6 +73,11 @@ export function assumptionsFor(estimateData) {
     replacementFactor: num(e?.replacementFactor, OFFER_DEFAULTS.replacementFactor),
     maintenancePerYear: num(e?.maintenancePerYear, OFFER_DEFAULTS.maintenancePerYear),
     consumptionFallback: num(e?.consumptionFallback, OFFER_DEFAULTS.consumptionFallback),
+    consumptionFactor: num(e?.consumptionFactor, OFFER_DEFAULTS.consumptionFactor),
+    // Nødstrøm (Beregningsregler). null = ikke satt; batterioppsettet faller da tilbake til config/battery.js
+    backupCircuitBaseEx: num(e?.backupCircuitBaseEx, null),
+    backupCircuitUnitEx: num(e?.backupCircuitUnitEx, null),
+    backupWholeEx: num(e?.backupWholeEx, null),
     periodYears: [10, 20, 30].includes(period) ? period : 30,
     // Garantier og levetid for panelene (Beregningsregler)
     productWarrantyYears: Math.round(num(e?.productWarrantyYears, 25)),
@@ -171,6 +178,17 @@ export function replacementFor(estimateData, assumptions = {}) {
 }
 
 /** Årsforbruket som er kjent for leaden, eller null. */
+/**
+ * Årsforbruket tilbudet regner med når kunden ikke har oppgitt noe:
+ * årsproduksjon × faktor (Beregningsregler, standard 1,4), avrundet.
+ * Uten produksjon (eller faktor 0) brukes det faste standardforbruket.
+ */
+export function estimatedConsumption(assumptions, production) {
+  const p = Number(production) || 0;
+  const f = Number(assumptions?.consumptionFactor) || 0;
+  return p > 0 && f > 0 ? Math.round(p * f) : assumptions?.consumptionFallback ?? OFFER_DEFAULTS.consumptionFallback;
+}
+
 export function knownConsumption(estimateData) {
   const v =
     Number(estimateData?.leads?.own_consumption) ||
