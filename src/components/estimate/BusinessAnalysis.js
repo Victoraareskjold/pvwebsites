@@ -50,9 +50,15 @@ export function BusinessHighlights({ analysis }) {
     <div className="offer-story">
       <div className="story-highlights" aria-label="Kort fortalt">
         <div className="story-hl story-hl-main">
-          <span className="story-hl-label">Investering i solcelleanlegget</span>
+          <span className="story-hl-label">{analysis.investment?.supportNok ? "Investering etter Enova-støtte" : "Investering i solcelleanlegget"}</span>
           <strong className="story-hl-value">{unresolved ? "Avklares" : kr(analysis.investmentNok)}</strong>
-          <span className="story-hl-sub">{analysis.vat === "inkl" ? "inkl." : "eks."} mva. · {num(analysis.system.kwp, 1)} kWp</span>
+          <span className="story-hl-sub">
+            {analysis.investment?.supportNok && analysis.investment.grossNok != null
+              ? `Tilbudssum ${kr(analysis.investment.grossNok)} − støtte ${kr(analysis.investment.supportNok)} · `
+              : ""}
+            {analysis.vat === "inkl" ? "inkl." : "eks."} mva. · {num(analysis.system.kwp, 1)} kWp
+            {analysis.production ? ` · ${num(analysis.production.annualKwh)} kWh/år` : ""}
+          </span>
         </div>
         <div className="story-hl">
           <span className="story-hl-label">Netto gevinst med {price ?? analysis.period.label}-priser</span>
@@ -232,7 +238,45 @@ export default function BusinessAnalysis({ analysis }) {
         </section>
       )}
 
+      {analysis.investment && (
+        <section className="story-card">
+          <p className="story-eyebrow">INVESTERING OG PRODUKSJON I BEREGNINGEN</p>
+          <table className="ba-basis">
+            <tbody>
+              <tr>
+                <th scope="row">Tilbudssum før støtte</th>
+                <td>{analysis.investment.grossNok == null ? "Avklares" : kr(analysis.investment.grossNok)}</td>
+              </tr>
+              <tr>
+                <th scope="row">Enova-støtte</th>
+                <td>
+                  {analysis.investment.supportNok ? `−${kr(analysis.investment.supportNok)}` : "Ingen"} <small>· {analysis.investment.supportSource}</small>
+                </td>
+              </tr>
+              <tr className="ba-strong">
+                <th scope="row">Netto investering brukt i beregningen</th>
+                <td>
+                  {analysis.investment.netNok == null ? "Avklares" : kr(analysis.investment.netNok)} {analysis.investment.vat === "inkl" ? "inkl." : "eks."} mva.
+                </td>
+              </tr>
+              {analysis.production && (
+                <tr>
+                  <th scope="row">Estimert årsproduksjon brukt i analysen</th>
+                  <td>
+                    {num(analysis.production.annualKwh)} kWh/år <small>· {analysis.production.source}</small>
+                  </td>
+                </tr>
+              )}
+            </tbody>
+          </table>
+        </section>
+      )}
+
+      {analysis.grid?.alternatives?.length > 0 && <GridSection grid={analysis.grid} priceYear={price ?? analysis.period.label} />}
+
       {analysis.battery && <BatterySection battery={analysis.battery} priceYear={price ?? analysis.period.label} years={analysis.assumptions.years} />}
+
+      {analysis.charger && <ChargerSection charger={analysis.charger} years={analysis.assumptions.years} />}
 
       <details className="story-card ba-details">
         <summary>Hva beregningen bygger på</summary>
@@ -368,6 +412,142 @@ function BatterySection({ battery, priceYear, years }) {
         med solceller alene. Smart prisstyring endrer den med ytterligere {kr(battery.value.smart)}, etter styringskostnaden på {kr(battery.value.smartFee)}. Smartstyringen planlegger med spotprisene
         som er kjent dagen før og en enkel prognose for forbruk og sol – en representativ strategi, ikke en garanti for hva en bestemt inverter oppnår. Kjøp av
         ladestrøm, nettleie, elavgift, tap i batteriet og utskifting ved endt levetid er med. Tilbakebetaling og nåverdi gjelder scenarioet som er valgt over.
+      </p>
+    </section>
+  );
+}
+
+/** Nettleien før og etter tiltaket, måned for måned: hva kunden faktureres for (kW eller trinn) og forskjellen i kroner. */
+function GridSection({ grid, priceYear }) {
+  const [i, setI] = useState(grid.alternatives.length - 1);
+  const a = grid.alternatives[Math.min(i, grid.alternatives.length - 1)];
+  if (!a) return null;
+  const billed = (x) => (x.powerMissing ? "ikke beregnet" : x.billedLabel || (x.billedKw != null ? `${num(x.billedKw, 1)} kW` : "—"));
+  return (
+    <section className="story-card">
+      <p className="story-eyebrow">NETTLEIE FØR OG ETTER</p>
+      {grid.alternatives.length > 1 && (
+        <div className="ba-tabs" role="tablist">
+          {grid.alternatives.map((x, n) => (
+            <button key={x.key} type="button" role="tab" aria-selected={x === a} className={x === a ? "on" : ""} onClick={() => setI(n)}>
+              {x.name}
+            </button>
+          ))}
+        </div>
+      )}
+      <div className="ba-tablewrap">
+        <table className="ba-basis ba-alts">
+          <thead>
+            <tr>
+              <th scope="col">Måned</th>
+              <th scope="col">Fakturert effekt før</th>
+              <th scope="col">Fakturert effekt etter</th>
+              <th scope="col">Nettleie før</th>
+              <th scope="col">Nettleie etter</th>
+              <th scope="col">Forskjell</th>
+            </tr>
+          </thead>
+          <tbody>
+            {a.months.map((m) => {
+              const d = m.before.nettleie - m.after.nettleie;
+              return (
+                <tr key={m.month}>
+                  <th scope="row">{MONTHS[Number(m.month.slice(5)) - 1]}</th>
+                  <td>{billed(m.before)}</td>
+                  <td>{billed(m.after)}</td>
+                  <td>{kr(m.before.nettleie)}</td>
+                  <td>{kr(m.after.nettleie)}</td>
+                  <td>{d >= 0 ? kr(d) : `+${kr(-d)}`}</td>
+                </tr>
+              );
+            })}
+            <tr className="ba-strong">
+              <th scope="row">Sum</th>
+              <td />
+              <td />
+              <td>{kr(a.total.before)}</td>
+              <td>{kr(a.total.after)}</td>
+              <td>{kr(a.total.before - a.total.after)}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <p className="story-fine">
+        Nettleie = fastledd, energiledd og effekt- eller kapasitetsledd etter nettselskapets tariff, eks. mva. Effekten er målt som {grid.basis || "tariffen angir"} på det som
+        faktisk går gjennom måleren (bygg, lading og batteri minus sol). Elavgift og salg av strøm er holdt utenfor.
+        {grid.shiftedFrom?.length ? ` Anslag basert på ${grid.shiftedFrom.join("/")}-priser: nettselskapets satser for ${priceYear} er ikke brukt.` : ""}
+        {grid.estimated ? " Effekttoppene bygger på en anslått forbruksprofil, så besparelsen i effektleddet er anslått." : ""}
+      </p>
+    </section>
+  );
+}
+
+/** Alternativet med DC-lader: ladesalg og salg til nettet hver for seg, kostnadene og hva som står igjen. */
+function ChargerSection({ charger: c, years }) {
+  const eco = c.economy?.[0] ?? null;
+  const sv = c.savings;
+  const supplied = c.sources.solarKwh + c.sources.batteryKwh + c.sources.gridKwh;
+  const share = (x) => (supplied > 0 ? `${num((x / supplied) * 100)} %` : "—");
+  return (
+    <section className="story-card">
+      <p className="story-eyebrow">MED {String(c.label).toUpperCase()}</p>
+      <p className="story-lead">
+        Solceller{c.base === "smart" ? ", batteri" : ""} og lader regnet sammen, time for time, mot bygget uten tiltak og uten lading.
+      </p>
+      <table className="ba-basis">
+        <tbody>
+          <tr className="ba-strong">
+            <th scope="row">
+              Salg av lading: {num(c.soldKwh)} kWh × {num(c.priceNokPerKwh, 2)} kr/kWh
+            </th>
+            <td>{kr(c.revenueNok)}</td>
+          </tr>
+          {c.existingRevenueNok > 0 && (
+            <tr>
+              <th scope="row">Ladesalg som fantes før</th>
+              <td>−{kr(c.existingRevenueNok)}</td>
+            </tr>
+          )}
+          <tr>
+            <th scope="row">Salg av strøm til nettet: {num(c.exportKwh)} kWh</th>
+            <td>{kr(sv.salg)}</td>
+          </tr>
+          <tr>
+            <th scope="row">Økte kostnader til strømkjøp, nettleie og avgifter</th>
+            <td>{c.costIncreaseNok >= 0 ? `−${kr(c.costIncreaseNok)}` : kr(-c.costIncreaseNok)}</td>
+          </tr>
+          {c.opex > 0 && (
+            <tr>
+              <th scope="row">Løpende kostnader</th>
+              <td>−{kr(c.opex)}</td>
+            </tr>
+          )}
+          <tr className="ba-strong">
+            <th scope="row">Samlet gevinst første år</th>
+            <td>{kr(c.net)}</td>
+          </tr>
+          <tr>
+            <th scope="row">Investering inkl. lader</th>
+            <td>{c.investmentNok == null ? "Avklares" : kr(c.investmentNok)}</td>
+          </tr>
+          {eco && (
+            <tr>
+              <th scope="row">Tilbakebetaling ({eco.name.toLowerCase()})</th>
+              <td>{c.investmentNok == null ? "—" : eco.paybackYears != null ? `${num(eco.paybackYears, 1)} år` : `Ikke innen ${years} år`}</td>
+            </tr>
+          )}
+          {eco?.npv != null && (
+            <tr>
+              <th scope="row">Nåverdi</th>
+              <td>{kr(eco.npv)}</td>
+            </tr>
+          )}
+        </tbody>
+      </table>
+      <p className="story-fine">
+        Ladingen dekkes {share(c.sources.solarKwh)} direkte av sol, {share(c.sources.batteryKwh)} av batteriet og {share(c.sources.gridKwh)} av strøm kjøpt fra nettet
+        ({num(c.sources.gridKwh)} kWh). Kostnaden for strøm og nettleie til ladingen er med i kostnadsøkningen over og trekkes ikke fra to ganger. Tilbakebetaling er
+        regnet på kontantstrømmen år for år.
       </p>
     </section>
   );
