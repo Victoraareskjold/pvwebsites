@@ -409,8 +409,8 @@ function BatterySection({ battery, priceYear, years }) {
       )}
       <p className="story-fine">
         Batteriet med grunnstyring (lader av overskudd fra solcellene og dekker eget forbruk) endrer netto gevinst i {priceYear} med {kr(battery.value.grunn)} sammenlignet
-        med solceller alene. Smart prisstyring endrer den med ytterligere {kr(battery.value.smart)}, etter styringskostnaden på {kr(battery.value.smartFee)}. Smartstyringen planlegger med spotprisene
-        som er kjent dagen før og en enkel prognose for forbruk og sol – en representativ strategi, ikke en garanti for hva en bestemt inverter oppnår. Kjøp av
+        med solceller alene. Smart prisstyring endrer den med ytterligere {kr(battery.value.smart)}, etter styringskostnaden på {kr(battery.value.smartFee)}. Smartstyringen er regnet etter Nordic Solergys
+        beregning, med en plan over 36 timer som kjenner prisene, forbruket og solproduksjonen. Det viser hva styringen best kan få til, ikke en garanti for hva en bestemt inverter oppnår. Kjøp av
         ladestrøm, nettleie, elavgift, tap i batteriet og utskifting ved endt levetid er med. Tilbakebetaling og nåverdi gjelder scenarioet som er valgt over.
       </p>
     </section>
