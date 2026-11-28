@@ -202,7 +202,6 @@ export default function CostComparison({
   const [focused, setFocused] = useState(false);
   const summary = periodSummary(sim, period);
   const rows = sim.rows.slice(0, period);
-  const sum = (k) => rows.reduce((s, r) => s + r[k], 0);
   const first = sim.rows[0];
   const gridPrice = elPrice + netPrice;
   const selfPct = first.production > 0 ? (first.selfUse / first.production) * 100 : 0;
@@ -288,30 +287,6 @@ export default function CostComparison({
           <p className="story-fine">
             Strømprisen er det du betaler strømleverandøren (eller Norgespris). Nettleien betaler du i tillegg til nettselskapet.
           </p>
-        </div>
-        <div className="story-total story-total-with">
-          <span className="story-total-label">Med solceller</span>
-          <strong>{kr(summary.with)}</strong>
-          <dl>
-            <div>
-              <dt>{price.isBusiness ? "Investering" : "Investering etter støtte"}</dt>
-              <dd>{kr(sim.investment)}</dd>
-            </div>
-            <div>
-              <dt>Strøm du fortsatt kjøper</dt>
-              <dd>{kr(sum("boughtCost"))}</dd>
-            </div>
-            <div>
-              <dt>Salg av overskuddsstrøm</dt>
-              <dd>− {kr(sum("exportIncome"))}</dd>
-            </div>
-            {summary.replacementInPeriod && (
-              <div>
-                <dt>Inverterbytte år {replacement.year}</dt>
-                <dd>{kr(replacement.cost)}</dd>
-              </div>
-            )}
-          </dl>
         </div>
       </div>
 

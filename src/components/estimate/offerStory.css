@@ -181,7 +181,8 @@
 
 /* ── Resultat ──────────────────────────────────────────────────────────── */
 
-.offer-story .story-compare { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+/* Bare «Uten solceller» vises (boksen «Med solceller» er fjernet), i full bredde som boksene over og under */
+.offer-story .story-compare { display: grid; grid-template-columns: 1fr; gap: 14px; }
 
 .offer-story .story-total {
   background: white;
