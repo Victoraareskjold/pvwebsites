@@ -28,6 +28,10 @@ export default {
     textColor: "black",
   },
 
+  // Lastebillading (bedriftslading, /lading): menypunkt og seksjon på forsiden.
+  // Bare Smart Elektro Sol har ladesiden (eksklusivt blant partnerne ut 2027).
+  lading: true,
+
   // Området vises i toppfeltet, i hero og i seksjonen om lokal installatør.
   region: "Oslo, Lillestrøm og omegn",
 

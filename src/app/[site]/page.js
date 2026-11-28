@@ -4,7 +4,8 @@
  * Forsiden – designmalen.
  *
  * Seksjonene i rekkefølge: hero, tillitsstripe, løsninger, lokal installatør,
- * regneeksempel, batteri, prosessen, om oss, kunnskap, FAQ og kontaktbånd.
+ * regneeksempel, batteri, prosessen, lastebillading (bare nettsteder med
+ * config.lading), om oss, kunnskap, FAQ og kontaktbånd.
  * Vil du fjerne eller flytte en seksjon, gjør det her.
  */
 
@@ -19,6 +20,7 @@ import {
   AboutSection,
   ContactSection,
   FAQSection,
+  LadingSection,
   LocalSection,
   ProcessSection,
   SolkartSection,
@@ -129,6 +131,7 @@ export default function Page({ params }) {
       <Calculator />
       <BatterySection />
       <ProcessSection />
+      <LadingSection />
       <AboutSection />
 
       <section className="section learn-section">

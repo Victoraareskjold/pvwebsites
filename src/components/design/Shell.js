@@ -110,6 +110,8 @@ export function SiteShell({ site, language = "nb", children }) {
   const nav = [
     { label: "Solceller", href: "/#losninger" },
     { label: "Batteri", href: "/batteri" },
+    // Bare nettsteder med ladesiden (config.lading), i dag Smart Elektro Sol.
+    ...(config.lading ? [{ label: "Lastebillading", href: "/lading" }] : []),
     { label: "Slik fungerer det", href: "/#prosessen" },
     { label: "Om oss", href: "/omoss" },
     { label: "Blogg", href: "/blog" },

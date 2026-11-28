@@ -10,6 +10,7 @@
  */
 
 import Link from "next/link";
+import { useEffect, useRef, useState } from "react";
 import { useSiteConfig } from "../../contexts/siteConfigContext";
 import { OfferButton, solutionLinks } from "./Shell";
 import { Accordion } from "./primitives";
@@ -290,6 +291,74 @@ export function ProcessSection() {
             </article>
           ))}
         </div>
+      </div>
+    </section>
+  );
+}
+
+/* ------------------------------------------------------------------ */
+/* Lastebillading – bare nettsteder med ladesiden (config.lading)       */
+/* ------------------------------------------------------------------ */
+
+// Depotet er en forenklet utgave av animasjonen på /lading, fra pvdepot.
+const PVDEPOT_URL = process.env.NEXT_PUBLIC_PVDEPOT_URL || "https://pvdepot.vercel.app";
+
+export function LadingSection() {
+  const config = useSiteConfig() || {};
+  const box = useRef(null);
+  const [load, setLoad] = useState(false);
+
+  // 3D-scenen lastes først når seksjonen nærmer seg skjermen.
+  useEffect(() => {
+    const el = box.current;
+    if (!el || load) return;
+    const io = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setLoad(true);
+          io.disconnect();
+        }
+      },
+      { rootMargin: "300px 0px" },
+    );
+    io.observe(el);
+    return () => io.disconnect();
+  }, [load]);
+
+  if (!config.lading) return null;
+
+  return (
+    <section className="section lading-section" id="lastebillading">
+      <div className="wrap lading-layout">
+        <div className="lading-copy">
+          <span className="eyebrow">BEDRIFT OG TRANSPORT</span>
+          <h2>Lastebillading på eget depot</h2>
+          <p className="section-lead">
+            Vi hjelper dere med å finne en ladeløsning som passer bilene, kjørerutene og strømkapasiteten på
+            depotet.
+          </p>
+          <Link className="btn btn-solar" href="/lading">
+            Se løsninger for lastebillading
+            <ArrowUpRight size={18} />
+          </Link>
+        </div>
+        <Link
+          href="/lading"
+          className="lading-visual"
+          ref={box}
+          aria-label="Se løsninger for lastebillading"
+          tabIndex={-1}
+        >
+          {load && (
+            <iframe
+              src={`${PVDEPOT_URL}/mini`}
+              title="Illustrasjon: lastebiler som lader ved lasterampene på et depot"
+              loading="lazy"
+              tabIndex={-1}
+              aria-hidden="true"
+            />
+          )}
+        </Link>
       </div>
     </section>
   );
